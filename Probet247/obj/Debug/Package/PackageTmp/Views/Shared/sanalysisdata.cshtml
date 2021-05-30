@@ -1,0 +1,231 @@
+﻿@model IEnumerable<RBetfair.Models.dlanalysisdataS>
+
+
+<tbody>
+    <input type="hidden" id="GetBfIdFos" value="" />
+    <input type="hidden" id="GetEVIdFos" value="" />
+    <input id="hideinnputs" type="hidden" value="99" />
+    <tr>
+        <th width="7%" class="align-C" rowspan="2">Sports</th>
+        <th width="7%" class="align-C" rowspan="2">Date</th>
+        <th class="align-L" rowspan="2">Event/Market Name</th>
+        <th width="6%" class="align-C border-l" rowspan="2">Downline P/L</th>
+        <th width="6%" class="align-C border-l" rowspan="2">Bets</th>
+    </tr>
+
+</tbody>
+
+
+@foreach (var item in Model)
+{
+    <tbody id="content_MATCH_ODDS_DRAW">
+        <tr id="" class="border-t">
+            <td width="7%" class="align-C" rowspan="2" style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Spname)</td>
+            <td width="7%" class="align-C border-l" rowspan="2" style="font-size: 12px;">@item.match_ttime</td>
+            <td class="align-L border-l" rowspan="2">
+                <div id="heading1" role="tab">
+                    <a onclick="GetAlls(@Html.DisplayFor(modelItem => item.betfair_id),@Html.DisplayFor(modelItem => item.ev_code))" id="marketPath" data-toggle="collapse" data-parent="#accordion" href="#collapse5_@Html.DisplayFor(modelItem => item.betfair_id)" aria-expanded="false" class="collapsed" aria-controls="collapse5">
+                        <!--<a id="marketPath" >-->
+                        <strong id="eventName"> @Html.DisplayFor(modelItem => item.GetSp)</strong>
+                        <img class="fromto" src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />
+                        <span id="marketName"> @Html.DisplayFor(modelItem => item.mname)</span>
+                    </a>
+                </div>
+                <div id="collapse5_@Html.DisplayFor(modelItem => item.betfair_id)" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="heading5">
+                    <div style="height:217px;">
+                        <div class="for-agent">
+                            <div class="head-bets-agent">
+
+                                <dl class="game-matched">
+                                    <dt>Matched</dt>
+                                    <dd id="totalMatched">USD </dd>
+                                </dl>
+                                <ul class="game-info">
+                                    <li class="green" id="inPlay" style=""><!--img class="icon-irun" src="/Content/transparent.gif">In-Play--></li>
+                                </ul>
+                            </div>
+                            <div class="bets-wrap">
+                                <span class="refer_only">
+                                    <span id="selectionCount">1</span> Selections
+                                </span>
+                                <table class="bets">
+                                    <tbody>
+                                        <tr class="bet-all">
+                                            <td></td>
+                                            <td class="refer-bet" colspan="2" id="backPercent">100.3%</td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="back-all">
+                                                    <!-- <img src="/Content/transparent.gif"> -->
+                                                    <span>Not</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="lay-all">
+                                                    <!-- <img src="/Content/transparent.gif"> -->
+                                                    <span>Yes</span>
+                                                </a>
+                                            </td>
+                                            <td class="refer-book" colspan="2" id="layPercent">99%</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="@Html.DisplayFor(modelItem => item.betfair_id)"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+            <td width="6%" class="align-C border-l" rowspan="2"><a href="/Agent/sbookview?event_code=@Html.DisplayFor(modelItem => item.ev_code)&betfair_id=@Html.DisplayFor(modelItem => item.betfair_id)" target="_blank" class="btn" id="view">Book</a></td>
+            <!--<td width="6%" class="align-C border-l" rowspan="2"><a href="JavaScript:void(0)" class="btn" id="view">Book</a></td>-->
+            <td width="6%" class="align-C border-l" rowspan="2"><a href="/Agent/allbets?betfair_id=@Html.DisplayFor(modelItem => item.betfair_id)&event_code=@Html.DisplayFor(modelItem => item.ev_code)" target="_blank" class="btn" id="view">Bets</a></td>
+        </tr>
+        </tbody>
+    }
+
+    <script>
+
+
+        var Thanxd = "";
+        function GetAlls(Bids, event_code) {
+            //alert("bfhjvhjgj" + betfair_id +"--" +event_code)
+            var vyt = $("#hideinnputs").val();
+            var gyg = $("#GetBfIdFos").val();
+            $('#' + event_code).empty();
+            if (gyg != Bids && event_code != undefined && Bids != undefined) {
+                $("#GetBfIdFos").val(Bids);
+                $("#hideinnputs").val(Bids);
+                $('#' + event_code).empty();
+                $('#' + event_code).css("display", "contents");
+
+                $("#GetBfIdFos").val(Bids);
+                $("#GetEVIdFos").val(event_code);
+                //
+                $("#collapse5_" + vyt).removeClass("in");
+                clearTimeout(Thanxd);
+                // getAllMessagesSS();
+                AllSessionData();
+                //  GetWmeForD();
+
+                //$('#' + event_code).load('/Agent/riskMarketOdds');
+                // alert("fjkhjvghf")
+            }
+            if (vyt == Bids) {
+                clearTimeout(Thanxd);
+                $("#hideinnputs").val("99");
+                $("#GetBfIdFos").val("");
+                $("#GetEVIdFos").val("");
+            }
+        }
+
+        function AllSessionData() {
+            var hgdhc = $("#hideinnputs").val();
+            var hgdhc1 = $("#GetEVIdFos").val();
+            $.ajax({
+                url: '/Agent/SessionDldata',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: { betfair_id: hgdhc, event_id: hgdhc1 },
+                dataType: 'html',
+                success: function (result) {
+                    var a2 = JSON.parse(result);
+
+                    $('#' + hgdhc).empty();
+                    for (i = 0; i < a2.length; i++) {
+                        //alert(a2[i].marketna)
+
+                        var myvar = '<tr>' +
+                            '					<th class="tm" id="selection"> ' +
+                            '						<p>' +
+                            '							<a href="javascript:void(0);" id="marketDepth">' +
+                            '							</a>' + a2[i].marketna + '' +
+                            '						</p>                       ' +
+                            '					</th>' +
+                            '					<td class="lay-3" id="lay_3"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].Lay3 + '' +
+                            '							<span>' + a2[i].Laysize1 + '' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="lay-2" id="lay_2"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].Lay2 + '' +
+                            '							<span>' + a2[i].Laysize1 + '' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="lay-1" id="lay_1"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].Lay1 + '' +
+                            '							<span>' + a2[i].Laysize1 + '' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="back-1" id="back_1"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].Back1 + '' +
+                            '							<span>' + a2[i].Backsize1 + '' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="back-2" id="back_2"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].Back2 + '' +
+                            '							<span>' + a2[i].Backsize1 + '' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="back-3" id="back_3" style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].Back3 + '' +
+                            '							<span>' + a2[i].Backsize1 + '</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '				</tr><tr>' +
+                            '					<th class="tm" id="selection"> ' +
+                            '						<p>' +
+                            '							<a href="javascript:void(0);" id="marketDepth">' +
+                            '							</a>Total P/L' +
+                            '						</p>                       ' +
+                            '					</th>' +
+                            '					<td class="lay-3" id="lay_3"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].DlRatioA + '' +
+                            '							<span>' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="lay-2" id="lay_2"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].DlRatioB + '' +
+                            '							<span>' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="lay-1" id="lay_1"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].DlRatioC + '' +
+                            '							<span>' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="back-1" id="back_1"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].DlRatioD + '' +
+                            '							<span>' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="back-2" id="back_2"  style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].DlRatioE + '' +
+                            '							<span>' +
+                            '							</span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '					<td class="back-3" id="back_3" style="line-height: 15px;">' +
+                            '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].DlRatioF + '' +
+                            '							<span></span>' +
+                            '						</a>' +
+                            '					</td>' +
+                            '				</tr>';
+                        $('#' + hgdhc).append(myvar);
+                    }
+
+                }
+            })
+            Thanxd = setTimeout(AllSessionData, 1000);
+        }
+    </script>
+

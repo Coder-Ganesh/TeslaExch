@@ -1,0 +1,205 @@
+﻿@if (Session["SuperAdmin_UserName"] == null)
+{
+    { Response.Redirect("~/Sekh/Login"); }
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Admin Running Market Analysis</title>
+    <link href="~/Content/clientbbetacss/agent_style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body class="skyexchange">
+    <input type="hidden" value="@ViewBag.BetfairId" id="getbfid" />
+    <input type="hidden" value="@ViewBag.event_id" id="getevid" />
+    <input type="hidden" value="@ViewBag.cid" id="getcid" />
+    <div class="pop-warp" style="width: 1256px; height: 600px;">
+
+        <!-- Report Table -->
+        <table class="game-team">
+            <tbody>
+                <tr>
+                    <td class="game-name" id="title">@ViewBag.EventNameB<span>Match Odds</span><a class="pop-close" onclick="history.back();"><i class="fa fa-arrow-left" aria-hidden="true" style="color: white;margin-right: 5px;"></i>Back</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pop-content">
+            <div class="pop-title">
+                <!-- When Hover Player, Show This Message -->
+
+                <table class="table01">
+                    <tbody>
+                        <tr>
+                            <th class="align-L" width="" rowspan="2">Downline</th>
+                            <th class="align-C border-l bgcolor-sub" width="" colspan="3">Player P/L</th>
+                        </tr>
+                        <tr>
+                            <th class="border-l bgcolor-sub" width="7%">1</th>
+                            <th class="border-l bgcolor-sub" width="7%">X</th>
+                            <th class="border-l bgcolor-sub" width="7%">2</th>
+                        </tr>
+
+                    </tbody>
+                    <tbody id="content"></tbody>
+                    <tfoot>
+                        <!--  <tr class="total" id="tempTotalTr">
+                              <td class="align-L">DL P/L</td>
+                              <td class="green" id="team1dls">A</td>
+                              <td class="green">C</td>
+                              <td class="green">B</td>
+                          </tr>
+                          <tr class="total" id="tempTotalTr">
+                              <td class="align-L">MDL P/L</td>
+                              <td class="red">0</td>
+                              <td class="red">0</td>
+                              <td class="red">0</td>
+                          </tr>-->
+                        <tr class="total" id="tempTotalTr">
+                            <td class="align-L">Total</td>
+                            <td id="teamadlbal">0</td>
+                            <td id="teamcdlbal">0</td>
+                            <td id="teambdlbal">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    GetBookviewSV();
+    function GetBookviewSV() {
+        var bfid = $("#getbfid").val();
+        var event_id = $("#getevid").val();
+         var cid = $("#getcid").val();
+        $.ajax({
+            type: "POST",
+            url: "/Sekh/BookviewSVmdl",
+            dataType: "html",
+            data: { bfid: bfid, uid: cid },
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                var teamAWDDL = 0;
+                var teamBWDDL = 0;
+                var teamCWDDL = 0;
+                var scgfv = 1;
+                //alert(a2)
+                for (i = 0; i < a2.length; i++) {
+                    var colorA = "";
+                    var colorB = "";
+                    var colorC = "";
+                    var colorAPL = "";
+                    var colorBPL = "";
+                    var colorCPL = "";
+                    if (a2[i].teamAWD > 0) {
+                        colorAPL = -(a2[i].teamAWD);
+                        colorA = "red";
+
+                    } else if (a2[i].teamAWD < 0) {
+                        colorAPL = Math.abs(a2[i].teamAWD);
+                        colorA = "green";
+                    } else {
+                        colorAPL = a2[i].teamAWD;
+                        colorA = "";
+                    }
+                    if (a2[i].teamBWD > 0) {
+                        colorBPL = -(a2[i].teamBWD);
+                        colorB = "red";
+
+                    } else if (a2[i].teamBWD < 0) {
+                        colorBPL = Math.abs(a2[i].teamBWD);
+                        colorB = "green";
+                    } else {
+                        colorBPL = a2[i].teamBWD;
+                        colorB = "";
+                    }
+                    if (a2[i].teamCWD > 0) {
+                        colorCPL = -(a2[i].teamCWD);
+                        colorC = "red";
+
+                    } else if (a2[i].teamCWD < 0) {
+                        colorCPL = Math.abs(a2[i].teamCWD);
+                        colorC = "green";
+                    } else {
+                        colorCPL = a2[i].teamCWD;
+                        colorC = "";
+                    }
+
+                    teamAWDDL = teamAWDDL + colorAPL;
+                    teamBWDDL = teamBWDDL + colorBPL;
+                    teamCWDDL = teamCWDDL + colorCPL;
+                    var myvar = '<tr id="tempTr">' +
+                        '                            <td class="td-UID">' +
+                        '                                <span class="order" id="number">' + scgfv + '</span>' +
+                        '                                <a href="/Sekh/bookviewdl?betfair_id=' + bfid + '&event_code=' + event_id + '&uid=' + a2[i].user_id + '" id="userId">' +
+                        '                                    <strong>' + a2[i].cname + '</strong>' +
+                        '                                </a>' +
+                        '                            </td>' +
+                        '                            <td class="' + colorA + '">' + colorAPL + '</td>' +
+                        '                            <td class="' + colorC + '">' + colorCPL + '</td>' +
+                        '                            <td class="' + colorB + '">' + colorBPL + '</td>' +
+                        '                        </tr>';
+                    scgfv++;
+                    $("#content").append(myvar);
+                }
+                if (teamAWDDL > 0) {
+                    $('#teamadlbal').css("color", "#20a052");
+
+                } else if (teamAWDDL < 0) {
+                    $('#teamadlbal').css("color", "#d54d4d");
+                } else {
+                    $('#teamadlbal').css("color", "#000000");
+                }
+                if (teamBWDDL > 0) {
+                    $('#teambdlbal').css("color", "#20a052");
+                } else if (teamBWDDL < 0) {
+                    $('#teambdlbal').css("color", "#d54d4d");
+                } else {
+                    $('#teambdlbal').css("color", "#000000");
+                }
+
+                if (teamCWDDL > 0) {
+                    $('#teamcdlbal').css("color", "#20a052");
+                } else if (teamCWDDL < 0) {
+                    $('#teamcdlbal').css("color", "#d54d4d");
+                } else {
+                    $('#teamcdlbal').css("color", "#000000");
+                }
+                $("#teamadlbal").text(teamAWDDL.toFixed(2));
+                $("#teambdlbal").text(teamBWDDL.toFixed(2));
+                $("#teamcdlbal").text(teamCWDDL.toFixed(2));
+
+            }
+        });
+    }
+</script>

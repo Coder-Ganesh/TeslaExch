@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAgent.cshtml";
+}
+<style>
+    .pages a.select {
+        color: #F8D61C !important;
+        background: #444 url('../../Content/images/btn-select-skyEX.jpg') repeat-x !important;
+        border-color: #222 !important;
+    }
+</style>
+<div class="main_wrap">
+    <div class="col-center report" style="margin-left:0px!important;">     
+        <h2>
+            Account Statement
+        </h2>
+        <table id="table_log" class="table01">
+            <tbody>
+                <tr>
+                    <th class="align-L">From/To</th>
+                    <th width="15%" class="align-L">Date/Time</th>
+                    <th width="10%">Debit</th>
+                    <th width="10%">Credit</th>
+                    <th width="10%">Balance</th>
+                    <th width="16%">Remark</th>
+                </tr>
+
+            </tbody>
+            <tbody id="content">
+                @foreach (var item in Model)
+                {
+                <tr id="tempTr">
+                    <td id="remark" class="align-L">@item.Desc</td>
+                    <td id="createDate" class="align-L">@item.DTime</td>
+                    @if (item.Deposit > 0)
+                    {
+                        <td id="deposit" class="red">( @item.Deposit)</td>
+                    }
+                    else
+                    {
+                        <td id="deposit">-</td>
+                    }
+                    @if (item.Withdraw > 0)
+                    {
+                        <td id="withdraw">@item.Withdraw</td>
+                    }
+                    else
+                    {
+                        <td id="withdraw">-</td>
+                    }
+                    <td id="balance">@item.Balance</td>
+                    <td id="remark">@item.Remark</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            <ul id="pageNumberContent" class="pages">
+                @{Double countpage = ViewBag.countbeth;}
+                @{int page_num = Int32.Parse(ViewBag.pageNumber);}
+                @{
+                    var prev_class = "";
+                    var next_class = "";
+                    var prev_point = "";
+                    var next_point = "";
+                    var prev_number = page_num - 1;
+                    var next_number = page_num + 1;
+                    int totalpage = (int)Math.Ceiling(countpage / 20);
+                }
+                @if (page_num == 1 || page_num == 0)
+                {
+                    prev_class = "disable";
+                    prev_point = "pointer-events: none;";
+                }
+                @if (page_num == totalpage)
+                {
+                    next_class = "disable";
+                    next_point = "pointer-events: none;";
+                }
+                <li id="prev"><a href="javascript:void(0);" class="@prev_class" style="@prev_point" onclick="GetNextPG(@prev_number)">Prev</a></li>
+                @for (var i = 1; i <= totalpage; i++)
+                {
+                    if (page_num == i)
+                    {
+                        <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetNextPG(@i)">@i</a></li>
+
+                    }
+                    else
+                    {
+                        <li id="pageNumber"><a href="javascript:void(0);" onclick="GetNextPG(@i)">@i</a></li>
+
+                    }
+                }
+                <li id="next"><a href="javascript:void(0);" class="@next_class" style="@next_point" onclick="GetNextPG((@next_number)">Next</a></li>
+            </ul>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+<script>
+    function GetNextPG(pageNumber) {
+        window.location.href = "?page="+pageNumber;
+    }
+</script>

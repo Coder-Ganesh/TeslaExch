@@ -1,0 +1,324 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+<script src="~/Scripts/datepicksk/DateUtil.js"></script>
+<script src="~/Scripts/datepicksk/JSUtil.js"></script>
+<script src="~/Scripts/datepicksk/webCalendar.js"></script>
+<style>
+    .btn-send {
+        background: #121212 url('../../Content/images/skyexchange/bg-send-skyEX.png') repeat-x !important;
+        color: #F8D61C !important;
+        border-color: #000 !important;
+    }
+</style>
+<input type="hidden" id="distt_ID" value="@ViewBag.DLID" />
+<div id="mainWrap" class="main_wrap">
+    <div class="function-wrap clearfix">
+        <div class="agent_path">
+            <div class="function-wrap">
+                <ul id="agentPath" class="agent_path-L">
+                    <li id="path4" class="">
+                        <a href="javascript: void(0);">
+                            <span class="lv_2">
+                                SUP
+                            </span>
+                            <strong>@Session["MDL_UserName"]</strong>
+                        </a>
+                    </li>
+
+                    <li id="path3" class="last_li" style="">
+                        <a href="javascript: void(0);">
+                            <span class="lv_3">
+                                DL
+                            </span>
+                            <strong>@ViewBag.dl_Name</strong>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="input-list">
+                    <li><label>Period</label></li>
+                    <li>
+                        <input id="startDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'startDate');">
+                        <input id="startTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                        to
+                        <input id="endDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'endDate');">
+                        <input id="endTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                    </li>
+                    <li>(TimeZone:GMT)</li>
+                </ul>
+                <ul class="input-list">
+                    <li><a id="today" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 9px;" onclick="datebtcl(0)">Just For Today</a></li>
+                    <li><a id="yesterday" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 6px;" onclick="datebtcl(1)">From Yesterday</a></li>
+                    <li><a id="last7days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(7)">Last 7 days</a></li>
+                    <li><a id="last15days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(15)">Last 15 days</a></li>
+                    <li><a id="last30days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(30)">Last 30 days</a></li>
+                    <li><a id="getPL" href="#" class="btn-send" onclick="GetHistory(@ViewBag.DLID)">Get History</a></li>
+                </ul>
+            </div>
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="Enter player Name" style="margin:0px;">
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Center Column -->
+    <div id="widthAll" class="width-all">
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display: block;">
+            <ul class="loading">
+                <li><img src="~/Content/SKYEXCHANGEAgent_files/prospin.gif" /></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+        <!-- Message -->
+        <div id="message" class="message-wrap success">
+            <a class="btn-close" id="messageBtnClose">Close</a>
+            <p></p>
+        </div>
+        <!-- Report Table -->
+        <table id="resultTable" class="table01 margin-table" style="display: table;">
+            <thead>
+                <tr>
+                    <th id="accountTh" class="align-L" style="">Account</th>
+                    <th id="creditRefTh" width="10%" style="">Credit/Deposite</th>
+                    <th id="balanceTh" width="10%" style="">Total Profit</th>
+                    <th id="exposureTh" width="10%" style="">Total Loss</th>
+                    <th id="availableBalanceTh" width="10%" style="">Overall Pro/loss</th>
+                    <th id="refPLTh" width="10%" style="">Debit/Withdrawl</th>
+                    <th id="refPLTh" width="10%" style="">Avail. bal.</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{Double cpl = 0;}
+                @foreach (var item in Model)
+                {
+                    <tr id="0" style="display: table-row;">
+                        <td id="accountCol" class="align-L"><span class="lv_4">CL</span>@item.Client_Username</td>
+                        <td id="balance0" class="credittd" style="">@item.credit_ref</td>
+                        <td id="balance0" class="totprotd" style="">@item.Client_exposure</td> @*total profit*@
+                        <td id="currentExposure0" class="totlosstd" style="">@item.Client_lib </td> @*total loss*@
+                        @if (item.Client_profit_loss < 0)
+                        {
+                            cpl = item.Client_profit_loss;
+                            <td id="userExposure" class="grossprolosstd"><span class="red"> @cpl</span></td>
+                        }
+                        else
+                        {
+                            <td class="grossprolosstd" id="refPL0">@item.Client_profit_loss</td>
+                        }
+
+                        <td id="refPL0" class="debittd" style="">@item.exposure_limit</td>
+                        <td id="refPL0" class="avlbaltd" style=""> @item.Client_avl_balance</td>
+
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td id="accountCol1" style="font-weight:bolder">Total</td>
+                    <td id="accountCol2" style="font-weight:bolder"></td>
+                    <td id="accountCol3" style="font-weight:bolder"> </td>
+                    <td id="accountCol4" style="font-weight:bolder"></td>
+                    <td id="accountCol5" style="font-weight:bolder"></td>
+                    <td id="accountCol6" style="font-weight:bolder"></td>
+                    <td id="accountCol7" style="font-weight:bolder"></td>
+
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Report Table -->
+    <div id="tableOneBox" class="table_one_box" style="display: none">
+    </div>
+</div>
+
+<script>
+    function Exposurelistshow(relativeUrl, user_id) {
+        var dist_id = $("#distt_ID").val();
+        var param = { 'dist_id': dist_id, 'user_id': user_id };
+        OpenWindowWithPost(relativeUrl, "width=1200, height=600, left=100, top=100, resizable=yes, scrollbars=yes", "NewFile", param);
+    }
+
+    function OpenWindowWithPost(url, windowoption, name, params) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", url);
+        form.setAttribute("target", name);
+        for (var i in params) {
+            if (params.hasOwnProperty(i)) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = i;
+                input.value = params[i];
+                form.appendChild(input);
+            }
+        }
+        document.body.appendChild(form);
+        //note I am using a post.htm page since I did not want to make double request to the page
+        //it might have some Page_Load call which might screw things up.
+        window.open("home.php/", name, windowoption);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    /////// search filliter js////////
+
+    $(document).ready(function () {
+        $('.searchTerm').on('keyup', function () {
+            var searchTerm = $(this).val().toLowerCase();
+            $('#resultTable tbody tr').each(function () {
+                var lineStr = $(this).text().toLowerCase();
+                if (lineStr.indexOf(searchTerm) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#resultTable');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.credittd').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#accountCol2").text(sum.toFixed(2));
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#resultTable');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.totprotd').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#accountCol3").text(sum.toFixed(2));
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#resultTable');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.totlosstd').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#accountCol4").text(sum.toFixed(2));
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#resultTable');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.grossprolosstd').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#accountCol5").text(sum.toFixed(2));
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#resultTable');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.debittd').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#accountCol6").text(sum.toFixed(2));
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#resultTable');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.avlbaltd').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#accountCol7").text(sum.toFixed(2));
+    });
+</script>
+
+<script>
+    function GetHistory(m) {
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        window.location.href = '?startDate=' + startDate + '&endDate=' + endDate + '&dist_id=' + m;
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    calendarProperties.dateFormatStyle = "yyyy-MM-dd";
+    calendarProperties.setI18n({ "form.text.transfer.weekly.weekNumber": "wk #", "calendar.text.month.1": "Jan", "calendar.text.month.2": "Feb", "calendar.text.month.3": "Mar", "calendar.text.month.4": "Apr", "calendar.text.month.5": "May", "calendar.text.month.6": "Jun", "calendar.text.month.7": "Jul", "calendar.text.month.8": "Aug", "calendar.text.month.9": "Sep", "calendar.text.month.10": "Oct", "calendar.text.month.11": "Nov", "calendar.text.month.12": "Dec", "form.text.transfer.weekly.0": "Sun", "form.text.transfer.weekly.1": "Mon", "form.text.transfer.weekly.2": "Tue", "form.text.transfer.weekly.3": "Wed", "form.text.transfer.weekly.4": "Thu", "form.text.transfer.weekly.5": "Fri", "form.text.transfer.weekly.6": "Sat", "calendar.form.text.Today": "Today", "calendar.form.text.Clear": "Clear", "calendar.form.text.Close": "Close" });
+    var calendarObj = new Calendar();
+</script>
+
+<script language="JavaScript" type="text/javascript">
+    var utc = new Date();
+    var today = new Date().toJSON().slice(0, 10);
+    var maxDay = new Date((new Date().setDate(new Date().getDate() + 1))).toJSON().slice(0, 10);
+    var yesterday = new Date((new Date().setDate(new Date().getDate() - 1))).toJSON().slice(0, 10);
+    var last7day = new Date((new Date().setDate(utc.getDate() - 7))).toJSON().slice(0, 10);
+    var last15day = new Date((new Date().setDate(new Date().getDate() - 15))).toJSON().slice(0, 10);
+    var last30day = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+    var last2months = new Date((new Date().setDate(new Date().getDate() - 60))).toJSON().slice(0, 10);
+    var last3months = new Date((new Date().setDate(new Date().getDate() - 90))).toJSON().slice(0, 10);
+    var minDay = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+    var anydefst = $("#anydefst").val();
+    var anydefend = $("#anydefend").val();
+    if (anydefst != "0" && anydefst != null && anydefend != "0" && anydefend != null) {
+        datebtcl(99);
+    }
+    else {
+        datebtcl(0);
+    }
+    function datebtcl(clickdat) {
+        if (clickdat == "0") {
+            $("#startDate").val(today);
+            $("#endDate").val(maxDay);
+        }
+        else if (clickdat == "1") {
+            $("#startDate").val(yesterday);
+            $("#endDate").val(maxDay);
+        }
+        else if (clickdat == "7") {
+            $("#startDate").val(last7day);
+            $("#endDate").val(maxDay);
+        }
+        else if (clickdat == "15") {
+            $("#startDate").val(last15day);
+            $("#endDate").val(maxDay);
+        }
+        else if (clickdat == "30") {
+            $("#startDate").val(last30day);
+            $("#endDate").val(maxDay);
+        }
+        else if (clickdat == "99") {
+            $("#startDate").val(anydefst.toString());
+            $("#endDate").val(anydefend);
+        }
+    }
+</script>

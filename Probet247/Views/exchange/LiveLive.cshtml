@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+        <link rel="bookmark" href="~/Content/images/favicon.ico" />
+        <style class="vjs-styles-defaults">
+            .video-js {
+                width: 300px;
+                height: 150px;
+            }
+
+            .vjs-fluid {
+                padding-top: 56.25%;
+            }
+        </style>
+
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style type="text/css" data-asas-style="">
+            body, div, a, p, span {
+                user-select: text !important;
+            }
+
+            p, h1, h2, h3, h4, h5, h6 {
+                cursor: auto;
+                user-select: text !important;
+            }
+
+            ::selection {
+                background-color: #338FFF !important;
+                color: #fff !important;
+            }
+        </style>
+    </head>
+    <body class="" cz-shortcut-listen="true">
+        <div id="videoplayer" style="height: 200px; width: auto;">
+            <video controls="" style="width: 100%; height: 100%;" id="plaIp"><source type="application/x-mpegURL" src="@ViewBag.video_l"></video>
+        </div>
+
+    </body>
+    </html>

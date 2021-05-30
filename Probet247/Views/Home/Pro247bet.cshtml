@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div style="margin:15px;">
+    <div>ProBet</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Market</th>
+                <th>Betfair Id</th>
+                <th>Event Code</th>
+                <th>Market Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var MN21 = ViewBag.EventNameVB2;}
+            @{ var MN22 = ViewBag.MarketNameVB2;}
+            @{ var MN23 = ViewBag.BetfairIdVB2;}
+            @{ var MN24 = ViewBag.EventCodeVB2;}
+            @{ var MN25 = ViewBag.Add_time;}
+            @{ int i2 = 0;}
+            @foreach (var item in MN21)
+            {
+                <tr>
+                    <td>@item</td>
+                    <td>@MN22[i2]</td>
+                    <td>@MN23[i2]</td>
+                    <td>@MN24[i2]</td>
+                    <td>@MN25[i2]</td>
+
+                </tr>
+                i2++;
+            }
+        </tbody>
+    </table>
+</div>

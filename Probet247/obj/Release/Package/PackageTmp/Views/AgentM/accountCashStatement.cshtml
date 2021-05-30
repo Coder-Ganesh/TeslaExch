@@ -1,0 +1,204 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+
+<div class="main_wrap">
+    <!-- agent path -->
+    <div class="agent_path">
+        <ul id="agentPath" class="agent_path-L">
+
+            <li id="path4" class="last_li">
+                <a href="javascript: void(0);">
+                    <span class="lv_2">
+                        SUP
+                    </span>
+                    <strong>@Session["MDL_UserName"]</strong>
+                </a>
+            </li>
+
+            <ul class="account_pop" id="accountPop" style="">
+                <li id="popTmp" style="display: none;">
+                    <a href=""></a>
+                </li>
+            </ul>
+        </ul>
+    </div>
+
+    <!-- Agent Left Column -->
+
+    <div class="col-left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+
+                <li class="class">Position</li>
+
+                <li><a id="accountStatement" class="select" href="/AgentM/accountCashStatement">Account Statement</a></li>
+
+                <li><a id="accountSummary" href="/AgentM/myAccountSummary">Account Summary</a></li>
+
+                <li class="class">Account Details</li>
+                <li><a id="profile" href="/AgentM/profile">Profile</a></li>
+                <!--<li><a id="activityLog" href="/AgentM/myAccount/activityLog.jsp">Activity Log</a></li>-->
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display: none;">
+            <ul class="loading">
+                <li><img src="~/Content/images/prospin.gif"></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+        <!-- Message -->
+        <div id="message" class="message-wrap success">
+            <a class="btn-close">Close</a>
+            <p></p>
+        </div>
+
+        <script language="JavaScript" type="text/javascript">
+            (function () {
+                $j('.btn-close').click(function () {
+                    $j('#message').hide();
+                });
+            })();
+        </script>
+
+        <h2>
+            Account Statement
+        </h2>
+
+        <table style="display: none;">
+
+            <tbody>
+                <tr id="tempTr">
+                    <td id="createDate" class="align-L"></td>
+                    <td id="deposit">-</td>
+                    <td id="withdraw">-</td>
+                    <td id="balance"></td>
+                    <td id="remark"></td>
+                    <td>
+                        <spen id="from"></spen>
+                        <img class="fromto" src="../images/transparent.gif">
+                        <spen id="to"></spen>
+                    </td>
+                </tr>
+
+                <tr id="noDataTempTr">
+                    <td class="no-data" colspan="5">
+                        <p>No Data</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="table_log" class="table01">
+            <tbody>
+                <tr>
+                    <th class="align-L">From/To</th>
+                    <th width="15%" class="align-L">Date/Time</th>
+                    <th width="10%">Debit</th>
+                    <th width="10%">Credit</th>
+                    <th width="10%">Balance</th>
+                    <th width="16%">Remark</th>
+                </tr>
+
+            </tbody>
+            <tbody id="content">
+                @foreach (var item in Model)
+                {
+                    <tr id="tempTr">
+                        <td class="align-L">
+                            @item.Desc
+                        </td>
+                        <td id="createDate" class="align-L">@item.DTime</td>
+                        @if (item.Deposit > 0)
+                        {
+                            <td id="deposit" class="red">( @item.Deposit)</td>
+                        }
+                        else
+                        {
+                            <td id="deposit">-</td>
+                        }
+                        @if (item.Withdraw > 0)
+                        {
+                            <td id="withdraw">@item.Withdraw</td>
+                        }
+                        else
+                        {
+                            <td id="withdraw">-</td>
+                        }
+                        <td id="balance">@item.Balance</td>
+                        <td id="remark">@item.Remark</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div>
+            <ul id="pageNumberContent" class="pages">
+                @{Double countpage = ViewBag.countbeth;}
+                @{int page_num = Int32.Parse(ViewBag.pageNumber);}
+                @{
+                    var prev_class = "";
+                    var next_class = "";
+                    var prev_point = "";
+                    var next_point = "";
+                    var prev_number = page_num - 1;
+                    var next_number = page_num + 1;
+                    int totalpage = (int)Math.Ceiling(countpage / 20);
+                }
+                @if (page_num == 1 || page_num == 0)
+                {
+                    prev_class = "disable";
+                    prev_point = "pointer-events: none;";
+                }
+                @if (page_num == totalpage)
+                {
+                    next_class = "disable";
+                    next_point = "pointer-events: none;";
+                }
+                <li id="prev"><a href="javascript:void(0);" class="@prev_class" style="@prev_point" onclick="GetNextPG(@prev_number)">Prev</a></li>
+
+
+                @for (var i = 1; i <= totalpage; i++)
+                {
+                    if (page_num == i)
+                    {
+                        <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetNextPG(@i)">@i</a></li>
+
+                    }
+                    else
+                    {
+                        <li id="pageNumber"><a href="javascript:void(0);" onclick="GetNextPG(@i)">@i</a></li>
+
+                    }
+                }
+                <li id="next"><a href="javascript:void(0);" class="@next_class" style="@next_point" onclick="GetNextPG((@next_number)">Next</a></li>
+            </ul>
+        </div>
+        <div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function GetNextPG(pageNumber) {
+        window.location.href = "?page="+pageNumber;
+    }
+</script>

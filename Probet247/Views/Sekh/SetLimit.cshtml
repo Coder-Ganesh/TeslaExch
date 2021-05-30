@@ -1,0 +1,95 @@
+﻿
+
+@if (Session["SuperAdmin_UserName"] == null)
+{
+    { Response.Redirect("~/Sekh/Login"); }
+}
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <h2>Max Profit Limit</h2>
+    <input type="hidden" value="@ViewBag.id" id="event_code" />
+    <label>New Mo Limit : </label>
+    <input type="text" class="form-control" id="mo_limit" placeholder="Mo Limit" value="@ViewBag.mo_limit" /><br />
+    <label>New BookMaker Limit : </label>
+    <input type="text" class="form-control" id="bm_limit" placeholder="BookMaker Limit" value="@ViewBag.bm_limit" /><br />
+    <label>New Session Limit : </label>
+    <input type="text" class="form-control" id="sess_limit" placeholder="Session Limit" value="@ViewBag.sess_limit" /><br />
+    <label>New Mo Limit Bet Pro : </label>
+    <input type="text" class="form-control" id="mo_limit_bp" placeholder="Mo Limit Bp" value="@ViewBag.mo_limit_bp" /><br />
+    <label>New Session Limit Bet Pro : </label>
+    <input type="text" class="form-control" id="sess_limit_bp" placeholder="Session Limit Bp" value="@ViewBag.sess_limit_bp" /><br />
+    <input type="submit" class="btn btn-success" value="Submit" onclick="UpdateLimit();" /><br><br><br><br>
+
+</div>
+<script>
+
+    function UpdateLimit(id) {
+        var result = confirm("Are to sure to Update Limit ");
+        if (result != true) {
+
+        }
+        else {
+            var mo_limit = document.getElementById("mo_limit").value;
+            var bm_limit = document.getElementById("bm_limit").value;
+            var sess_limit = document.getElementById("sess_limit").value;
+            var mo_limit_bp = document.getElementById("mo_limit_bp").value;
+            var sess_limit_bp = document.getElementById("sess_limit_bp").value;
+            var id = document.getElementById("event_code").value;
+            if (mo_limit == "") {
+                mo_limit = 0;
+            }
+            if (bm_limit == "") {
+                bm_limit = 0;
+            }
+            if (sess_limit == "") {
+                sess_limit = 0;
+            }
+            if (mo_limit_bp == "") {
+                mo_limit_bp = 0;
+            }
+            if (sess_limit_bp == "") {
+                sess_limit_bp = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/Other/UpdateLimit',
+                data: { event_code: id, mo_limit: mo_limit, bm_limit: bm_limit, sess_limit: sess_limit, mo_limit_bp: mo_limit_bp, sess_limit_bp: sess_limit_bp },
+                beforeSend: function () {
+                    $("#ajax-loader").show();
+                },
+                success: function (result) {
+                    alert(result);
+                    setTimeout(function () {
+                        $("#ajax-loader").hide();
+                        window.location.href = "";
+                    }, 1000);
+                },
+                error: function () {
+                    $("#ajax-loader").hide();
+                    $.alert({
+                        icon: 'fa fa-info-circle',
+                        theme: 'modern',
+                        closeIcon: true,
+                        animation: 'scale',
+                        type: 'red',
+                        title: 'Info',
+                        content: 'Error in Set Limit.',
+                        buttons: {
+                            close: {
+                                text: 'Close',
+                                btnClass: 'btn-red',
+                            }
+                        }
+                    });
+                },
+                timeout: 5000 * 60
+            });
+        }
+    }
+
+</script>
+

@@ -1,0 +1,485 @@
+﻿@if (Session["UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probet247</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script>
+        if (screen.width <= 600) {
+            window.location = "/exchange/Mindex"
+        }
+
+    </script>
+
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/footer.css" rel="stylesheet" />
+</head>
+
+<body style="overflow-y:hidden;">
+    <div class="main_container" style="min-width: 1024px;">
+        <div class="top position-fixed-y" style=" width: 100%;  z-index: 1;position: fixed;">
+            <div class="bf-row no-bottom-gutter" style="overflow: hidden;">
+                <div class="bf-col-24-24" style="">
+                    <div class="ssc-container ssc-theme-betfair">
+                        <div class="mod-header">
+                            <div id="ssc-hw">
+                                <table id="ssc-ht">
+                                    <tbody style="">
+                                        <tr style="width:100%;">
+                                            <td style="width:10%; display:flex;">
+                                                <a class="" style="background: transparent;font-weight:bold;font-size:large;" href="/exchange/index">
+                                                    <img src="~/Content/probet/room_logo.png" style="height:50px; width: 120px;" />
+
+                                                </a>
+                                            </td>
+
+                                            @if (@Session["UserName"] != null)
+                                            {
+                                                <td class="ssc-ilo" style="width:90%;">
+                                                    <ul class="account-wrap">
+                                                        <li>
+                                                            Main
+                                                            <strong id="betCredit"></strong>
+                                                            &nbsp;Exposure
+                                                            <strong id="totalExposure"></strong>
+                                                        </li>
+                                                        <li class="head-refresh" onclick="UserBalance()">
+                                                            <a style="cursor: pointer"></a>
+                                                        </li>
+                                                        <li class="account" id="toggle_show">
+                                                            <a style="cursor: pointer;color: #000;">My Account</a>
+                                                            <ul id="toggle_hide" style="display: none;">
+                                                                <li>
+                                                                    <h4>
+                                                                        @Session["UserName"]
+                                                                        <span class="gmt" title="Time Zone">GMT+5:30</span>
+                                                                    </h4>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/exchange/myAccount" target="_blank">My Profile</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/exchange/BalanceOverview" target="_blank">Balance Overview</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/exchange/accountCashStatement" target="_blank">Account Statement</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/exchange/Ucurrent_bets" target="_blank">My Bets</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/exchange/BetHistory" target="_blank">Bets History</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/exchange/ProfitLoss" target="_blank">Profit &amp; Loss</a>
+                                                                </li>
+                                                                <li class="logout">
+                                                                    <a href="/exchange/LogOut" id="logout">LOGOUT<img src="~/Content/images/transparent.gif"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="ssc-ilo" style="width:10%;padding-top: 20px;">
+                                                    <div style="float:right;">
+                                                        <div id="ssc-lsec">
+                                                            <div class="ssc-lifg">
+                                                                <input class="ssc-itx" type="text" placeholder="email/username" value="" name="username" id="username" required="true" title="Enter your username" maxlength="256">
+                                                                <input class="ssc-itx" type="password" placeholder="password" value="" name="password" id="password" required="true" title="Enter your password" maxlength="256">
+                                                                <span class="ssc-shpb"></span>
+                                                            </div>
+                                                            <div class="ssc-lib">
+                                                                <input type="submit" id="ssc-lis" class="ssc-cta ssc-cta-simple" value="Log In" onclick="Isloginornot()">
+                                                                <span class="ssc-lkh"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="clear:both;"></div>
+                                                </td>
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bf-row no-bottom-gutter no-side-gutter" style=" width: 100%;">
+                <div class="bf-col-24-24" style="">
+                    <div class="subnav-wrapper">
+                        <ul class="subnav">
+                            <li class="subnav-first">
+                                <a href="~/exchange/Index" class="subnav-link">Home</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Index/inplay" class="subnav-link">In-Play</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Sport/4" class="subnav-link">Cricket</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Sport/1" class="subnav-link">Football</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Sport/2" class="subnav-link">Tennis</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Mindex/7888" class="subnav-link">Casino</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+        <div class="" style="width: 100%; display: inline-flex; height: 100%; position: unset;justify-content: space-between;">
+            <div class="no-bottom-gutter scrollable-panes-wrapper" style=" ">
+                <div class="bf-col-xxl-3-24 nested-scrollable-pane-parent left-side-column fixed" style="margin-top:85px;font-size: 13px;float: left; height: 98%">
+                    <div class="favourites-title">
+                        <div class="star-icon disabled">
+                            <span class="" style="margin-left: 20px;">My Markets</span>
+                            <svg class="svg-icon-default expand-arrow" data-icon="arrow-light" data-style="expand-arrow" viewBox="0 0 100 100"><path ng-attr-d="{{::getIconPath(icon)}}" d="M48.889,78.733L0.074,29.915l7.769-6.652l41.045,41.059l43.276-41.059l7.761,6.652L48.889,78.733z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="navigation-title">
+                        <a href="/exchange/Index" style="color:white;"><span>Sports</span></a>
+                    </div>
+                    <div class="navigation-container">
+                        <ul class="section top-navigation">
+
+
+                            @{var checkData = "Ram"; }
+                            @{var checkData1 = "Ram"; }
+                            @{var checkData12 = "Ram"; }
+                            @{var checkData123 = "Ram"; }
+                            @foreach (var item in Model)
+                            {
+                                <li class="node">
+
+                                    @if (@item.LaegueId != "0" && checkData == "Ram")
+                                    {
+                                        checkData = "Sita";
+                                        <a class="navigation-link" href="/exchange/Index">All Sports</a>
+                                    }
+                                    @if (@item.LaegueId != "0" && checkData1 == "Ram")
+                                    {
+                                        checkData1 = "Sita";
+                                        <a class="navigation-link" href="/exchange/Sport/@item.SportsId">@item.GetPreviousName</a>
+                                    }
+                                    @if (@item.EventId != "0" && checkData12 == "Ram")
+                                    {
+                                        checkData12 = "Sita";
+                                        <a class="navigation-link" href="/exchange/Sport/@item.SportsId/@item.LaegueId">@item.GetPreviousLName</a>
+                                    }
+
+                                    @if (@item.ForTest != "0" && checkData123 == "Ram")
+                                    {
+                                        checkData123 = "Sita";
+                                        <a class="navigation-link" style="color:black;">@item.GetPreviousMTitle</a>
+                                    }
+
+                                    @if (@item.SportsId != "0" && @item.LaegueId == "0" && @item.EventId == "0" && @item.MarketId == "0")
+                                    {
+                                        if (item.SportsId == "7888")
+                                        {
+                                            <a class="navigation-link" href="@Url.Action("Mindex", "exchange", new { sportid = @item.SportsId })">@item.SportsName</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="navigation-link" href="@Url.Action("Sport", "exchange", new { sportid = @item.SportsId })">@item.SportsName</a>
+                                        }
+                                    }
+                                    else if (@item.SportsId != "0" && @item.LaegueId != "0" && @item.EventId == "0" && @item.MarketId == "0")
+                                    {
+                                        <a class="navigation-link" href="@Url.Action("Sport", "exchange", new { sportid = @item.SportsId , leagueid = @item.LaegueId })">@item.SportsName</a>
+                                    }
+
+                                    else if (@item.SportsId != "0" && @item.LaegueId != "0" && @item.EventId != "0" && @item.MarketId != "0")
+                                    {
+
+                                        <a class="navigation-link" href="@Url.Action("Market", "exchange", new { sportid = @item.EventId })">@item.SportsName</a>
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                @RenderBody()
+            </div>
+        </div>
+
+        <div id="myModal1new" class="modal" style="display: none;">
+            <!-- Modal content -->
+            <div class="modal-content" style="    height: 250px; width: 35%;">
+                <span class="close1" onclick="CloseLoginPop();">×</span>
+                <h2 class="dialog-title" title="Match Odds - Rules"> Login</h2>
+                <div class="dialog-content">
+                    <div class="left">
+                        <h3 class="title">Please log in below</h3>
+                        <label class="label-text">Username:</label>
+                        <input class="login-input" type="text" value="" id="usernameI" name="username" required="true" title="Enter your username" maxlength="256">
+                        <label class="label-text">Password:</label>
+                        <input class="login-input" type="password" value="" id="passwordI" name="password" required="true" title="Enter your password" maxlength="256">
+                        <div>
+                            <input class="login-button" type="button" onclick="PassLDetailP();" value="Log In">
+                            <a class="security-icon" href="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('input[name="check"]').attr("disabled", true);
+        $(".agree").click(function () {
+            if ($(this).prop("checked") == true) {
+                $('input[name="check"]').attr("disabled", false);
+            }
+            else if ($(this).prop("checked") == false) {
+                $('input[name="check"]').attr("disabled", true);
+            }
+        });
+    });
+</script>
+
+<script>
+    function CloseLoginPop() {
+        $("#myModal1new").css("display", "none");
+    }
+</script>
+<script>
+
+
+    function myFun(id, boxtype, box, box_run, box_t_name) {
+
+        var oddsValue = $("#" + boxtype + id).text();
+        if (oddsValue != "") {
+            document.getElementById('stack_value_' + id).value = "";
+            if (box == "back") {
+                $("#field" + id).css("background-color", "#d2ebff");
+                $("#box_desc" + id).text("Back (Bet For):");
+            }
+            else if (box == "lay") {
+                $("#field" + id).css("background-color", "#f3dce2");
+                $("#box_desc" + id).text("Lay (Bet Against):");
+            }
+            $("#box_team" + id).text(box_t_name);
+            if ($("#men_ex_" + id).css('display') == 'none') {
+                $("#men_ex_" + id).css("display", "contents");
+            }
+            else {
+                if ($("#field" + id).children("span").text() + $("#field" + id).children("input").val() == box + box_run) {
+                    $("#men_ex_" + id).css("display", "none");
+                }
+            }
+            $("#odds_showdata_" + id).val(oddsValue);
+            $("#field" + id).children("span").text(box);
+            $("#field" + id).children("input").val(box_run);
+        }
+
+    }
+
+
+    function hide_betpop_up(id) {
+        var yourUl = document.getElementById("men_ex_" + id);
+        yourUl.style.display = yourUl.style.display === 'none' ? '' : 'none';
+    }
+
+    function myFun1() {
+        var odd_bet = $("#bet1").html();
+        $("#odds").val(odd_bet);
+    }
+</script>
+
+<script>
+    function manage(id) {
+        var stack_value_ = $('#stack_value_' + id).val();
+        var bt = document.getElementById('place_bet_button_' + id);
+        if (stack_value_ != '') {
+            // alert("IfMeaagya")
+            bt.disabled = false;
+            $("#bet_profit_" + id).html(stack_value_);
+        }
+        else {
+            //alert("IfMeaagya")
+            bt.disabled = true;
+        }
+
+    }
+</script>
+
+<script>
+    $('.modal-toggle').on('click', function (e) {
+        e.preventDefault();
+        $('.modal1').toggleClass('is-visible');
+    });
+</script>
+
+<script>
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+    function getdatetime(datetimeget) {
+        //var x1 = a2[i].MatchTime;
+        var MatchTime = "Inplay";
+        var x = new Date(datetimeget);
+        var hour = addZero(x.getHours());
+        var minutes = addZero(x.getMinutes());
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var weekday = ["sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+        var day = weekday[x.getDay()];
+        var month = months[x.getMonth()];
+        var date1Timestamp = Date.parse(x) / 1000;
+        var y = new Date();
+        var ey = new Date(y.toDateString());
+        var date2Timestamp = Date.parse(y) / 1000;
+        var date3Timestamp = Date.parse(ey) / 1000;
+        var difference = date1Timestamp - date2Timestamp;
+        var difference1 = date1Timestamp - date3Timestamp;
+        if (difference < 0) {
+            MatchTime = "Inplay";
+        }
+        else if (difference > 86400) {
+            if (difference >= 86400 && difference < 172800) {
+                MatchTime = day + " " + hour + ":" + minutes;
+            }
+            else {
+                MatchTime = month + " " + x.getDate() + " " + hour + ":" + minutes;
+            }
+        }
+        else {
+            if (difference1 < 86400 && difference1 > 900) {
+                MatchTime = " Today " + hour + ":" + minutes;
+            }
+            else if (difference1 >= 86400 && difference1 < 172800) {
+                MatchTime = day + " " + hour + ":" + minutes;
+            }
+            else if (difference1 > 0 && difference1 < 900) {
+                left_time = parseInt(difference1 / 60);
+                MatchTime = "Starting in " + left_time + "'";
+            }
+            else if (difference1 < 0) {
+                MatchTime = "Inplay";
+            }
+            else {
+                MatchTime = month + " " + x.getDate() + " " + hour + ":" + minutes;
+            }
+        }
+        return MatchTime;
+
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#toggle_show").click(function () {
+            $("#toggle_hide").slideToggle();
+        });
+    });
+</script>
+<script>
+    function Isloginornot() {
+        var UserN = document.getElementById("username").value;
+        var UserP = document.getElementById("password").value;
+        $.ajax({
+            type: "POST",
+            url: "/Check/CLo",
+            data: {
+                username: UserN,
+                password: UserP
+            },
+            success: function (result) {
+                if (result == "Success") {
+                    //alert(result)
+                    window.location.reload()
+                }
+                else {
+                    window.location.href = "/exchange/Login";
+                }
+            },
+        });
+    }
+</script>
+
+<script>
+    function PassLDetailP() {
+        var UserN = document.getElementById("usernameI").value;
+        var UserP = document.getElementById("passwordI").value;
+        $.ajax({
+            type: "POST",
+            url: "/Check/CLo",
+            data: {
+                username: UserN,
+                password: UserP
+            },
+            success: function (result) {
+                if (result == "Success") {
+                    //alert(result)
+                    window.location.reload()
+                }
+                else {
+                    window.location.href = "/exchange/Login";
+                }
+            },
+        });
+    }
+</script>
+
+<script>
+
+    var GetLog = '@Session["UserName"]';
+        if (GetLog != "" && GetLog != null) {
+            UserBalance();
+        }
+
+        function UserBalance() {
+            $.ajax({
+                url: '/FunctionData/UserInformationFun1',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'post',
+                dataType: 'html',
+                success: (function (result) {
+                    var a2 = JSON.parse(result);
+
+                    $("#betCredit").text("BAL "+a2[0].UBalance);
+                    $("#totalExposure").text("BAL " + a2[0].UExposure);
+                    $("#UserName").text(a2[0].UserName);
+
+                })
+            });
+        }
+</script>

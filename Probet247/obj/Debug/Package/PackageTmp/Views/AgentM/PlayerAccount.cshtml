@@ -1,0 +1,218 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+
+
+
+<div id="message" class="message-wrap success" style="display: none;">
+    <a class="btn-close" id="messageBtnClose">Close</a>
+    <p></p>
+</div>
+
+<style>
+    .pop_bg {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 80
+    }
+
+        .pop_bg:not(:target) {
+            display: none
+        }
+
+        .pop_bg:target {
+            display: block
+        }
+</style>
+
+<div class="main_wrap">
+    <!-- agent path -->
+
+
+    <div class="main_wrap">
+        <!-- agent path -->
+
+        <div class="agent_path">
+            <ul id="agentPath" class="agent_path-L">
+                <li id="path4" class="">
+                    <a href="javascript: void(0);">
+                        <span class="lv_2">
+                            SUP
+                        </span>
+                        <strong>@Session["MDL_UserName"]</strong>
+                    </a>
+                </li>
+
+                <li id="path3" class="last_li">
+                    <a href="javascript: void(0);">
+                        <span class="lv_3">
+                            MA
+                        </span>
+                        <strong>@ViewBag.DLUnameM</strong>
+                    </a>
+                </li>
+                <li id="path0" class="last_li drop_down_li" style="">
+                    <a href="javascript: void(0);" onclick="accountPop()">
+                        <span class="lv_4">
+                            PL
+                        </span>
+                        <strong>@ViewBag.CUname</strong>
+                    </a>
+                    <input type="hidden" name="accountPopInput" id="accountPopInput" value="0">
+                    <script>
+                        function accountPop() {
+                            if ($("#accountPopInput").val() == 0) {
+                                $("#accountPopInput").val("1");
+                                $("#accountPop87487").show();
+                            }
+                            else {
+                                $("#accountPopInput").val("0");
+                                $("#accountPop87487").hide();
+                            }
+                        }
+                    </script>
+                    <ul class="account_pop" id="accountPop87487" style="display: none;">
+                        <li id="popTmp" style="display: none;">
+                            <a href=""></a>
+                        </li>
+
+                        <li id="userlist1" style="display: list-item;">
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Agent Left Column -->
+
+        <div class="col-left">
+
+            <!-- Sub Menu and Path -->
+            <div class="sub_path">
+
+                <!-- Sub Menu -->
+                <ul class="menu-list">
+
+                    <li class="class">Position</li>
+                    <li>
+                        <a id="accountSummary" class="select" href="/AgentM/PlayerAccount?dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Account Summary</a>
+                    </li>
+                    <li class="class">Performance</li>
+                    <li>
+                        <a id="bettingHistory" href="/AgentM/betList?dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Betting History</a>
+                    </li>
+                    <li>
+                        <a id="profitLoss" href="/AgentM/profitAndLoss?dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Betting Profit &amp; Loss</a>
+                    </li>
+                    <li>
+                        <a id="transactionHistory" href="/AgentM/PlayerTransaction?dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">
+                            Transaction&nbsp;History
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Center Column -->
+        <div class="col-center report">
+
+
+            <!-- Loading Wrap -->
+            <div id="loading" class="loading-wrap" style="display:none">
+                <ul class="loading">
+                    <li>
+                        <img src="~/Content/images/prospin.gif" />
+                    </li>
+                    <li>Loading...</li>
+                </ul>
+            </div>
+
+            <!-- Message -->
+            <div id="message" class="message-wrap success">
+                <a class="btn-close">Close</a>
+                <p></p>
+            </div>
+
+            <script language="JavaScript" type="text/javascript">
+                (function () {
+                    $('.btn-close').click(function () {
+                        $('#message').hide();
+                    });
+                })();
+            </script>
+
+            <h2>Profile</h2>
+            <div class="event-left">
+                <div class="profile-wrap">
+                    <h3>About You</h3>
+                    <dl>
+                        <dt>Username</dt>
+                        <dd>@ViewBag.UserNameC</dd>
+
+                        <dt>Full Name</dt>
+                        <dd>@ViewBag.FUserNameC</dd>
+
+                        <dt>Birthday</dt>
+                        <dd></dd>
+
+                        <dt>E-mail</dt>
+                        <dd></dd>
+
+                        <dt>Password</dt>
+                        <dd>
+                            *******
+                        </dd>
+
+                        <dt>Time Zone</dt>
+                        <dd>IST</dd>
+                    </dl>
+                </div>
+
+                <div class="profile-wrap">
+                    <h3>Contact Details</h3>
+                    <dl>
+                        <dt>Primary number</dt>
+                        <dd></dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="event-right">
+
+                <div class="profile-wrap">
+                    <h3>Limits &amp; Commission</h3>
+                    <dl>
+                        <dt>Exposure Limit</dt>
+                        <dd id="mainwalletExposureLimit">@ViewBag.Exp_limit</dd>
+                        <dt>Commission</dt>
+                        <dd>
+                            <span id="commission">0.0%</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        MatchedClientBetRC();
+        function MatchedClientBetRC() {
+            $.ajax({
+                type: "GET",
+                url: "/AgentM/DlClientList",
+                data: {dl_id:@ViewBag.DLID},
+                dataType: "html",
+                success: function (data) {
+                    var a2 = JSON.parse(data);
+                    for (i = 0; i < a2.length; i++) {
+                        var myvar = ' <a href="/AgentM/profitAndLoss?dist_id=' + a2[i].dl_id + '&uid=' + a2[i].id + '">' + a2[i].username + '</a>';
+                        $('#userlist1').append(myvar);
+                    }
+                }
+            });
+        }
+    </script>

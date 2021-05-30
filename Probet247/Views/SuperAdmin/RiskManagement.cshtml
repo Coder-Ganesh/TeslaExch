@@ -1,0 +1,492 @@
+﻿@if (Session["Admin_UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <style>
+        .for-agent {
+            height: 182px;
+            background-color: #E2E8ED;
+            padding: 0 0 15px;
+        }
+
+        .for-agent, .head-bets-agent {
+            box-shadow: inset 0 2px 0 rgba(0,0,0,0.1);
+        }
+
+        div {
+            user-select: text !important;
+        }
+
+        .head-bets-agent {
+            /*background-color: rgba(255,255,255,0.5);*/
+            background-color: #E2E8ED;
+            margin-bottom: 28px;
+            border-bottom: 1px solid #7E97A7;
+            padding: 0 10px;
+        }
+
+        .head-bets-agent {
+            zoom: 1;
+        }
+
+            .head-bets-agent .game-matched {
+                float: left;
+                padding: 0;
+                margin-right: 20px;
+            }
+
+        dl {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .game-matched dt {
+            padding: 7px 0;
+            display: inline-block;
+        }
+
+        dt {
+            font-weight: 700;
+        }
+
+        dd, dt {
+            line-height: 1.42857143;
+        }
+
+        .game-matched dd {
+            font-weight: bold;
+            color: #1E1E1E;
+            padding: 7px 0 7px 5px;
+        }
+
+        .game-matched dd {
+            display: inline-block;
+        }
+
+        dd {
+            margin-left: 0;
+        }
+
+        .game-matched dd {
+            font-weight: bold;
+            color: #1E1E1E;
+            padding: 7px 0 7px 5px;
+        }
+
+        .head-bets-agent .game-info {
+            padding: 0;
+            float: right;
+        }
+
+        .game-info {
+            display: block;
+            zoom: 1;
+        }
+
+        ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .head-bets-agent .game-info li {
+            margin: 0 0 0 20px;
+        }
+
+        .game-info li {
+            padding: 7px 0;
+            display: block;
+            float: left;
+        }
+
+        .green {
+            color: #508D0E !important;
+        }
+
+        .icon-time, .icon-live, .icon-irun, .icon-predict, .icon-cashout {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px 0 0;
+            vertical-align: top;
+        }
+
+        .icon-irun {
+            background-position: -399px -1797px;
+            background-image: url(../images/sprite/main-se21de741bc.png);
+            background-repeat: no-repeat;
+        }
+
+        .for-agent .bets-wrap {
+            margin: 0;
+        }
+
+        .bets-wrap {
+            position: relative;
+            background-color: #fff;
+            border-top: 1px solid #7E97A7;
+            margin-top: 38px;
+            margin-bottom: 30px;
+        }
+
+        .for-agent .refer_only {
+            margin-left: 10px;
+            left: 0;
+        }
+
+        .refer_only {
+            position: absolute;
+            top: 26px;
+            font-size: 11px;
+            color: #7E97A7;
+            line-height: 23px;
+            margin-left: 5px;
+        }
+
+        span {
+            user-select: text !important;
+        }
+
+        .bets, .bets-HS, .bets-GH {
+            width: 100%;
+            margin-top: -24px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        table {
+            background-color: transparent;
+        }
+
+        .bets .bet-all td, .bets-HS .bet-all td, .bets-GH .bet-all td {
+            background-color: transparent;
+            border-left-color: transparent;
+            padding-bottom: 1px;
+        }
+
+        .bet-all td, .table-s .border-t td, .table_one .border-t td {
+            border-top: 1px solid #7E97A7;
+        }
+
+        .bets .refer-bet, .bets-HS .refer-bet, .bets-GH .refer-bet, .bets .refer-book, .bets-HS .refer-book, .bets-GH .refer-book {
+            font-size: 11px;
+            line-height: 22px;
+            font-weight: normal;
+        }
+
+        .bets .refer-bet {
+            text-align: left;
+        }
+
+        .bets td, .bets-HS td, .bets-GH td {
+            width: 8.97436%;
+            border-bottom: 1px solid #7E97A7;
+            border-left: 1px solid #ddd;
+            font-weight: bold;
+            vertical-align: top;
+        }
+
+        .bets td {
+            text-align: center;
+        }
+
+        .bets .bet-all a, .bets-HS .bet-all a, .bets-GH .bet-all a {
+            position: relative;
+            width: 100%;
+            height: 17px;
+            line-height: 17px;
+            cursor: pointer;
+        }
+
+        .bets .bet-all a {
+            float: left;
+        }
+
+        .bets .back-all, .bets-HS .back-all, .bets-GH .back-all {
+            background-position: -274px -229px;
+        }
+
+        .bets .back-all {
+        }
+
+        .bets td a, .bets-HS td a, .bets-GH td a {
+            position: relative;
+            height: 35px;
+            color: #1E1E1E;
+            padding: 3px 0 2px;
+            cursor: pointer;
+        }
+
+        .table01 a, .table-s a {
+            text-decoration: underline;
+        }
+
+        .bets .bet-all span, .bets-HS .bet-all span, .bets-GH .bet-all span {
+            position: absolute;
+            width: 100%;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .bets td span {
+            display: block;
+        }
+
+        .bets .lay-all, .bets-HS .lay-all, .bets-GH .lay-all {
+            background-position: 100% -333px;
+        }
+
+        .bets td a, .bets-HS td a, .bets-GH td a {
+            position: relative;
+            height: 35px;
+            color: #1E1E1E;
+            padding: 3px 0 2px;
+            cursor: pointer;
+        }
+
+        .match-wrap .border-t td {
+            box-shadow: none;
+        }
+
+        .table01 .border-t td, .table-s .border-t td, .table_one .border-t td {
+            border-top: 1px solid #7E97A7;
+        }
+
+        .for-agent .refer-book {
+            padding-right: 10px;
+        }
+
+        .bets .refer-book {
+            font-size: 11px;
+            line-height: 22px;
+            font-weight: normal;
+            text-align: right;
+        }
+
+        .bets th, .bets-HS th, .bets-GH th {
+            position: relative;
+            padding: 9px 10px;
+            border-bottom: 1px solid #7E97A7;
+            vertical-align: top;
+        }
+
+        .bets th {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .table01 th, .table-s th {
+            color: #212121;
+            background-color: #E4E4E4;
+            border: 1px solid #7E97A7;
+            border-width: 1px 0 1px 0;
+            padding: 8px 10px;
+        }
+
+        .bets th p, .bets-HS th p, .bets-GH th p {
+            width: 292px;
+            margin-bottom: 0;
+        }
+
+        .bets th p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+
+        .icon-predict {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px 0 0;
+            vertical-align: top;
+            background-position: -398px -1562px;
+        }
+
+        .bets .back-3, .bets-HS .back-3, .bets-GH .back-3 {
+            background-color: #D7E8F4;
+            border-left-color: #fff;
+        }
+
+            .bets .back-3:hover, .bets-HS .back-3:hover, .bets-GH .back-3:hover {
+                background-color: #e3eff7;
+            }
+
+        .bets .back-2, .bets-HS .back-2, .bets-GH .back-2 {
+            background-color: #B7D5EB;
+            border-left-color: #fff;
+        }
+
+            .bets .back-2:hover, .bets-HS .back-2:hover, .bets-GH .back-2:hover {
+                background-color: #c3dcee;
+            }
+
+        .bets .back-1, .bets-HS .back-1, .bets-GH .back-1 {
+            background-color: #72BBEF;
+            border-left-color: #fff;
+        }
+
+            .bets .back-1:hover, .bets-HS .back-1:hover, .bets-GH .back-1:hover {
+                background-color: #80c2f1;
+            }
+
+        .bets .lay-1, .bets-HS .lay-1, .bets-GH .lay-1 {
+            background-color: #FAA9BA;
+            border-left-color: #fff;
+        }
+
+            .bets .lay-1:hover, .bets-HS .lay-1:hover, .bets-GH .lay-1:hover {
+                background-color: #fbb7c6;
+            }
+
+        .bets .lay-2, .bets-HS .lay-2, .bets-GH .lay-2 {
+            background-color: #EFD3D9;
+            border-left-color: #fff;
+        }
+
+            .bets .lay-2:hover, .bets-HS .lay-2:hover, .bets-GH .lay-2:hover {
+                background-color: #f3dee3;
+            }
+
+        .bets .lay-3, .bets-HS .lay-3, .bets-GH .lay-3 {
+            background-color: #F6E6EA;
+            border-left-color: #fff;
+        }
+
+            .bets .lay-3:hover, .bets-HS .lay-3:hover, .bets-GH .lay-3:hover {
+                background-color: #faf1f3;
+            }
+
+        .bets td span, .bets-HS td span, .bets-GH td span {
+            font-weight: normal;
+            font-size: 11px;
+        }
+
+        .tm, .table-s th {
+            color: #212121;
+            background-color: #E4E4E4;
+            border: 1px solid #7E97A7;
+            border-width: 1px 0 1px 0;
+            padding: 8px 10px;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title> Agent</title>
+    <link href="~/Content/clientbbetacss/agent_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body class="skyexchange">
+    <div class="main_wrap">
+        <div class="total_all">
+            <h2>
+                Risk Management Summary
+            </h2>
+        </div>
+
+        <div class="match-wrap">
+            <div class="total_all">
+                <h2 style="margin-top: 5px; margin-bottom: 5px;">
+                    Match Odds
+                </h2>
+                <button class="btn btn-success btn-sm" style=" float: right;" onclick="analysis()">Refresh</button>
+            </div>
+
+            <table class="table01 risk_matchodd" id="adminanalysisdata"></table>
+        </div>
+
+        Fancy/Session Bet
+        <div class="match-wrap">
+            <div class="total_all">
+                <h2 style="margin-top: 5px; margin-bottom: 5px;">Fancy/Session Bet</h2>
+                <button class="btn btn-success btn-sm" style=" float: right;" onclick="sanalysis()">Refresh</button>
+            </div>
+            <!-- Fancy Bet -->
+            <table class="table01 risk_matchodd" id="adminsanalysisdata"></table>
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script>
+    analysis();
+    function analysis() {
+        dlanalysis();
+    }
+
+    function dlanalysis() {
+        $.ajax({
+
+            type: 'POST',
+            url: '/SuperAdmin/adminanalysis',
+            success: function (result) {
+                $("#adminanalysisdata").html(result);
+            },
+            error: function () {
+                analysis();
+            },
+            timeout: 5000
+        });
+    }
+
+</script>
+
+<script>
+    sanalysis();
+    function sanalysis() {
+        $.ajax({
+            type: 'POST',
+            url: '/SuperAdmin/Msdlanuhytalysis',
+            success: function (result) {
+                $("#adminsanalysisdata").html(result);
+            },
+            error: function (error) {
+            },
+        });
+    }
+</script>

@@ -1,0 +1,372 @@
+﻿@if (Session["UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>FancyBook</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <link href="~/Content/css1/agent_style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/footer.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="~/Scripts/datepicksk/I18N.js"></script>
+    <meta name="theme-color" content="#ffb80C">
+
+
+    <script type="text/javaScript">
+        var $j = jQuery.noConflict();
+        //USE JsonUtil instead(in JSUtil)
+        if (typeof (JSON) == 'undefined') { //Fix IE6, 7 json bug.
+            $j.getScript('/js/json/json2.js');
+        }
+    </script>
+
+    <script language="javascript">
+
+        if (typeof (PageConfig) == 'undefined') {
+            PageConfig = {};
+        }
+        PageConfig.indexURL = "/exchange/index";
+        PageConfig.userName = '';
+        PageConfig.country = 'IN';
+        PageConfig.coinPreference = '1,2,3,5,7,8';
+        PageConfig.userCoin = '0';
+        PageConfig.lang = 'EN';
+        PageConfig.currencySymbol = '';
+        PageConfig.userID = '';
+        PageConfig.ENABLE_ZOOM = 'false';
+        PageConfig.ENABLE_CUSTOMIZE_STAKE = true;
+        PageConfig.customizeStake = 'null';
+        PageConfig.isFromAPI = false;
+
+        I18N.setResource({
+            'msg.error.info.betsNoData': "You have no bets in this time period.",
+            'msg.error.validation.startDateIsEmpty': 'Start date is empty',
+            'msg.error.validation.endDateIsEmpty': 'End date is empty',
+            'form.text.bettingHistory.noReportMessage': "<p>Betting History enables you to review the bets you have placed. <br/>Specify the time period during which your bets were placed, the type of markets on which the bets were placed, and the sport.</p><p>Betting History is available online for the past 30 days.</p>",
+            'msg.error.validation.fieldEmpty': 'The field is empty : {0}',
+            'msg.member.coin.amoutsLess': 'Coin amounts less than 6',
+            'msg.member.coin.needSetUserCoin': 'Need to set the userCoin.',
+            'form.text.function.getHistory': 'Get History',
+            'form.text.function.cancelled': 'Cancelled',
+            'form.text.function.settled': 'Settled',
+            'form.text.function.voided': 'Voided'
+        });
+    </script>
+
+    <style>
+        body {
+            overflow-y: auto !important;
+        }
+
+        .profile_left {
+            position: fixed !important;
+            left: 0px !important;
+            top: 90px !important;
+        }
+
+        .search {
+            width: 80%;
+            position: relative;
+            display: flex;
+            float: right;
+        }
+
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 36px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+            .searchTerm:focus {
+                color: #00B4CC;
+            }
+
+        .searchButton {
+            width: 40px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .wrap {
+            width: 30%;
+            float: right;
+        }
+
+        .summarytag {
+            font-size: 13px !important;
+            line-height: 16px !important;
+            padding-top: 6px !important;
+            font-weight: bold !important;
+            font-family: Tahoma, Helvetica, sans-serif !important;
+        }
+    </style>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+
+    <style>
+        .coupon-page-navigation {
+            display: flex;
+            display: -ms-flexbox;
+            align-items: center;
+            -ms-flex-align: center;
+            margin-bottom: 16px;
+            height: 44px;
+            padding: 0 8px;
+            border-radius: 2px;
+            background-color: #fff;
+            box-shadow: 1px 1px 3px 0 rgba(0,0,0,.4);
+        }
+
+        .coupon-page-navigation__item {
+            font-size: 12px;
+            letter-spacing: normal !important;
+        }
+
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .coupon-page-navigation__link {
+            text-decoration: none;
+            color: #303030;
+        }
+
+        a {
+            background: 0 0;
+        }
+
+        .coupon-page-navigation__icon.is-double-left, .coupon-page-navigation__icon.is-double-right, .coupon-page-navigation__icon.is-single {
+            width: 9px;
+            height: 9px;
+            fill: #7f7f7f;
+        }
+
+        .coupon-page-navigation__icon.is-double-left {
+            margin-right: -5px;
+        }
+
+        svg:not(:root) {
+            overflow: hidden;
+        }
+
+        .svg-icon-defaults {
+            width: 10px;
+            height: 10px;
+            color: #fff;
+            fill: #fff;
+        }
+
+        .coupon-page-navigation__icon {
+            cursor: pointer;
+        }
+
+        .coupon-page-navigation__label--first {
+            margin: 0 7px 0 2px;
+        }
+
+        .coupon-page-navigation__label {
+            cursor: pointer;
+        }
+
+        .coupon-page-navigation__label--previous {
+            margin-left: 2px;
+        }
+
+        .coupon-page-navigation__item--bullets {
+            margin: 0 auto;
+        }
+
+        .coupon-page-navigation__bullets {
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .coupon-page-navigation__bullet {
+            width: 10px;
+            margin: 0 2px;
+            color: #b3afaf;
+            font-size: 14px;
+        }
+
+            .coupon-page-navigation__bullet.is-active {
+                color: #303030;
+            }
+
+        .coupon-page-navigation__icon.is-rotated {
+            transform: rotate(180deg);
+        }
+
+        .coupon-page-navigation__label--last {
+            margin: 0 3px 0 6px;
+        }
+    </style>
+
+
+</head>
+<body style="overflow-y:hidden;">
+    <div class="main_container" style="min-width: 1024px;">
+        <div class="top position-fixed-y" style=" width: 100%;  z-index: 1;position: fixed;">
+            <div class="bf-row no-bottom-gutter" style="overflow: hidden;">
+                <div class="bf-col-24-24" style="">
+                    <div class="ssc-container ssc-theme-betfair">
+                        <div class="mod-header">
+                            <div id="ssc-hw">
+                                <table id="ssc-ht">
+                                    <tbody style="">
+                                        <tr style="width:100%;">
+                                            <td style="width:10%;">
+                                                <a class="" style="" href="/exchange/index">
+                                                    <img src="~/Content/probet/room_logo.png" style="height:50px;" />
+                                                </a>
+                                            </td>
+                                            <td class="ssc-ilo" style="width:85%;padding-top: 20px;">
+                                                <ul class="account-wrap">
+                                                    <li style="color:white;">
+                                                        Main
+                                                        <strong id="betCredit"></strong>
+                                                        &nbsp;Exposure
+                                                        <strong id="totalExposure"></strong>
+                                                    </li>
+                                                    <li style="color:white;" class="head-refresh">
+                                                        <a style="cursor: pointer"></a>
+                                                    </li>
+                                                    <li class="account" id="toggle_show">
+                                                        <a style="cursor: pointer;color: #ffb80C;">My Account</a>
+                                                        <ul id="toggle_hide" style="display: none;">
+                                                            <li>
+                                                                <h4>
+                                                                    @Session["UserName"]
+                                                                    <span class="gmt" title="Time Zone">GMT+5:30</span>
+                                                                </h4>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/exchange/myAccount" target="_blank">My Profile</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/exchange/BalanceOverview" target="_blank">Balance Overview</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/exchange/accountCashStatement" target="_blank">Account Statement</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/exchange/Ucurrent_bets" target="_blank">My Bets</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/exchange/BetHistory" target="_blank">Bets History</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/exchange/ProfitLoss" target="_blank">Profit &amp; Loss</a>
+                                                            </li>
+                                                            <li class="logout">
+                                                                <a href="/exchange/LogOut" id="logout">LOGOUT<img src="~/Content/images/transparent.gif"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bf-row no-bottom-gutter no-side-gutter" style=" width: 100%;">
+                <div class="bf-col-24-24" style="">
+                    <div class="subnav-wrapper">
+                        <ul class="subnav">
+                            <li class="subnav-first">
+                                <a href="~/exchange/Index" class="subnav-link">Home</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Index/inplay" class="subnav-link">In-Play</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/MMatchList/4" class="subnav-link">Cricket</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Sport/1" class="subnav-link">Football</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Sport/2" class="subnav-link">Tennis</a>
+                            </li>
+                            <li class="subnav-first">
+                                <a href="~/exchange/Mindex/7888" class="subnav-link">Casino</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+        <div class="" style="width: 100%; display: inline-flex; height: 100%; position: unset;justify-content: space-between;">
+            <div class="no-bottom-gutter scrollable-panes-wrapper" style=" ">
+
+                @RenderBody()
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#toggle_show").click(function () {
+            $("#toggle_hide").slideToggle();
+        });
+    });
+</script>
+<script>
+    function hide(target) {
+        document.getElementById(target).style.display = 'none';
+    }
+</script>
+<script>
+    UserBalance();
+    function UserBalance() {
+        $.ajax({
+            url: '/FunctionData/UserInformationFun1',
+            contentType: 'application/html ; charset:utf-8',
+            type: 'post',
+            dataType: 'html',
+            success: (function (result) {
+                var a2 = JSON.parse(result);
+
+                $("#betCredit").text("BAL " + a2[0].UBalance);
+                $("#totalExposure").text("BAL " + a2[0].UExposure);
+            })
+        });
+    }
+</script>

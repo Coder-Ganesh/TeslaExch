@@ -1,0 +1,127 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <title>Player</title>
+    <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="playerDiv" style="width: 100%; height: 100%; overflow: hidden; position: relative; background-color: black;">
+    </div>
+    <script type="text/javascript">
+        @{ var type = ViewBag.type;}
+        @{ var token = "";}
+        @{ var streamName = "";}
+        @{ var tag = "";}
+        @if(type == "teen2020")
+        {
+            streamName = "9iWRI-knuFu";
+            tag = "bacceu";
+            token = "b6caf2348c03f5cf8f5a013405150627";
+        }
+        else if(type == "teen")
+        {
+            streamName = "9iWRI-sWvJR";
+            tag = "teen6eu";
+            token = "b81b2cbf50b93f760034f7137d8bf77b";
+        }
+        else if(type == "teen9")
+        {
+            streamName = "9iWRI-HaDOL";
+            tag = "teen6as";
+            token = "f00b6053bc125dcd323d081f264375b7";
+        }
+        else if(type == "poker")
+        {
+            streamName = "9iWRI-vjh5z";
+            tag = "poker";
+            token = "0383336850160706cb59d22db6055da6";
+        }
+        else if(type == "poker20")
+        {
+            streamName = "9iWRI-8Fl0Y";
+            tag = "poker20";
+            token = "ae9be0dd76c708dde4b8215bbacc2056";
+        }
+        else if(type == "dt20")
+        {
+            streamName = "9iWRI-e0EqP";
+            tag = "dt20";
+            token = "2ff706aec2b8e3a1a6565d373ee1881f";
+        }
+        else if(type == "dtl20")
+        {
+            streamName = "9iWRI-VxF9O";
+            tag = "dtl20";
+            token = "aa98107507b1ae061ece68245710a929";
+        }
+        else if(type == "dt6")
+        {
+            streamName = "9iWRI-gO8td";
+            tag = "dt6";
+            token = "4183d01e4f216267962319045986d6b2";
+        }
+        else if(type == "lucky7")
+        {
+            streamName = "9iWRI-jz3Gt";
+            tag = "card32as";
+            token = "c2877dbd31bd3f0d884c6a503a02f723";
+        }
+        else if(type == "lucky7B")
+        {
+            streamName = "9iWRI-EO6ZK";
+            tag = "lucky7eu";
+            token = "9838161f76a5d254e7d7098b859c1b04";
+        }
+        else if(type == "teen6")
+        {
+            streamName = "9iWRI-CfxRU";
+            tag = "teen6";
+            token = "23f0cd12504e5bf2afbda09eaabaa22e";
+        }
+        var streamData = "Wj4Kodij3bWVd2EecD6zHF1rHeETEosmW4BzntMqwW5V+kk7RRB8d/QsuPJFWCaxmVRAMtEusLIFcrbXYYugYfvK5tUJU/ZAg2VL2cxo3+iWl+yxsQ3YUsqC+xF1y8wSuIdEUZkf9ToZVx0DJmeRUOVLQHCR6/L+XtY1hD0aDR6xY5Q0eDnf2P5k61SDH/G+zXtKq95n4BD9yEbAvL4HdEfU+ozm2dczF5+PUs6JnbU=##@@##a00f537e822d9f05##@@##90b66bb57ef37a01248e60a6ba581b5a";
+        var token = "@token";
+        var expires = "";
+        var options = "8";
+        var streamName = "@streamName";
+        var tag = "@tag";
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+    </script>
+    <script src="~/Scripts/tplive1/common.js"></script>
+    <script src="~/Scripts/tplive1/encrypt.js"></script>
+    <script src="~/Scripts/tplive1/nmediaplayer.js"></script>
+    <script src="~/Scripts/tplive1/player.min.js"></script>
+
+</body>
+</html>

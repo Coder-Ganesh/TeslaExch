@@ -1,0 +1,147 @@
+﻿
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div style="margin:15px;">
+    <div>Teen Patti Pending</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Created</th>
+                <th>Betfair Id</th>
+                <th>Event Code</th>
+                <th>Winner</th>
+                <th>Winner</th>
+                <th>Winner</th>
+                <th>Winner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var MN21 = ViewBag.EventNameVB2;}
+            @{ var MN23 = ViewBag.BetfairIdVB2;}
+            @{ var MN24 = ViewBag.EventCodeVB2;}
+            @{ int i2 = 0;}
+            @foreach (var item in MN21)
+            {
+                if (MN24[i2] == "30303030")
+                {
+                    <tr>
+                        <td>Teen Patti T20</td>
+                        <td>@item</td>
+                        <td>@MN23[i2]</td>
+                        <td>@MN24[i2]</td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',1,'Player A')">Player A</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',2,'Player B')">Player B</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',0,'Tie')">Tie</button></td>
+                    </tr>
+                }
+                else if (MN24[i2] == "40404040")
+                {
+                    <tr>
+                        <td>Poker 20-20</td>
+                        <td>@item</td>
+                        <td>@MN23[i2]</td>
+                        <td>@MN24[i2]</td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',11,'PLayer A')">Player A</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',21,'Player B')">Player B</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',0,'Tie')">Tie</button></td>
+                    </tr>
+                }
+                else if (MN24[i2] == "50505050")
+                {
+                    <tr>
+                        <td>Dragon Tiger T20</td>
+                        <td>@item</td>
+                        <td>@MN23[i2]</td>
+                        <td>@MN24[i2]</td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',1,'Dragon')">Dragon</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',2,'Tiger')">Tiger</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',0,'Lion')">Tie</button></td>
+                    </tr>
+                }
+                else if (MN24[i2] == "51515151")
+                {
+                    <tr>
+                        <td>Dragon Tiger Lion T20</td>
+                        <td>@item</td>
+                        <td>@MN23[i2]</td>
+                        <td>@MN24[i2]</td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',1,'Dragon')">Dragon</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',21,'Tiger')">Tiger</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',41,'Lion')">Lion</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',0,'Tie')">Tie</button></td>
+                    </tr>
+                }
+                else if (MN24[i2] == "60606060")
+                {
+                    <tr>
+                        <td>Lucky 7A</td>
+                        <td>@item</td>
+                        <td>@MN23[i2]</td>
+                        <td>@MN24[i2]</td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',1,'Low Card')">Low Card</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',2,'High Card')">High Card</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',0,'Tie')">Tie</button></td>
+                    </tr>
+                }
+                else if (MN24[i2] == "61616161")
+                {
+                    <tr>
+                        <td>Lucky 7B</td>
+                        <td>@item</td>
+                        <td>@MN23[i2]</td>
+                        <td>@MN24[i2]</td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',1,'Low Card')">Low Card</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',2,'High card')">High Card</button></td>
+                        <td><button class="btn btn-success btn-md" onclick="setwinner('@MN23[i2]','@MN24[i2]',0,'Tie')">Tie</button></td>
+                    </tr>
+                }
+
+                i2++;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+
+    function setwinner(id, event_code , winner,win_team) {
+        var ids = ids;
+        var ids = ids;
+        var result = confirm("Are to sure to win " + win_team + " this market " + id);
+        if (result != true) {
+
+        }
+        else {
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Settling/RunnerSettleTP',
+                data: { id: id, event_code: event_code ,winner:winner},
+                success: function (result) {
+                    alert(result);
+                    setTimeout(function () {
+                        window.location.href = "";
+                    }, 1000);
+                },
+                error: function (result) {
+                    alert(result);
+                },
+                timeout: 5000 * 60
+            });
+        }
+    }
+
+</script>

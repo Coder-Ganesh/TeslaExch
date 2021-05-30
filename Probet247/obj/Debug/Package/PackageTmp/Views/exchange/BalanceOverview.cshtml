@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUProfile.cshtml";
+}
+<style>
+    .skyexchange .menu .select {
+        background-color: #4691c5;
+    }
+</style>
+<div class="main_wrap" style="margin-top:90px;">
+
+    <div class="col-left" style="top: 0px !important;">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+                <li class="class" style="background:#222;right:0px;color:#ffb80C;">My Account</li>
+                <li>
+                    <a style="color:black;" id="accountSummary" href="/exchange/myAccount">My Profile</a>
+                </li>
+
+                <li>
+                    <a style="color:black;" id="bettingHistory" class="select" href="/exchange/BalanceOverview">Balance Overview</a>
+                </li>
+                <li>
+                    <a style="color:black;" id="profitLoss" href="/exchange/accountCashStatement">Account Statement</a>
+                </li>
+
+                <li>
+                    <a style="color:black;" id="transactionHistory" href="/exchange/Ucurrent_bets">My Bets</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+        <h2 class="summarytag">Summary</h2>
+
+        <div class="white-wrap">
+            <dl class="head-balance">
+                <dt>Your Balances</dt>
+                <dd id="yourBalance">0.00 <span> BAL</span></dd>
+            </dl>
+
+            <h3>Welcome,</h3>
+            <p>View your account details here. You can manage funds, review and change your settings and see the performance of your betting activity.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+     var GetLog = '@Session["UserName"]';
+        if (GetLog != "" && GetLog != null) {
+            UserBalance();
+        }
+
+        function UserBalance() {
+            $.ajax({
+                url: '/FunctionData/UserInformationFun1',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'post',
+                dataType: 'html',
+                success: (function (result) {
+                    var a2 = JSON.parse(result);
+                    $("#yourBalance").html(a2[0].UBalance+"<span>&nbsp;&nbsp;BAL</span>");
+
+                })
+            });
+        }
+</script>
+

@@ -1,0 +1,101 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<style>
+    .all-sports {
+        background-color: #1e1e1e;
+    }
+
+    .section-header {
+        color: #fff;
+        font: normal normal 700 13px Arial,"sans-serif";
+        line-height: 21px;
+        background: #000;
+        border-top: 1px solid #303030;
+        text-align: center;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-transform: uppercase;
+    }
+
+    .nav-container {
+        border-top: 1px solid #303030;
+        margin-bottom: -1px;
+    }
+
+    .sport-list-item {
+        display: inline-block;
+        height: 42px;
+        width: 100%;
+        border-bottom: 1px solid #303030;
+    }
+
+    .sport-link {
+        display: block;
+        height: 100%;
+    }
+
+        .sport-link .name {
+            display: inline-block;
+            padding: 13px 10px 0;
+            color: #fff;
+            font: normal normal normal 15px Arial,"sans-serif";
+        }
+
+    .ellipsis-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<div class="all-sports">
+    <h1 class="section-header">ALL SPORTS</h1>
+    <div class="nav-container">
+        <ul class="sport-list">
+            @foreach (var item in Model)
+            {
+                if (item.SportsId == "7888")
+                {
+                    <li class="sport-list-item">
+                        <a href="/exchange/Mindex/@item.SportsId" class="sport-link">
+                            <div class="icon sprite-normal-roulette" style="margin-left: 10px;"></div><span class="name ellipsis-text">@item.SportsName</span>
+                        </a>
+                    </li>
+                }
+                else if (item.SportsId == "98765")
+                {
+                    <li class="sport-list-item">
+                        <a href="/exchange/Mindex/@item.SportsId" class="sport-link">
+                            <div class="icon sprite-normal-2378961" style="margin-left: 10px;"></div><span class="name ellipsis-text">@item.SportsName</span>
+                        </a>
+                    </li>
+                }
+                else if (item.SportsId == "56789")
+                {
+                    <li class="sport-list-item">
+                        <a href="/exchange/Mindex/@item.SportsId" class="sport-link">
+                            <div class="icon sprite-normal-26420387" style="margin-left: 10px;"></div><span class="name ellipsis-text">@item.SportsName</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="sport-list-item">
+                        <a href="/exchange/MMatchList/@item.SportsId" class="sport-link">
+                            <div class="icon sprite-normal-@item.SportsId" style="margin-left: 10px;"></div><span class="name ellipsis-text">@item.SportsName</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        filter_menu();
+        function filter_menu() {
+            $("#main_menu").addClass("menu-active");
+        }
+    </script>
+}

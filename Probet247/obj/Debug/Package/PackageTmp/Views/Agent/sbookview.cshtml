@@ -1,0 +1,147 @@
+﻿@if (Session["DL_UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Agent</title>
+    <link href="~/Content/clientbbetacss/agent_style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body class="skyexchange">
+    <input type="hidden" id="GetEVIdFos" value="@ViewBag.event_id" />
+    <input id="hideinnputs" type="hidden" value="@ViewBag.betfair_id" />
+    <div class="pop-warp" style="width: 1256px; height: 600px;">
+
+        <!-- Report Table -->
+        <table class="game-team">
+            <tbody>
+                <tr>
+                    <td class="game-name" id="title">@ViewBag.GetEventname<span id="mkt_Name"></span><a class="pop-close" onclick="window.close();"><img class="icon-back" src="./SKYEXCAgent_files/transparent.gif" />Close</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pop-content">
+            <div class="pop-title">
+                <!-- When Hover Player, Show This Message -->
+
+                <table class="table01">
+                    <thead id="content1">
+
+                    </thead>
+                    <tbody id="content"></tbody>
+                    <tfoot>
+                        <tr class="total" id="tempTotalTr">
+                            <td class="align-L">Total</td>
+                            <td id="teamAdlbal"></td>
+                            <td id="teamBdlbal"></td>
+                            <td id="teamCdlbal"></td>
+                            <td id="teamDdlbal"></td>
+                            <td id="teamEdlbal"></td>
+                            <td id="teamFdlbal"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    AllSessionDataIn();
+    function AllSessionDataIn() {
+        var bfid = $("#hideinnputs").val();
+        var event_id = $("#GetEVIdFos").val();
+        $.ajax({
+            url: '/Agent/SessionDldatabk',
+            contentType: 'application/html ; charset:utf-8',
+            type: 'GET',
+            data: { betfair_id: bfid, event_id: event_id },
+            dataType: 'html',
+            success: function (result) {
+                var a2 = JSON.parse(result);
+                var teamAWDDL = 0;
+                var teamBWDDL = 0;
+                var teamCWDDL = 0;
+                var teamDWDDL = 0;
+                var teamEWDDL = 0;
+                var teamFWDDL = 0;
+                $("#mkt_Name").html(a2[0].marketna);
+                var myvar1 = '<tr>' +
+                    '                            <th class="align-L"  rowspan="2">Downline</th>' +
+                    '                            <th class="border-l bgcolor-sub" width="7%">' + a2[0].Lay3 + '</th>' +
+                    '                            <th class="border-l bgcolor-sub" width="7%">' + a2[0].Lay2 + '</th>' +
+                    '                            <th class="border-l bgcolor-sub" width="7%">' + a2[0].Lay1 + '</th>' +
+                    '                            <th class="border-l bgcolor-sub" width="7%">' + a2[0].Back1 + '</th>' +
+                    '                            <th class="border-l bgcolor-sub" width="7%">' + a2[0].Back2 + '</th>' +
+                    '                            <th class="border-l bgcolor-sub" width="7%">' + a2[0].Back3 + '</th>' +
+                    '                        </tr>';
+                $('#content1').append(myvar1);
+
+
+                for (i = 0; i < a2.length; i++) {
+                    //alert(a2[i].marketna)
+                    teamAWDDL = teamAWDDL + a2[i].DlRatioA;
+                    teamBWDDL = teamBWDDL + a2[i].DlRatioB;
+                    teamCWDDL = teamCWDDL + a2[i].DlRatioC;
+                    teamDWDDL = teamDWDDL + a2[i].DlRatioD;
+                    teamEWDDL = teamEWDDL + a2[i].DlRatioE;
+                    teamFWDDL = teamFWDDL + a2[i].DlRatioF;
+                    var myvar = '<tr id="tempTr">' +
+                        '                            <td class="td-UID">' +
+                        '                                <span class="order" id="number"></span>' +
+                        '                                <a href="/Agent/userallbet?betfair_id=' + bfid + '&event_id=' + event_id + '&uid=' + a2[i].client_id + '" id="userId">' +
+                        '                                    <strong>' + a2[i].client_name + '</strong>' +
+                        '                                </a>' +
+                        '                            </td>' +
+                        '                            <td class="">' + a2[i].DlRatioA + '</td>' +
+                        '                            <td class="">' + a2[i].DlRatioB + '</td>' +
+                        '                            <td class="">' + a2[i].DlRatioC + '</td>' +
+                        '                            <td class="">' + a2[i].DlRatioD + '</td>' +
+                        '                            <td class="">' + a2[i].DlRatioE + '</td>' +
+                        '                            <td class="">' + a2[i].DlRatioF + '</td>' +
+                        '                        </tr>';
+                    $('#content').append(myvar);
+
+                }
+                $("#teamAdlbal").text(teamAWDDL);
+                $("#teamBdlbal").text(teamBWDDL);
+                $("#teamCdlbal").text(teamCWDDL);
+                $("#teamDdlbal").text(teamDWDDL);
+                $("#teamEdlbal").text(teamEWDDL);
+                $("#teamFdlbal").text(teamFWDDL);
+
+            }
+        })
+    }
+</script>

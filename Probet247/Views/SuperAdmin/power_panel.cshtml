@@ -1,0 +1,435 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+    //Layout = null;
+}
+
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .th1 {
+        min-width: 100px;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .bootstrap-iso .panel-success > .panel-heading {
+        color: black;
+        background-color: #f7dc8d;
+        border-color: #f7dc8d;
+    }
+
+    .bootstrap-iso .panel-success {
+        border-color: #f7dc8d;
+    }
+</style>
+<div class="main_wrap">
+    <h2 style="margin-left: 10px; text-align: center;">Edit Details According Sports & Events</h2>
+    <div class="bootstrap-iso" style="background: #F0ECE1;">
+        <div class="panel colourable" style="background: #F0ECE1;">
+            <div class="panel-body" style="padding: 0px;">
+                <div class="col-sm-12">
+                    <div class="panel-group" style="margin-top: 5px;">
+                        <table class="table table-bordered">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="panel panel-success" style="margin-top: 10px;">
+                                            <div class="panel-heading" style="padding: 5px 5px 5px 8px;" onclick="GetLeagueList(@item.SportsId)">
+                                                <i class="fa fa-futbol-o" aria-hidden="true"></i> &nbsp;
+                                                <span style="cursor: pointer;" data-togg'le="collapse" data-target="#DemoSportPanel@(item.SportsId)">@(item.SportsName)</span>
+                                            </div>
+                                            <div class="panel-body collapse" style="padding: 0px;min-height: 10px;" id="DemoSportPanel@(item.SportsId)">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="comm_mo" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="comm_sess" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="min_bet_mo" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="max_bet_mo" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="min_bet_sess" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="max_bet_sess" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="max_profit" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="bet_delay_mo" /></td>
+                                    <td><input style="width: 80px;" type="text" value="" placeholder="" id="bet_delay_sess" /></td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start Progress Bar -->
+<style>
+    #progressBarSuccess {
+        width: 100%;
+        height: 10px;
+        background-color: #00a65a;
+    }
+
+        #progressBarSuccess div {
+            height: 100%;
+            text-align: right;
+            line-height: 10px;
+            width: 0;
+            background-color: #009551;
+            box-sizing: border-box;
+        }
+
+    #progressBarError {
+        width: 100%;
+        height: 10px;
+        background-color: #dd4b39;
+    }
+
+        #progressBarError div {
+            height: 100%;
+            text-align: right;
+            line-height: 10px;
+            width: 0;
+            background-color: #bc4031;
+            box-sizing: border-box;
+        }
+
+    .panel-success {
+        border: none;
+    }
+</style>
+<div style="height: 80px;display: table;max-width:100%;min-width:280px;background-color: ;position: fixed;bottom: 0px;right: 20px;">
+    <!-- Start Progress Bar Success -->
+    <div class="alert alert-success alert-dismissable" style="padding: 0px;display: none; background: #dff0d8;" id="progressBarDivSuccess">
+        <div style="padding: 8px 15px 8px 15px;">
+            <!--<span class="fa fa-check-circle" style="color: #009551;"></span>&nbsp;-->
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;margin-right: 25px;">&times;</a>
+            <strong>Success!</strong><br>
+            <strong id="ProgressBarSuccessLabel"></strong>
+        </div>
+
+        <div id="progressBarSuccess">
+            <div></div>
+        </div>
+    </div>
+    <!-- End Progress Bar Success -->
+    <!-- Start Progress Bar Error -->
+    <div class="alert alert-danger alert-dismissable" style="padding: 0px;display: none; background: #f2dede;" id="progressBarDivError">
+        <div style="padding: 8px 15px 8px 15px;">
+            <!--<span class="fa fa-check-circle" style="color: #009551;"></span>&nbsp;-->
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;margin-right: 25px;">&times;</a>
+            <strong>Error!</strong><br>
+            <strong id="ProgressBarErrorLabel"></strong>
+        </div>
+
+        <div id="progressBarError">
+            <div></div>
+        </div>
+    </div>
+    <!-- End Progress Bar Error -->
+</div>
+<!-- End Progress Bar -->
+<!-- Start Progress Bar Script-->
+<script>
+    function showProgressBarMessageSuccess(ProgressBarSuccessLabel) {
+        $('#ProgressBarSuccessLabel').html(ProgressBarSuccessLabel);
+        $("#progressBarDivSuccess").show();
+        setTimeout(function () { $("#progressBarDivSuccess").hide(); }, 2000);
+        progressBarSuccess(2, 2, $('#progressBarSuccess'));
+    }
+
+    function showProgressBarMessageError(ProgressBarErrorLabel) {
+        $('#ProgressBarErrorLabel').html(ProgressBarErrorLabel);
+        $("#progressBarDivError").show();
+        setTimeout(function () { $("#progressBarDivError").hide(); }, 2000);
+        progressBarError(2, 2, $('#progressBarError'));
+    }
+
+    function progressBarSuccess(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, 'linear');
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progressBarSuccess(timeleft - 1, timetotal, $element);
+            }, 100);
+        }
+    };
+
+    function progressBarError(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, 'linear');
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progressBarError(timeleft - 1, timetotal, $element);
+            }, 100);
+        }
+    };
+
+
+</script>
+<!-- End Progress Bar Script-->
+<script>
+    function BlockSport(sport_id, status) {
+        $.ajax({
+            type: 'POST',
+            url: '/Agent/BlockSport',
+            data: { sport_id: sport_id },
+            success: function (result) {
+                setTimeout(function () {
+                    showProgressBarMessageSuccess('Record Updated Successfully.');
+
+                    if (result == "Success") {
+                        if (status == "activate") {
+                            $("#SportActivate" + sport_id).show();
+                            $("#SportDeactivate" + sport_id).hide();
+                        }
+
+                        if (status == "deactivate") {
+                            $("#SportActivate" + sport_id).hide();
+                            $("#SportDeactivate" + sport_id).show();
+                        }
+                    }
+                    else {
+                        setTimeout(function () {
+                            showProgressBarMessageError('Error in updating record, please try again.');
+                        }, 1000);
+                    }
+                }, 1000);
+                //alert(result);
+            },
+            error: function () {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating record, please try again.');
+                }, 1000);
+            }
+        });
+    }
+</script>
+<!-- League Data -->
+<script>
+    function GetLeagueList(sport_id) {
+        if ($('#DemoSportPanel' + sport_id).hasClass('in')) {
+            $('#DemoSportPanel' + sport_id).removeClass("in");
+        }
+        else {
+            $('#DemoSportPanel' + sport_id).addClass("in");
+            $.ajax({
+                url: '/Agent/BlockLeagueList',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: { sport_id: sport_id },
+                dataType: 'html',
+                success: (function (response) {
+                    var result = JSON.parse(response);
+                    $('#DemoSportPanel' + sport_id).empty("");
+                    for (var i = 0; i < result.length; i++) {
+                        if (result.length > 0) {
+                            var display_league_a = "block";
+                            var display_league_b = "none";
+                            if (result[i].IsBlock == "yes") {
+                                display_league_a = "none";
+                                display_league_b = "block";
+                            }
+                            var myvar = '<div style="background-color: #999999;color:white;padding: 3px 10px 3px 10px;">' +
+                                '<span style="cursor: pointer;" data-toggle="collapse" data-target="#DemoSportLeaguePanel' + result[i].SportsId + '" onclick="GetEventList(' + result[i].SportsId + ')">' + result[i].SportsName + '</span >' +
+                                '<i id="LeagueActivate' + result[i].SportsId + '" class="fa fa-check-circle" style="font-size: 18px;float: right;cursor: pointer;margin-right: 40px;color: #468847;display: ' + display_league_a + ';" onclick="BlockLeague(' + result[i].SportsId + ',\'deactivate\')"></i>' +
+                                '<i id="LeagueDeactivate' + result[i].SportsId + '" class="fa fa-times-circle" style="font-size: 18px;float: right;cursor: pointer;margin-right: 40px;color: #d9534f;display: ' + display_league_b + ';" onclick="BlockLeague(' + result[i].SportsId + ',\'activate\')"></i>' +
+                                '</div >' +
+                                '<div class="collapse" style="padding: 0px;min-height: 10px;" id="DemoSportLeaguePanel' + result[i].SportsId + '"></div>';
+                            $('#DemoSportPanel' + sport_id).append(myvar);
+                        }
+                    }
+                })
+            });
+        }
+    }
+    function BlockLeague(league_id, status) {
+        $.ajax({
+            type: 'POST',
+            url: '/Agent/BlockLeague',
+            data: { league_id: league_id },
+            beforeSend: function () {
+            },
+            success: function (result) {
+                setTimeout(function () {
+                    showProgressBarMessageSuccess('Record Updated Successfully.');
+
+                    if (result == "Success") {
+                        if (status == "activate") {
+                            $("#LeagueActivate" + league_id).show();
+                            $("#LeagueDeactivate" + league_id).hide();
+                        }
+
+                        if (status == "deactivate") {
+                            $("#LeagueActivate" + league_id).hide();
+                            $("#LeagueDeactivate" + league_id).show();
+                        }
+                    }
+                    else {
+                        setTimeout(function () {
+                            showProgressBarMessageError('Error in updating record, please try again.');
+                        }, 1000);
+                    }
+                }, 1000);
+                //alert(result);
+            },
+            error: function () {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating record, please try again.');
+                }, 1000);
+            }
+        });
+    }
+</script>
+
+
+<!-- Event Data -->
+<script>
+    function GetEventList(league_id) {
+        if ($('#DemoSportLeaguePanel' + league_id).hasClass('in')) {
+            $('#DemoSportLeaguePanel' + league_id).removeClass("in");
+        }
+        else {
+            $('#DemoSportLeaguePanel' + league_id).addClass("in");
+            $.ajax({
+                url: '/Agent/BlockEventList',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: { league_id: league_id },
+                dataType: 'html',
+                success: (function (response) {
+                    var result = JSON.parse(response);
+                    $('#DemoSportLeaguePanel' + league_id).empty("");
+                    for (var i = 0; i < result.length; i++) {
+                        if (result.length > 0) {
+                            var display_event_a = "block";
+                            var display_event_b = "none";
+                            if (result[i].IsBlock == "yes") {
+                                display_event_a = "none";
+                                display_event_b = "block";
+                            }
+                            var myvar = '<div style="background-color: #ffe38a96;padding: 3px 10px 3px 10px;">' +
+                                '<span style="cursor: pointer;" data-toggle="collapse" data-target="#DemoSportLeagueMatchPanel' + result[i].SportsId + '" /*onclick="GetMarketList(' + result[i].SportsId + ',' + result[i].ForTest + ')"*/>' + result[i].SportsName + '</span >' +
+                                '<i id="EventActivate' + result[i].SportsId + '" class="fa fa-check-circle" style="font-size: 18px;float: right;cursor: pointer;margin-right: 40px;color: #468847;display: ' + display_event_a + ';" onclick="BlockEvent(' + result[i].SportsId + ',\'deactivate\')"></i>' +
+                                '<i id="EventDeactivate' + result[i].SportsId + '" class="fa fa-times-circle" style="font-size: 18px;float: right;cursor: pointer;margin-right: 40px;color: #d9534f;display: ' + display_event_b + ';" onclick="BlockEvent(' + result[i].SportsId + ',\'activate\')"></i>' +
+                                '</div >' +
+                                '<div class="collapse" style="padding: 0px;min-height: 10px;" id="DemoSportLeagueMatchPanel' + result[i].SportsId + '"></div>';
+                            $('#DemoSportLeaguePanel' + league_id).append(myvar);
+                        }
+                    }
+                })
+            });
+        }
+    }
+    function BlockEvent(event_code, status) {
+        $.ajax({
+            type: 'POST',
+            url: '/Agent/BlockEvent',
+            data: { event_code: event_code },
+            beforeSend: function () {
+            },
+            success: function (result) {
+                setTimeout(function () {
+                    showProgressBarMessageSuccess('Record Updated Successfully.');
+
+                    if (result == "Success") {
+                        if (status == "activate") {
+                            $("#EventActivate" + event_code).show();
+                            $("#EventDeactivate" + event_code).hide();
+                        }
+
+                        if (status == "deactivate") {
+                            $("#EventActivate" + event_code).hide();
+                            $("#EventDeactivate" + event_code).show();
+                        }
+                    }
+                    else {
+                        setTimeout(function () {
+                            showProgressBarMessageError('Error in updating record, please try again.');
+                        }, 1000);
+                    }
+                }, 1000);
+                //alert(result);
+            },
+            error: function () {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating record, please try again.');
+                }, 1000);
+            }
+        });
+    }
+</script>
+
+<!-- Market Data -->
+<script>
+    function GetMarketList(event_code,sport_id) {
+        if ($('#DemoSportLeagueMatchPanel' + event_code).hasClass('in')) {
+            $('#DemoSportLeagueMatchPanel' + event_code).removeClass("in");
+        }
+        else {
+            $('#DemoSportLeagueMatchPanel' + event_code).addClass("in");
+            $.ajax({
+                url: '/Agent/BlockMarketList',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: { event_code: event_code ,sport_id:sport_id},
+                dataType: 'html',
+                success: (function (response) {
+                    var result = JSON.parse(response);
+                    $('#DemoSportLeagueMatchPanel' + event_code).empty("");
+                    for (var i = 0; i < result.length; i++) {
+                        if (result.length > 0) {
+                            var display_market_a = "inline-block";
+                            var display_market_b = "none";
+                            if (result[i].IsBlock == "yes") {
+                                display_market_a = "none";
+                                display_market_b = "inline-block";
+                            }
+                            var myvar = '<button id="MarketActivate_' + i + '_' + event_code + '" onclick="BlockMarket(\'' + result[i].SportsName + '\',\'' + event_code + '\',\'yes\','+i+')" class="btn btn-sm btn-success" style="margin:5px;cursor: pointer;display: ' + display_market_a + ';" >' + result[i].SportsName + '</button >'+
+                                        '<button id="MarketDeactivate_' + i + '_' + event_code + '" onclick="BlockMarket(\'' + result[i].SportsName + '\',\'' + event_code + '\',\'no\','+i+')" class="btn btn-sm btn-danger" style="margin:5px;cursor: pointer;display: ' + display_market_b + ';" >' + result[i].SportsName + '</button >';
+                            $('#DemoSportLeagueMatchPanel' + event_code).append(myvar);
+                        }
+                    }
+                })
+            });
+        }
+    }
+    function BlockMarket(type,event_code, status,index) {
+        $.ajax({
+            type: 'POST',
+            url: '/Agent/BlockMarkets',
+            data: { event_code: event_code, type: type, status: status },
+            beforeSend: function () {
+            },
+            success: function (result) {
+                setTimeout(function () {
+                    showProgressBarMessageSuccess('Record Updated Successfully.');
+
+                    if (result == "Success") {
+                        if (status == "no") {
+                            $("#MarketActivate_"+index+"_" + event_code).show();
+                            $("#MarketDeactivate_"+index+"_" + event_code).hide();
+                        }
+
+                        if (status == "yes") {
+                            $("#MarketActivate_"+index+"_" + event_code).hide();
+                            $("#MarketDeactivate_"+index+"_" + event_code).show();
+                        }
+                    }
+                    else {
+                        setTimeout(function () {
+                            showProgressBarMessageError('Error in updating record, please try again.');
+                        }, 1000);
+                    }
+                }, 1000);
+                //alert(result);
+            },
+            error: function () {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating record, please try again.');
+                }, 1000);
+            }
+        });
+    }
+</script>

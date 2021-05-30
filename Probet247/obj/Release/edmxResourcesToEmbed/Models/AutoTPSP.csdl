@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="betfairbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="live_bet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sup_id" Type="Int32" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="dist_id" Type="Int32" />
+    <Property Name="md_id" Type="Int32" />
+    <Property Name="admin_id" Type="Int32" />
+    <Property Name="event_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="betfair_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="field" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="rate" Type="Double" />
+    <Property Name="stakes" Type="Double" />
+    <Property Name="total_value" Type="Double" />
+    <Property Name="session_rate" Type="Double" />
+    <Property Name="logic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="field_pos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="team_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="runner_posi" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="place_time" Type="DateTime" Precision="3" />
+    <Property Name="settled_time" Type="DateTime" Precision="3" />
+    <Property Name="odds_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="input_stakes" Type="Double" />
+    <Property Name="input_pl" Type="Double" />
+    <Property Name="before_bal" Type="Double" />
+    <Property Name="after_bal" Type="Double" />
+    <Property Name="before_exp" Type="Double" />
+    <Property Name="after_exp" Type="Double" />
+  </EntityType>
+  <EntityContainer Name="betfairbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="live_bet" EntityType="Self.live_bet" />
+    <FunctionImport Name="AutoTp" ReturnType="Collection(betfairbModel.AutoTp_Result)" />
+    <FunctionImport Name="AutoTpSPM" EntitySet="live_bet" ReturnType="Collection(betfairbModel.live_bet)" />
+  </EntityContainer>
+  <ComplexType Name="AutoTp_Result">
+    <Property Type="String" Name="betfair_id" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="event_id" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

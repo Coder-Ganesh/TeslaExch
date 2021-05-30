@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <h2>Add Match</h2>
+
+    <label>Title : </label>
+    <input type="text" class="form-control" id="title" /><br><br>
+    <label>Event Code : </label>
+    <input type="text" class="form-control" id="event_code" /><br><br>
+    <label>Time :</label>
+    <input type="text" class="form-control" id="time" value="2020-06-08 00:00:00"/><br><br>
+    <!--<label>Type :</label>
+    <select id="type" class="form-control">
+        <option value="0">Select any type</option>
+        <option value="20">20-20</option>
+        <option value="50">ODI</option>
+        <option value="90">Test</option>
+    </select><br /><br />-->
+    <label>E-Sport if yes then 1 if Not then 0 :</label>
+    <input type="text" class="form-control" id="e_sport" value="0"/><br><br>
+    <label>Is Fancy if yes then 1 if Not then 0 :</label>
+    <input type="text" class="form-control" id="is_fancy" value="1"/><br><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="PassLDetailP();" />
+</div>
+<script>
+    function PassLDetailP() {
+        var title = document.getElementById("title").value;
+        var event_code = document.getElementById("event_code").value;
+        var time = document.getElementById("time").value;
+        var type = "";//document.getElementById("type").value;
+        var e_sport = document.getElementById("e_sport").value;
+        var is_fancy = document.getElementById("is_fancy").value;
+        $.ajax({
+            type: "POST",
+            url: "/Other/AddMa",
+            data: {title: title, mtime: time , type: type, e_sport:e_sport, is_fancy:is_fancy,event_code:event_code},
+            success: function (result) {
+                if (result == "Success") {
+                    $("#title").val("");
+                    $("#event_code").val("");
+                    $("#type").val("0");
+                }
+                alert(result)
+            },
+        });
+    }
+</script>
+
+

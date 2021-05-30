@@ -1,0 +1,210 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="main_wrap">
+    <!-- agent path -->
+
+    <div class="agent_path">
+        <ul id="agentPath" class="agent_path-L">
+
+            <li id="path4" class="" >
+                <a href="javascript: void(0);">
+                    <span class="lv_2">
+                        SUP
+                    </span>
+                    <strong>@Session["MDL_UserName"]</strong>
+                </a>
+            </li>
+
+            <li id="path3" class="last_li  drop_down_li" style="">
+                <a href="javascript: void(0);"  onclick="accountPop1()">
+                    <span class="lv_3">
+                        MA
+                    </span>
+                    <strong>@ViewBag.DLUnameM</strong>
+                </a>
+                <input type="hidden" name="accountPopInput1" id="accountPopInput1" value="0">
+                <script>
+                    function accountPop1() {
+                        if ($("#accountPopInput1").val() == 0) {
+                            $("#accountPopInput1").val("1");
+                            $("#accountPop1").show();
+                        }
+                        else {
+                            $("#accountPopInput1").val("0");
+                            $("#accountPop1").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop1" style="display: none;">
+                    <li id="popTmp1" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist11" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- Agent Left Column -->
+
+    <div class="col-left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+
+
+                <li class="class">Position</li>
+                <li>
+                    <a id="accountSummary" href="/AgentM/accountSummary?dist_id=@ViewBag.DLID">Account Summary</a>
+                </li>
+
+                <li class="class">Performance</li>
+
+                <li>
+                    <a id="transactionHistory" class="select" href="/AgentM/transactionHistory?dist_id=@ViewBag.DLID">
+                        Transaction&nbsp;History
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display:none">
+            <ul class="loading">
+                <li><img src="~/Content/images/prospin.gif"></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+
+        <h2>Transaction History</h2>
+
+        <table id="table_log" class="table01">
+            <tbody>
+                <tr>
+                    <th class="align-L">From/To</th>
+                    <th width="15%" class="align-L">Date/Time</th>
+                    <th width="10%">Debit</th>
+                    <th width="10%">Credit</th>
+                    <th width="10%">Balance</th>
+                    <th width="16%">Remark</th>
+                </tr>
+
+            </tbody>
+            <tbody id="content">
+                @foreach (var item in Model)
+                {
+                <tr id="tempTr">
+                    <td class="align-L">
+                        @item.description
+                    </td>
+                    <td id="createDate" class="align-L">@item.DTime</td>
+                    @if (item.Deposit > 0)
+                    {
+                        <td id="deposit" class="red">( @item.Deposit)</td>
+                    }
+                    else
+                    {
+                        <td id="deposit">-</td>
+                    }
+                    @if (item.Withdraw > 0)
+                    {
+                        <td id="withdraw">@item.Withdraw</td>
+                    }
+                    else
+                    {
+                        <td id="withdraw">-</td>
+                    }
+                    <td id="balance">@item.Balance</td>
+                    <td id="remark">@item.Remark</td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <div>
+            <ul style="display: none">
+                <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+                <li id="next"><a href="javascript:void(0);">Next</a></li>
+                <li id="pageNumber"><a href="javascript:void(0);"></a></li>
+                <li id="more"><a href="javascript:void(0);">...</a></li>
+            </ul>
+
+            <ul id="pageNumberContent" class="pages">
+                <li id="prev"><a href="javascript:void(0);" class="disable" style="pointer-events: none;" onclick="GetHistory()">Prev</a></li>
+
+                <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetHistory()">1</a></li>
+
+                <li id="next"><a href="javascript:void(0);" class="disable" style="pointer-events: none;" onclick="GetHistory()">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+        MatchedClientBetRC();
+        function MatchedClientBetRC() {
+            $.ajax({
+                type: "GET",
+                url: "/AgentM/DlClientList",
+                dataType: "html",
+                success: function (data) {
+                    var a2 = JSON.parse(data);
+                    for (i = 0; i < a2.length; i++) {
+                        var myvar = ' <a href="/AgentM/accountSummary?dist_id=' + a2[i].dl_id + '&uid=' + a2[i].id +'">' + a2[i].username + '</a>';
+                        $('#userlist1').append(myvar);
+                    }
+                }
+            });
+        }
+
+    
+</script>
+
+<script>
+      MatchedClientBetRC1();
+    function MatchedClientBetRC1() {
+        $.ajax({
+            type: "GET",
+            url: "/AgentM/MDlClientList",
+            dataType: "html",
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                for (i = 0; i < a2.length; i++) {
+                    var myvar = ' <a href="/AgentM/transactionHistory?dist_id=' + a2[i].id + '&uid=0">' + a2[i].username + '</a>';
+                    $('#userlist11').append(myvar);
+                }
+            }
+        });
+    }
+</script>
+
+
+<script>
+
+    function GetHistory(pageNumber) {
+        var uid = "<?php echo $uid; ?>";
+        window.location.href = '?uid=' + uid + "&" + 'pageNumber=' + pageNumber;
+    }
+</script>

@@ -1,0 +1,473 @@
+﻿
+@{
+    Layout = null;
+}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<link href="~/Content/index.css" rel="stylesheet" />
+<link href="~/Content/footer.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="main-content-container">
+    <input id="sessionEVID" type="hidden" value="@ViewBag.x_event_code" />
+    <input id="x_code" type="hidden" value="@ViewBag.x_x_code" />
+    <input id="x_type" type="hidden" value="@ViewBag.x_x_type" />
+    <div class="content navbar">
+        <div class="market-view-container">
+            <div class="market-view">
+                <div class="comp-market tabcontent" id="popular">
+                    <div id="SessionData" style="display:none;">
+                        <div class="_2OT3f">
+                            <div class="_3S9GR">
+                                <span class="_2Gef4 _1k8eu _19Fp5 _3lvH3">Premium Fancy List</span>
+                            </div>
+                            <div>
+                                <span class="_19Fp5" style="font-size: smaller;">Min-100 &amp; Max-@ViewBag.x_max_limit</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="runners-list-header">
+                                <h3 class="left-content">
+                                    Market Name
+                                </h3>
+                                <h3 class="right-content">
+                                    <span class="label" style="color:black;font-size:100%;width:63px;">NOT</span>
+                                    <span class="label" style="color:black;font-size:100%;width:63px;">YES</span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div id="session_rate_data_loader"></div>
+                        <div id="session_rate_data"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="0" id="total_sessPP" />
+<input type="hidden" value="" id="text_sesspp" />
+<script>
+    var GetLog = "ok";
+    if (GetLog != "" && GetLog != null) {
+        getSession15();
+    }
+    var SessCheck = "no";
+    function getSession15() {
+        var id = $("#x_code").val();
+        var x_type = $("#x_type").val();
+        $.ajax({
+                url: '/exchange/GetNewsData',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: {
+                    xid: id,
+                    type : x_type
+                },
+                dataType: 'html',
+                success: function (result) {
+                    var aa = JSON.parse(result);
+                    var a2 = aa;
+                    if (a2.length > 0) {
+                        var runlength = a2.length;
+                        var total_sessPP = $("#total_sessPP").val();
+                        var text_sesspp = $("#text_sesspp").val();
+                        if (runlength > 0) {
+                            $("#SessionData").css("display", "block");
+                            var text = "";
+                            for (iq = 0; iq < a2.length; iq++) {
+                                text += a2[iq].TempId;
+                            }
+                            if (total_sessPP != runlength || text_sesspp != text) {
+                                $('#session_rate_data').empty();
+                                $("#total_sessPP").val(runlength);
+                                $("#text_sesspp").val(text);
+                            }
+                            for (i = 0; i < a2.length; i++) {
+                            if ($("#select_id_" + a2[i].TempId).val() == a2[i].TempId) {
+                                if ((a2[i].LayPrice1 < 1  && a2[i].BackPrice1 < 1) || a2[i].GameStatus!="") {
+                                    $("#not_yes_suspend_" + a2[i].TempId).css("display", "flex");
+                                }
+                                else {
+                                    $("#not_yes_suspend_" + a2[i].TempId).css("display", "none");
+                                }
+                                $("#Not_value_" + a2[i].TempId).text(a2[i].LayPrice1);
+                                $("#Not_size_" + a2[i].TempId).text(a2[i].LaySize1);
+                                $("#Yes_value_" + a2[i].TempId).text(a2[i].BackPrice1);
+                                $("#Yes_size_" + a2[i].TempId).text(a2[i].BackSize1);
+                            }
+                            else {
+                                var not_yes_suspend_color = "none";
+                                if ((a2[i].LayPrice1 < 1  && a2[i].BackPrice1 < 1) || a2[i].GameStatus!="") {
+                                    not_yes_suspend_color = "flex";
+                                }
+                                var myvar = '<div class="comp-runner-container"><input name="event_code" type="hidden" id="select_id_' + a2[i].TempId + '" value="' + a2[i].TempId + '">' +
+                                    '           <input type="hidden" id="temp_id_' + a2[i].TempId + '"  value="' + a2[i].SelectionId + '">' +
+                                    '           <input type="hidden" id="temp_type_' + a2[i].TempId + '"  value="pre_sess">' +
+                                    '           <div class="runner-data-container">' +
+                                    '               <div class="runner-info-container" style="margin-left:10px;">' +
+                                    '                   <div class="ellipsis-text runner-name">' +
+                                    '                       <span id="session_name_' + a2[i].TempId + '">' + a2[i].RunnerName + '</span>' +
+                                    '                   </div>' +
+                                    '               </div>' +
+                                    '           </div>' +
+                                    '           <div class="runner-bet-buttons-container">' +
+                                    '               <div style="background-image: linear-gradient(270deg, rgba(247,205,214,0.75) 5%, #F0C0CB 60%);">'+
+                                    '                   <button style="margin:5px;border-radius: 1.06667vw;border: 0.26667vw solid #fff;" class="ui-bet-button lay" onclick="BetPlaceSession(\'Not\',\'' + a2[i].TempId + '\')">' +
+                                    '                       <span class="price" id="Not_value_' + a2[i].TempId + '">' + a2[i].LayPrice1 + '</span>' +
+                                    '                       <span class="size ellipsis-text" id="Not_size_' + a2[i].TempId + '">' + a2[i].LaySize1 + '</span>' +
+                                    '                   </button>' +
+                                    '               </div>'+
+                                    '               <div style="background-image: linear-gradient(90deg, rgba(151,199,234,0.7) 0%, #97C7EA 65%);">'+
+                                    '                   <button style="margin:5px;border-radius: 1.06667vw;border: 0.26667vw solid #fff;" class="ui-bet-button back" onclick="BetPlaceSession(\'Yes\',\'' + a2[i].TempId + '\')">' +
+                                    '                       <span class="price" id="Yes_value_' + a2[i].TempId + '">' + a2[i].BackPrice1 + '</span>' +
+                                    '                       <span class="size ellipsis-text" id="Yes_size_' + a2[i].TempId + '">' + a2[i].BackSize1 + '</span>' +
+                                    '                  </button>' +
+                                    '               </div>' +
+                                    '           </div>' +
+                                    '       </div>' +
+                                    '       <div class="comp-runner-container" style="margin-top: -50px;display:' + not_yes_suspend_color + ';" id="not_yes_suspend_' + a2[i].TempId + '">'+
+                                    '           <div class="runner-data-container"></div>'+
+                                    '           <div class="runner-bet-buttons-container box_suspend">'+
+                                    '               <span>BALL INPLAY</span>'+
+                                    '           </div>'+
+                                    '       </div>'+
+                                    '       <div class="comp-inline-betting" id="sessionbetpop_' + a2[i].TempId + '" style="display:none;">' +
+                                    '           <div class="mod-inline-betting narrow">' +
+                                    '   <div class="place-bet-panel back extra-small" id="SessionBetPlacePopupColor_' + a2[i].TempId + '">' +
+                                    '   <span style="display:none;"></span><input type="hidden" value="">' +
+                                    '       <div class="place-bet-container">' +
+                                    '           <div class="bet-info" id="session_box_' + a2[i].TempId + '">' +
+                                    '           </div>' +
+                                    '           <div class="bet-actions-container nudges-visible">' +
+                                    '               <div class="price-container">' +
+                                    '                   <div class="input">' +
+                                    '                       <button class="negative-nudge minus" id="minus1">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-minus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                       <div class="ppb-numeric-input-overlay-wrapper">' +
+                                    '                           <input type="tel" class="price-input ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength ppb-numeric-input qty" placeholder="Rate" id="srate_' + a2[i].TempId + '" disabled>' +
+                                    '                       <input type="hidden" id="ssize_' + a2[i].TempId + '" value=""></div>' +
+                                    '                       <button class="positive-nudge add" id="add1">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-plus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                   </div>' +
+                                    '               </div>' +
+                                    '               <div class="size-container">' +
+                                    '                   <div class="input">' +
+                                    '                       <button class="negative-nudge qtyminus" field="quantity"  onclick="StakeUpDownSess(-1,\'' + a2[i].TempId + '\')">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-minus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                       <div class="ppb-numeric-input-overlay-wrapper">' +
+                                    '                           <input type="tel" name="quantity" class="size-input ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength ppb-numeric-input qty" placeholder="Stake" id="s_stakes_' + a2[i].TempId + '" >' +
+                                    '                       </div>' +
+                                    '                       <button class="positive-nudge qtyplus" field="quantity" onclick="StakeUpDownSess(1,\'' + a2[i].TempId + '\')">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-plus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                   </div>' +
+                                    '               </div>' +
+                                    '               <button class="reset-bet visible-when-narrow" onclick="hideSessPopup(\'' + a2[i].TempId + '\')">Cancel</button>' +
+                                    '               <button class="place-bet" type="submit" disabled="disabled" id="place_bet_sess_' + a2[i].TempId + '" onclick="SubmitBetSession(\'' + a2[i].TempId + '\')">' +
+                                    '                   <span class="place-bet-title">Place bet</span> ' +
+                                    '                   <span id="panle_sess_' + a2[i].TempId + '" style="display: none; "><span class="place-bet-profit" id="sess_bet_profit1_' + a2[i].TempId + '" style=" font-size: 12px; margin-left: 5px;"></span>' +
+                                    '                   </span>' +
+                                    '               </button>' +
+                                    '           </div>' +
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '<div class="ppb-doubleline-keyboard numeric-keyboard-open">' +
+                                    '<div class="panel-row panel-keyboard">' +
+                                    '   <div class="panel-row">' +
+                                    '       <div class="button-container" style="border-left: 5px solid #E2E2E9;border-right: 5px solid #E2E2E9;" onclick="placekeyboardSess(100,\'' + a2[i].TempId + '\')">100</div>' +
+                                    '       <div class="button-container" style="border-right: 5px solid #E2E2E9;" onclick="placekeyboardSess(500,\'' + a2[i].TempId + '\')">500</div>' +
+                                    '       <div class="button-container" style="border-right: 5px solid #E2E2E9;" onclick="placekeyboardSess(2000,\'' + a2[i].TempId + '\')">2000</div>' +
+                                    '      <div class="button-container"  style="border-right: 5px solid #E2E2E9;"onclick="placekeyboardSess(5000,\'' + a2[i].TempId + '\')">5000</div>' +
+                                    '    <div class="button-container" style="border-right: 5px solid #E2E2E9;" onclick="placekeyboardSess(25000,\'' + a2[i].TempId + '\')">25000</div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '<div class="panel-row panel-keyboard">' +
+                                    '   <div class="panel-left">' +
+                                    '       <div class="panel-row">' +
+                                    '           <div class="button-container numeric-input-1" onclick="placekeyboardSess(1,\'' + a2[i].TempId + '\')">1</div>' +
+                                    '           <div class="button-container numeric-input-2" onclick="placekeyboardSess(2,\'' + a2[i].TempId + '\')">2</div>' +
+                                    '           <div class="button-container numeric-input-3" onclick="placekeyboardSess(3,\'' + a2[i].TempId + '\')">3</div>' +
+                                    '           <div class="button-container numeric-input-4" onclick="placekeyboardSess(4,\'' + a2[i].TempId + '\')">4</div>' +
+                                    '           <div class="button-container numeric-input-5" onclick="placekeyboardSess(5,\'' + a2[i].TempId + '\')">5</div>' +
+                                    '           <div class="button-container numeric-input-6" onclick="placekeyboardSess(6,\'' + a2[i].TempId + '\')">6</div>' +
+                                    '       </div>' +
+                                    '       <div class="panel-row bottom-row">' +
+                                    '           <div class="button-container numeric-input-7" onclick="placekeyboardSess(7,\'' + a2[i].TempId + '\')">7</div>' +
+                                    '           <div class="button-container numeric-input-8" onclick="placekeyboardSess(8,\'' + a2[i].TempId + '\')">8</div>' +
+                                    '           <div class="button-container numeric-input-9" onclick="placekeyboardSess(9,\'' + a2[i].TempId + '\')">9</div>' +
+                                    '           <div class="button-container numeric-input-0" onclick="placekeyboardSess(0,\'' + a2[i].TempId + '\')">0</div>' +
+                                    '           <div class="button-container numeric-input-00" onclick="placekeyboardSess(\'00\',\'' + a2[i].TempId + '\')">00</div>' +
+                                    '           <div class="button-container numeric-input-." onclick="placekeyboardSess(\'.\',\'' + a2[i].TempId + '\')">.</div>' +
+                                    '           ' +
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '   <div class="panel-right">' +
+                                    '       <div class="panel-row">' +
+                                    '           <div class="button-container-clear numeric-input-clear" onclick="placekeyboardSess(\'X\',\'' + a2[i].TempId + '\')">' +
+                                    '               <span class="icon-clear"></span>' +
+                                    '           </div>' +
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'+
+                                    '<div id="place_bet_loader_s_'+ a2[i].TempId +'" style="display:none;">'+
+                                    '<div style="margin-top: -240px;height: 240px;background: white;opacity: 0.5;"></div>'+
+                                    '<div style="margin-top: -240px;height: 240px;">'+
+                                    '<img src="/Content/images/prospin.gif" style="display: block;margin:auto;padding-top: 90px;position: relative;">'+
+                                    '</div>'+
+                                    '</div>';
+                                $('#session_rate_data').append(myvar);
+                            }
+                        }
+                        }
+                    }
+                }
+            })
+}
+
+    if (GetLog != "" && GetLog != null) {
+        if (SessCheck == "no") {
+            SessCheck = "yes";
+            setInterval(function () { getSession15(); }, 1000);
+        }
+    }
+
+    function placekeyboardSess(bt_val, bfidrep) {
+        var tt = $('#s_stakes_' + bfidrep).val();
+        if (bt_val > 10) {
+            if (tt == "") {
+                tt = 0;
+            }
+            var new_stake = parseInt(bt_val) + parseInt(tt);
+        }
+        else {
+            if (bt_val == "X") {
+                var new_stake = tt.slice(0, -1);
+            }
+            else if (bt_val == "stkpm") {
+                var new_stake = tt;
+            }
+            else {
+                var new_stake = tt + bt_val;
+            }
+        }
+        $('#s_stakes_' + bfidrep).val(new_stake);
+        var tsize = $('#ssize_' + bfidrep).val();
+        var ttype = $('#session_box_' + bfidrep).html();
+        var bp = document.getElementById("panle_sess_" + bfidrep);
+        var bt = document.getElementById('place_bet_sess_' + bfidrep);
+
+        var TotalProfitLost = 0;
+        var Getstack = 0;
+        if (ttype == "Not") {
+            TotalProfitLost = new_stake;
+            Getstack = (new_stake * tsize) / 100;
+        }
+        else if (ttype == "Yes") {
+            Getstack = new_stake;
+            TotalProfitLost = (new_stake * tsize) / 100;
+        }
+        var ProfitlossVal = parseFloat(TotalProfitLost).toFixed(2);
+        var prof_loss = "Profit $" + ProfitlossVal + " Exposure $" + Getstack;
+        if (new_stake > 1) {
+            bt.disabled = false;
+            $("#sess_bet_profit1_" + bfidrep).text(prof_loss);
+            bp.style.display = "block";
+
+        }
+        else {
+            $("#sess_bet_profit1_" + bfidrep).text("");
+            bt.disabled = true;
+            bp.style.display = "none";
+        }
+    }
+
+    function BetPlaceSession(box, SessionId) {
+        document.getElementById("s_stakes_" + SessionId).value = "";
+        document.getElementById("panle_sess_" + SessionId).style.display = "none";
+        document.getElementById('place_bet_sess_' + SessionId).disabled = true;
+        var oddsvalueget = $('#' + box + "_value_" + SessionId).text();
+        $("#srate_" + SessionId).val(oddsvalueget);
+        var oddssizeget = $('#' + box + "_size_" + SessionId).text();
+        $("#ssize_" + SessionId).val(oddssizeget);
+        if (box == "Yes") {
+            $("#SessionBetPlacePopupColor_" + SessionId).css("background-color", "#d2ebff");
+        } else if (box == "Not") {
+            $("#SessionBetPlacePopupColor_" + SessionId).css("background-color", "#f3dce2");
+        }
+        $("#session_box_" + SessionId).text(box);
+
+        if ($("#sessionbetpop_" + SessionId).css('display') == 'none') {
+
+            $("#sessionbetpop_" + SessionId).toggle({
+                duration: 600,
+            });
+            $("#sessionbetpop_" + SessionId).css("display", "contents");
+
+        } else {
+            if ($("#SessionBetPlacePopupColor_" + SessionId).children("span").text() + $("#SessionBetPlacePopupColor_" + SessionId).children("input").val() == box + box_run) {
+                $("#sessionbetpop_" + SessionId).css("display", "none");
+            }
+        }
+
+        $("#SessionBetPlacePopupColor_" + SessionId).children("span").text(box);
+        $("#SessionBetPlacePopupColor_" + SessionId).children("input").val("");
+
+
+    }
+
+    function SubmitBetSession(betfairid) {
+
+        document.getElementById('place_bet_sess_' + betfairid).disabled = true;
+        var GetLog = '@Session["UserName"]';
+        if (GetLog != "" && GetLog != null) {
+
+            var OddsValue = $("#srate_"+betfairid).val();
+            var OddsVolume = $("#ssize_"+betfairid).val();
+            var stackValue = $("#s_stakes_"+betfairid).val();
+            var run_pos = 99;
+            var eventcode = $("#sessionEVID").val();
+            var runner_name = $("#session_box_"+betfairid).html();
+            var market_name = $("#session_name_"+betfairid).html();
+            var field_box = $("#session_box_" + betfairid).html();
+            var temp_type = $("#temp_type_"+betfairid).val();
+            var EventType = $("#x_type").val();
+            var DUrl = "/Check/BetPlaceMSP";
+            $.ajax({
+                type: "POST",
+                url: DUrl,
+                data: {
+                    BetfairId: betfairid,
+                    EventCode: eventcode,
+                    stackValue: stackValue,
+                    OddsValue: OddsValue,
+                    RunnerIndex: run_pos,
+                    BoxType: field_box,
+                    RunnerNameget: runner_name,
+                    MarketName: market_name,
+                    OddsVolume: OddsVolume,
+                    EventType: EventType,
+                },
+                beforeSend: function(){
+                    $("#place_bet_loader_s_" + betfairid).css("display", "");
+                },
+                success: function (result) {
+                    $("#place_bet_loader_s_" + betfairid).css("display", "none");
+                    hideSessPopup(betfairid);
+                    if (result.responseText == "Success") {
+                        showProgressBarMessageSuccess(result.responseText);
+                    }
+                    else {
+                        showProgressBarMessageError(result.responseText);
+                    }
+                    UserBalance();
+                    GetPlaceBet();
+
+                }
+            });
+        }
+        else {
+            window.location.href = "/exchange/Login";
+        }
+    }
+
+    function hideSessPopup(target) {
+        $("#sessionbetpop_" + target).css("display", "none");
+    }
+
+    function manage1(index, runlength, bfidrep) {
+
+        var tt = $('#txt1_' + index).val();
+        var todds = $('#odds_' + index).val();
+        var bp = document.getElementById("panle2_" + index);
+        var bt = document.getElementById('place_bet_' + index);
+        var FieldBox = $("#BetPlacePopupColor_" + index).children("span").text();
+
+        var PL = todds * tt;
+        PL = parseFloat(PL).toFixed(2);
+        var ProfitlossVal = PL - tt;
+        var i2 = 0.00;
+        i2 = parseFloat(ProfitlossVal).toFixed(2);
+
+        if (tt > 1) {
+            for (var il = 0; il < runlength; il++) {
+                var wmeo = 0.00;
+                wmeo = $('#run_cal_bef_' + bfidrep + '_' + il).text();
+                if (il == index && FieldBox == "back") {
+                    var sameback = parseFloat(parseFloat(wmeo) + parseFloat(i2)).toFixed(2);
+                    if (sameback > 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                    } else if (sameback < 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                    } else {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                    }
+                    $('#run_cal_aft_' + bfidrep + '_' + il).text(sameback);
+                } else if (il == index && FieldBox == "lay") {
+                    var samelay = parseFloat(parseFloat(wmeo) - parseFloat(i2)).toFixed(2);
+                    if (samelay > 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                    } else if (samelay < 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                    } else {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                    }
+                    $('#run_cal_aft_' + bfidrep + '_' + il).text(samelay);
+                } else if (il != index && FieldBox == "back") {
+                    var revback = parseFloat(parseFloat(wmeo) - parseFloat(tt)).toFixed(2);
+                    if (revback > 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                    } else if (revback < 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                    } else {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                    }
+                    $('#run_cal_aft_' + bfidrep + '_' + il).text(revback);
+                } else if (il != index && FieldBox == "lay") {
+                    var revlay = parseFloat(parseFloat(wmeo) + parseFloat(tt)).toFixed(2);
+                    if (revlay > 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                    } else if (revlay < 0) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                    } else {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                    }
+                    $('#run_cal_aft_' + bfidrep + '_' + il).text(revlay);
+                }
+            }
+            bt.disabled = false;
+            $("#bet_profit1_" + index).html(tt);
+            bp.style.display = "block";
+
+        } else {
+            bt.disabled = true;
+            bp.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    function StakeUpDownSess(value, bfidrep) {
+        var inputOdds = $("#s_stakes_" + bfidrep).val();
+        if (inputOdds == "") {
+            inputOdds = 0;
+        }
+        if (isNaN(inputOdds)) {
+            inputOdds = 0;
+        }
+        var total = parseInt(inputOdds) + (value);
+        if (total < 0) {
+
+        }
+        else {
+            $("#s_stakes_" + bfidrep).val(total.toFixed(0));
+        }
+
+        placekeyboardSess("stkpm", bfidrep);
+    }
+</script>

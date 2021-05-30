@@ -1,0 +1,733 @@
+﻿
+<input type="hidden" value="@ViewBag.RunSports" id="indexRunSports" />
+<input type="hidden" value="@ViewBag.cricket_MIDS" id="cricket_MIDS" />
+<input type="hidden" value="@ViewBag.soccer_MIDS" id="soccer_MIDS" />
+<input type="hidden" value="@ViewBag.tennis_MIDS" id="tennis_MIDS" />
+<div class="nested-scrollable-pane-parent front-pages" style="margin-left: 190px; overflow: auto; height: 100%;">
+    <div class="bf-row no-bottom-gutter scrollable-panes-height-taker height-taker-helper" style=" margin-top:85px;">
+        <div class="scrollable-panes-wrapper scrollable-panes-wrapper-helper">
+            <div class="bf-row no-bottom-gutter scrollable-pane content-page-row">
+                <div class="content-page-center-column homepage-center-column">
+                    <div class="bf-row no-bottom-gutter">
+                        <div class="bf-col-24-24">
+                            <div class="sports-highlights-coupon">
+                                <div class="coupon-card">
+                                    <div class="card-header-title ng-binding">Sport Highlights</div>
+                                    <div class="card-content">
+                                        <div class="coupon-table-mod" id="OddsRefser">
+                                        </div>
+
+                                        <div class="coupon-table-mod" id="all_view_cricket" style="display:none;">
+                                            <table class="coupon-table">
+                                                <thead>
+                                                    <tr class="headers">
+                                                        <th class="">
+                                                            Cricket <span class="matched">Matched</span>
+                                                        </th>
+                                                        <th class="small"> 1 </th>
+                                                        <th class="small"> X </th>
+                                                        <th class="small"> 2 </th>
+                                                        <th class="market-rules-table-header"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="OddsRef"></tbody>
+
+                                            </table>
+                                        </div>
+
+                                        <div class="coupon-table-mod" id="all_view_soccer" style="display:none;">
+                                            <table class="coupon-table">
+                                                <thead>
+                                                    <tr class="headers">
+                                                        <th class="">
+                                                            Football <span class="matched">Matched</span>
+                                                        </th>
+                                                        <th class="small"> 1 </th>
+                                                        <th class="small"> X </th>
+                                                        <th class="small"> 2 </th>
+                                                        <th class="market-rules-table-header"></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="OddsRefs"></tbody>
+
+                                            </table>
+                                        </div>
+                                        <div class="coupon-table-mod" id="all_view_tennis" style="display:none;">
+                                            <table class="coupon-table">
+                                                <thead>
+                                                    <tr class="headers">
+                                                        <th class="">
+                                                            Tennis <span class="matched">Matched</span>
+                                                        </th>
+                                                        <th class="small"> 1 </th>
+                                                        <th class="small"> 2 </th>
+                                                        <th class="market-rules-table-header"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="OddsReft"></tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bf-row no-bottom-gutter" style="margin-bottom: 126px;">
+                        <div class="bf-col-24-24">
+                            <div class="footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-page-right-column">
+                    <div class="bf-row no-bottom-gutter" id="hideh__odiv" onclick="HideDivData()">
+                        <div class="bf-col-24-24">
+                            <div class="mod-quick-links">
+                                <h1 class="header">Quick Links</h1>
+                                <a href="/exchange/Index/inplay" class="inplay-events-link clearfix">
+                                    <span class="inplay-counter">@ViewBag.countinplay</span>
+                                    <span class="inplay-label">In-Play Now</span>
+                                    <svg ng-attr-view_box="{{::viewBox}}" class="arrow " data-icon="arrow-medium	" viewBox="0 0 100 100">
+                                        <path ng-attr-d="{{::getIconPath(icon)}}" d="M68.496,0.028L18.44,50.083l48.81,50.055l12.514-12.514L43.468,50.083l37.543-37.542 L68.496,0.028z"></path>
+                                    </svg>
+                                </a>
+                                <ul class="links-list" id="quick_links_all"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bf-row no-bottom-gutter" style="margin-bottom: 16px;">
+                        <div class="bf-col-24-24">
+                            <div class="mod-games-widget bf vertical games-widget no-tabs">
+                                <div class="widget-header">Play Games</div>
+                                <div class="widget-content">
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/betfair.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/blackjack.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/rulers.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/return_of_kong.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/europeanroulette.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/tiki_treasures.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/roulette.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-wrapper">
+                                            <img src="~/Content/starburst.jpg" class="game-item-image">
+
+                                            <div class="game-item-overlay two-bottons">
+
+                                                <div class="game-item-overlay-cta-wrapper">
+                                                    <a href="" class="game-item-default-cta game-item-primary-cta modal-toggle">Play Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal1">
+                                    <div class="modal-overlay modal-toggle"></div>
+                                    <div class="modal-wrapper modal-transition">
+                                        <div class="modal-header">
+                                            <button class="modal-close modal-toggle">X</button>
+                                            <h2 class="modal-heading">Betfair</h2>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div class="modal-content1">
+                                                <p class="m_content"><i>Play Games Coming Soon.!</i></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bf-row no-bottom-gutter">
+                        <div class="bf-col-24-24">
+                            <div class="load-screen" style="margin-bottom: 16px;">
+                                <a href="">
+                                    <img src="/Content/Slot_Reel_Silver_casino.jpg" class="x-sell-image">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bf-row no-bottom-gutter">
+                        <div class="bf-col-24-24">
+                            <div class="load-screen" style="margin-bottom: 16px;">
+                                <a href="">
+                                    <img src="/Content/mega_pyramid.jpg" class="x-sell-image">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bf-row no-bottom-gutter">
+                        <div class="bf-col-24-24">
+                            <div class="load-screen" style="margin-bottom: 16px;">
+                                <a href="">
+                                    <img src="/Content/Gamble_aware_banner.png" class="x-sell-image">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="myModal1new" class="modal" style="display: none;">
+    <!-- Modal content -->
+    <div class="modal-content" style="    height: 250px; width: 35%;">
+        <span class="close1" onclick="CloseLoginPop();">×</span>
+        <h2 class="dialog-title" title="Match Odds - Rules"> Login</h2>
+        <div class="dialog-content">
+            <div class="left">
+                <h3 class="title">Please log in below</h3>
+                <label class="label-text">Username:</label>
+                <input class="login-input" type="text" value="" id="usernameI" name="username" required="true" title="Enter your username" maxlength="256">
+                <label class="label-text">Password:</label>
+                <input class="login-input" type="password" value="" id="passwordI" name="password" required="true" title="Enter your password" maxlength="256">
+                <div>
+                    <input class="login-button" type="button" onclick="PassLDetailP();" value="Log In">
+                    <a class="security-icon" href="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+    var RunSports = $("#indexRunSports").val();
+    if (RunSports == "0" || RunSports == "inplay") {
+        getCricketMat();
+        getSoccerMat();
+        getTennisMat();
+    }
+    else {
+        $("#nextpagego").css("display", "none");
+    }
+
+    function getCricketMat() {
+        var cric_ids = $("#cricket_MIDS").val();
+        $.ajax({
+            url: '/exchange/getCricketMat',
+            contentType: 'application/html ; charset:utf-8',
+            type: 'GET',
+            data: {cric_ids:cric_ids},
+            dataType: 'html',
+            success: function (result) {
+                const fieldSorter = (fields) => (a, b) => fields.map(o => {
+                    let dir = 1;
+                    if (o[0] === '-') { dir = -1; o = o.substring(1); }
+                    return a[o] > b[o] ? dir : a[o] < b[o] ? -(dir) : 0;
+                }).reduce((p, n) => p ? p : n, 0);
+                const homes = JSON.parse(result);
+                const sortedHomes = homes.sort(fieldSorter(['MatchTime', '-BetfairId']));
+                var ft = JSON.stringify(sortedHomes, null, '\t');
+                var a2 = JSON.parse(ft);
+                var GetLength = a2.length;
+                if (GetLength > 0) {
+                    $("#all_view_cricket").css("display", "contents");
+                }
+                else {
+                    $("#all_view_cricket").css("display", "none");
+                }
+                for (i = 0; i < a2.length; i++) {
+                    if (a2[i].status == "ACTIVE") {
+                        $("#statusdiv_" + a2[i].EventCode).css("display", "none");
+                    }
+                    else {
+                        $("#statusdiv_" + a2[i].EventCode).css("display", "block");
+                    }
+                    if ($("#mt_" + a2[i].EventCode).val() == a2[i].EventCode) {
+                        $("#totalmatched_" + a2[i].EventCode).text(a2[i].MatchedAmt);
+                        $("#backprice1_" + a2[i].EventCode).text(a2[i].back1);
+                        $("#backsize1_" + a2[i].EventCode).text(a2[i].back1size);
+                        $("#layprice1_" + a2[i].EventCode).text(a2[i].lay1);
+                        $("#laysize1_" + a2[i].EventCode).text(a2[i].lay1size);
+                        $("#backprice2_" + a2[i].EventCode).text(a2[i].back11);
+                        $("#backsize2_" + a2[i].EventCode).text(a2[i].back2size);
+                        $("#layprice2_" + a2[i].EventCode).text(a2[i].lay11);
+                        $("#laysize2_" + a2[i].EventCode).text(a2[i].lay2size);
+                        $("#backprice3_" + a2[i].EventCode).text(a2[i].back22);
+                        $("#backsize3_" + a2[i].EventCode).text(a2[i].back3size);
+                        $("#layprice3_" + a2[i].EventCode).text(a2[i].lay22);
+                        $("#laysize3_" + a2[i].EventCode).text(a2[i].lay3size);
+                    }
+                    else {
+                        var x = a2[i].MatchTime;
+                        var MatchTime = getdatetime(x);
+                        var x = a2[i].MatchTime;
+                        var MatchTime = getdatetime(x);
+                        var backinplay = "#F6F6F6";
+                        var inplaycolor = "#7F7F7F";
+                        if (MatchTime == "Inplay") {
+                            backinplay = "#20A052";
+                            inplaycolor = "white";
+                        }
+                        var ftrg = '<tr> <td> ' +
+                            '<div class="mod-event-line">' +
+                            '<input name="event_code" type="hidden" id="mt_' + a2[i].EventCode + '" value="' + a2[i].EventCode + '">' +
+                            '<div class="bf-livescores mini frontinplay" style="background-color:' + backinplay + ';color:' + inplaycolor + '; ">' + MatchTime + '</div><a href="/exchange/Market/' + a2[i].EventCode + '" style="text-decoration:none;"> <ul class="runners"> <li class="name">' + a2[i].Runnername + '</li> ' +
+                            '<li class="name" >' + a2[i].RunnernameB + '</li></a> </ul> <ul class="bet-counters"> ' +
+                            '<li class="bet-counter unmatched bf-tooltip-parent"> <span class="bet-counter-indicator">0</span> <div class="bf-tooltip-wrapper top center"> ' +
+                            '<div class="bf-tooltip"> <div class="text"> <span class="bet-counter-tooltip-count ng-binding ng-scope"></span> <span class="ng-binding ng-scope">Unmatched bets</span> </div> </div> </div> </li> ' +
+                            '<li class="bet-counter matched bf-tooltip-parent"> <span class="bet-counter-indicator">0</span> ' +
+                            '<div class="bf-tooltip-wrapper top center"> <div class="bf-tooltip"> <div class="text"> ' +
+                            '<span class="bet-counter-tooltip-count"></span> <span class="">Matched bets</span> </div> </div> </div> </li> </ul> ' +
+                            '<ul class="matched-amount"> <li class="matched-amount-value"><span id="totalmatched_' + a2[i].EventCode + '">' + a2[i].MatchedAmt + '</span></li> </ul> <ul class="icons"> ' +
+                            '<li class="icon-tv"> <svg ng-attr-view_box="{{::viewBox}}" class="svg-icon-default " data-icon="on-tv" viewBox="0 0 100 100"> ' +
+                            '<path ng-attr-d="{{::getIconPath(icon)}}" d="M0 13v68.75h25V88h50v-6.25h25V13H0zm87.5 56.25h-75V25.5h75v43.75z"></path> </svg> </li> </ul> </div> </td> ' +
+                            '<td class="coupon-runners" colspan="3"> <div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" id="show_hide" onclick="myFun(' + a2[i].EventCode + ', &quot;backprice1_&quot; , &quot;back&quot; , 1 , &quot;' + a2[i].Runnername + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice1_' + a2[i].EventCode + '">' + a2[i].back1 + '</span> ' +
+                            '<span class="bet-button-size" id="backsize1_' + a2[i].EventCode + '">' + a2[i].back1size + '</span> <input type="hidden" id="EventCode+' + a2[i].EventCode + '" value="' + a2[i].EventCode + '" /> </div> </button> ' +
+                            '<button class="bf-bet-button lay-button lay-selection-button" id="show_hide1" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice1_&quot; , &quot;lay&quot; , 1 , &quot;' + a2[i].Runnername + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice1_' + a2[i].EventCode + '">' + a2[i].lay1 + '</span> <span class="bet-button-size" id="laysize1_' + a2[i].EventCode + '">' + a2[i].lay1size + '</span> </div> </button> </div> ' +
+                            '<div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;backprice3_&quot; , &quot;back&quot; , 3 , &quot;The Draw&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice3_' + a2[i].EventCode + '">' + a2[i].back22 + '</span> <span class="bet-button-size" id="backsize3_' + a2[i].EventCode + '">' + a2[i].back3size + '</span> </div> </button> ' +
+                            '<button class="bf-bet-button lay-button lay-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice3_&quot; , &quot;lay&quot; , 3 , &quot;The Draw&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice3_' + a2[i].EventCode + '">' + a2[i].lay22 + '</span> <span class="bet-button-size" id="laysize3_' + a2[i].EventCode + '">' + a2[i].lay3size + '</span> </div> </button> </div> ' +
+                            '<div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;backprice2_&quot; , &quot;back&quot; , 2 , &quot;' + a2[i].RunnernameB + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice2_' + a2[i].EventCode + '">' + a2[i].back11 + '</span> <span class="bet-button-size" id="backsize2_' + a2[i].EventCode + '">' + a2[i].back2size + '</span> </div> </button>' +
+                            ' <button class="bf-bet-button lay-button lay-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice2_&quot; , &quot;lay&quot; , 2 , &quot;' + a2[i].RunnernameB + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice2_' + a2[i].EventCode + '">' + a2[i].lay11 + '</span> <span class="bet-button-size" id="laysize2_' + a2[i].EventCode + '">' + a2[i].lay2size + '</span> </div> </button> </div>  '+
+                                '<div class="coupon-state-overlay ng-scope" id="statusdiv_'+a2[i].EventCode+'" style="display:none;"><div class="state-overlay-container ng-scope"><span class="state-label ng-binding ng-scope" >SUSPENDED</span></div></div> </td>'+
+                            '<td class="coupon-market-rules"> <a class="market-rules-icon" title="Rules" id="myBtn" onclick="ShowModelLA(' + i + ');"></a> <div id="myModal' + i + '" class="modal"  style="display: none;"> ' +
+                            '<div class="modal-content"> <span class="close" onclick="CloseModelLA(' + i + ');">&times;</span> <h2 class="dialog-title" title="Match Odds - Rules">Match Odds - Rules</h2> ' +
+                            '<article class="dialog-msg" style=""> <div> <h4 class="market-rules-event-start-time-title">Event Start Time</h4> <span class="market-rules-event-start-time">05 August 2019, 11:00</span> </div> <h4 class="market-rules-description">Win Only Market</h4> <p class="market-rules-licence"> <b>Market Information</b><br>For further information please see <a href="" style="color:#0163ad;" text-decoration:="" underline;="" target="_blank">Rules &amp; Regs</a>.<br><br> Who will win this Test match? At the start of scheduled play all unmatched bets will be cancelled and this market will be turned in-play. This market will not be actively managed therefore it is the responsibility of all users to manage their own positions. Competition Rules apply. <br><br>Customers should be aware that:<br><br> <li><b>Transmissions described as “live” by some broadcasters may actually be delayed</b></li> <b><br></b> <li><b>The extent of any such delay may vary, depending on the set-up through which they are receiving pictures or data.</b></li> <br> <ul> <li><b>If the official result is a Tied Match in any Test, County or Limited Overs Match then all bets on Match Odds markets will be void</b></li> <br> <li>At the conclusion of each days play this market will revert to a non in-play status with no time delay in effect then at the start of the following days play this market will be turned in-play again with unmatched bets <b><font color="red">not</font></b> cancelled.</li> </ul> </p> <p class="">UK wallet</p> <p class="market-rules-commission-title">Commission on this market</p> <p> <span class="">Log in to see your commission rate</span> </p> <div> <p><a class="market-rules-discount-rules-explanation" href="">Your Discount Rate explained</a></p> </div> </article> </div> </div> </td> </tr>' +
+                            ' <tr class="inline-betting-container" style="display:none;" id="men_ex_' + a2[i].EventCode + '"> <td colspan="5"> ' +
+                            '<div class="mod-inline-betting"> <div class="place-bet-panel back" id="field' + a2[i].EventCode + '"><span style="display:none;"></span><input type="hidden" value=""> <div class="place-bet-container"> ' +
+                            '<div class="bet-info" style="padding-top: 5px;"> <div id="box_desc' + a2[i].EventCode + '"></div> ' +
+                            '<div class="bet-info-description"> <span id="box_team' + a2[i].EventCode + '"></span><span> - Match odds</span>  </div> </div> ' +
+                            '<div class="bet-actions-container"> <button class="reset-bet not-visible-when-narrow" id="hide_ex_' + a2[i].EventCode + '" onclick="hide_betpop_up(' + a2[i].EventCode + ')"> Cancel </button> ' +
+                            '<div class="price-container"> <div class="input"> <input type="number" name="" class="price-input" maxlength="6" min="1.01" max="1000" step = "0.01" placeholder="Odds" id="odds_showdata_' + a2[i].EventCode + '"> </div> </div> ' +
+                            '<div class="size-container"> <div class="input"> <input type="number" name="" class="size-input" maxlength="9" min="100" max="100000000" step = "100" placeholder="Stake" id="stack_value_' + a2[i].EventCode + '" onkeyup="manage(' + a2[i].EventCode + ')"> </div> </div> ' +
+                            '<button class="place-bet" type="submit" disabled="disabled" id="place_bet_button_' + a2[i].EventCode + '" onclick="SubmitBet(' + a2[i].EventCode + ',\'' + a2[i].BetfairId + '\')"> ' +
+                            '<span class="place-bet-title">Place bet</span> <span class="place-bet-profit" id="bet_profit_' + a2[i].EventCode + '"></span> </button> </div> </div> </div> </div> </td> </tr> '
+                        $('#OddsRef').append(ftrg);
+                    }
+                }
+            }
+        })
+        setTimeout(function () { getCricketMat(); }, 2000);
+    }
+
+    function getSoccerMat() {
+        var socc_ids = $("#soccer_MIDS").val();
+        $.ajax({
+            url: '/exchange/getSoccerMat',
+            contentType: 'application/html ; charset:utf-8',
+            type: 'GET',
+            data: {socc_ids:socc_ids},
+            dataType: 'html',
+            success: function (result) {
+
+                const fieldSorter = (fields) => (a, b) => fields.map(o => {
+                    let dir = 1;
+                    if (o[0] === '-') { dir = -1; o = o.substring(1); }
+                    return a[o] > b[o] ? dir : a[o] < b[o] ? -(dir) : 0;
+                }).reduce((p, n) => p ? p : n, 0);
+                const homes = JSON.parse(result);
+                const sortedHomes = homes.sort(fieldSorter(['MatchTime', '-BetfairId']));
+                var ft = JSON.stringify(sortedHomes, null, '\t');
+                var a2 = JSON.parse(ft);
+                var GetLength = a2.length;
+                if (GetLength > 0) {
+                    $("#all_view_soccer").css("display", "contents");
+                }
+                else {
+                    $("#all_view_soccer").css("display", "none");
+                }
+                for (i = 0; i < a2.length; i++) {
+                    if (a2[i].status == "ACTIVE") {
+                        $("#statusdiv_" + a2[i].EventCode).css("display", "none");
+                    }
+                    else {
+                        $("#statusdiv_" + a2[i].EventCode).css("display", "block");
+                    }
+                    if ($("#mt_" + a2[i].EventCode).val() == a2[i].EventCode) {
+                        $("#totalmatched_" + a2[i].EventCode).text(a2[i].MatchedAmt);
+                        $("#backprice1_" + a2[i].EventCode).text(a2[i].back1);
+                        $("#backsize1_" + a2[i].EventCode).text(a2[i].back1size);
+                        $("#layprice1_" + a2[i].EventCode).text(a2[i].lay1);
+                        $("#laysize1_" + a2[i].EventCode).text(a2[i].lay1size);
+                        $("#backprice2_" + a2[i].EventCode).text(a2[i].back11);
+                        $("#backsize2_" + a2[i].EventCode).text(a2[i].back2size);
+                        $("#layprice2_" + a2[i].EventCode).text(a2[i].lay11);
+                        $("#laysize2_" + a2[i].EventCode).text(a2[i].lay2size);
+                        $("#backprice3_" + a2[i].EventCode).text(a2[i].back22);
+                        $("#backsize3_" + a2[i].EventCode).text(a2[i].back3size);
+                        $("#layprice3_" + a2[i].EventCode).text(a2[i].lay22);
+                        $("#laysize3_" + a2[i].EventCode).text(a2[i].lay3size);
+                    }
+                    else {
+                        var x = a2[i].MatchTime;
+                        var MatchTime = getdatetime(x);
+                        var x = a2[i].MatchTime;
+                        var MatchTime = getdatetime(x);
+                        var backinplay = "#F6F6F6";
+                        var inplaycolor = "#7F7F7F";
+                        if (MatchTime == "Inplay") {
+                            backinplay = "#20A052";
+                            inplaycolor = "white";
+                        }
+
+                        var ftrg = '<tr> <td> ' +
+                            '<input name="event_code" type="hidden" id="mt_' + a2[i].EventCode + '" value="' + a2[i].EventCode + '">' +
+                            '<div class="mod-event-line">' +
+                            '<div class="bf-livescores mini frontinplay" style="background-color:' + backinplay + ';color:' + inplaycolor + '; "> ' + MatchTime + ' </div> <a href="/exchange/Market/' + a2[i].EventCode + '" style="text-decoration:none;"><ul class="runners"> <li class="name">' + a2[i].Runnername + '</li> ' +
+                            '<li class="name" >' + a2[i].RunnernameB + '</li> </a></ul> <ul class="bet-counters"> ' +
+                            '<li class="bet-counter unmatched bf-tooltip-parent"> <span class="bet-counter-indicator">0</span> <div class="bf-tooltip-wrapper top center"> ' +
+                            '<div class="bf-tooltip"> <div class="text"> <span class="bet-counter-tooltip-count ng-binding ng-scope"></span> <span class="ng-binding ng-scope">Unmatched bets</span> </div> </div> </div> </li> ' +
+                            '<li class="bet-counter matched bf-tooltip-parent"> <span class="bet-counter-indicator">0</span> ' +
+                            '<div class="bf-tooltip-wrapper top center"> <div class="bf-tooltip"> <div class="text"> ' +
+                            '<span class="bet-counter-tooltip-count"></span> <span class="">Matched bets</span> </div> </div> </div> </li> </ul> ' +
+                            '<ul class="matched-amount"> <li class="matched-amount-value"><span id="totalmatched_' + a2[i].EventCode + '">' + a2[i].MatchedAmt + '</span></li> </ul> <ul class="icons"> ' +
+                            '<li class="icon-tv"> <svg ng-attr-view_box="{{::viewBox}}" class="svg-icon-default " data-icon="on-tv" viewBox="0 0 100 100"> ' +
+                            '<path ng-attr-d="{{::getIconPath(icon)}}" d="M0 13v68.75h25V88h50v-6.25h25V13H0zm87.5 56.25h-75V25.5h75v43.75z"></path> </svg> </li> </ul>  </td> ' +
+                            '<td class="coupon-runners" colspan="3"> <div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" id="show_hide" onclick="myFun(' + a2[i].EventCode + ', &quot;backprice1_&quot; , &quot;back&quot; , 1 , &quot;' + a2[i].Runnername + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice1_' + a2[i].EventCode + '">' + a2[i].back1 + '</span> ' +
+                            '<span class="bet-button-size" id="backsize1_' + a2[i].EventCode + '">' + a2[i].back1size + '</span> <input type="hidden" id="EventCode+' + a2[i].EventCode + '" value="' + a2[i].EventCode + '" /> </div> </button> ' +
+                            '<button class="bf-bet-button lay-button lay-selection-button" id="show_hide1" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice1_&quot; , &quot;lay&quot; , 1 , &quot;' + a2[i].Runnername + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice1_' + a2[i].EventCode + '">' + a2[i].lay1 + '</span> <span class="bet-button-size" id="laysize1_' + a2[i].EventCode + '">' + a2[i].lay1size + '</span> </div> </button> </div> ' +
+                            '<div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;backprice3_&quot; , &quot;back&quot; , 3 , &quot;The Draw&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice3_' + a2[i].EventCode + '">' + a2[i].back22 + '</span> <span class="bet-button-size" id="backsize3_' + a2[i].EventCode + '">' + a2[i].back3size + '</span> </div> </button> ' +
+                            '<button class="bf-bet-button lay-button lay-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice3_&quot; , &quot;lay&quot; , 3 , &quot;The Draw&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice3_' + a2[i].EventCode + '">' + a2[i].lay22 + '</span> <span class="bet-button-size" id="laysize3_' + a2[i].EventCode + '">' + a2[i].lay3size + '</span> </div> </button> </div> ' +
+                            '<div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;backprice2_&quot; , &quot;back&quot; , 2 , &quot;' + a2[i].RunnernameB + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice2_' + a2[i].EventCode + '">' + a2[i].back11 + '</span> <span class="bet-button-size" id="backsize2_' + a2[i].EventCode + '">' + a2[i].back2size + '</span> </div> </button>' +
+                            ' <button class="bf-bet-button lay-button lay-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice2_&quot; , &quot;lay&quot; , 2 , &quot;' + a2[i].RunnernameB + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice2_' + a2[i].EventCode + '">' + a2[i].lay11 + '</span> <span class="bet-button-size" id="laysize2_' + a2[i].EventCode + '">' + a2[i].lay2size + '</span> </div> </button> </div>  '+
+                                '<div class="coupon-state-overlay ng-scope" id="statusdiv_'+a2[i].EventCode+'" style="display:none;"><div class="state-overlay-container ng-scope"><span class="state-label ng-binding ng-scope" >SUSPENDED</span></div></div> </td>'+
+                            '<td class="coupon-market-rules"> <a class="market-rules-icon" title="Rules" id="myBtn"  onclick="ShowModelLA(' + i + ');" ></a> <div id="myModal"></a> <div id="myModal' + i + '" class="modal" style="display:none;"> ' +
+                            '<div class="modal-content"> <span class="close" onclick="CloseModelLA(' + i + ');">&times;</span> <h2 class="dialog-title" title="Match Odds - Rules">Match Odds - Rules</h2> ' +
+                            '<article class="dialog-msg" style=""> <div> <h4 class="market-rules-event-start-time-title">Event Start Time</h4> <span class="market-rules-event-start-time">05 August 2019, 11:00</span> </div> <h4 class="market-rules-description">Win Only Market</h4> <p class="market-rules-licence"> <b>Market Information</b><br>For further information please see <a href="" style="color:#0163ad;" text-decoration:="" underline;="" target="_blank">Rules &amp; Regs</a>.<br><br> Who will win this Test match? At the start of scheduled play all unmatched bets will be cancelled and this market will be turned in-play. This market will not be actively managed therefore it is the responsibility of all users to manage their own positions. Competition Rules apply. <br><br>Customers should be aware that:<br><br> <li><b>Transmissions described as “live” by some broadcasters may actually be delayed</b></li> <b><br></b> <li><b>The extent of any such delay may vary, depending on the set-up through which they are receiving pictures or data.</b></li> <br> <ul> <li><b>If the official result is a Tied Match in any Test, County or Limited Overs Match then all bets on Match Odds markets will be void</b></li> <br> <li>At the conclusion of each days play this market will revert to a non in-play status with no time delay in effect then at the start of the following days play this market will be turned in-play again with unmatched bets <b><font color="red">not</font></b> cancelled.</li> </ul> </p> <p class="">UK wallet</p> <p class="market-rules-commission-title">Commission on this market</p> <p> <span class="">Log in to see your commission rate</span> </p> <div> <p><a class="market-rules-discount-rules-explanation" href="">Your Discount Rate explained</a></p> </div> </article> </div> </div> </td> </tr>' +
+                            ' <tr class="inline-betting-container" style="display:none;" id="men_ex_' + a2[i].EventCode + '"> <td colspan="5"> ' +
+                            '<div class="mod-inline-betting"> <div class="place-bet-panel back" id="field' + a2[i].EventCode + '"><span style="display:none;"></span><input type="hidden" value=""> <div class="place-bet-container"> ' +
+                            '<div class="bet-info" style="padding-top: 5px;"> <div id="box_desc' + a2[i].EventCode + '"></div> ' +
+                            '<div class="bet-info-description"> <span id="box_team' + a2[i].EventCode + '"></span> <span> - Match odds</span> </div> </div> ' +
+                            '<div class="bet-actions-container"> <button class="reset-bet not-visible-when-narrow" id="hide_ex_' + a2[i].EventCode + '" onclick="hide_betpop_up(' + a2[i].EventCode + ')"> Cancel </button> ' +
+                            '<div class="price-container"> <div class="input"> <input type="number" name="" class="price-input" maxlength="6" min="1.01" max="1000" step = "0.01" placeholder="Odds" id="odds_showdata_' + a2[i].EventCode + '"> </div> </div> ' +
+                            '<div class="size-container"> <div class="input"> <input type="number" name="" class="size-input" maxlength="9" min="100" max="100000000" step = "100" placeholder="Stake" id="stack_value_' + a2[i].EventCode + '" onkeyup="manage(' + a2[i].EventCode + ')"> </div> </div> ' +
+                            '<button class="place-bet" type="submit" disabled="disabled" id="place_bet_button_' + a2[i].EventCode + '" onclick="SubmitBet(' + a2[i].EventCode + ',\'' + a2[i].BetfairId + '\')"> ' +
+                            '<span class="place-bet-title">Place bet</span> <span class="place-bet-profit" id="bet_profit_' + a2[i].EventCode + '"></span> </button> </div> </div> </div> </div> </td> </tr> '
+                        $('#OddsRefs').append(ftrg);
+                    }
+                }
+            }
+        })
+        setTimeout(function () { getSoccerMat(); }, 2000);
+    }
+
+    function getTennisMat() {
+        var tenn_ids = $("#tennis_MIDS").val();
+        $.ajax({
+            url: '/exchange/getTennisMat',
+            contentType: 'application/html ; charset:utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: {tenn_ids:tenn_ids},
+            success: function (result) {
+                //  $('#OddsReft').empty();
+                //var ft = JSON.parse(result);
+                const fieldSorter = (fields) => (a, b) => fields.map(o => {
+                    let dir = 1;
+                    if (o[0] === '-') { dir = -1; o = o.substring(1); }
+                    return a[o] > b[o] ? dir : a[o] < b[o] ? -(dir) : 0;
+                }).reduce((p, n) => p ? p : n, 0);
+                const homes = JSON.parse(result);
+                const sortedHomes = homes.sort(fieldSorter(['MatchTime', '-BetfairId']));
+                var ft = JSON.stringify(sortedHomes, null, '\t');
+                var a2 = JSON.parse(ft);
+                var GetLength = a2.length;
+                if (GetLength > 0) {
+                    $("#all_view_tennis").css("display", "contents");
+                }
+                else {
+                    $("#all_view_tennis").css("display", "none");
+                }
+                for (i = 0; i < a2.length; i++) {
+                    if (a2[i].status == "ACTIVE") {
+                        $("#statusdiv_" + a2[i].EventCode).css("display", "none");
+                    }
+                    else {
+                        $("#statusdiv_" + a2[i].EventCode).css("display", "block");
+                    }
+                    if ($("#mt_" + a2[i].EventCode).val() == a2[i].EventCode) {
+                        $("#totalmatched_" + a2[i].EventCode).text(a2[i].MatchedAmt);
+                        $("#backprice1_" + a2[i].EventCode).text(a2[i].back1);
+                        $("#backsize1_" + a2[i].EventCode).text(a2[i].back1size);
+                        $("#layprice1_" + a2[i].EventCode).text(a2[i].lay1);
+                        $("#laysize1_" + a2[i].EventCode).text(a2[i].lay1size);
+                        $("#backprice2_" + a2[i].EventCode).text(a2[i].back11);
+                        $("#backsize2_" + a2[i].EventCode).text(a2[i].back2size);
+                        $("#layprice2_" + a2[i].EventCode).text(a2[i].lay11);
+                        $("#laysize2_" + a2[i].EventCode).text(a2[i].lay2size);
+                        $("#backprice3_" + a2[i].EventCode).text(a2[i].back22);
+                        $("#backsize3_" + a2[i].EventCode).text(a2[i].back3size);
+                        $("#layprice3_" + a2[i].EventCode).text(a2[i].lay22);
+                        $("#laysize3_" + a2[i].EventCode).text(a2[i].lay3size);
+                    }
+                    else {
+                        var x = a2[i].MatchTime;
+                        var MatchTime = getdatetime(x);
+                        var backinplay = "#F6F6F6";
+                        var inplaycolor = "#7F7F7F";
+                        if (MatchTime == "Inplay") {
+                            backinplay = "#20A052";
+                            inplaycolor = "white";
+                        }
+
+                        var ftrg = '<tr> <td> ' +
+                            '<input name="event_code" type="hidden" id="mt_' + a2[i].EventCode + '" value="' + a2[i].EventCode + '">' +
+                            '<div class="mod-event-line">' +
+                            '<div class="bf-livescores mini frontinplay" style="background-color:' + backinplay + ';color:' + inplaycolor + '; ">' + MatchTime + '</div><a href="/exchange/Market/' + a2[i].EventCode + '" style="text-decoration:none;"> <ul class="runners"> <li class="name">' + a2[i].Runnername + '</li> ' +
+                            '<li class="name" >' + a2[i].RunnernameB + '</li></a> </ul> <ul class="bet-counters"> ' +
+                            '<li class="bet-counter unmatched bf-tooltip-parent"> <span class="bet-counter-indicator">0</span> <div class="bf-tooltip-wrapper top center"> ' +
+                            '<div class="bf-tooltip"> <div class="text"> <span class="bet-counter-tooltip-count ng-binding ng-scope"></span> <span class="ng-binding ng-scope">Unmatched bets</span> </div> </div> </div> </li> ' +
+                            '<li class="bet-counter matched bf-tooltip-parent"> <span class="bet-counter-indicator">0</span> ' +
+                            '<div class="bf-tooltip-wrapper top center"> <div class="bf-tooltip"> <div class="text"> ' +
+                            '<span class="bet-counter-tooltip-count"></span> <span class="">Matched bets</span> </div> </div> </div> </li> </ul> ' +
+                            '<ul class="matched-amount"> <li class="matched-amount-value"><span id="totalmatched_' + a2[i].EventCode + '">' + a2[i].MatchedAmt + '</span></li> </ul> <ul class="icons"> ' +
+                            '<li class="icon-tv"> <svg ng-attr-view_box="{{::viewBox}}" class="svg-icon-default " data-icon="on-tv" viewBox="0 0 100 100"> ' +
+                            '<path ng-attr-d="{{::getIconPath(icon)}}" d="M0 13v68.75h25V88h50v-6.25h25V13H0zm87.5 56.25h-75V25.5h75v43.75z"></path> </svg> </li> </ul> </div> </td> ' +
+                            '<td class="coupon-runners" colspan="3"> <div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" id="show_hide" onclick="myFun(' + a2[i].EventCode + ', &quot;backprice1_&quot; , &quot;back&quot; , 1 , &quot;' + a2[i].Runnername + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice1_' + a2[i].EventCode + '">' + a2[i].back1 + '</span> ' +
+                            '<span class="bet-button-size" id="backsize1_' + a2[i].EventCode + '">' + a2[i].back1size + '</span> <input type="hidden" id="EventCode+' + a2[i].EventCode + '" value="' + a2[i].EventCode + '" /> </div> </button> ' +
+                            '<button class="bf-bet-button lay-button lay-selection-button" id="show_hide1" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice1_&quot; , &quot;lay&quot; , 1 , &quot;' + a2[i].Runnername + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice1_' + a2[i].EventCode + '">' + a2[i].lay1 + '</span> <span class="bet-button-size" id="laysize1_' + a2[i].EventCode + '">' + a2[i].lay1size + '</span> </div> </button> </div> ' +
+                            '<div class="coupon-runner"> <button class="bf-bet-button back-button back-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;backprice2_&quot; , &quot;back&quot; , 2 , &quot;' + a2[i].RunnernameB + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="backprice2_' + a2[i].EventCode + '">' + a2[i].back11 + '</span> <span class="bet-button-size" id="backsize2_' + a2[i].EventCode + '">' + a2[i].back2size + '</span> </div> </button>' +
+                            ' <button class="bf-bet-button lay-button lay-selection-button" onclick="myFun(' + a2[i].EventCode + ',&quot;layprice2_&quot; , &quot;lay&quot; , 2 , &quot;' + a2[i].RunnernameB + '&quot;)"> ' +
+                            '<div class="bf-bet-button-info"> <span class="bet-button-price" id="layprice2_' + a2[i].EventCode + '">' + a2[i].lay11 + '</span> <span class="bet-button-size" id="laysize2_' + a2[i].EventCode + '">' + a2[i].lay2size + '</span> </div> </button> </div>  '+
+                                '<div class="coupon-state-overlay ng-scope" id="statusdiv_'+a2[i].EventCode+'" style="display:none;"><div class="state-overlay-container ng-scope"><span class="state-label ng-binding ng-scope" >SUSPENDED</span></div></div> </td>'+
+                            '<td class="coupon-market-rules"> <a class="market-rules-icon" title="Rules" id="myBtn" onclick="ShowModelLA(' + i + ');" ></a> <div id="myModal' + i + '" style="display:none;"></a> <div id="myModal" class="modal"> ' +
+                            '<div class="modal-content"> <span class="close" id="hidemodel' + i + '">&times;</span> <h2 class="dialog-title" title="Match Odds - Rules">Match Odds - Rules</h2> ' +
+                            '<article class="dialog-msg" style=""> <div> <h4 class="market-rules-event-start-time-title">Event Start Time</h4> <span class="market-rules-event-start-time">05 August 2019, 11:00</span> </div> <h4 class="market-rules-description">Win Only Market</h4> <p class="market-rules-licence"> <b>Market Information</b><br>For further information please see <a href="" style="color:#0163ad;" text-decoration:="" underline;="" target="_blank">Rules &amp; Regs</a>.<br><br> Who will win this Test match? At the start of scheduled play all unmatched bets will be cancelled and this market will be turned in-play. This market will not be actively managed therefore it is the responsibility of all users to manage their own positions. Competition Rules apply. <br><br>Customers should be aware that:<br><br> <li><b>Transmissions described as “live” by some broadcasters may actually be delayed</b></li> <b><br></b> <li><b>The extent of any such delay may vary, depending on the set-up through which they are receiving pictures or data.</b></li> <br> <ul> <li><b>If the official result is a Tied Match in any Test, County or Limited Overs Match then all bets on Match Odds markets will be void</b></li> <br> <li>At the conclusion of each days play this market will revert to a non in-play status with no time delay in effect then at the start of the following days play this market will be turned in-play again with unmatched bets <b><font color="red">not</font></b> cancelled.</li> </ul> </p> <p class="">UK wallet</p> <p class="market-rules-commission-title">Commission on this market</p> <p> <span class="">Log in to see your commission rate</span> </p> <div> <p><a class="market-rules-discount-rules-explanation" href="">Your Discount Rate explained</a></p> </div> </article> </div> </div> </td> </tr>' +
+                            ' <tr class="inline-betting-container" style="display:none;" id="men_ex_' + a2[i].EventCode + '"> <td colspan="5"> ' +
+                            '<div class="mod-inline-betting"> <div class="place-bet-panel back" id="field' + a2[i].EventCode + '"><span style="display:none;"></span><input type="hidden" value=""> <div class="place-bet-container"> ' +
+                            '<div class="bet-info" style="padding-top: 5px;"> <div id="box_desc' + a2[i].EventCode + '"></div> ' +
+                            '<div class="bet-info-description"> <span id="box_team' + a2[i].EventCode + '"></span><span> - Match odds</span>  </div> </div> ' +
+                            '<div class="bet-actions-container"> <button class="reset-bet not-visible-when-narrow" id="hide_ex_' + a2[i].EventCode + '" onclick="hide_betpop_up(' + a2[i].EventCode + ')"> Cancel </button> ' +
+                            '<div class="price-container"> <div class="input"> <input type="number" name="" class="price-input" maxlength="6" min="1.01" max="1000" step = "0.01" placeholder="Odds" id="odds_showdata_' + a2[i].EventCode + '"> </div> </div> ' +
+                            '<div class="size-container"> <div class="input"> <input type="number" name="" class="size-input" maxlength="9" min="100" max="100000000" step = "100" placeholder="Stake" id="stack_value_' + a2[i].EventCode + '" onkeyup="manage(' + a2[i].EventCode + ')"> </div> </div> ' +
+                            '<button class="place-bet" type="submit" disabled="disabled" id="place_bet_button_' + a2[i].EventCode + '" onclick="SubmitBet(' + a2[i].EventCode + ',\'' + a2[i].BetfairId + '\')"> ' +
+                            '<span class="place-bet-title">Place bet</span> <span class="place-bet-profit" id="bet_profit_' + a2[i].EventCode + '"></span> </button> </div> </div> </div> </div> </td> </tr> '
+                        $('#OddsReft').append(ftrg);
+                    }
+                }
+            }
+        })
+        setTimeout(function () { getTennisMat(); }, 2000);
+    }
+
+    QuickLiksAllGetr();
+    function QuickLiksAllGetr() {
+        $.ajax({
+            url: '/Other/QuickLinks',
+            contentType: 'application/html ; charset:utf-8',
+            type: 'post',
+            dataType: 'html',
+            success: (function (result) {
+                var a1 = JSON.parse(result);
+                var a5 = JSON.parse(a1);
+                var a2 = a5.home.quicklinks;
+                for (var i = 0; i < a2.length; i++) {
+                    if (a2[i].eventTypeId == "1" || a2[i].eventTypeId == "2" || a2[i].eventTypeId == "4") {
+                        var vjkk = a2[i].url;
+                        var link = "";
+                        var Evid = a2[i].eventTypeId;
+                        if (vjkk == ".") {
+
+                            var quickLinkById = a2[i].quickLinkById.id;
+                            link = "/exchange/Market/" + a2[i].quickLinkById.id;
+                        }
+                        else {
+                            var competition = vjkk.replace("https://www.betfair.com/exchange/football/competition/", "");
+                            competition = competition.replace("https://www.betfair.com/exchange/cricket/competition/", "");
+                            competition = competition.replace("https://www.betfair.com/exchange/tennis/competition/", "");
+
+                            link = '@Url.Action("Index", "exchange", new { sportid = "-1" , leagueid = "-2" })';
+                            link = link.replace("-1", Evid);
+                            link = link.replace("-2", competition);
+                        }
+
+                        var myvar = '<li class="link animate-repeat">' +
+                            '<a href="' + link + '" class="clearfix">' +
+                            ' <div class="icon">' +
+                            ' <span class="_22v9B sprite-dark sprite-dark-' + a2[i].eventTypeId + '"></span>' +
+                            ' </div>' +
+                            ' <span class="label">' + a2[i].title + '</span></a></li>';
+                        $('#quick_links_all').append(myvar);
+                    }
+                }
+            })
+        });
+    }
+    </script>
+
+    <!-- Place Bet -->
+    <script>
+    function SubmitBet(eventcode, betfairid) {
+        var bt = document.getElementById('place_bet_button_' + eventcode);
+        bt.disabled = true;
+        var GetLog = '@Session["UserName"]';
+        if (GetLog != "" && GetLog != null) {
+            var stackValue = $('#stack_value_' + eventcode).val();
+            var OddsValue = $('#odds_showdata_' + eventcode).val();
+            var field_box = $("#field" + eventcode).children("span").text();
+            var run_pos = $("#field" + eventcode).children("input").val();
+            var runner_name = $("#box_team" + eventcode).text();
+            var market_name = "Match Odds";
+            //alert("Bet  Success12 !!!" + eventcode + "----" + betfairid + "---" + stackValue + "---" + OddsValue + "--- " + field_box + "---" + run_pos + "---"+runner_name)
+            $.ajax({
+                type: "POST",
+                url: "/Check/BetPlaceM",
+                data: {
+                    BetfairId: betfairid,
+                    EventCode: eventcode,
+                    stackValue: stackValue,
+                    OddsValue: OddsValue,
+                    RunnerIndex: run_pos,
+                    BoxType: field_box,
+                    RunnerNameget: runner_name,
+                    MarketName: market_name,
+                },
+                success: function (result) {
+                    alert(result.responseText)
+                    if (result.responseText == "Bet Submitted Successfully") {
+                        UserBalance();
+                        $("#men_ex_" + eventcode).hide();
+                    }
+                }
+            });
+        }
+        else {
+            $("#myModal1new").css("display", "block");
+        }
+
+        }
+    </script>
+    < !--Place Bet-- >
+
+    <script>
+        function ShowModelLA(indexc) {
+            //$("#myModal" + indexc).css("display", "block");
+        }
+    </script>
+
+    <script>
+        function CloseModelLA(indexc) {
+            $("#myModal" + indexc).css("display", "none");
+        }
+    </script>
+
+    <script>
+        function PassLDetailP() {
+            var UserN = document.getElementById("usernameI").value;
+            var UserP = document.getElementById("passwordI").value;
+            $.ajax({
+                type: "POST",
+                url: "/Check/CLo",
+                data: {
+                    username: UserN,
+                    password: UserP
+                },
+                success: function (result) {
+                    if (result == "Success") {
+                        //alert(result)
+                        window.location.reload();
+                    }
+                    else {
+                        window.location.href = "/exchange/Login";
+                    }
+                },
+            });
+        }
+    </script>
+
+}

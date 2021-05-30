@@ -1,0 +1,357 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAgent.cshtml";
+}
+
+
+<script src="~/Scripts/datepicksk/DateUtil.js"></script>
+<script src="~/Scripts/datepicksk/JSUtil.js"></script>
+<script src="~/Scripts/datepicksk/webCalendar.js"></script>
+
+<style>
+    .pages a.select {
+        color: #F8D61C !important;
+        background: #444 url('../../Content/images/btn-select-skyEX.jpg') repeat-x !important;
+        border-color: #222 !important;
+    }
+
+    .btn-send {
+        background: #121212 url('../../Content/images/skyexchange/bg-send-skyEX.png') repeat-x !important;
+        color: #F8D61C !important;
+        border-color: #000 !important;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../Bet History_files/BettingHistoryUtil.js.download"></script>
+
+<div class="main_wrap">
+    <!-- agent path -->
+    <div class="agent_path">
+        <ul id="agentPath" class="agent_path-L">
+
+            <li id="path6" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_0">
+                        COM
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path5" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_1">
+                        SS
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path4" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_2">
+                        SUP
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path3" class="last_li" style="">
+                <a href="javascript: void(0);">
+                    <span class="lv_3">
+                        MA
+                    </span>
+                    <strong>@Session["DL_UserName"]</strong>
+                </a>
+            </li>
+
+            <li id="path0" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_4">
+                        PL
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <ul class="account_pop" id="accountPop" style="">
+                <li id="popTmp" style="display: none;">
+                    <a href=""></a>
+                </li>
+            </ul>
+        </ul>
+    </div>
+
+    <!-- Agent Left Column -->
+
+    <div class="col-left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+
+                <li class="class">Position</li>
+
+                <li><a id="accountStatement" class="select" href="/Agent/accountCashStatement">Account Statement</a></li>
+
+                <li><a id="accountSummary" href="/Agent/myAccountSummary">Account Summary</a></li>
+
+                <li class="class">Account Details</li>
+                <li><a id="profile" href="/Agent/profile">Profile</a></li>
+                <!--<li><a id="activityLog" href="/agent/myAccount/activityLog.jsp">Activity Log</a></li>-->
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+        <h2 class="summarytag">My Bets</h2>
+        <!-- Account Info -->
+        <div class="white-wrap">
+            <h3>Profit &amp; Loss - Main wallet</h3>
+            <ul class="acc-info">
+                <li class="user" style="padding-top: 3px">@ViewBag.CUname</li>
+                <li class="time" style="padding-top: 3px;">
+                    @{DateTime todaydate = DateTime.Now; }
+                    @todaydate.ToString("yyyy-MM-dd HH:mm")
+                </li>
+            </ul>
+
+            <div class="function-wrap">
+                <ul class="input-list">
+                    <li><label>Period</label></li>
+                    <li>
+                        <input id="startDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'startDate');">
+                        <input id="startTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                        to
+                        <input id="endDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'endDate');">
+                        <input id="endTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                    </li>
+                    <li>(TimeZone:GMT)</li>
+                </ul>
+                <ul class="input-list">
+                    <li><a id="today" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 9px;" onclick="datebtcl(0)">Just For Today</a></li>
+                    <li><a id="yesterday" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 6px;" onclick="datebtcl(1)">From Yesterday</a></li>
+                    <li><a id="last7days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(7)">Last 7 days</a></li>
+                    <li><a id="last15days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(15)">Last 15 days</a></li>
+                    <li><a id="last30days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(30)">Last 30 days</a></li>
+                    <li><a id="getPL" href="#" class="btn-send" onclick="GetProLos(@ViewBag.pageNumber)">Get P & L</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="report" style="">
+            @if (ViewBag.countbeth > 0)
+            {
+                <ul class="total-show" style="display:none;">
+                    <li id="totalPL">
+                        Total P/L: BAL <span class=""></span>
+                    </li>
+                    <li id="sumOfQuery" class="sports-switch">
+                        BAL <span class=""></span>
+                    </li>
+                    <li class="sports-switch">
+                        <select name="sports" id="sports">
+
+                            <option value="0" selected="selected">ALL</option>
+                            <option value="1">SOCCER</option>
+                            <option value="2">TENNIS</option>
+                            <option value="4">CRICKET</option>
+                        </select>
+                    </li>
+                </ul>
+
+                <table id="matchTable" class="table-s" style="display: table;">
+                    <tbody>
+                        <tr>
+                            <th class="align-L">Market</th>
+                            <th width="15%" class="align-R">Settled date</th>
+                            <th width="18%" class="align-R">Profit/Loss</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="matchRow" style="display: table-row;">
+                                <td id="matchTitle" class="align-L">
+                                    @item.sport.ToUpper()
+                                    <img class="fromto" src="~/Content/images/transparent.gif">
+                                    <strong>@item.match</strong>
+                                    <img class="fromto" src="~/Content/images/transparent.gif">@item.market
+                                </td>
+                                <td><span id="betPlaced" class="small-date">@item.created</span></td>
+                                <td class="align-R"><a id="betID" href="javascript: void(0);" class="expand-close" onclick="pltoggleTx()"><span style="color : @item.total_pl_color;">@item.total_pl</span></a></td>
+                            </tr>
+                        }
+                        <tr id="expand" class="expand" style="display: none;">
+                            <td colspan="4">
+                                <img class="expand-arrow" src="~/Content/images/transparent.gif">
+                                <table id="txTable">
+                                    <tbody>
+                                        <tr>
+                                            <th width="9%">Bet ID</th>
+                                            <th width="">Selection</th>
+                                            <th width="9%">Odds</th>
+                                            <th width="13%">Stake</th>
+                                            <th width="8%">Type</th>
+                                            <th width="16%">Placed</th>
+                                            <th width="23%">Profit/Loss</th>
+                                        </tr>
+                                        <tr id="txRow0" style="display: table-row;" class="even">
+                                            <td id="betID"></td>
+                                            <td id="matchSelection"></td>
+                                            <td id="txOddsMatched"></td>
+                                            <td id="txStake"></td>
+                                            <td><span id="matchType" class=""></span></td>
+                                            <td id="placed"></td>
+                                            <td id="txLiability"><span class=""></span></td>
+                                        </tr>
+                                        <tr class="sum-pl">
+                                            <td colspan="7">
+                                                <dl>
+                                                    <dt>Total Stakes</dt>
+
+                                                    <dd id="totalStakes"></dd>
+
+                                                    <dt id="backSubTotalTitle"> subtotal</dt>
+                                                    <dd id="backSubTotal"><span class=""></span></dd>
+
+                                                    <dt id="laySubTotalTitle">subtotal</dt>
+                                                    <dd id="laySubTotal"><span class=""></span></dd>
+
+                                                    <dt>Market subtotal</dt>
+                                                    <dd id="marketTotal"><span class=""></span></dd>
+
+                                                    <dt id="commissionTitle">Commission</dt>
+                                                    <dd id="commission" class="red">()</dd>
+
+
+                                                    <dt class="net_total">Net Market Total</dt>
+                                                    <dd id="netTotal" class="net_total"><span class=""></span></dd>
+                                                </dl>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p class="table-other">
+                    Betting History is shown net of commission.
+                </p>
+                <input type="hidden" id="anydefst" value="@ViewBag.startDate" />
+                <input type="hidden" id="anydefend" value="@ViewBag.endDate" />
+                <div>
+                    <ul id="pageNumberContent" class="pages">
+                        @{Double countpage = ViewBag.countbeth;}
+                        @{int page_num = Int32.Parse(ViewBag.pageNumber);}
+                        @{
+                            var prev_class = "";
+                            var next_class = "";
+                            var prev_point = "";
+                            var next_point = "";
+                            var prev_number = page_num - 1;
+                            var next_number = page_num + 1;
+                            int totalpage = (int)Math.Ceiling(countpage / 20);
+                        }
+                        @if (page_num == 1 || page_num == 0)
+                        {
+                            prev_class = "disable";
+                            prev_point = "pointer-events: none;";
+                        }
+                        @if (page_num == totalpage)
+                        {
+                            next_class = "disable";
+                            next_point = "pointer-events: none;";
+                        }
+                        <li id="prev"><a href="javascript:void(0);" class="@prev_class" style="@prev_point" onclick="GetProLos(@prev_number)">Prev</a></li>
+
+
+                        @for (var i = 1; i <= totalpage; i++)
+                        {
+                            if (page_num == i)
+                            {
+                                <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetProLos(@i)">@i</a></li>
+
+                            }
+                            else
+                            {
+                                <li id="pageNumber"><a href="javascript:void(0);" onclick="GetProLos(@i)">@i</a></li>
+
+                            }
+                        }
+                        <li id="next"><a href="javascript:void(0);" class="@next_class" style="@next_point" onclick="GetProLos((@next_number)">Next</a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div id="noReportMessage"><p>Betting Profit &amp; Loss enables you to review the bets you have placed. <br>Specify the time period during which your bets were placed, the type of markets on which the bets were placed, and the sport.</p><p>Betting Profit &amp; Loss is available online for the past 2 months.</p></div>
+
+            }
+        </div>
+    </div>
+
+    <script>
+        function GetProLos(pageNumber) {
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+
+            window.location.href = '?startDate=' + startDate + '&endDate=' + endDate + '&pageNumber=' + pageNumber;
+        }
+    </script>
+    <script language="javascript" type="text/javascript">
+        calendarProperties.dateFormatStyle = "yyyy-MM-dd";
+        calendarProperties.setI18n({ "form.text.transfer.weekly.weekNumber": "wk #", "calendar.text.month.1": "Jan", "calendar.text.month.2": "Feb", "calendar.text.month.3": "Mar", "calendar.text.month.4": "Apr", "calendar.text.month.5": "May", "calendar.text.month.6": "Jun", "calendar.text.month.7": "Jul", "calendar.text.month.8": "Aug", "calendar.text.month.9": "Sep", "calendar.text.month.10": "Oct", "calendar.text.month.11": "Nov", "calendar.text.month.12": "Dec", "form.text.transfer.weekly.0": "Sun", "form.text.transfer.weekly.1": "Mon", "form.text.transfer.weekly.2": "Tue", "form.text.transfer.weekly.3": "Wed", "form.text.transfer.weekly.4": "Thu", "form.text.transfer.weekly.5": "Fri", "form.text.transfer.weekly.6": "Sat", "calendar.form.text.Today": "Today", "calendar.form.text.Clear": "Clear", "calendar.form.text.Close": "Close" });
+        var calendarObj = new Calendar();
+    </script>
+    <script language="JavaScript" type="text/javascript">
+        var utc = new Date();
+        var today = new Date().toJSON().slice(0, 10);
+        var maxDay = new Date((new Date().setDate(new Date().getDate() + 1))).toJSON().slice(0, 10);
+        var yesterday = new Date((new Date().setDate(new Date().getDate() - 1))).toJSON().slice(0, 10);
+        var last7day = new Date((new Date().setDate(utc.getDate() - 7))).toJSON().slice(0, 10);
+        var last15day = new Date((new Date().setDate(new Date().getDate() - 15))).toJSON().slice(0, 10);
+        var last30day = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+        var last2months = new Date((new Date().setDate(new Date().getDate() - 60))).toJSON().slice(0, 10);
+        var last3months = new Date((new Date().setDate(new Date().getDate() - 90))).toJSON().slice(0, 10);
+        var minDay = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+        var anydefst = $("#anydefst").val();
+        var anydefend = $("#anydefend").val();
+        if (anydefst != "0" && anydefst != null && anydefend != "0" && anydefend != null) {
+            datebtcl(99);
+        }
+        else {
+            datebtcl(0);
+        }
+        function datebtcl(clickdat) {
+            if (clickdat == "0") {
+                $("#startDate").val(today);
+                $("#endDate").val(maxDay);
+            }
+            else if (clickdat == "1") {
+                $("#startDate").val(yesterday);
+                $("#endDate").val(maxDay);
+            }
+            else if (clickdat == "7") {
+                $("#startDate").val(last7day);
+                $("#endDate").val(maxDay);
+            }
+            else if (clickdat == "15") {
+                $("#startDate").val(last15day);
+                $("#endDate").val(maxDay);
+            }
+            else if (clickdat == "30") {
+                $("#startDate").val(last30day);
+                $("#endDate").val(maxDay);
+            }
+            else if (clickdat == "99") {
+                $("#startDate").val(anydefst.toString());
+                $("#endDate").val(anydefend);
+            }
+        }
+    </script>

@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <title>Player</title>
+    <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="playerDiv" style="width: 100%; height: 100%; overflow: hidden; position: relative; background-color: black;">
+    </div>
+    <script type="text/javascript">
+        @{ var type = ViewBag.type;}
+        @{ var streamdata = "";}
+        @if(type == "teen2020")
+        {
+            streamdata = "gWtegI3zgSkyW/sE+tTFcx48uFguTckaXkh2CxQmHuDG0sfBM3h1kpUIwRm2jDgNaghoNuOHsSdX8fu7xYz0oo/iwJM9XjdCeYMUizDRUDbLYu6/MP/ERS4GsuyODImCbKzBc9kDaOtBTX3BXgbZa7hktw/wkwZ5NuGBc3W0O03g825G+7EviEoq33ZaG6AjULPyLkj5yMhJZUmOFK9HIHYhvhq/tLNK7Sy6adE14SU=##@##fb3bfacf902046e5##@##d20156b95faaa776bd17b31838edc833";
+        }
+        else if(type == "teen")
+        {
+            streamdata = "Wj4Kodij3bWVd2EecD6zHF1rHeETEosmW4BzntMqwW5V+kk7RRB8d/QsuPJFWCaxmVRAMtEusLIFcrbXYYugYfvK5tUJU/ZAg2VL2cxo3+iWl+yxsQ3YUsqC+xF1y8wSuIdEUZkf9ToZVx0DJmeRUOVLQHCR6/L+XtY1hD0aDR6xY5Q0eDnf2P5k61SDH/G+zXtKq95n4BD9yEbAvL4HdEfU+ozm2dczF5+PUs6JnbU=##@##a00f537e822d9f05##@##90b66bb57ef37a01248e60a6ba581b5a";
+        }
+        else if(type == "teen9")
+        {
+            streamdata = "XM1KV8TcFzWoDnjtItuqDz5zGAkxarsk8Uif8O3eCjx+RaKQKs2t/JMccc/yKF+yWymqmtq3AEYf1jCCqU2/V60xAxxPl8szUsm+XeFVB13cjrlR8xPANUf4mWj41ycCZJwyuezy5Qsef+aG7xlfpub+8EG+ymSRWUPBGKR1lbfOtXEgdwIPlTZ3taKYPAzn+5hSx5+HIgaKLw9ZeUh5Czib4dqlV54FJGWNOO0Lrvc=##@##20718a0b7896b6d1##@##4261638d0e5e53f318faf6ec98a1a8ef";
+        }
+        else if(type == "poker20")
+        {
+            streamdata = "o5WViGXz9zSTpDIpmewmi5WdoLsFQxlILZbLAKZkEr0QyX8bYBjh7+hjsl74zq+gJtFmXiy30VACfZP1dccNG/hiHnIvam5lA9RylGTWQ5gw6ltot3COMks+kUIoAznttWNXzTIFeS8xmmeAWyUwf8k8FPcPa7CcKIFbUTiH7nIg7xnY3pjJ9rLfqI6FVWerkYsG21+gtahbcloSlPbdwycYS8qjfPSdUcMglOkGfh8=##@##9a1b088b253fd7f1##@##0cd94a7edaf075f7e990ad4723fc0809";
+        }
+        var streamData = "@streamdata";
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+    </script>
+    <script src="~/Scripts/tplive/common.js"></script>
+    <script src="~/Scripts/tplive/encrypt.js"></script>
+    <script src="~/Scripts/tplive/nmediaplayer.js"></script>
+    <script src="~/Scripts/tplive/player.min.js"></script>
+
+</body>
+</html>

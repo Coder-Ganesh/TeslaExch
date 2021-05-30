@@ -1,0 +1,251 @@
+﻿body {
+}
+.abexch-login {
+    background-color: #DBA70B;
+    height: 100vh;
+}
+
+.abexch-login .logo-img {
+    font-size: xx-large;
+    display: inline-flex;
+    text-align: center;
+    margin: auto;
+}
+.abexch-login .logo-count {
+    margin-left: 10px;
+    transform: rotate(-90deg);
+    font-size: medium;
+}
+
+.abexch-login .login-wrapper {
+    width: 500px;
+    color: #fff;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 5%;
+}
+.abexch-login .login-wrapper, .list-view, .login-abexch .login-abdetail, .royalcasino .clickDiv, .royalcasino .historyPanel, .royalcasino .optionBar, .royalcasino .table_circle {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+}
+.abexch-login .login-wrapper .login-formdetail {
+    position: relative;
+    background-color: #1a1a1a;
+    padding: 25px;
+    margin: 30px 0 0;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+}
+.abexch-login .login-wrapper .login-formdetail .ab-logininfo {
+    float: left;
+    width: 100%;
+}
+.abexch-login .login-wrapper .login-formdetail .ab-logininfo .form-group {
+    float: left;
+    width: 100%;
+    margin: 0 !important;
+}
+    .abexch-login .login-wrapper .login-formdetail .input-group {
+        width: 100%;
+    }
+.input-group {
+    display: table;
+    border-collapse: separate;
+}
+.input-group, .input-group-btn, .input-group-btn > .btn {
+    position: relative;
+}
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+.abexch-login .login-wrapper .login-formdetail .form-control {
+    border-radius: 50px;
+    margin: 14px 0;
+    background-color: #333;
+    border: 1px solid #333;
+    height: 55px;
+    font-size: 15px;
+    color: #fff !important;
+    width: 100%;
+    padding: 6px 25px;
+}
+.abexch-login .login-wrapper .login-formdetail .captcha-div {
+    float: left;
+    margin: 29px 0 0 30px;
+}
+.abexch-login .login-wrapper .login-formdetail .captcha-div .code {
+    background-color: #fff;
+    padding: 16px 13px 22px 20px;
+    border-radius: 30px;
+    text-align: center;
+}
+.abexch-login .login-wrapper .login-formdetail .validation {
+    float: left;
+    width: 70%;
+}
+.abexch-login .login-wrapper .login-formdetail .login-btn {
+    float: left;
+    width: 100%;
+    height: 55px;
+    font-size: 18px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    background-color: #14ADAB;
+    box-shadow: 0 0 0 1px #14ADAB inset;
+    border: 1px solid #14ADAB;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 14px 0;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+.abexch-login .login-wrapper .login-support {
+    background-color: #212121;
+    padding: 15px;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    font-size: 14px;
+}
+.abexch-login .login-wrapper .login-support .link-detail {
+    color: #8F99A3;
+    width: 100%;
+    float: left;
+    padding-left: 10px;
+    text-align: left;
+}
+.abexch-login .login-wrapper .login-support .link-detail .ab-link a {
+    color: #14ADAB;
+    font-size: 11px;
+}
+.login_andriod {
+    background-image: url("https://www.abexch9.com/images/abexch9/android-app.png");
+    width: 100%;
+    height: 31px;
+    margin: 6px auto;
+    background-position: center;
+    cursor: pointer;
+}
+.login-abexch .login_img, .login_andriod {
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+}
+@media screen and (max-width: 1366px){
+    .mobile-view {
+        display: block;
+    }
+}
+@media only screen and (max-width: 360px){
+    .mobile-view .abexch-login {
+        float: left;
+        height: 109.8vh;
+        overflow: hidden;
+    }
+}
+@media only screen and (max-device-width: 375px){
+    .mobile-view .abexch-login {
+        float: left;
+        height: 100vh;
+    }
+}
+@media only screen and (max-width: 360px){
+    .mobile-view .abexch-login .login-wrapper {
+        width: 375px;
+        margin: 0 10px;
+        padding: 40px 0 30px;
+    }
+}
+@media only screen and (max-device-width: 375px){
+    .mobile-view .abexch-login .login-wrapper {
+        width: 355px;
+        margin: 0 10px;
+        padding: 30px 0 25px;
+    }
+}
+/*@media only screen and (max-device-width: 479px) and (min-device-width: 321px){
+    .mobile-view .abexch-login .login-wrapper .logo-img {
+        height: 80px;
+        margin: 0 0 20px;
+    }
+}
+.mobile-view .abexch-login .login-wrapper .logo-img {
+    background-size: 25% 100% !important;
+}*/
+@media only screen and (max-width: 360px) {
+    .mobile-view .abexch-login .login-wrapper .login-formdetail {
+        padding: 20px;
+    }
+}
+@media only screen and (max-device-width: 375px){
+    .mobile-view .abexch-login .login-wrapper .login-formdetail {
+        padding: 15px;
+    }
+}
+@media only screen and (max-device-width: 375px){
+    .mobile-view .abexch-login .login-wrapper .login-formdetail .form-control {
+        padding: 6px 18px;
+    }
+}
+@media only screen and (max-width: 360px){
+    .mobile-view .abexch-login .login-wrapper .login-support {
+        padding: 15px 0 0;
+    }
+}
+@media only screen and (max-width: 360px){
+    .mobile-view .abexch-login .login-wrapper .login-support .login_andriod {
+        width: 55%;
+        height: 55px;
+    }
+}
+@media only screen and (max-device-width: 479px) and (min-device-width: 321px){
+    .mobile-view .abexch-login .login-wrapper .login-support .link-detail {
+        margin-bottom: 5px;
+    }
+}
+.mobile-view .abexch-login .login-wrapper .login-support .link-detail {
+    text-align: center;
+    margin-top: 10px;
+}
+@media only screen and (max-width: 360px){
+    .mobile-view .abexch-login .login-wrapper .login-support .link-detail .ab-link {
+        margin-bottom: 8px;
+    }
+}
+@media only screen and (max-device-width: 375px){
+    .mobile-view .abexch-login .login-wrapper .login-support .link-detail .ab-link {
+        margin-bottom: 8px;
+    }
+}
+.abexch-login .login-wrapper .login-support .link-detail .age {
+    margin-left: 5px;
+}
+@media only screen and (max-width: 360px){
+    .mobile-view .abexch-login .login-wrapper .login-formdetail .captcha-div .code {
+        padding: 16px 13px 17px 12px;
+    }
+}
+@media only screen and (max-device-width: 375px) {
+    .mobile-view .abexch-login .login-wrapper .login-formdetail .captcha-div .code {
+        padding: 16px 13px 18px 20px;
+    }
+}
+@media only screen and (max-device-width: 1365px) and (min-device-width: 320px){
+    .cbg [ui-view=main] {
+        width: 100%;
+    }
+}

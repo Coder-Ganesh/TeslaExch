@@ -1,0 +1,317 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<div id="mainWrap" class="main_wrap">
+
+    <div class="total_all">
+        <a id="refresh" href="" class="btn_replay"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" /></a>
+
+        <a class="add_member" href="#" onclick="AddPlayerDialog()"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Add Super</a>
+    </div>
+
+    <div id="totalBox" class="total_box" style="">
+
+        <dl id="myCurrentPLDL" class="total_dl">
+            <dt>Total Balance</dt>
+            <dd id="myCurrentPL" style="font-size: 12px;">BAL @ViewBag.DownLineTotal</dd>
+        </dl>
+        <dl id="totalBalanceDL" class="total_dl">
+            <dt>Total Exposure</dt>
+            <dd id="totalBalance" style="font-size: 12px;">BAL @ViewBag.getTotalClientLib</dd>
+        </dl>
+        <dl id="totalBalanceDL" class="total_dl">
+            <dt>Total Avail. Bal.</dt>
+            <dd id="totalBalance" style="font-size: 12px;">BAL @ViewBag.DownLineAvlTotal</dd>
+        </dl>
+        <dl id="totalExposureDL" class="total_dl">
+            <dt>Balance</dt>
+            <dd id="totalExposure" style="font-size: 12px;">BAL @ViewBag.login_user_balance</dd>
+        </dl>
+        <dl id="creditLimitDL" class="total_dl">
+            <dt>Available Balance</dt>
+            <dd id="myCreditLimit" style="font-size: 12px;">BAL @ViewBag.AvlTotal</dd>
+        </dl>
+    </div>
+    <!-- Center Column -->
+    <div id="widthAll" class="width-all">
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display: block;">
+            <ul class="loading">
+                <li><img src="~/Content/SKYEXCHANGEAgent_files/prospin.gif" /></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+        <!-- Message -->
+        <div id="message" class="message-wrap success">
+            <a class="btn-close" id="messageBtnClose">Close</a>
+            <p></p>
+        </div>
+        <!-- Report Table -->
+        <table id="resultTable" class="table01 margin-table" style="display: table;">
+            <tbody>
+                <tr>
+                    <th id="accountTh" width="" class="align-L" style="">Account</th>
+                    <th id="refPLTh" width="8%" style="">Credit Ref</th>
+                    <th id="currentPLTh" width="10%">Balance</th>
+                    <th id="exposureTh" width="10%" style="">Exposure</th>
+                    <th id="availableBalanceTh" width="10%" style="">Avail. bal.</th>
+                    <th id="playerBalanceTh" width="10%" style="">Player Balance</th>
+                    <th id="refPLTh" width="8%" style="">Ref. P/L</th>
+                    <th id="statusTh" width="10%" style="">Status</th>
+                    <th id="actionTh" width="15%" style="">Action</th>
+                </tr>
+
+
+                @{Double cpl = 0;}
+                @foreach (var item in Model)
+                {
+            <tr id="0" style="display: table-row;">
+                <td id="accountCol" class="align-L"><span class="lv_2">SUP</span><a href="/SuperAdmin/home_dl?md_id=@item.Client_Id">@item.Client_Username</a></td>
+                <td id="refPL0" style="">
+                    <input type="hidden" id="credit_@item.Client_Id" value="@item.credit_ref" />
+                    <a id="creditRef0" class="credit-amount-member" href="javascript:void(0);" onclick="openCreditDialog(@item.Client_Id)">
+                        @item.credit_ref
+                    </a>
+                </td>
+                <td id="currentPL0">@item.MA_balance</td>
+                <td id="currentExposure0" style=""> <a href="javascript:" style="text-decoration: none;" onclick="Exposurelistshow('/SuperAdmin/ClientLiability/@item.Client_Id/0/0'); return false;">@item.Client_lib</a></td>
+                <td id="available0" style="">@item.Client_balance</td>
+                <td id="creditLimit0" style="text-align: center;">@item.PL_balance</td>
+                @if (item.Client_profit_loss < 0)
+                {
+                    cpl = -item.Client_profit_loss;
+                    <td id="userExposure"><span class="red">( @cpl)</span></td>
+                }
+                else
+                {
+                    <td id="refPL0" style="">@item.Client_profit_loss</td>
+                }
+                <td id="statusCol" style="">
+                    <ul id="tipsPopup" class="status-popup" style="display: none">
+                    </ul>
+                    @if (item.Client_status == "activate")
+                    {
+                        <span id="status" class="status-active"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Active</span>
+                    }
+                    else if (item.Client_status == "deactivate")
+                    {
+                        <span id="status" class="status-suspend"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Suspend</span>
+                    }
+                    else
+                    {
+                        <span id="status" class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Locked</span>
+                    }
+
+
+                </td>
+                <td id="actionCol" style="">
+                    <span><i class="fa fa-key" aria-hidden="true" style="display:none;padding: 6px; border: 1px solid #bbb; border-radius: 5px; font-weight: bold; background: #f2f2f2;"></i></span>
+                    <ul class="action">
+                        <li>
+                            <a id="change0" class="status" href="#" onclick="openStatusDialog('@item.Client_Id','@item.Client_status','@item.Client_Username')">Change Status</a>
+
+                        </li>
+                        <li>
+                            <a id="profile0" class="profile" href="/SuperAdmin/accountSummary?md_id=@item.Client_Id&dist_id=0&uid=0">Profile</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <!-- Report Table -->
+</div>
+
+
+
+<script>
+    function showpass(username,pas) {
+        $("#createModalPass").show();
+        $("#passname").text(username);
+        $("#showpassword").text(pas);
+    }
+
+    function hideshowpass() { $("#createModalPass").hide(); }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 45 && charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+
+<script>
+
+    function validateCoinRate(evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+
+    setTimeout(function () { $(".loading-wrap").hide(); }, 500); function AddPlayerDialog() { $("#createModal").show(); } function hideAddPlayerDialog() { $("#createModal").hide(); }
+    function AddPlayerRequest() {
+        var userName = $("#userName").val();
+        var userPassword = $("#userPassword").val();
+        var repeatPassword = $("#repeatPassword").val();
+        var email = $("#email").val();
+        /*var firstname = $("#firstName").val();
+        var lastname = $("#lastName").val();
+        var phone = $("#phone").val();
+        var commission = $("#commission").val();*/
+        var mpl = $("#mpl").val();
+        //var aglimit = $("#aglimit").val();
+
+        if (email == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Email");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (userName < 4 || userName > 16) {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("Enter 4-16 Alphanumeric Character");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (userPassword < 8 || userPassword > 16) {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("Enter 8-16 Alphanumeric Character Password");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (userPassword != repeatPassword) {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("New Password and Confirm Password Fields do not match.");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        /*else if (commission == "" || commission < -3 || commission > 3) {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("Enter -3 to 3 numeric Character Commission");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (aglimit == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Max. Agent Limit");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }*/
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/AdminFun/AddSuperMaster',
+                data: { email: email, username: userName, password: userPassword ,mpl:mpl},
+                beforeSend: function () {
+                    //$(".loading-wrap").show();
+                    $("#createBtn").prop('disabled', true);
+                    $("#createBtn").html('Please Wait...');
+                },
+                success: function (result) {
+                    setTimeout(function () {
+                        //alert(result);
+                        $("#createBtn").prop('disabled', false);
+                        //$(".loading-wrap").hide();
+                        $("#createBtn").html('Create');
+
+                        if (result == "Success") {
+                            $("#userName").val("");
+                            $("#email").val("");
+                            $("#repeatPassword").val("");
+                            $("#userPassword").val("");
+
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("success");
+                            $("#message").show();
+                            $("#message p").text("Super Master Added Successfully!");
+                            setTimeout(function () {
+                                $("#message").hide();
+                                window.location.href = '';
+                            }, 2000);
+                            hideAddPlayerDialog();
+                        }
+                        else {
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("error");
+                            $("#message").show();
+                            $("#message p").text("" + result);
+                            setTimeout(function () { $("#message").hide(); }, 2000);
+                        }
+                    }, 1000);
+                    //alert(result);
+                },
+                error: function () {
+                    setTimeout(function () {
+                        $("#createBtn").prop('disabled', false);
+                        // $(".loading-wrap").hide();
+                        $("#createBtn").html('Create');
+
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("error");
+                        $("#message").show();
+                        $("#message p").text("Error in Adding Super Master!");
+                        setTimeout(function () { $("#message").hide(); }, 2000);
+                    }, 1000);
+                }
+            });
+        }
+    }
+
+    $('#messageBtnClose').click(function () {
+        $('#message').hide();
+    });
+
+    
+</script>
+
+<script>
+
+    function Exposurelistshow(relativeUrl, user_id) {
+        var param = {  'md_id': user_id , 'dist_id': 0 , 'user_id': 0};
+        OpenWindowWithPost(relativeUrl, "width=1200, height=600, left=100, top=100, resizable=yes, scrollbars=yes", "NewFile", param);
+    }
+
+
+    function OpenWindowWithPost(url, windowoption, name, params) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", url);
+        form.setAttribute("target", name);
+        for (var i in params) {
+            if (params.hasOwnProperty(i)) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = i;
+                input.value = params[i];
+                form.appendChild(input);
+            }
+        }
+        document.body.appendChild(form);
+        //note I am using a post.htm page since I did not want to make double request to the page
+        //it might have some Page_Load call which might screw things up.
+        window.open("/SuperAdmin/Index/", name, windowoption);
+        form.submit();
+        document.body.removeChild(form);
+    }
+</script>

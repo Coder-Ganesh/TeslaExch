@@ -1,0 +1,234 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+
+    <div id="mainWrap" class="main_wrap">
+
+        <div class="total_all">
+            <a id="refresh" class="btn_replay"><img src="../SKYEXCHANGE - Agent_files/transparent.gif"></a>
+
+            <a class="add_member" href="#" onclick="AddPlayerDialog()">
+                <img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Add Master Agent
+            </a>
+        </div>
+        <div id="totalBox" class="total_box" style="">
+
+            <dl id="creditLimitDL" class="total_dl">
+                <dt>Total Balance</dt>
+                <dd id="myCreditLimit">BAL  @ViewBag.MDLTOTALBAL</dd>
+            </dl>
+            <dl id="totalBalanceDL" class="total_dl">
+                <dt>Total Exposure</dt>
+                <dd id="totalBalance">BAL @ViewBag.TmdlcLib</dd>
+            </dl>
+            <dl id="totalBalanceDL" class="total_dl">
+                <dt>Total Avail. Bal.</dt>
+                <dd id="totalBalance">BAL @ViewBag.MDLTotalAVLBAL</dd>
+            </dl>
+            <dl id="creditLimitDL" class="total_dl">
+                <dt>Balance</dt>
+                <dd id="myCreditLimit">BAL  @ViewBag.login_user_balance</dd>
+            </dl>
+            <dl id="creditGivenOutDL" class="total_dl">
+                <dt>Available Balance</dt>
+                @{ Double MDLTotalBAL = 0;}
+                @if (ViewBag.login_user_balance != null && ViewBag.MDLTotalAVLBAL != null)
+                {
+                    Double login_user_balance = ViewBag.login_user_balance;
+                    Double MDLTotalAVLBAL = ViewBag.MDLTotalAVLBAL;
+                    MDLTotalBAL = login_user_balance + MDLTotalAVLBAL;
+                }
+                <dd id="totalCreditGivenOut">BAL @MDLTotalBAL</dd>
+            </dl>
+
+        </div>
+        <div class="function-wrap clearfix">
+            <dl class="banking-head float-L">
+                <dd><a href="/AgentM/Index?word=A">A</a></dd>
+                <dd><a href="/AgentM/Index?word=B">B</a></dd>
+                <dd><a href="/AgentM/Index?word=C">C</a></dd>
+                <dd><a href="/AgentM/Index?word=D">D</a></dd>
+                <dd><a href="/AgentM/Index?word=E">E</a></dd>
+                <dd><a href="/AgentM/Index?word=F">F</a></dd>
+                <dd><a href="/AgentM/Index?word=G">G</a></dd>
+                <dd><a href="/AgentM/Index?word=H">H</a></dd>
+                <dd><a href="/AgentM/Index?word=I">I</a></dd>
+                <dd><a href="/AgentM/Index?word=J">J</a></dd>
+                <dd><a href="/AgentM/Index?word=K">K</a></dd>
+                <dd><a href="/AgentM/Index?word=L">L</a></dd>
+                <dd><a href="/AgentM/Index?word=M">M</a></dd>
+                <dd><a href="/AgentM/Index?word=N">N</a></dd>
+                <dd><a href="/AgentM/Index?word=O">O</a></dd>
+                <dd><a href="/AgentM/Index?word=P">P</a></dd>
+                <dd><a href="/AgentM/Index?word=Q">Q</a></dd>
+                <dd><a href="/AgentM/Index?word=R">R</a></dd>
+                <dd><a href="/AgentM/Index?word=S">S</a></dd>
+                <dd><a href="/AgentM/Index?word=T">T</a></dd>
+                <dd><a href="/AgentM/Index?word=U">U</a></dd>
+                <dd><a href="/AgentM/Index?word=V">V</a></dd>
+                <dd><a href="/AgentM/Index?word=W">W</a></dd>
+                <dd><a href="/AgentM/Index?word=X">X</a></dd>
+                <dd><a href="/AgentM/Index?word=Y">Y</a></dd>
+                <dd><a href="/AgentM/Index?word=Z">Z</a></dd>
+                <dd><a href="/AgentM/Index?word=All">All</a></dd>
+            </dl>
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="Enter Master Agent Name" style="margin:0px;">
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Center Column -->
+        <div id="widthAll" class="width-all">
+
+
+            <!-- Loading Wrap -->
+            <div id="loading" class="loading-wrap" style="display: block;">
+                <ul class="loading">
+                    <li><img src="~/Content/SKYEXCHANGEAgent_files/prospin.gif" /></li>
+                    <li>Loading...</li>
+                </ul>
+            </div>
+
+            <!-- Message -->
+            <div id="message" class="message-wrap success">
+                <a class="btn-close" id="messageBtnClose">Close</a>
+                <p></p>
+            </div>
+            <!-- Report Table -->
+            <table id="resultTable" class="table01 margin-table" style="display: table;">
+                <tbody>
+                <thead>
+                <th id="accountTh" width="" class="align-L" style="">Account</th>
+                <th id="refPLTh" width="8%" style="">Credit Ref.</th>
+                <th id="balanceTh" width="10%" style="">Balance</th>
+                <th id="exposureTh" width="10%" style="">Exposure</th>
+                <th id="availableBalanceTh" width="10%" style="">Avail. bal.</th>
+                <th id="playerBalanceTh" width="10%" style="">Player Balance</th>
+                <th id="refPLTh" width="5%" style="display:none;">P/L %</th>
+                <th id="refPLTh" width="8%" style="">Ref. P/L</th>
+                <th id="statusTh" width="10%" style="">Status</th>
+                <th id="actionTh" width="15%" style="">Action</th>
+                </thead>
+                @{Double cpl = 0;}
+                @foreach (var item in Model)
+                {
+                    <tr id="0" style="display: table-row;">
+                        <td id="accountCol" class="align-L"><span class="lv_3">MA</span> <a href="/AgentM/home_dl?dist_id=@item.Client_Id">@item.Client_Username</a></td>
+                        <td id="refPL0" style="">
+                            <input type="hidden" id="credit_@item.Client_Id" value="@item.credit_ref" />
+                            <a id="creditRef0" class="credit-amount-member" href="javascript:void(0);" onclick="openCreditDialog(@item.Client_Id)">
+                                @item.credit_ref
+                            </a>
+                        </td>
+                        <td id="balance0" style="">@item.Client_balance</td>
+                        <td id="currentExposure0" style=""> <a href="javascript:" style="text-decoration: none;" onclick="Exposurelistshow('/AgentM/ClientLiability/@item.Client_Id/0'); return false;">@item.Client_exposure</a></td>
+                        <td id="available0" style="">@item.Client_avl_balance</td>
+                        <td id="available0" style="">@item.Client_ttl_balance</td>
+                        <td id="refPL0" style="display:none;">@item.Client_profit_loss</td>
+                        @if (item.DLPROF_LOSS < 0)
+                        {
+                            cpl = -item.DLPROF_LOSS;
+                            <td id="userExposure"><span class="red">( @cpl)</span></td>
+                        }
+                        else
+                        {
+                            <td id="refPL0">@item.DLPROF_LOSS</td>
+                        }
+                        <td id="statusCol" style="">
+                            <ul id="tipsPopup" class="status-popup" style="display: none">
+                            </ul>
+                            @if (item.Client_status == "activate")
+                            {
+                                <span id="status" class="status-active"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Active</span>
+                            }
+                            else if (item.Client_status == "delete")
+                            {
+                                <span id="status" class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Locked</span>
+                            }
+                            else
+                            {
+                                <span id="status" class="status-suspend"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Suspend</span>
+                            }
+
+
+                        </td>
+                        <td id="actionCol" style="">
+                            <ul class="action">
+                                <li>
+                                    <input type="hidden" id="Username_@item.Client_Id" value="@item.Client_Username" />
+                                    <input type="hidden" id="status_@item.Client_Id" value="@item.Client_status" />
+                                    <a id="change0" class="status" href="#" onclick="openStatusDialog(@item.Client_Id)">Change Status</a>
+                                </li>
+                                <li>
+                                    <a id="profile0" class="profile" href="/AgentM/accountSummary?dist_id=@item.Client_Id&uid=0">Profile</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Report Table -->
+        <div id="tableOneBox" class="table_one_box" style="display: none">
+
+
+        </div>
+    </div>
+
+    <script>
+            function Exposurelistshow(relativeUrl, user_id) {
+                var param = { 'dist_id': user_id , 'user_id': 0};
+                OpenWindowWithPost(relativeUrl, "width=1200, height=600, left=100, top=100, resizable=yes, scrollbars=yes", "NewFile", param);
+            }
+
+
+            function OpenWindowWithPost(url, windowoption, name, params) {
+                var form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", url);
+                form.setAttribute("target", name);
+                for (var i in params) {
+                    if (params.hasOwnProperty(i)) {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = i;
+                        input.value = params[i];
+                        form.appendChild(input);
+                    }
+                }
+                document.body.appendChild(form);
+                //note I am using a post.htm page since I did not want to make double request to the page
+                //it might have some Page_Load call which might screw things up.
+                window.open("home.php/", name, windowoption);
+                form.submit();
+                document.body.removeChild(form);
+            }
+
+            /////// search filliter js////////
+
+            $(document).ready(function () {
+                $('.searchTerm').on('keyup', function () {
+                    var searchTerm = $(this).val().toLowerCase();
+                    $('#resultTable tbody tr').each(function () {
+                        var lineStr = $(this).text().toLowerCase();
+                        if (lineStr.indexOf(searchTerm) === -1) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
+                        }
+                    });
+                });
+            });
+    </script>

@@ -1,0 +1,71 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<body class="skyexchange">
+    <p>
+        <h1 style="text-align:center;">Update Matches Data</h1>
+    </p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align:center;">Match Title</th>
+                <th style="text-align:center;">Event Code</th>
+                <th style="text-align:center;">X Code</th>
+                <th style="text-align:center;">X Type</th>
+                <th style="text-align:center;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center;">@item.SportsName</td>
+                    <td style ="text-align:center;">@item.EventId</td>
+                    <td style="text-align:center;"><input type="text" name="x_code_@item.EventId" id="x_code_@item.EventId" value="@item.LaegueId" /></td>
+                    <td style="text-align:center;"><input type="text" name="x_type_@item.EventId" id="x_type_@item.EventId" value="@item.SportsId" /></td>
+                    <td style="text-align:center;"><button class="btn btn-success" onclick="Update(@item.EventId)"> Update</button></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</body>
+</html>
+<script>
+
+    function Update(event_code) {
+        var x_code = $("#x_code_" + event_code).val();
+        var x_type = $("#x_type_" + event_code).val();
+        if (x_code == "" || x_type=="") {
+            alert("Please fill Details");
+        }
+        else {
+            $.ajax({
+                type: 'GET',
+                url: '/AdminFun/Addxdata',
+                data: { x_code: x_code, x_type: x_type ,event_code : event_code},
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function (result) {
+                    alert(result);
+                }
+            });
+        }
+        //return false;
+    }
+</script>

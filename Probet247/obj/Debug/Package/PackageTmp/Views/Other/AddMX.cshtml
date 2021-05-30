@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <h2>Add Match</h2>
+
+    <label>Sport :</label>
+    <select id="sport" class="form-control">
+        <option value="0">Select any Sport</option>
+        <option value="4" selected>Cricket</option>
+        <option value="1">Soccer</option>
+        <option value="2">Tennis</option>
+        <option value="10">Table Tennis</option>
+        <option value="3503">Darts</option>
+        <option value="98765">Binary</option>
+        <option value="56789">Matka</option>
+    </select><br /><br />
+    <label>type :</label>
+    <select id="type" class="form-control">
+        <option value="0">Select any Type</option>
+        <option value="LiveFeed" selected>LiveFeed</option>
+        <option value="LineFeed">LineFeed</option>
+    </select><br /><br />
+    <label>Title : </label>
+    <input type="text" class="form-control" id="title" /><br><br>
+    <label>Team A : </label>
+    <input type="text" class="form-control" id="teamA" value="A"/><br><br>
+    <label>Team B : </label>
+    <input type="text" class="form-control" id="teamB" value="B"/><br><br>
+    <label>Event Code : </label>
+    <input type="text" class="form-control" id="event_code" /><br><br>
+    <label>Time :</label>
+    <input type="text" class="form-control" id="time" value="2020-06-08 00:00:00"/><br><br>
+    <label>E-Sport if yes then 1 if Not then 0 :</label>
+    <input type="text" class="form-control" id="e_sport"  value="0"/><br><br>
+    <label>Is Fancy if yes then 1 if Not then 0 :</label>
+    <input type="text" class="form-control" id="is_fancy" value="1"/><br><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="PassLDetailP();" />
+</div>
+<script>
+    function PassLDetailP() {
+        var teamA = document.getElementById("teamA").value;
+        var teamB = document.getElementById("teamB").value;
+        var title = document.getElementById("title").value;
+        var event_code = document.getElementById("event_code").value;
+        var time = document.getElementById("time").value;
+        var sport = document.getElementById("sport").value;
+        var type = document.getElementById("type").value;
+        var e_sport = document.getElementById("e_sport").value;
+        var is_fancy = document.getElementById("is_fancy").value;
+        $.ajax({
+            type: "POST",
+            url: "/Other/AddMaX",
+            data: {title: title,teamA:teamA,teamB:teamB, mtime: time , sport: sport ,type:type, e_sport:e_sport, is_fancy:is_fancy, event_code:event_code},
+            success: function (result) {
+                alert(result)
+            },
+        });
+    }
+</script>
+
+

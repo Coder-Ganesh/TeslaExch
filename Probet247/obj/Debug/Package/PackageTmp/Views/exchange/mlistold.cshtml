@@ -1,0 +1,575 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<input type="hidden" value="@ViewBag.MMatch_bf_ids" id="MMatch_bf_ids" />
+<div class="main-content-container">
+    <div class="content navbar">
+        <div class="mod-navigation-coupon">
+            <div class="_2OT3f _35TsD _1IVe7">
+                <div class="_33sEJ">
+                    <span style="width: 16px; height: 16px;">
+                        <div class="icon sprite-normal-@(ViewBag.SportsId)"></div>
+                    </span>
+                </div>
+                <div class="_3S9GR">
+                    <span class="_2Gef4 _1k8eu _19Fp5 _3lvH3">@ViewBag.LeagueName</span>
+                </div>
+                <!--<button type="button" class="_85wJu _1IO3s _1k8eu">Multiples</button>-->
+            </div>
+            <div class="mod-coupon multiples-disabled">
+                <div class="ui-sub-header show-book-percentage">
+                    <div class="label ellipsis-text">All Matches</div>
+                    <div class="runnersContainer">
+                        <div class="runner ellipsis-text">1</div>
+                        <div class="runner ellipsis-text">X</div>
+                        <div class="runner ellipsis-text">2</div>
+                    </div>
+                </div>
+                <div class="event-list" id="match_list_div">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script>
+
+
+        function bet_manage(stake) {
+            var tt = $('#stake').val();
+            var bt = document.getElementById('betslip_btn');
+
+            var bp = document.getElementById("panle");
+            var bp1 = document.getElementById("panle1");
+            if (tt != '') {
+                bt.disabled = false;
+
+                $("#bets_profits").html(tt);
+                $("#bets_profits1").html(tt);
+                $("#bets_profits2").html(tt);
+                $("#bets_profits3").html(tt);
+                bp.style.display = "block";
+                bp1.style.display = "block";
+
+            }
+            else {
+                bt.disabled = true;
+                $("#bets_profits").html(0);
+                $("#bets_profits1").html(0);
+                $("#bets_profits2").html(0);
+                $("#bets_profits3").html(0);
+                bp.style.display = "none";
+                bp1.style.display = "none";
+
+            }
+
+        }
+
+
+        function myBet() {
+
+            var odd_bet = $("#point").html();
+            $("#odds_point").val(odd_bet);
+
+            var x = document.getElementById("mybets");
+            var y = document.getElementById("mybets1");
+
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                y.style.display = "block";
+
+            } else {
+                x.style.display = "block";
+                y.style.display = "none";
+
+            }
+        }
+    </script>
+    <script>
+
+        function myBet_cancel() {
+            var x = document.getElementById("mybets");
+            var y = document.getElementById("mybets1");
+
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+
+    </script>
+
+
+    <script>
+        function manage(txt) {
+            var tt = $('#txt').val();
+            var bt = document.getElementById('place_bet');
+            if (tt != '') {
+                bt.disabled = false;
+                $("#bet_profit").html(tt);
+            }
+            else {
+                bt.disabled = true;
+            }
+        }
+
+        function manage1(EventCode) {
+            var tt = $('#txt1_' + EventCode).val();
+            var bp = document.getElementById("panle2_" + EventCode);
+            var bt = document.getElementById('place_bet1_' + EventCode);
+            if (tt != '') {
+                bt.disabled = false;
+                $("#bet_profit1_" + EventCode).html(tt);
+                bp.style.display = "block";
+            }
+            else {
+                bt.disabled = true;
+                bp.style.display = "none";
+            }
+        }
+
+
+        function placekeyboardS(bt_val, index) {
+            var tt = $('#txt1_' + index).val();
+
+            if (bt_val == "X") {
+                var new_stake = tt.slice(0, -1);
+            }
+            else {
+                var new_stake = tt + bt_val;
+            }
+
+            $('#txt1_' + index).val(new_stake);
+            manage1(index);
+
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#bet-show").click(function () {
+                $("#hiddenlinks").slideToggle();
+            });
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function () {
+            // This button will increment the value
+            $('.qtyplus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If is not undefined
+                if (!isNaN(currentVal)) {
+                    // Increment
+                    $('input[name=' + fieldName + ']').val(currentVal + 1);
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name=' + fieldName + ']').val(2);
+                }
+            });
+            // This button will decrement the value till 0
+            $(".qtyminus").click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If it isn't undefined or its greater than 0
+                if (!isNaN(currentVal) && currentVal > 2) {
+                    // Decrement one
+                    $('input[name=' + fieldName + ']').val(currentVal - 1);
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name=' + fieldName + ']').val(2);
+                }
+            });
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('.add').on('click', function () {
+                var qty = $(this).closest('div').find('.qty');
+                var currentVal = parseFloat($(qty).val());
+                if (!isNaN(currentVal)) {
+                    $(qty).val((currentVal + 0.5).toFixed(1));
+                }
+            });
+            $('.minus').on('click', function () {
+                var qty = $(this).closest('div').find('.qty');
+                var currentVal = parseFloat($(qty).val());
+                if (!isNaN(currentVal) && currentVal > 1) {
+                    $(qty).val((currentVal - 0.5).toFixed(1));
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        //Start Cricket
+        $(function () {
+            getAllMessages();
+        })
+
+        function getAllMessages() {
+            var Mmatch_ids = $("#MMatch_bf_ids").val();
+            $.ajax({
+                url: '/exchange/GetMessages1MView',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: {Mmatch_ids:Mmatch_ids},
+                dataType: 'html',
+                success: function (result) {
+                    //  alert(result)
+                    const fieldSorter = (fields) => (a, b) => fields.map(o => {
+                        let dir = 1;
+                        if (o[0] === '-') { dir = -1; o = o.substring(1); }
+                        return a[o] > b[o] ? dir : a[o] < b[o] ? -(dir) : 0;
+                    }).reduce((p, n) => p ? p : n, 0);
+                    const homes = JSON.parse(result);
+                    const sortedHomes = homes.sort(fieldSorter(['MatchTime', '-BetfairId']));
+                    var ft = JSON.stringify(sortedHomes, null, '\t');
+                    var a2 = JSON.parse(ft);
+                    for (i = 0; i < a2.length; i++) {
+                        if ($("#mt_" + a2[i].EventCode).val() == a2[i].EventCode) {
+                            $("#totalmatched_" + a2[i].EventCode).text(a2[i].MatchedAmt);
+                            $("#backprice1_" + a2[i].EventCode).text(a2[i].back1);
+                            $("#backsize1_" + a2[i].EventCode).text(a2[i].back1size);
+                            $("#layprice1_" + a2[i].EventCode).text(a2[i].lay1);
+                            $("#laysize1_" + a2[i].EventCode).text(a2[i].lay1size);
+                            $("#backprice2_" + a2[i].EventCode).text(a2[i].back11);
+                            $("#backsize2_" + a2[i].EventCode).text(a2[i].back2size);
+                            $("#layprice2_" + a2[i].EventCode).text(a2[i].lay11);
+                            $("#laysize2_" + a2[i].EventCode).text(a2[i].lay2size);
+                            $("#backprice3_" + a2[i].EventCode).text(a2[i].back22);
+                            $("#backsize3_" + a2[i].EventCode).text(a2[i].back3size);
+                            $("#layprice3_" + a2[i].EventCode).text(a2[i].lay22);
+                            $("#laysize3_" + a2[i].EventCode).text(a2[i].lay3size);
+                        }
+                        else {
+                            var x = a2[i].MatchTime;
+                            var MatchTime = getdatetime(x);
+                            var backinplay = "#F6F6F6";
+                            var inplaycolor = "#7F7F7F";
+                            if (MatchTime == "Inplay") {
+                                backinplay = "#20A052";
+                                inplaycolor = "white";
+                            }
+
+                            var myvar = '<div class="event-line-container swipe-enabled multiples-disabled">' +
+                                '<input name="event_code" type="hidden" id="mt_' + a2[i].EventCode + '" value="' + a2[i].EventCode + '">' +
+                                '<a href="/exchange/MMarkets/' + a2[i].EventCode + '" class="event-line-info">' +
+                                '<div class="event">' +
+                                ' <div class="bf-livescores coupon">' +
+                                ' <div class="default-template has-broadcasts-icons has-info-label">' +
+                                ' <div class="mini-coupon" style="background-color:' + backinplay + '; ">' +
+                                ' <div class="bf-livescores mini frontinplay1" style="background-color:' + backinplay + ';color:' + inplaycolor + '; ">' + MatchTime + '</div>' +
+                                ' </div>' +
+                                ' <div class="right-content">' +
+                                ' <div class="bf-livescores-runners">' +
+                                ' <div class="runner home seed-with-0-digits">' +
+                                ' <span class="name">' + a2[i].Runnername + '</span>' +
+                                ' </div><br>' +
+                                ' <div class="runner away seed-with-0-digits">' +
+                                ' <span class="name">' + a2[i].RunnernameB + '</span>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </a>' +
+                                ' <div class="event-line-bet-btns">' +
+                                ' <button class="ui-bet-button back" id="show_hide' + i + '" onClick="BetPlacePopup(&quot;backprice1_&quot;,' + a2[i].EventCode + ',&quot;back&quot;,&quot;1&quot;,&quot;' + a2[i].Runnername + '&quot;)">' +
+                                ' <span class="price" id="backprice1_' + a2[i].EventCode + '">' + a2[i].back1 + '</span>' +
+                                ' <span class="size ellipsis-text" id="backsize1_' + a2[i].EventCode + '">' + a2[i].back1size + ' </span>' +
+                                ' </button>' +
+                                ' <button class="ui-bet-button back" id="show_hide' + i + '" onClick="BetPlacePopup(&quot;backprice3_&quot;,' + a2[i].EventCode + ',&quot;back&quot;,&quot;3&quot;,&quot;The Draw&quot;)">' +
+                                ' <span class="price" id="backprice3_' + a2[i].EventCode + '">' + a2[i].back22 + '</span>' +
+                                ' <span class="size ellipsis-text" id="backsize3_' + a2[i].EventCode + '">' + a2[i].back3size + ' </span>' +
+                                ' </button>' +
+                                ' <button class="ui-bet-button back" id="show_hide' + i + '" onClick="BetPlacePopup(&quot;backprice2_&quot;,' + a2[i].EventCode + ',&quot;back&quot;,&quot;2&quot;,&quot;' + a2[i].RunnernameB + '&quot;)">' +
+                                ' <span class="price" id="backprice2_' + a2[i].EventCode + '">' + a2[i].back11 + '</span>' +
+                                ' <span class="size ellipsis-text" id="backsize2_' + a2[i].EventCode + '">' + a2[i].back2size + ' </span>' +
+                                ' </button>' +
+                                ' <button class="ui-bet-button lay" id="show_hide' + i + '" onClick="BetPlacePopup(&quot;layprice1_&quot;,' + a2[i].EventCode + ',&quot;lay&quot;,&quot;1&quot;,&quot;' + a2[i].Runnername + '&quot;)">' +
+                                ' <span class="price" id="layprice1_' + a2[i].EventCode + '">' + a2[i].lay1 + '</span>' +
+                                ' <span class="size ellipsis-text" id="laysize1_' + a2[i].EventCode + '">' + a2[i].lay1size + ' </span>' +
+                                ' </button>' +
+                                ' <button class="ui-bet-button lay" id="show_hide' + i + '" onClick="BetPlacePopup(&quot;layprice3_&quot;,' + a2[i].EventCode + ',&quot;lay&quot;,&quot;3&quot;,&quot;The Draw&quot;)">' +
+                                ' <span class="price" id="layprice3_' + a2[i].EventCode + '">' + a2[i].lay22 + '</span>' +
+                                ' <span class="size ellipsis-text" id="laysize3_' + a2[i].EventCode + '">' + a2[i].lay3size + ' </span>' +
+                                ' </button>' +
+                                ' <button class="ui-bet-button lay" id="show_hide' + i + '" onClick="BetPlacePopup(&quot;layprice2_&quot;,' + a2[i].EventCode + ',&quot;lay&quot;,&quot;2&quot;,&quot;' + a2[i].RunnernameB + '&quot;)">' +
+                                ' <span class="price" id="layprice2_' + a2[i].EventCode + '">' + a2[i].lay11 + '</span>' +
+                                ' <span class="size ellipsis-text" id="laysize2_' + a2[i].EventCode + '">' + a2[i].lay2size + '</span>' +
+                                ' </button>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' <div class="comp-inline-betting" id="men_ex_' + a2[i].EventCode + '" style="display:none;">' +
+                                ' <div class="mod-inline-betting narrow">' +
+                                ' <div class="place-bet-panel back extra-small" id="men_ex1_' + a2[i].EventCode + '">' +
+                                ' <span style="display:none;"></span><input type="hidden" value="">' +
+                                ' <div class="place-bet-container">' +
+                                ' <div class="bet-info">' +
+                                ' <div class="info">' +
+                                ' <div class="bet-info-back">Back (Bet For):</div>' +
+                                ' <div class="bet-info-lay">Lay (Bet Against):</div>' +
+                                ' <div class="bet-info-description">' +
+                                ' <span id="teamtitle_p_' + a2[i].EventCode + '"></span>' +
+                                ' <span>-</span>' +
+                                ' <span>Match Odds</span>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' <div class="bet-actions-container nudges-visible">' +
+                                ' <div class="price-container">' +
+                                ' <div class="input">' +
+                                ' <button class="negative-nudge minus" id="minus1">' +
+                                ' <svg class="nudge-icon sprite-bf-inline-betting-minus-icon"></svg>' +
+                                ' </button>' +
+                                ' <div class="ppb-numeric-input-overlay-wrapper">' +
+                                ' <input type="tel" class="price-input ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength ppb-numeric-input qty" placeholder="Odds" id="odds_' + a2[i].EventCode + '">' +
+                                ' </div>' +
+                                ' <button class="positive-nudge add" id="add1">' +
+                                ' <svg class="nudge-icon sprite-bf-inline-betting-plus-icon"></svg>' +
+                                ' </button>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' <div class="size-container">' +
+                                ' <div class="input">' +
+                                ' <button class="negative-nudge qtyminus" field=\'quantity\'>' +
+                                ' <svg class="nudge-icon sprite-bf-inline-betting-minus-icon"></svg>' +
+                                ' </button>' +
+                                ' <div class="ppb-numeric-input-overlay-wrapper">' +
+                                ' <input type="tel" name=\'quantity\' class="size-input ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength ppb-numeric-input qty" placeholder="Stake" id="txt1_' + a2[i].EventCode + '" oninput="manage1(' + a2[i].EventCode + ')">' +
+                                ' </div>' +
+                                ' <button class="positive-nudge qtyplus" field=\'quantity\'>' +
+                                ' <svg class="nudge-icon sprite-bf-inline-betting-plus-icon"></svg>' +
+                                ' </button>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' <button class="reset-bet visible-when-narrow" onclick="HideBetPopup(' + a2[i].EventCode + ')">Cancel</button>' +
+                                ' <button class="place-bet" type="submit" disabled="disabled" id="place_bet1_' + a2[i].EventCode + '" onclick="SubmitBetMV1(\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ')">' +
+                                ' <span class="place-bet-title">Place bet</span>' +
+                                ' <span id="panle2_' + a2[i].EventCode + '" style="display: none; font-size: 11px; float: left; margin-left: 50px;">' +
+                                ' Profit £<span class="place-bet-profit" id="bet_profit1_' + a2[i].EventCode + '" style="float: right; font-size: 12px; margin-left: 5px;"></span>' +
+                                ' </span>' +
+                                ' </button>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' <div class="ppb-doubleline-keyboard numeric-keyboard-open">' +
+                                ' <div class="panel-row panel-keyboard">' +
+                                ' <div class="panel-left">' +
+                                ' <div class="panel-row">' +
+                                ' <div class="button-container numeric-input-1" onclick="placekeyboardS(1,' + a2[i].EventCode + ')">1</div>' +
+                                ' <div class="button-container numeric-input-2" onclick="placekeyboardS(2,' + a2[i].EventCode + ')">2</div>' +
+                                ' <div class="button-container numeric-input-3" onclick="placekeyboardS(3,' + a2[i].EventCode + ')">3</div>' +
+                                ' <div class="button-container numeric-input-4" onclick="placekeyboardS(4,' + a2[i].EventCode + ')">4</div>' +
+                                ' <div class="button-container numeric-input-5" onclick="placekeyboardS(5,' + a2[i].EventCode + ')">5</div>' +
+                                ' <div class="button-container numeric-input-6" onclick="placekeyboardS(6,' + a2[i].EventCode + ')">6</div>' +
+                                ' </div>' +
+                                ' <div class="panel-row bottom-row">' +
+                                ' <div class="button-container numeric-input-7" onclick="placekeyboardS(7,' + a2[i].EventCode + ')">7</div>' +
+                                ' <div class="button-container numeric-input-8" onclick="placekeyboardS(8,' + a2[i].EventCode + ')">8</div>' +
+                                ' <div class="button-container numeric-input-9" onclick="placekeyboardS(9,' + a2[i].EventCode + ')">9</div>' +
+                                ' <div class="button-container numeric-input-0" onclick="placekeyboardS(0,' + a2[i].EventCode + ')">0</div>' +
+                                ' <div class="button-container numeric-input-00" onclick="placekeyboardS(\'00\',' + a2[i].EventCode + ')">00</div>' +
+                                ' <div class="button-container numeric-input-." onclick="placekeyboardS(\'.\',' + a2[i].EventCode + ')">.</div>' +
+                                ' ' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' <div class="panel-right">' +
+                                ' <div class="panel-row">' +
+                                ' <div class="button-container-clear numeric-input-clear" onclick="placekeyboardS(\'X\',' + a2[i].EventCode + ')">' +
+                                ' <span class="icon-clear"></span>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>' +
+                                ' </div>'+
+                                '<div id="place_bet_loader_' + a2[i].EventCode + '" style="display:none;">'+
+                                '<div style="margin-top: -200px;height: 200px;background: white;opacity: 0.5;"></div>'+
+                                '<div style="margin-top: -200px;height:200px;">'+
+                                '<img src="/Content/images/prospin.gif" style="display: block;margin:auto;padding-top: 90px;position: relative;">'+
+                                '</div>'+
+                                '</div>';
+
+
+                            $('#match_list_div').append(myvar);
+                        }
+                    }
+                }
+            })
+            setTimeout(function () { getAllMessages(); }, 1000);
+        }
+        // End Cricket
+    </script>
+
+
+    <script>
+        function SubmitBetMV1(betfairid, eventcode) {
+            document.getElementById('place_bet1_' + eventcode).disabled = true;
+            var GetLog = '@Session["UserName"]';
+            if (GetLog != "" && GetLog != null) {
+                var stackValue = $("#txt1_" + eventcode).val();
+                var OddsValue = $("#odds_" + eventcode).val();
+                var field_box = $("#men_ex1_" + eventcode).children("span").text();
+                var run_pos = $("#men_ex1_" + eventcode).children("input").val();
+                var runner_name = $("#teamtitle_p_" + eventcode).text();
+                var market_name = "Match Odds";
+                //alert("fgdsdfhjgkhfdg-- " + betfairid + " -- " + stackValue + " -- " + OddsValue + " -- " + eventcode + " -- " + field_box + " -- " + run_pos + "--" + runner_name)
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Check/BetPlaceM",
+                    data: {
+                        BetfairId: betfairid,
+                        EventCode: eventcode,
+                        stackValue: stackValue,
+                        OddsValue: OddsValue,
+                        RunnerIndex: run_pos,
+                        BoxType: field_box,
+                        RunnerNameget: runner_name,
+                        MarketName: market_name,
+                    },
+                    beforeSend: function(){
+                        $("#place_bet_loader_" + eventcode).css("display", "");
+                    },
+                    success: function (result) {
+                        alert(result.responseText);
+                        $("#place_bet_loader_" + eventcode).css("display", "none");
+                        if (result.responseText == "Bet Submitted Successfully") {
+                            UserBalance();
+                            $("#men_ex_" + eventcode).hide();
+                        }
+                    }
+                });
+            }
+            else {
+                window.location.href = "/exchange/Login";
+            }
+        }
+    </script>
+
+
+    <script>
+
+
+        function BetPlacePopup(BoxType, EventCode, box, box_run, grf) {
+            //alert("--" + BoxType + "---" + EventCode + "--" + box + "--" + box_run + "--" + grf)
+            // var odd_bet = $("#" + BoxType + EventCode).html();
+
+            document.getElementById("txt1_" + EventCode).value = "";
+            document.getElementById("panle2_" + EventCode).style.display = "none";
+            document.getElementById('place_bet1_' + EventCode).disabled = true;
+            var oddsValue = $("#" + BoxType + EventCode).text();
+            $("#teamtitle_p_" + EventCode).text(grf);
+            //  alert("Ram--"+oddsValue+"))")
+            if (oddsValue != "") {
+
+                if (box == "back") {
+                    $("#men_ex1_" + EventCode).css("background-color", "#d2ebff");
+                    // $("#box_desc" + id).text("Back (Bet For):");
+                } else if (box == "lay") {
+                    $("#men_ex1_" + EventCode).css("background-color", "#f3dce2");
+                    //  $("#box_desc" + id).text("Lay (Bet Against):");
+                }
+
+                if ($("#men_ex_" + EventCode).css('display') == 'none') {
+
+                    $("#men_ex_" + EventCode).toggle({
+                        duration: 600,
+                    });
+                    $("#men_ex_" + EventCode).css("display", "contents");
+
+                } else {
+                    if ($("#men_ex1_" + EventCode).children("span").text() + $("#men_ex1_" + EventCode).children("input").val() == box + box_run) {
+                        $("#men_ex_" + EventCode).css("display", "none");
+                    }
+                }
+
+                $("#men_ex1_" + EventCode).children("span").text(box);
+                $("#men_ex1_" + EventCode).children("input").val(box_run);
+
+                $("#odds_" + EventCode).val(oddsValue);
+
+
+            } else {
+                // alert("else")
+            }
+        }
+
+    </script>
+
+    <script>
+        function HideBetPopup(id) {
+            var yourUl = document.getElementById("men_ex_" + id);
+            yourUl.style.display = yourUl.style.display === 'none' ? '' : 'none';
+            //   $("#men_ex_"+id).css("display", "none");
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#show_hide").click(function () {
+                $("#men_ex_" +).toggle({
+                    duration: 600,
+                });
+            });
+
+        });
+        function hide(target) {
+            document.getElementById(target).style.display = 'none';
+        }
+
+    </script>
+
+    <script>
+        function SubmitBet(eventcode, betfairid) {
+            //$("#myModal1new").css("display", "block");
+            var stackValue = $("#txt1_" + eventcode).val();
+            var OddsValue = $("#odds_" + eventcode).val();
+            var field_box = $("#men_ex1_" + eventcode).children("span").text();
+            var run_pos = $("#men_ex1_" + eventcode).children("input").val();
+            var runner_name = $("#teamtitle_p_" + eventcode).text();
+            var market_name = "Match Odds";
+            alert("Bet  Success12 !!!" + eventcode + "----" + betfairid + "---" + stackValue + "---" + OddsValue + "--- " + field_box + "---" + run_pos + "---" + runner_name)
+            /*  $.ajax({
+                  type: "POST",
+                  url: "/Check/BetPlaceM",
+                  data: {
+                      BetfairId: betfairid,
+                      EventCode: eventcode,
+                      stackValue: stackValue,
+                      OddsValue: OddsValue,
+                      RunnerIndex: run_pos,
+                      BoxType: field_box,
+                      RunnerNameget: runner_name,
+                      MarketName: market_name,
+                  },
+                  success: function (result) {
+                      alert(result.responseText)
+                      if (result.responseText) {
+
+                      }
+
+                  }
+              });*/
+        }
+    </script>
+}

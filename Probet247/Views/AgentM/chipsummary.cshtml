@@ -1,0 +1,322 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+<link href="~/Content/css/chip_summary.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<div class="main_wrap">
+    <!-- Center Column -->
+    <div class="col-center report" style="margin-left: 0px; margin-top: 10px;">
+        <div class="right_col" role="main">
+            <div id="chipData">
+                <div class="col-md-12">
+                    <div class="title_new_at">Chip Summary of @Session["MDL_UserName"]</div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="clearfix data-background">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-right: 0; width: 50%;">
+                            <div class="popup_col_2">
+                                <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search by Name" value="">
+                                <input type="hidden" name="userType" id="userType" value="3">
+                                <input type="hidden" name="userID" id="userID" value="109987">
+                            </div>
+                            <div class="popup_col_3">
+                                <button type="submit" name="submit" id="FilterData" class="blue_button">
+                                    Search
+                                </button>
+                                <button type="submit" name="submit" id="ClearFilterData" class="red_button">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                        <!--Loading class -->
+                        @{ var UnMin = ViewBag.UNMin;}
+                        @{ var UNPlu = ViewBag.UNPlu;}
+                        @{ var prolos = ViewBag.profitlos;}
+                        @{ var prolosP = ViewBag.profitlosP;}
+                        @{ var UserId = ViewBag.UserId;}
+                        @{ var UserIdP = ViewBag.UserIdP;}
+                        @{int gy = 0; }
+                        @{int dy = 0; }
+                        @{int Uij = 0; }
+                        <div class="col-md-6 col-sm-6 green_table">
+                            <div class="link">PLUS ACCOUNT</div>
+                            <div class="main_gre-red">
+                                <table class="table table-striped jambo_table bulk_action" id="table_row_total">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th class="">Name</th>
+                                            <th class="">Account</th>
+                                            <th class="">Chips</th>
+                                            <th class=""></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (@ViewBag.DlProYaN == "plus")
+                                        {
+                                            <tr id="user_row_109987">
+                                                <td class="">@Session["MDL_UserName"]</td>
+                                                <td class="acco ">Own</td>
+                                                <td class="hours">@ViewBag.Dl_TotP </td>
+                                                <td class=" ">
+                                                </td>
+                                            </tr>
+                                            <tr id="user_row_109985">
+                                                <td class="">@ViewBag.MDlUname</td>
+                                                <td class="acco ">Parent A/c</td>
+                                                <td class="hours">@ViewBag.MDl_TotP </td>
+
+                                            </tr>
+                                        }
+                                        @{ var Tota9 = 0;}
+                                        @foreach (var item in UNPlu)
+                                        {
+                                            <tr id="user_row_111484">
+                                                <td class="">@item</td>
+                                                <td class="acco ">demo A/c</td>
+                                                <td class="hours">@prolosP[gy]</td>
+                                                <td class=" ">
+                                                    <a class="btn btn-xs btn-primary" href="/DLA/acStatementCS?type=cs_coins&uid=@UserIdP[gy]"><i aria-hidden="true">History</i></a>
+                                                    <a class="btn btn-xs btn-success" data-toggle="modal" data-target="#settlementpopup" title="Close Setellment" onclick="submitClearChip(@UserIdP[gy],'','','@item',@prolosP[gy],'','1','credit');"><i aria-hidden="true">Settlement</i></a>
+                                                </td>
+                                            </tr>
+                                            gy++;
+                                        }
+                                        @if (@ViewBag.DlCashPL < 0)
+                                        {
+                                            <tr id="user_row_111484">
+                                                <td class="">@Session["MDL_UserName"]</td>
+                                                <td class="acco ">Cash</td>
+                                                <td class="hours">@ViewBag.DlCashP </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td> Total</td>
+                                            <td></td>
+                                            <td><span id="TotalChrBhya5"></span></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 red_table">
+                            <div class="link minus">MINUS ACCOUNT</div>
+                            <div class="main_gre-red">
+                                <table class="table table-striped jambo_table bulk_action" id="table_row_totalmi">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th class="">Name</th>
+                                            <th class="">Account</th>
+                                            <th class="">Chips</th>
+                                            <th class=""></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (@ViewBag.DlProYaN == "minus")
+                                        {
+                                            <tr id="user_row_109987">
+                                                <td class="">@Session["MDL_UserName"]</td>
+                                                <td class="acco ">Own</td>
+                                                <td class="hoursmi">@ViewBag.Dl_Tot </td>
+                                                <td class=" ">
+                                                </td>
+                                            </tr>
+                                            <tr id="user_row_109985">
+                                                <td class="">@ViewBag.MDlUname</td>
+                                                <td class="acco ">Parent A/c</td>
+                                                <td class="hoursmi">@ViewBag.MDl_Tot </td>
+
+                                            </tr>
+                                        }
+                                        @foreach (var item in UnMin)
+                                        {
+                                            <tr id="user_row_109988">
+                                                <td class=" ">@item</td>
+                                                <td class=" acco">Xdemo A/c</td>
+                                                <td class="hoursmi">@prolos[dy] </td>
+                                                <td class=" ">
+                                                    <a class="btn btn-xs btn-primary" href="/DLA/acStatementCS?type=cs_coins&uid=@UserId[Uij]"><i aria-hidden="true">History</i></a>
+                                                    <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#settlementpopup" title="Close Setellment" onclick="submitClearChip(@UserId[Uij],'','','@item',@prolos[dy],'','1','debit');"><i aria-hidden="true">Settlement</i></a>
+                                                </td>
+                                            </tr>
+                                            dy++;
+                                            Uij++;
+                                        }
+                                        @if (@ViewBag.DlCash > 0)
+                                        {
+                                            <tr id="user_row_111484">
+                                                <td class="">@Session["MDL_UserName"]</td>
+                                                <td class="acco ">Cash</td>
+                                                <td class="hoursmi">@ViewBag.DlCash </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td> Total</td>
+                                            <td></td>
+                                            <td><span id="TotalChrBhya"></span></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="settlementpop" class="modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="popup_form">
+                                <div class="title_popup">
+                                    <span id="tital_change"></span>
+                                    <button type="button" class="close" onclick="document.getElementById('settlementpop').style.display='none'">
+                                        <div class="close_new"><i class="fa fa-times-circle"></i></div>
+                                    </button>
+                                </div>
+                                <div class="content_popup">
+                                    <input type="hidden" name="UserID" id="UserID" value="">
+                                    <input type="hidden" name="amountPre" id="amountPre" value="">
+                                    <input type="hidden" name="CrDr" class="form-control" id="CrDr">
+                                    <input type="hidden" name="IsFree" class="form-control" id="IsFree">
+                                    <div class="popup_form_row">
+                                        <div class="popup_col_6">
+                                            <label for="email">Chips :</label>
+                                            <input type="text" name="Name1" class="form-control" id="Chips">
+                                            <span id="Name1N" class="errmsg"></span>
+                                        </div>
+                                        <div class="popup_col_6">
+                                            <label for="pwd">Remark:</label>
+                                            <input type="text" name="Value1" class="form-control" id="Narration">
+                                            <span id="Value1N" class="errmsg"></span>
+                                        </div>
+                                        <div class="popup_col_12">
+                                            <button type="button" class="btn btn-success" id="saveSettelment" onclick="saveSettelment();" style="margin-left: 10px;padding: 6px 12px;margin-bottom: 5px;">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+   @* // Get the modal
+    var modal = document.getElementById("settlementpop");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("settlementpopup");
+
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }*@
+</script>
+
+<script>
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#table_row_total');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.hours').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#TotalChrBhya5").text(sum);
+    });
+
+    jQuery('document').ready(function () {
+        $table1 = jQuery('#table_row_totalmi');
+        var sum = 0;
+        $table1.find('tbody tr').each(function () {
+            jQuery(this).find('.hoursmi').each(function () {
+                if (!isNaN(Number(jQuery(this).text()))) {
+                    sum = sum + Number(jQuery(this).text());
+                }
+            });
+        });
+        $("#TotalChrBhya").text(sum);
+    });
+</script>
+
+<script>
+
+    function submitClearChip(UserID, usetype, mstruserid, mstrname, Musum, parentID, CrDr, IsFree) {
+        $('#saveSettelment').removeAttr('disabled');
+        $('#settlementpop #tital_change').text('User Name ' + mstrname + ' || ' + Musum);
+        $('#Chips').val(parseFloat(Musum));
+        $('#amountPre').val(parseFloat(Musum));
+        $('#UserID').val(UserID);
+        $('#settlementpop').modal('toggle');
+        $('#CrDr').val(CrDr);
+        $('#IsFree').val(IsFree);
+    }
+
+    function saveSettelment() {
+        var amt = $('#Chips').val();
+        var Musum = parseFloat(amt);
+        var Musum1 = parseFloat($('#amountPre').val());
+        var UserID = $('#UserID').val();
+        var Narration = $('#Narration').val();
+        var passwordSettle = $('#passwordSettle').val();
+        var CrDr = $('#CrDr').val();
+        var IsFree = $('#IsFree').val();
+
+        if (isNaN(amt)) {
+            $('#Chips').val(Musum1);
+            alert("Invalid entry")
+        }
+
+        else if (Musum > Musum1) {
+            $('#Chips').val(Musum1);
+            alert("Amount cannot be greater than " + Musum1)
+        }
+        else {
+            $('#saveSettelment').attr('disabled', 'disabled');
+            alert("Loda" + UserID + "__" + Musum + "__" + IsFree)
+            $.ajax({
+                url: '/AgentM/submitClearChip',
+                data: {
+                    UserID: UserID,
+                    Chips: Musum,
+                    IsFree: IsFree
+                },
+                type: "POST",
+                dataType: "json",
+                success: function success(output) {
+                    swal({
+                        title: "Success",
+                        text: "Saved Successfully..",
+                        icon: "success",
+                        button: "OK",
+                    });
+                    $('#settlementpopup').modal('toggle');
+                    $("#saveSettelment").attr("disabled", false);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                }
+            });
+        }
+    }
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+

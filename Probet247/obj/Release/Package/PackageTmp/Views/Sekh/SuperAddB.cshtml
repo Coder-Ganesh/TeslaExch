@@ -1,0 +1,317 @@
+﻿
+@{
+	 Layout = "~/Views/Shared/_LayoutSekh.cshtml";
+}
+<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link rel="SHORTCUT ICON" href="images/favicon_skyEX.ico" />
+<link rel="bookmark" href="images/favicon_skyEX.ico" />
+<link href="~/Content/css/agent_style.css" rel="stylesheet" />
+<link href="~/Content/SKYEXCHANGEAgent_files/agent_style.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div id="message" class="message-wrap success" style="display: none;">
+	<a class="btn-close" id="messageBtnClose">Close</a>
+	<p></p>
+</div>
+
+
+<div class="full-wrap" style="height: calc(100% - 105px)">
+	
+
+	<div class="total_all">
+
+
+		<!-- Loading Wrap -->
+		<div id="loading" class="loading-wrap" style="display: none;">
+			<ul class="loading">
+				<li>
+					<img src="~/Content/images/prospin.gif" />
+				</li>
+				<li>Loading...</li>
+			</ul>
+		</div>
+
+		<!-- Message -->
+		<div id="message" class="message-wrap success">
+			<a class="btn-close">Close</a>
+			<p></p>
+		</div>
+
+		<script language="JavaScript" type="text/javascript">
+			(function () {
+				$j('.btn-close').click(function () {
+					$j('#message').hide();
+				});
+			})();
+		</script>
+	</div>
+	<!-- Report Table -->
+	<div class="over-wrap">
+
+		
+
+		<table id="table_transfer" class="table01 tab-transfer tab-banking">
+			<tbody>
+				<tr>
+					<th id="userIdTH" width="" class="align-L">Username</th>
+					<th class="align-C" width="10%">Balance</th>
+					<th class="align-C" width="10%">Available D/W</th>
+					<th class="align-C" width="10%">Exposure</th>
+					<th class="align-C" width="10%">Reference P/L</th>
+					<th width="400" class="align-C border-l">Deposit / Withdraw</th>
+				</tr>
+			</tbody>
+			<tbody id="content">
+				@{Double bal_total = 0;}
+				@{Double avail_total = 0;}
+				@{Double total_exposure = 0;}
+				@{Double total_profit_loss = 0;}
+				@{Double cpl = 0;}
+				@{Double cpl_total = 0;}
+				@foreach (var item in Model)
+				{
+					bal_total += item.Client_balance;
+					avail_total += item.Client_avl_balance;
+					total_exposure += item.Client_exposure;
+					total_profit_loss += item.Client_profit_loss;
+
+					<tr id="username">
+						<td class="td-uid" id="userId">@item.Client_Username</td>
+						<td id="balance">@item.Client_balance</td>
+						<td id="availableBalance">@item.Client_avl_balance</td>
+						<td id="userExposure">@item.Client_exposure</td>
+						@if (item.Client_profit_loss < 0)
+						{
+							cpl = -item.Client_profit_loss;
+							<td id="userExposure"><span class="red">( @cpl)</span></td>
+						}
+						else
+						{
+							<td id="userExposure">@item.Client_profit_loss</td>
+						}
+						<td class="DW-amount">
+							<ul class="btn_list-DW select-D">
+								<li><a id="dBtn_@item.Client_Id" class="btn" href="#" onclick="DWAmount(@item.Client_Id)">D</a></li>
+								<li><a id="wBtn_@item.Client_Id" class="btn" href="#" onclick="WDAmount(@item.Client_Id)">W</a></li>
+							</ul>
+							<input id="amount_@item.Client_Id" name="amount" class="" type="text" placeholder="Enter Amount" maxlength="18" style="width: 160px;">
+							<input id="remark_@item.Client_Id" class="" type="text" placeholder="Remark" style="width: 100px;">
+
+							<style>
+								.btn_list-DW.select-D:after {
+									content: '';
+									color: #508D0E
+								}
+							</style>
+						</td>
+					</tr>
+				}
+				<tr style="font-weight:bold;border-top:2px solid #000000;">
+					<td class="td-uid" id="userId">Total</td>
+					<td id="balance">@bal_total</td>
+					<td id="availableBalance">@avail_total</td>
+					<td id="userExposure">@total_exposure</td>
+					@if (total_profit_loss < 0)
+					{
+						cpl_total = -total_profit_loss;
+						<td id="userExposure"><span class="red">( @cpl_total)</span></td>
+					}
+					else
+					{
+						<td id="userExposure">@total_profit_loss</td>
+					}
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="submit-wrap" id="settlementBar" style="display: none;">
+		<ul>
+			<li><a id="clearAllBtn" href="javascript:void(0);" class="btn">Clear All</a></li>
+			<li class="submit-payment">
+				<input id="paymentPassword" type="password" placeholder="Password">
+				<a id="submit" href="javascript:void(0);" class="btn-send">Submit <span id="submitCount">0</span> Payment</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	function DWAmount(id) {
+		var amount = $("#amount_" + id).val();
+		var remark = $("#remark_" + id).val();
+		var remark2 = "";
+		if (amount == "") {
+			$("#messageBtnClose").show();
+			$("#message").addClass("error");
+			$("#message").show();
+			$("#message p").text("The field is required: Amount");
+			setTimeout(function () { $("#message").hide(); }, 2000);
+		}
+		else if (isNaN(amount) === true || amount < 0 || amount == 0) {
+			$("#messageBtnClose").show();
+			$("#message").addClass("error");
+			$("#message").show();
+			$("#message p").text("Please enter valid amount.");
+			setTimeout(function () { $("#message").hide(); }, 2000);
+		}
+		else {
+
+			swal({
+				title: '',
+				text: "Are you sure you want to deposit amount?",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes'
+			}).then((result) => {
+				if (result.value) {
+
+					$.ajax({
+						type: 'POST',
+						url: '/Sekh/DepositCoinTOAdmin',
+						data: { user_id: id, coins: amount, remark1: remark },
+						beforeSend: function () {
+							$("#dBtn_" + id).prop('disabled', true);
+						},
+						error: function () {
+							setTimeout(function () {
+								//btn.prop('disabled', false);
+								$("#messageBtnClose").show();
+								$("#message").addClass("error");
+								$("#message").show();
+								$("#message p").text('Error in deposit amount, please try again.');
+								setTimeout(function () { $("#message").hide(); }, 2000);
+								$("#dBtn_" + id).prop('disabled', false);
+							}, 1000);
+						},
+						success: function (result) {
+
+							setTimeout(function () {
+								// alert(result);
+								$("#dBtn_" + id).prop('disabled', false);
+								if (result == "true") {
+
+									$("#messageBtnClose").show();
+									$("#message").addClass("success");
+									$("#message").show();
+									$("#message p").text('Amount deposit successfully!');
+									setTimeout(function () {
+										$("#message").hide();
+										window.location.href = '';
+									}, 2000);
+								}
+								else if (result == "InsufficientAmount") {
+
+									$("#messageBtnClose").show();
+									$("#message").addClass("error");
+									$("#message").show();
+									$("#message p").text('Insufficient Coins!');
+									setTimeout(function () {
+										$("#message").hide();
+										window.location.href = '';
+									}, 2000);
+								}
+								else {
+									$("#messageBtnClose").show();
+									$("#message").addClass("error");
+									$("#message").show();
+									$("#message p").text('Error in deposit amount, please try again.');
+									setTimeout(function () { $("#message").hide(); }, 2000);
+								}
+							}, 1000);
+						}
+					});
+				}
+			});
+
+
+		}
+	}
+	function WDAmount(id) {
+		var amount = $("#amount_" + id).val();
+		var remark = $("#remark_" + id).val();
+		var remark2 = "";
+
+		if (amount == "") {
+			$("#messageBtnClose").show();
+			$("#message").addClass("error");
+			$("#message").show();
+			$("#message p").text("The field is required: Amount");
+			setTimeout(function () { $("#message").hide(); }, 2000);
+		}
+		else if (isNaN(amount) === true || amount < 0 || amount == 0) {
+			$("#messageBtnClose").show();
+			$("#message").addClass("error");
+			$("#message").show();
+			$("#message p").text("Please enter valid amount.");
+			setTimeout(function () { $("#message").hide(); }, 2000);
+		}
+		else {
+
+			swal({
+				title: '',
+				text: "Are you sure you want to withdraw amount?",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes'
+			}).then((result) => {
+				if (result.value) {
+
+					$.ajax({
+
+						type: 'POST',
+						url: '/Sekh/WithdrawalCoinsToAdmin',
+						data: { user_id: id, coins: amount, remark1: remark, remark2: remark2 },
+						beforeSend: function () {
+							$("#wBtn_" + id).prop('disabled', true);
+						},
+						error: function () {
+							setTimeout(function () {
+								//btn.prop('disabled', false);
+								$("#messageBtnClose").show();
+								$("#message").addClass("error");
+								$("#message").show();
+								$("#message p").text('Error in withdraw amount, please try again.');
+								setTimeout(function () { $("#message").hide(); }, 2000);
+								$("#wBtn_" + id).prop('disabled', false);
+							}, 1000);
+						},
+						success: function (result) {
+
+							setTimeout(function () {
+								// alert(result);
+								$("#wBtn_" + id).prop('disabled', false);
+								if (result == "true") {
+
+									$("#messageBtnClose").show();
+									$("#message").addClass("success");
+									$("#message").show();
+									$("#message p").text('Amount withdraw successfully!');
+									setTimeout(function () {
+										$("#message").hide();
+										window.location.href = '';
+									}, 2000);
+								}
+								else {
+									$("#messageBtnClose").show();
+									$("#message").addClass("error");
+									$("#message").show();
+									$("#message p").text('Error in withdraw amount, please try again.');
+									setTimeout(function () { $("#message").hide(); }, 2000);
+								}
+							}, 1000);
+						}
+					});
+				}
+			});
+		}
+	}
+</script>

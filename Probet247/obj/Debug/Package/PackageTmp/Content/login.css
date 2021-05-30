@@ -1,0 +1,645 @@
+html {
+    color: #000;
+    background: #FFF;
+}
+html {
+    height: 100%;
+    overflow: auto;
+}
+body {
+    font-family: Arial,sans-serif;
+}
+body.betfair.layout-page, body.betfair.layout-page-mobile, body {
+     color: #000; 
+}
+body.betfair {
+     margin: 0; 
+}
+body.layout-page-mobile {
+    min-width: 100%;
+    width: 100%;
+}
+body.layout-page, body.layout-page-mobile, body {
+    font-size: 11px;
+    background: #fff;
+    height: 100%;
+}
+.sso-mobile, .layout-page-mobile {
+    border-radius: 4px 4px 4px 4px;
+}
+body.betfair #header-placeholder {
+    background: #ffb80C;
+}
+body.layout-page-mobile #header-placeholder {
+    min-height: 40px;
+}
+body.layout-page #header-placeholder, body.layout-page-mobile #header-placeholder, body #header-placeholder {
+    min-height: 40px;
+    border-bottom: 0;
+}
+body.layout-page-mobile .centralWrapper {
+    width: 100%!important;
+    max-width: 288px;
+    margin: 0 auto!important;
+    padding: 0!important;
+}
+.mod-header {
+    top: -1px;
+    position: relative;
+}
+body.betfair.layout-page .header-back-button, body.betfair.layout-page-mobile .header-back-button, body .header-back-button, body.betfair.layout-page .header-back-button-forgoten-pages, body.betfair.layout-page-mobile .header-back-button-forgoten-pages, body .header-back-button-forgoten-pages {
+    background: transparent url('carbon_580_.svg') no-repeat 0 16px;
+    background-size: 10px 16px;
+}
+body.betfair .header-back-button, body.betfair .header-back-button-forgoten-pages {
+    width: 11px;
+}
+body.layout-page .header-back-button, body.layout-page-mobile .header-back-button, body .header-back-button, body.layout-page .header-back-button-forgoten-pages, body.layout-page-mobile .header-back-button-forgoten-pages, body .header-back-button-forgoten-pages {
+    width: 30px;
+    height: 18px;
+    float: left;
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
+body.betfair.layout-page-mobile .header-image.is-back-visible {
+    margin-left: 20px;
+}
+body.betfair.layout-page-mobile .header-image {
+    background: transparent url('logo-betfair_580_.svg') no-repeat 0 14px;
+    background-size: 97px 18px;
+    height: 44px;
+}
+body.betfair.layout-page-mobile .header-image {
+    padding-top: 0!important;
+    width: 120px;
+}
+body.betfair.layout-page .contentShadow, body.betfair.layout-page-mobile .contentShadow, body .contentShadow {
+    background-color: #fff;
+}
+body.layout-page-mobile .contentShadow {
+    width: auto!important;
+}
+body.layout-page-mobile .centralWrapper {
+    width: 100%!important;
+    max-width: 288px;
+    margin: 0 auto!important;
+    padding: 0!important;
+}
+body.layout-page-mobile .mod-login {
+    padding: 16px 0;
+}
+.mod-login {
+    font-size: 12px;
+    padding: 16px;
+}
+body.layout-page-mobile .mod-login #loginForm {
+    float: none;
+    width: auto;
+    border-right: 0;
+}
+.mod-login #loginForm {
+    float: left;
+    width: 50%;
+    border-right: 1px solid #ddd;
+    border-bottom: 0;
+}
+body.layout-page-mobile .mod-login fieldset {
+    width: 100%;
+    max-width: 288px;
+    margin: 0 auto;
+    display: block;
+}
+.mod-login fieldset {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+}
+fieldset, img {
+    border: 0;
+}
+body.layout-page-mobile .mod-login #loginForm h3 {
+    /*padding-bottom: 20px;*/
+    font-size: 18px;
+}
+body.layout-page #loginForm h3, body.layout-page-mobile #loginForm h3, body #loginForm h3 {
+    display: block;
+}
+.mod-login h3 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 12px;
+}
+body.layout-page-mobile .mod-login .firstlabel {
+    margin-top: 0;
+}
+body.layout-page-mobile .mod-login .label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #273a47;
+    text-align: left;
+    width: auto;
+}
+.mod-login .label {
+    display: inline-block;
+    font-weight: normal;
+    margin: 15px 5px 15px 0;
+    line-height: 12px;
+    width: 150px;
+    text-align: left;
+    font-weight: bold;
+}
+body.betfair.layout-page-mobile .mod-login .input {
+    width: 100%;
+}
+body.betfair .input {
+    box-sizing: border-box;
+    background: #fff;
+    color: #303030;
+    font-size: 14px;
+    height: 36px;
+    padding: 0 5px 0 5px;
+    border: 1px solid #c2c2c2;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    box-shadow: none!important;
+}
+body.betfair .input {
+    outline: 0;
+}
+body.layout-page-mobile .mod-login .remember {
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+.mod-login .remember {
+    font-size: 11px;
+    margin-top: 5px;
+}
+body.layout-page-mobile .mod-login input#remember {
+    visibility: hidden;
+    margin-right: 4px;
+    height: 16px;
+    width: 16px;
+    display: inline-block!important;
+    top: 0;
+}
+body.layout-page-mobile .mod-login #remember {
+    margin-right: 4px;
+    cursor: pointer;
+}
+.mod-login .remember input {
+    position: relative;
+    top: 2px;
+}
+body.layout-page-mobile .mod-login .label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #273a47;
+    text-align: left;
+    width: auto;
+        margin: 15px 5px 15px 0;
+    line-height: 12px;
+}
+body.layout-page-mobile .mod-login .input-container.toggle-password input {
+    max-width: 290px!important;
+    width: 100%!important;
+}
+.mod-login .input-container.toggle-password input {
+    padding-right: 30px!important;
+}
+body.betfair .input {
+    box-sizing: border-box;
+    background: #fff;
+    color: #303030;
+    font-size: 14px;
+    height: 36px;
+    padding: 0 5px 0 5px;
+    border: 1px solid #c2c2c2;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    box-shadow: none!important;
+}
+body.layout-page-mobile .mod-login .login-container {
+    overflow: hidden;
+    border-bottom: 0;
+    border-top: 0;
+    padding-bottom: 14px;
+    width: 100%;
+    max-width: 288px;
+    margin-left: auto;
+}
+.mod-login .login-container {
+    overflow: hidden;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    border-bottom: 0;
+    margin-left: 158px;
+}
+body.layout-page-mobile .mod-login #login {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    height: 40px;
+    width: 100%;
+}
+.mod-login #login {
+    float: left;
+    width: 194px;
+    line-height: 12px;
+    display: inline-block;
+    margin: 0;
+    padding: 12px 9px 10px 9px;
+    font-size: 14px;
+}
+body.betfair.layout-page .regHighlight .mod-login .loginButton, body.betfair.layout-page-www .regHighlight .mod-login .loginButton, body.betfair.layout-page-exchange .regHighlight .mod-login .loginButton, body.betfair.layout-page-sportsbook .regHighlight .mod-login .loginButton, body.betfair.layout-page-chat .regHighlight .mod-login .loginButton, body.betfair.layout-page-games .regHighlight .mod-login .loginButton, body.betfair.layout-page-virtualsports .regHighlight .mod-login .loginButton, body.betfair.layout-page-betfair\.main\.int\.es\.ro .regHighlight .mod-login .loginButton, body.betfair.layout-page-home\.betfair\.int\.es\.ro .regHighlight .mod-login .loginButton, body.betfair.layout-page-casino .regHighlight .mod-login .loginButton, body.betfair.layout-page-arcade\.orbis .regHighlight .mod-login .loginButton, body.betfair.layout-page-vegasslots .regHighlight .mod-login .loginButton, body.betfair.layout-page-bingo .regHighlight .mod-login .loginButton, body.betfair.layout-page-games .regHighlight .mod-login .loginButton, body.betfair.layout-page-mobile  .mod-login .loginButton, body.betfair.layout-page-home.betfair.es  .mod-login .loginButton, body.betfair.layout-page-home.betfair.ro  .mod-login .loginButton {
+    background: #c1c1c1;
+    background: #e1e1e1;
+    background: -webkit-gradient(linear,left top,left bottom,from(#e1e1e1),to(#c0c0c0));
+    background: -moz-linear-gradient(top,#e1e1e1,#c0c0c0);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e1e1e1,endColorstr=#c0c0c0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e1e1e1,endColorstr=#c0c0c0);
+    background-image: linear-gradient(to bottom,#e1e1e1 0,#c0c0c0 100%);
+    zoom: 1;
+}
+.cta {
+    cursor: pointer;
+    border: 1px solid;
+    font-weight: bold;
+    padding: 11px 26px 9px;
+    font-size: 16px;
+    overflow: visible;
+    border: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    margin: 0;
+    color: #333;
+}
+body.layout-page-mobile .mod-login .forgotten-credentials-container {
+    padding: 0 0 10px 0;
+    font-size: 14px;
+    font-family: "Helvetica Neue",Arial;
+    margin-bottom: 0;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    margin-right: 0;
+}
+body.layout-page-mobile .mod-login a {
+    text-decoration: none;
+    color: #2789ce;
+}
+body.layout-page-mobile .mod-login .register-container {
+    overflow: hidden;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 288px;
+    float: none;
+    width: auto;
+}
+body.layout-page-mobile .mod-login .register-container h3 {
+    font-size: 18px;
+    line-height: 18px;
+}
+body.betfair.layout-page  .mod-login a.register, body.betfair.layout-page-www  .mod-login a.register, body.betfair.layout-page-exchange  .mod-login a.register, body.betfair.layout-page-sportsbook  .mod-login a.register, body.betfair.layout-page-chat  .mod-login a.register, body.betfair.layout-page-games  .mod-login a.register, body.betfair.layout-page-virtualsports  .mod-login a.register, body.betfair.layout-page-betfair\.main\.int\.es\.ro  .mod-login a.register, body.betfair.layout-page-home\.betfair\.int\.es\.ro  .mod-login a.register, body.betfair.layout-page-casino  .mod-login a.register, body.betfair.layout-page-arcade\.orbis  .mod-login a.register, body.betfair.layout-page-vegasslots  .mod-login a.register, body.betfair.layout-page-bingo  .mod-login a.register, body.betfair.layout-page-games  .mod-login a.register, body.betfair.layout-page-mobile  .mod-login a.register, body.betfair.layout-page-home.betfair.es  .mod-login a.register, body.betfair.layout-page-home.betfair.ro  .mod-login a.register {
+    background: #ffc90c;
+    background: -webkit-gradient(linear,left top,left bottom,from(#ffc90c),to(#ffb80C));
+    background: -moz-linear-gradient(top,#ffc90c,#ffb80C);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffc90c,endColorstr=#ffb80C);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffc90c,endColorstr=#ffb80C);
+    background-image: linear-gradient(to bottom,#ffc90c 0,#ffb80C 100%);
+    zoom: 1;
+}
+body.layout-page-mobile .mod-login .register {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #273a47;
+    padding: 14px 0 0 0;
+    width: 100%;
+    height: 28px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.clear-both, .clearfix {
+    clear: both;
+}
+body.betfair.layout-page #footer-wrapper, body.betfair.layout-page-mobile #footer-wrapper, body #footer-wrapper {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.ssc-container {
+    color: #f7f9fa;
+    font-size: 12px;
+    font-family: Arial,Tahoma,Verdana,Helvetica,sans-serif;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.ssc-container {
+    margin: 0;
+    padding: 0;
+}
+.ssc-container.ssc-theme-betfair .mod-footer {
+    background-color: #fff;
+    z-index: 50;
+}
+.ssc-container.ssc-cha-mobile .mod-footer {
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif!important;
+}
+.ssc-container .mod-footer {
+    position: relative;
+}
+.ssc-container.ssc-theme-betfair .mod-footer .ssc-fw {
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding-bottom: 16px;
+}
+.ssc-container.ssc-cha-mobile .mod-footer .ssc-fw {
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif!important;
+    margin-top: 16px;
+    min-width: 100px;
+    max-width: 1247px;
+    padding-bottom: 0;
+}
+.ssc-container .mod-footer .ssc-fw {
+    cursor: default;
+    vertical-align: top;
+    font-family: Arial,Tahoma,Verdana,Helvetica,sans-serif;
+    font-size: 12px;
+    color: #1e1e1e;
+    margin: 0 auto;
+    padding-top: 16px;
+}
+.ssc-container.ssc-cha-mobile .mod-footer .ssc-fw .ssc-fale {
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 0;
+    vertical-align: top;
+}
+.ssc-container .mod-footer .ssc-fw .ssc-fal {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+.ssc-container.ssc-cha-mobile .mod-footer .ssc-fw .ssc-fal .ssc-fsal a {
+    margin-bottom: 27px;
+}
+.ssc-container .mod-footer .ssc-fw .ssc-fal a:first-child, .ssc-container .mod-footer .ssc-fw .ssc-fbtm a:first-child {
+    padding-left: 0;
+}
+.ssc-container .mod-footer .ssc-fw .ssc-fal a, .ssc-container .mod-footer .ssc-fw .ssc-fbtm a {
+    margin-left: 7px;
+    margin-right: 7px;
+    outline: 0;
+    display: inline-block;
+}
+.ssc-container .mod-footer .ssc-fw a, .ssc-container .mod-footer .ssc-fw a:visited, .ssc-container .mod-footer .ssc-fw a:focus, .ssc-container .mod-footer .ssc-fw .ssc-flnk .ssc-ftpl {
+    color: #1e1e1e;
+    font-weight: bold;
+    outline: 0;
+    font-size: 12px;
+    font-family: Arial,Tahoma,Verdana,Helvetica,sans-serif;
+}
+.ssc-fsal a {
+    background: url('ssc-logos-sprite-com-v11.png') no-repeat;
+}
+.ssc-container a {
+    text-decoration: none;
+    outline: 0;
+    cursor: pointer;
+}
+
+
+/*forgotten username*/
+
+body.betfair.sso-mobile .mod-recoverusername {
+    padding: 16px 0;
+    margin: 0 auto;
+    width: 288px;
+    padding: 12px 0 16px 0;
+    position: relative;
+}
+.mod-recoverusername {
+    padding: 16px 16px 0 16px;
+    position: relative;
+    min-height: 200px;
+}
+body.betfair.sso-mobile .extra-wrapper {
+    padding-bottom: 0;
+}
+.mod-recoverusername .extra-wrapper {
+    position: relative;
+}
+body.betfair.layout-page h1, body.betfair.layout-page-mobile h1, body h1 {
+    color: #273a47;
+}
+.mod-recoverusername h1 {
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.mod-recoverusername p {
+    line-height: 16px;
+    font-size: 12px;
+    padding: 10px 0;
+    color: #666;
+    margin: 0;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+body.betfair.sso-mobile .mod-recoverusername fieldset {
+    width: 288px;
+    min-width: 288px;
+}
+body.betfair.sso-mobile .mod-recoverusername .label {
+    display: block;
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 12px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+body.betfair.sso-mobile .mod-recoverusername .input {
+    display: block;
+    background: #fff;
+    color: #000;
+    font-size: 13px;
+    height: 36px;
+    padding: 0 5px 0 5px;
+    width: 100%;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+body.betfair .input:hover {
+    border: 1px solid #c2c2c2;
+}
+body.betfair.sso-mobile .mod-recoverusername .recoverButton {
+    width: 288px;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    margin-top: 16px;
+    margin-left: 0;
+    margin-right: auto;
+}
+    body.betfair.sso-mobile .mod-recoverusername #AccountPadlock {
+        background: transparent url('mantis-sprite_580_.png') no-repeat -77px -136px;
+        margin-left: 8px;
+        padding-left: 10px;
+    }
+.layout-page-mobile .mod-rightnow-faq {
+    margin-top: 15px;
+}
+.mod-rightnow-faq {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #e1e1e1;
+}
+.mod-rightnow-faq .expandable-trigger {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #d4d4d4;
+    padding: 10px 11px;
+    cursor: pointer;
+    position: relative;
+}
+    .mod-rightnow-faq .expandable-trigger.collapsed span {
+        background: transparent url('mantis-sprite_580_.png') no-repeat -41px -112px;
+    }
+.mod-rightnow-faq .expandable-trigger span {
+
+    width: 10px;
+    height: 4px;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+}
+body.betfair.layout-page-mobile .contactBox {
+    clear: both;
+    color: #555;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    background-color: #efefef;
+    position: relative;
+    margin-top: 16px;
+    background: #eee;
+    background: -webkit-gradient(linear,left top,left bottom,from(#eee),to(#ccc));
+    background: -moz-linear-gradient(top,#eee,#ccc);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#eeeeee,endColorstr=#cccccc);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#eeeeee,endColorstr=#cccccc);
+    background-image: linear-gradient(to bottom,#eee 0,#ccc 100%);
+    zoom: 1;
+        font-size: 12px;
+}
+body.betfair.layout-page-mobile .contactBox-wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+body.betfair.layout-page-mobile .contactBox .first {
+    border-left: none;
+}
+body.betfair.layout-page-mobile .contactBox .inner {
+    width: auto;
+    border-right: 0;
+    border-left: 1px solid #fff;
+    height: auto;
+    vertical-align: middle;
+}
+body.betfair .contactBox .inner.one-half {
+    width: 49%!important;
+}
+body.betfair .contactBox .inner.one-third, body.betfair .contactBox .inner.one-half, body.betfair .contactBox .inner.one-full {
+    text-align: center;
+}
+body.betfair .contactBox .inner {
+    display: inline-block;
+}
+body.betfair .contactBox a#twitterLink {
+    background: url('icon-twitter_580_.png') 5px 50% no-repeat;
+}
+body.betfair.layout-page-mobile .contactBox a {
+    line-height: 14px;
+    padding: 10px 4px 10px 24px;
+}
+body.betfair .contactBox a {
+    text-decoration: none;
+    color: #555;
+    display: inline-block;
+    padding: 10px 10px 10px 30px;
+    line-height: 16px;
+}
+    body.betfair .contactBox a#contactLink {
+        background: url('icon-email_580_.png') 2px 50% no-repeat;
+    }
+body.betfair.sso-mobile .mod-recover-password #fu-link {
+    padding: 6px 0 10px 0;
+}
+body.betfair.layout-page-mobile .mod-recover-password #fu-link {
+    float: left;
+}
+.sso-mobile .mod-recover-password #fu-link {
+    padding: 0 0 10px 0;
+    display: block;
+}
+.mod-recover-password #fu-link a {
+    font-size: 11px;
+}
+.mod-recover-password a {
+    text-decoration: none;
+    outline-color: transparent;
+}
+ .sso-mobile .mod-recover-password .cta {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.mod-recover-password .checkButton {
+    font-size: 14px;
+    padding: 8px 20px;
+    margin-top: 10px;
+    width: 120px;
+}
+.cta-dark {
+    color: #fff;
+    background: #404040;
+    background: -webkit-gradient(linear,left top,left bottom,from(#404040),to(#353535));
+    background: -moz-linear-gradient(top,#404040,#353535);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#404040,endColorstr=#353535);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#404040,endColorstr=#353535);
+    background-image: linear-gradient(to bottom,#404040 0,#353535 100%);
+    zoom: 1;
+}
+.sso-mobile .mod-recover-password {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin: 0 auto;
+    width: 288px;
+    padding: 12px 14px 0 0;
+    position: relative;
+    font-size: 12px;
+}
+a {
+    color: #2489d5;
+}

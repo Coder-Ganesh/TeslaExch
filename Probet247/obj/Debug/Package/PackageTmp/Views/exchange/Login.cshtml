@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>FancyBook | Login Page</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="~/Content/probet/app.min.css?t=<%= DateTime.Now.Ticks %>" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <meta name="theme-color" content="#ffb80C">
+    <style>
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        #fhjgghfdhjgfd {
+            animation: blinker 1s linear infinite;
+        }
+
+    @@keyframes blinker {
+        0% {
+            background-color: #001F3F;
+        }
+
+        100% {
+            background-color: #FF4136;
+        }
+    }
+
+    </style>
+</head>
+<body class="pace-top">
+    <div id="page-loader" class="fade show">
+        <span class="spinner"></span>
+    </div>
+    <div class="login-cover">
+        <div class="login-cover-image" style="background-image: url('../../Content/probet/login_cover.jpg') ;background-position: 85%;background-repeat: no-repeat;background-size: cover; height: 100vh!important;" data-id="login-cover-image"></div>
+        <div class="login-cover-bg"></div>
+    </div>
+    <div id="page-container" class="fade">
+        <div class="login login-v2" data-pageload-addclass="animated fadeIn">
+            <div style="text-align:center;">
+                <img src="~/Content/probet/room_logo.png" style="height:67px; width:250px;margin-bottom:25px;" />
+            </div>
+            <div class="login-header">
+                <div class="brand">
+                    <span class="logo"> </span><b style="font-size:18px;">Cricket Casino & Sports</b>
+
+                </div>
+            </div>
+            <div class="login-content">
+                <form class="margin-bottom-0">
+                    <div class="alert alert-danger" id="error_mess" style="display:none;">Wrong Username / Password.</div>
+                    <div class="form-group m-b-20">
+                        <input type="text" class="form-control form-control-lg" placeholder="Username" id="UsernameI" required />
+                    </div>
+                    <div class="form-group m-b-20">
+                        <input type="password" class="form-control form-control-lg" placeholder="Password" id="PasswordI" required />
+                    </div>
+                    <div class="login-buttons">
+                        <button type="button"  id="loginBtn" onclick="PassLDetail()" class="btn btn-success btn-block btn-lg">Login</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/probet/app.min.js"></script>
+
+    <script>
+        function PassLDetail() {
+            var UserN = document.getElementById("UsernameI").value;
+            var UserP = document.getElementById("PasswordI").value;
+            $.ajax({
+                type: "POST",
+                url: "/Check/CLo",
+                data: {
+                    username: UserN,
+                    password: UserP
+                },
+                success: function (result) {
+                    if (result == "Success") {
+                        window.location.href = "/exchange/Index";
+                    }
+                    else if (result == "Agent") {
+                        window.location.href = "/Agent/Index";
+                    }
+                    else if (result == "AgentM") {
+                        window.location.href = "/AgentM/Index";
+                    }
+                    else if (result == "Admin") {
+                        window.location.href = "/SuperAdmin/Index";
+                    }
+                    else {
+                        $("#error_mess").css("display", "");
+                    }
+                }
+            });
+        }
+    </script>
+
+    
+
+</body>
+</html>
+<script>
+    $(document).bind('keydown', function (e) {
+        if (e.which === 13) {
+            $('#loginBtn').trigger('click');
+        }
+    });
+</script>
+

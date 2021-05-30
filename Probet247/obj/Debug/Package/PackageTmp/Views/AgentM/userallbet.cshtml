@@ -1,0 +1,92 @@
+﻿@if (Session["MDL_UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title> Agent</title>
+    <link href="~/Content/clientbbetacss/agent_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body class="skyexchange">
+    <div class="pop-warp" style="width: 1256px; height: 600px;">
+
+        <!-- Report Table -->
+        <table class="game-team">
+            <tbody>
+                <tr>
+                    <td class="game-name" id="title">@ViewBag.EventNameBU<span>@ViewBag.Ev_Market_Name</span>[Bets]<a class="go-back" onclick="history.back();"><i class="fa fa-arrow-left" aria-hidden="true" style="color: white;margin-right: 5px;"></i>Back</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pop-content">
+            <div class="pop-title">
+                <!-- When Hover Player, Show This Message -->
+
+                <table class="table01" id="example1" class="table table-bordered table-striped ">
+                    <tbody>
+                        <tr>
+                            <th class="align-L" rowspan="2">Downline</th>
+                            <th class="border-l bgcolor-sub">Field</th>
+                            <th class="border-l bgcolor-sub">Rate</th>
+                            <th class="border-l bgcolor-sub">Stakes</th>
+                            <th class="border-l bgcolor-sub">P/L</th>
+                            <th class="border-l bgcolor-sub">Placed</th>
+                        </tr>
+
+                    </tbody>
+                    @{var gfh = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tbody id="content">
+
+                            <tr id="tempTr">
+                                <td class="td-UID">
+                                    <span class="order" id="number">@gfh</span>
+                                    <a id="userId" href="/AgentM/userallbetper?event_code=@ViewBag.event_code&betfair_id=@ViewBag.betfair_id&uid=@item.uid">
+                                        <strong>@item.Description</strong>
+                                    </a>
+                                </td>
+                                <td id="selection_exposure_1">@item.Field</td>
+                                <td id="selection_exposure_3">@item.Rate</td>
+                                <td id="selection_exposure_2">@item.Stakes</td>
+                                <td id="selection_exposure_3">@item.PL</td>
+                                <td id="selection_exposure_2">@item.EventTime</td>
+                            </tr>
+                        </tbody>
+                        gfh++;
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

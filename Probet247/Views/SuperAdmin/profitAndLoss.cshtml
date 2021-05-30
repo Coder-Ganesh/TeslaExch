@@ -1,0 +1,424 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<script src="~/Scripts/datepicksk/DateUtil.js"></script>
+<script src="~/Scripts/datepicksk/JSUtil.js"></script>
+<script src="~/Scripts/datepicksk/webCalendar.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../Bet History_files/BettingHistoryUtil.js.download"></script>
+
+<div class="main_wrap">
+    <!-- agent path -->
+
+    <div class="agent_path">
+        <ul id="agentPath" class="agent_path-L">
+
+            <li id="path6" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_0">
+                        COM
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="pathCurrency" class="currency_tag" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class=""></span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path5" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_1">
+                        SS
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path5" class="">
+                <a href="javascript: void(0);">
+                    <span class="lv_1">
+                        SA
+                    </span>
+                    <strong>@Session["Admin_UserName"]</strong>
+                </a>
+            </li>
+
+            <li id="path4" class="drop_down_li" style="">
+                <a href="javascript: void(0);" onclick="accountPop1()">
+                    <span class="lv_2">
+                        SM
+                    </span>
+                    <strong>@ViewBag.DLUname</strong>
+                </a>
+                <input type="hidden" name="accountPopInput1" id="accountPopInput1" value="0">
+                <script>
+                    function accountPop1() {
+                        if ($("#accountPopInput1").val() == 0) {
+                            $("#accountPopInput1").val("1");
+                            $("#accountPop1").show();
+                        }
+                        else {
+                            $("#accountPopInput1").val("0");
+                            $("#accountPop1").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop1" style="display: none;">
+                    <li id="popTmp1" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist11" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li id="path3" class="drop_down_li" style="">
+                <a href="javascript: void(0);" onclick="accountPop()">
+                    <span class="lv_3">
+                        MA
+                    </span>
+                    <strong>@ViewBag.DLUna</strong>
+                </a>
+                <input type="hidden" name="accountPopInput" id="accountPopInput" value="0">
+                <script>
+                    function accountPop() {
+                        if ($("#accountPopInput").val() == 0) {
+                            $("#accountPopInput").val("1");
+                            $("#accountPop87487").show();
+                        }
+                        else {
+                            $("#accountPopInput").val("0");
+                            $("#accountPop87487").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop87487" style="display: none;">
+                    <li id="popTmp" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist1" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+
+
+            <li id="path0" class="last_li drop_down_li" style="">
+                <a href="javascript: void(0);" onclick="accountPop58()">
+                    <span class="lv_4">
+                        PL
+                    </span>
+                    <strong>@ViewBag.CUname</strong>
+                </a>
+                <input type="hidden" name="accountPopInput" id="accountPopInput22" value="0">
+                <script>
+                    function accountPop58() {
+                        if ($("#accountPopInput22").val() == 0) {
+                            $("#accountPopInput22").val("1");
+                            $("#accountPop8748755").show();
+                        }
+                        else {
+                            $("#accountPopInput22").val("0");
+                            $("#accountPop8748755").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop8748755" style="display: none;">
+                    <li id="popTmp" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist111" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+    <!-- Agent Left Column -->
+
+    <div class="col-left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+
+                <li class="class">Position</li>
+                <li>
+                    <a id="accountSummary" href="/SuperAdmin/accountSummary?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Account Summary</a>
+                </li>
+
+                <li class="class">Performance</li>
+
+                <li>
+                    <a id="bettingHistory" class="select" href="/SuperAdmin/betList?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Betting History</a>
+                </li>
+                <li>
+                    <a id="profitLoss" href="/SuperAdmin/profitAndLoss?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Betting Profit &amp; Loss</a>
+                </li>
+
+
+                <li>
+                    <a id="transactionHistory" href="/SuperAdmin/transactionHistory?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">
+                        Transaction&nbsp;History
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display:none">
+            <ul class="loading">
+                <li><img src="~/Content/images/prospin.gif"></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+
+        <h2>My Bets</h2>
+
+
+        <!-- Account Info -->
+        <div>
+
+            <ul class="acc-info">
+                <li class="user">username</li>
+            </ul>
+
+
+            <!-- function -->
+
+            <div class="function-wrap">
+                <ul class="input-list">
+                    <div id="statusCondition" style="display: none;">
+                        <li><label>Bet Status:</label></li>
+                        <li>
+                            <select name="betStatus" id="betStatus"></select>
+                        </li>
+                    </div>
+
+                    <li><label>Period</label></li>
+                    <li>
+                        <input id="startDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" onclick="calendarObj.show(event,'startDate');" value="">
+                        <input id="startTime" class="time-input " type="text" placeholder="09:00" maxlength="5">
+                        to
+                        <input id="endDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" onclick="calendarObj.show(event,'endDate');" value="">
+                        <input id="endTime" class="time-input " type="text" placeholder="08:59" maxlength="5">
+                    </li>
+                    <li style="display: none;">(TimeZone:IST)</li>
+                </ul>
+                <ul class="input-list">
+                    <li><a id="today" href="#" class="btn" onclick="">Just For Today</a></li>
+
+                    <li style="display: ;"><a id="yesterday" href="#" class="btn" onclick="">From Yesterday</a></li>
+                    <li style="display: ;"><a id="last7days" href="#" class="btn" onclick="">Last 7 days</a></li>
+                    <li style="display: ;"><a id="last30days" href="#" class="btn" onclick="">Last 30 days</a></li>
+                    <li style="display: ;"><a id="last2months" href="#" class="btn" onclick="">Last 2 Months</a></li>
+                    <li style="display: ;"><a id="last3months" href="#" class="btn" onclick="">Last 3 Months</a></li>
+                    <li><a id="getPL" href="#" class="btn-send" onclick="GetHistory()">Get P &amp; L</a></li>
+                </ul>
+            </div>
+
+
+        </div>
+        <!-- function end-->
+
+        <script>
+            var $j = jQuery.noConflict();
+            //USE JsonUtil instead(in JSUtil)
+            if (typeof (JSON) == 'undefined') { //Fix IE6, 7 json bug.
+                $j.getScript('/js/json/json2.js');
+            }
+
+
+        </script>
+
+
+        <!-- Report Table -->
+
+        <div id="noReportMessage"><p>Betting Profit &amp; Loss enables you to review the bets you have placed. <br>Specify the time period during which your bets were placed, the type of markets on which the bets were placed, and the sport.</p><p>Betting Profit &amp; Loss is available online for the past 2 months.</p></div>
+
+        <div id="report" style="">
+            <ul class="total-show">
+                <li id="totalPL">Total P/L: BAL <span class="">pl</span></li>
+                <li id="sumOfQuery" class="sports-switch">BAL <span class="">pl</span></li>
+                <!-- <li class="sports-switch">
+                    <select name="sports" id="sports">
+
+                    <option value="0" selected="selected">ALL</option><option value="1">SOCCER</option><option value="2">TENNIS</option><option value="4">CRICKET</option></select>
+                </li> -->
+            </ul>
+
+            <table id="matchTable" class="table-s" style="display: table;">
+                <tbody>
+                    <tr>
+                        <th width="" class="align-L">Market</th>
+                        <th width="15%">Settled date</th>
+                        <th width="18%">Profit/Loss</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr id="matchRow" style="display: table-row;">
+                            <td id="matchTitle" class="align-L">@item.description</td>
+                            <td><span id="betPlaced" class="small-date">@item.created</span></td>
+                            <td class="align-R"><a id="betID" href="javascript: void(0);" class="expand-close" onclick="BettingHistoryUtilHandler.toggleTx()"><span style="">@item.credit</span></a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <p class="table-other">
+                Betting History is shown net of commission.
+            </p>
+
+
+            <script type="text/javascript" src="./Bet History_files/PageUtil.js.download"></script>
+            <div>
+                <ul style="display: none">
+                    <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+                    <li id="next"><a href="javascript:void(0);">Next</a></li>
+                    <li id="pageNumber"><a href="javascript:void(0);"></a></li>
+                    <li id="more"><a href="javascript:void(0);">...</a></li>
+                </ul>
+
+                <ul id="pageNumberContent" class="pages">
+                    <li id="prev"><a href="javascript:void(0);" class="disable" style="pointer-events: none;" onclick="GetHistory()">Prev</a></li>
+
+
+                    <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetHistory()">1</a></li>
+
+                    <li id="next"><a href="javascript:void(0);" class="disable" style="pointer-events: none;" onclick="GetHistory()">Next</a></li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript">
+    calendarProperties.dateFormatStyle = "yyyy-MM-dd";
+    calendarProperties.setI18n({ "form.text.transfer.weekly.weekNumber": "wk #", "calendar.text.month.1": "Jan", "calendar.text.month.2": "Feb", "calendar.text.month.3": "Mar", "calendar.text.month.4": "Apr", "calendar.text.month.5": "May", "calendar.text.month.6": "Jun", "calendar.text.month.7": "Jul", "calendar.text.month.8": "Aug", "calendar.text.month.9": "Sep", "calendar.text.month.10": "Oct", "calendar.text.month.11": "Nov", "calendar.text.month.12": "Dec", "form.text.transfer.weekly.0": "Sun", "form.text.transfer.weekly.1": "Mon", "form.text.transfer.weekly.2": "Tue", "form.text.transfer.weekly.3": "Wed", "form.text.transfer.weekly.4": "Thu", "form.text.transfer.weekly.5": "Fri", "form.text.transfer.weekly.6": "Sat", "calendar.form.text.Today": "Today", "calendar.form.text.Clear": "Clear", "calendar.form.text.Close": "Close" });
+    var calendarObj = new Calendar();
+</script>
+<script language="JavaScript" type="text/javascript">
+    SearchConfig = {};
+    SearchConfig.maxDay = '2018-04-26';
+    SearchConfig.today = '2018-04-25';
+    SearchConfig.yesterday = '2018-04-24';
+    SearchConfig.last7day = '2018-04-18';
+    SearchConfig.last30day = '2018-03-26';
+    SearchConfig.last2months = '2018-02-25';
+    SearchConfig.last3months = '2018-01-25';
+    SearchConfig.minDay = '2018-03-26';
+    SearchConfig.enableTimeSetting = true;
+
+    $j(document).ready(function () {
+        FunctionHandler.today();
+
+        if (false) {
+            FunctionHandler.initStartDate("", "");
+            FunctionHandler.initEndDate("", "");
+        }
+
+        if (typeof (TaskExecuter) !== 'undefined') {
+            TaskExecuter.execute();
+        }
+    });
+
+    function GetHistory(pageNumber) {
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var uid = "5";
+        window.location.href = '?startDate=' + startDate + '&endDate=' + endDate + '&pageNumber=' + pageNumber + '&uid=' + uid;
+    }
+    document.title = "Profit Loss";
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#betID").click(function () {
+            $("#expand").slideToggle();
+        });
+    });
+</script>
+
+<script>
+
+    MatchedClientBetRC();
+    function MatchedClientBetRC() {
+        $.ajax({
+            type: "GET",
+            url: "/SuperAdmin/DlClientList",
+            dataType: "html",
+            data: {mdlid :@ViewBag.mdidsendpl },
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                for (i = 0; i < a2.length; i++) {
+                    var myvar = ' <a href="/SuperAdmin/profitAndLoss?md_id='+a2[i].md_id+'&dist_id=' + a2[i].id + '&uid=0">' + a2[i].username + '</a>';
+                    $('#userlist1').append(myvar);
+                }
+            }
+        });
+    }
+
+      MatchedClientBetRC11();
+    function MatchedClientBetRC11() {
+        $.ajax({
+            type: "GET",
+            url: "/SuperAdmin/UClientList",
+            dataType: "html",
+            data: {mdlid :@ViewBag.DLIDN  },
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                for (i = 0; i < a2.length; i++) {
+                    var myvar = ' <a href="/SuperAdmin/profitAndLoss?md_id='+a2[i].md_id+'&dist_id=' + a2[i].dl_id + '&uid='+a2[i].id+'">' + a2[i].username + '</a>';
+                    $('#userlist111').append(myvar);
+                }
+            }
+        });
+    }
+
+
+    MatchedClientBetRC1();
+    function MatchedClientBetRC1() {
+        $.ajax({
+            type: "GET",
+            url: "/SuperAdmin/MDlClientList",
+            dataType: "html",
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                for (i = 0; i < a2.length; i++) {
+                    var myvar = ' <a href="/SuperAdmin/profitAndLoss?md_id=' + a2[i].id + '&dist_id=0&uid=0">' + a2[i].username + '</a>';
+                    $('#userlist11').append(myvar);
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,738 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<style>
+    .match-odds-row__market {
+        display: flex;
+        height: 42px;
+        padding: 5px 15px;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--color-submain);
+    }
+
+    @@media (max-width: 1023px) {
+        .match-odds-row__market {
+            flex-direction: column;
+            height: auto;
+            padding: 10px;
+            align-items: flex-start
+        }
+    }
+
+    .match-odds-row__market:last-of-type {
+        border-bottom: 0;
+    }
+
+    @@media (min-width: 1024px) and (max-width: 1279px) {
+        .match-odds-row__market.three-columns .match-odds-row__selection {
+            width: 40px
+        }
+    }
+
+    @@media (max-width: 400px) {
+        .match-odds-row__market.three-columns .match-odds-row__selection {
+            width: 42px
+        }
+    }
+
+    .match-odds-row__market.three-columns .match-odds-row__runners {
+        flex-basis: 318px;
+    }
+
+    @@media (min-width: 1024px) and (max-width: 1279px) {
+        .match-odds-row__market.three-columns .match-odds-row__runners {
+            flex-basis: 258px
+        }
+    }
+
+    .match-odds-row__market .multimarkets__toggle-button {
+        margin-left: 10px;
+    }
+
+    .match-odds-row__runners {
+        position: relative;
+        margin-left: auto;
+        display: flex;
+        flex-shrink: 0;
+        justify-content: space-between;
+    }
+
+    @@media (max-width: 767px) {
+        .match-odds-row__runners {
+            margin-left: 0;
+            align-self: center;
+            font-size: 12px
+        }
+    }
+
+    .match-odds-row__runnners-cover {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 3px;
+        width: calc(100% - 3px);
+        height: 100%;
+        color: var(--color-main-fade);
+        line-height: 28px;
+        text-align: center;
+        background-color: var(--color-cover);
+    }
+
+    .match-odds-row__runner {
+        display: flex;
+    }
+
+        .match-odds-row__runner:last-child {
+            margin-right: 0;
+        }
+
+    .match-odds-row__selection {
+        margin-left: 3px;
+        display: flex;
+        flex-direction: column;
+        width: 50px;
+        height: 34px;
+        padding-top: 2px;
+        justify-content: space-around;
+        align-items: center;
+        color: var(--color-main);
+        font-weight: 600;
+        line-height: 12px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .match-odds-row__selection.highlighted {
+            background-color: var(--color-highlight);
+            transition: var(--transition);
+        }
+
+        .match-odds-row__selection.back {
+            background-color: var(--color-back);
+        }
+
+        .match-odds-row__selection.lay {
+            background-color: var(--color-lay);
+        }
+
+        .match-odds-row__selection.active {
+            position: relative;
+        }
+
+            .match-odds-row__selection.active:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, .4);
+            }
+
+        .match-odds-row__selection.lowLiquidity:after {
+            content: "";
+            cursor: not-allowed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-cover);
+            font-family: "sportbook-icons";
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: inherit;
+            text-align: center;
+            font-variant: normal;
+            text-transform: none;
+            -webkit-font-smoothing: antialiased;
+            content: '\E805';
+        }
+
+        .match-odds-row__selection.lowLiquidity .match-odds-row__selection-odd,
+        .match-odds-row__selection.lowLiquidity .match-odds-row__selection-size {
+            display: none;
+        }
+
+    .match-odds-row__selection-size {
+        font-weight: 400;
+    }
+
+    .match-odds-row__title {
+        position: static;
+        display: flex;
+        align-items: center;
+        line-height: 16px;
+        flex-basis: 100%;
+        background-color: white;
+        padding: 10px;
+    }
+
+    @@media (max-width: 1023px) {
+        .match-odds-row__title {
+            flex-wrap: wrap
+        }
+
+            .match-odds-row__title:after {
+                content: "";
+                order: 2;
+                width: 100%;
+            }
+    }
+
+    .match-odds-row__start-date {
+        margin-right: 5px;
+    }
+
+    @@media (max-width: 767px) {
+        .match-odds-row__start-date {
+            margin-top: 7px;
+            order: 4;
+            font-size: 14px;
+            font-weight: 300
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .match-odds-row__start-fancy {
+            margin-top: 7px;
+            order: 4;
+            font-size: 14px;
+            font-weight: 300;
+            display: flex !important;
+        }
+    }
+
+    .match-odds-row__start-bookfancy {
+        margin-right: 5px;
+    }
+
+    @@media (max-width: 767px) {
+        .match-odds-row__start-bookfancy {
+            margin-top: 7px;
+            order: 4;
+            font-size: 14px;
+            font-weight: 300;
+            display: none;
+        }
+    }
+
+    .match-odds-row__event-name {
+        color: var(--color-main);
+        text-decoration: none;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
+
+        .match-odds-row__event-name strong {
+            word-break: break-word;
+        }
+
+    @@media (max-width: 1023px) {
+        .match-odds-row__event-name {
+            order: 1;
+            max-width: calc(100% - 40px);
+            font-size: 15px;
+            padding-left: 5px;
+            padding-top: 5px;
+        }
+
+            .match-odds-row__event-name:before {
+                content: '';
+                top: 0;
+                left: 0;
+                /*position: absolute;*/
+                width: 100%;
+                height: 100%;
+            }
+    }
+
+    .match-odds-row__inplay-flag {
+        margin-top: -4px;
+        margin-right: 5px;
+    }
+
+    @@media (max-width: 767px) {
+        .match-odds-row__inplay-flag {
+            margin-top: 8px;
+            order: 3
+        }
+    }
+
+    .match-odds-row__inplay-flag:before {
+        margin-top: 1px;
+        margin-right: 5px;
+        width: 15px;
+        height: 15px;
+        color: var(--color-main-fade);
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+        background-color: var(--color-prelive);
+    }
+
+    .match-odds-row__inplay-flag.active:before {
+        background-color: var(--color-live);
+    }
+
+    .match-odds-row__session-game {
+        background: url(/8c17251e09f2b878ea463e1c646bab6e.png) center center no-repeat;
+        margin-left: auto;
+        min-height: 20px;
+        min-width: 21px;
+    }
+
+    @@media (max-width: 1023px) {
+        .match-odds-row__session-game {
+            order: -1;
+            margin-right: 5px
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .match-odds-row__session-game {
+            margin-left: 0;
+            margin-right: 5px
+        }
+    }
+
+    .tv_chv {
+        display: none;
+    }
+</style>
+<style>
+    .multimarkets__title {
+        padding: 4px 10px;
+        color: var(--x-header-text-color);
+        background: var(--x-header-bg-color);
+    }
+
+    .multimarkets__content {
+        background-color: var(--color-bg-second);
+    }
+
+    .multimarkets__tabs {
+        display: flex;
+        width: 100%;
+    }
+
+    .multimarkets__tab {
+        flex-grow: 1;
+        padding: 5px;
+        color: var(--color-main);
+        font-size: 15px;
+        text-align: center;
+        background-color: var(--color-submain-darken);
+    }
+
+        .multimarkets__tab.active, .multimarkets__tab:hover {
+            color: var(--color-accent);
+            font-weight: 600;
+            background-color: var(--color-main);
+        }
+
+    .multimarkets__toggle-button {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        line-height: 19px;
+        text-align: center;
+        border: 1px solid;
+        border-radius: 50%;
+        opacity: .5;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    @@media (max-width: 1023px) {
+        .multimarkets__toggle-button {
+            position: absolute;
+            /*top: calc(50% - 13px);*/
+            right: 10px;
+            width: 26px;
+            height: 26px;
+            font-size: 18px;
+            line-height: 26px
+        }
+    }
+
+    .multimarkets__toggle-button.active {
+        color: var(--color-main-fade);
+        background-color: var(--color-accent);
+        border: 1px solid var(--color-accent);
+        opacity: 1;
+        transform: rotate(-45deg);
+    }
+
+    .multimarkets__toggle-button:before {
+        text-shadow: none;
+    }
+
+    .multimarkets__hint {
+        padding: 10px;
+    }
+
+    .game-fancy:after {
+        background-image: url(data:image/svg+xml,<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M9.44 21.32l1.792-8.456h5.628l.504-2.408h-5.628l1.288-6.02h7.252L20.78 2H10.112c-.896 0-1.68.275-2.352.826-.672.55-1.11 1.283-1.316 2.198L3 21.32h6.44z" fill="%23C5F6EE" fill-rule="nonzero"/></svg>);
+    }
+
+    .game-fancy:after, .game-sportsbook:after, .game-bookmaker:after, .game-live:after {
+        content: '';
+        background-size: cover;
+        width: 12px;
+        height: 12px;
+    }
+</style>
+<input type="hidden" value="@ViewBag.SportsId" id="SportsId" />
+<div class="ribbon-container">
+    <div class="ui-ribbon">
+        <ul class="list">
+
+            <a href="/exchange/MInplay">
+                <li class="item icon inplay">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-inplay">
+                                <span class="counter no-ios">@ViewBag.countinplay</span>
+                            </div>
+                            <div class="label">In-Play </div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            <a href="/exchange/MMatchList/4">
+                <li class="item icon">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-4">
+                            </div>
+                            <div class="label">Cricket</div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            <a href="/exchange/MMatchList/1">
+                <li class="item icon">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-1">
+                            </div>
+                            <div class="label">Football </div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            <a href="/exchange/MMatchList/2">
+                <li class="item icon">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-2">
+                            </div>
+                            <div class="label">Tennis </div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            @if (Session["AdminID"] != null)
+            {
+                if (Session["AdminID"].ToString() != "14")
+                {
+                    <a href="/exchange/Mindex/7888">
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-roulette">
+                                    </div>
+                                    <div class="label">Live Casino</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a href="/exchange/MMatchList/98765">
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-2378961">
+                                    </div>
+                                    <div class="label">Binary</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a href="/exchange/MMatchList/10">
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-2">
+                                    </div>
+                                    <div class="label">Table Tennis</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a href="/exchange/MMatchList/3503">
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-3503">
+                                    </div>
+                                    <div class="label">Darts</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a href="Javascript: Void(0)">
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-26420387">
+                                    </div>
+                                    <div class="label">Matka</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                }
+                else
+                {
+                    <a>
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-roulette">
+                                    </div>
+                                    <div class="label">Live Casino</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a>
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-2378961">
+                                    </div>
+                                    <div class="label">Binary</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a>
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-2">
+                                    </div>
+                                    <div class="label">Table Tennis</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a>
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-3503">
+                                    </div>
+                                    <div class="label">Darts</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                    <a href="Javascript: Void(0)">
+                        <li class="item icon">
+                            <button class="link">
+                                <div class="container">
+                                    <div class="icon sprite-normal sprite-normal-26420387">
+                                    </div>
+                                    <div class="label">Matka</div>
+                                </div>
+                            </button>
+                        </li>
+                    </a>
+                }
+            }
+
+
+        </ul>
+    </div>
+</div>
+<div class="main-content-container">
+    <div class="content navbar">
+        <div class="mod-navigation-coupon">
+            <div class="_2OT3f _35TsD _1IVe7">
+                <div class="_33sEJ">
+                    <span style="width: 16px; height: 16px;">
+                        <div class="icon sprite-normal-@(ViewBag.SportsId)"></div>
+                    </span>
+                </div>
+                <div class="_3S9GR">
+                    <span class="_2Gef4 _1k8eu _19Fp5 _3lvH3">@ViewBag.LeagueName</span>
+                </div>
+            </div>
+            <div class="mod-coupon multiples-disabled">
+                <div class="event-list" id="match_list_div">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        filter_menu();
+        function filter_menu() {
+            $("#main_home").addClass("menu-active");
+        }
+
+        //Start Cricket
+        $(function () {
+            getAllMessages();
+        })
+
+        function getAllMessages() {
+            var sp_id = $("#SportsId").val();
+            $.ajax({
+                url: '/exchange/getmatchlistspo',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: { sp_id: sp_id },
+                dataType: 'html',
+                success: function (result) {
+                    var a2 = JSON.parse(result);
+
+                    for (i = 0; i < a2.length; i++) {
+                        var mplay = a2[i].play;
+                        var league_id = a2[i].lg_id;
+                        var tv_ch = a2[i].tv_ch;
+                        var book_id = a2[i].book_id;
+                        var mtplay = "offplay";
+                        if (mplay == "true") {
+                            mtplay = "inplay";
+                        }
+                        var tv_ch_c = "tv_chv";
+                        var tv_ch_c1 = "tv_chv";
+                        if (tv_ch == "1") {
+                            tv_ch_c = "match-odds-row__start-fancy";
+                            tv_ch_c1 = "match-odds-row__start-bookfancy";
+                        }
+                        var book_id_av = "tv_chv";
+                        var book_id_av1 = "tv_chv";
+                        if (book_id != "0") {
+                            book_id_av = "match-odds-row__start-fancy";
+                            book_id_av1 = "match-odds-row__start-bookfancy";
+                        }
+                        var e_sport = a2[i].e_sport;
+                        var e_sport_id_av = "tv_chv";
+                        var e_sport_id_av1 = "tv_chv";
+                        if (e_sport == "1") {
+                            e_sport_id_av = "match-odds-row__start-fancy";
+                            e_sport_id_av1 = "match-odds-row__start-bookfancy";
+                        }
+                        var is_fancy = a2[i].is_fancy;
+                        var is_fancy_id_av = "tv_chv";
+                        var is_fancy_id_av1 = "tv_chv";
+                        if (is_fancy == "1") {
+                            is_fancy_id_av = "match-odds-row__start-fancy";
+                            is_fancy_id_av1 = "match-odds-row__start-bookfancy";
+                        }
+                        var secmy = "";
+                        if (sp_id == "4") {
+                            if (league_id == 88 || league_id == 88776655) {
+                                secmy = '<div class="match-odds-row__title" style="border-bottom:1px solid lightgray;">' +
+                                    '<div class="match-odds-row__inplay-flag"><img style="height:22px;" src="/Content/probet/' + mtplay + '.png" /></div > ' +
+                                    '<div class="match-odds-row__start-date">' + a2[i].MatchTime + '<br>' + a2[i].MatchDate + ' </div> ' +
+                                    '<div class="match-odds-row__start-fancy" style="margin-left:10px;display:none;"><img style="height:40px;" src="/Content/probet/b1.png" /></div>' +
+                                    '<div class="' + is_fancy_id_av + '" style="display:none;"><img style="height:40px;margin-left: -10px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + e_sport_id_av + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/e1.png" /></div>' +
+                                    '<div class="' + tv_ch_c + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '<a class="match-odds-row__event-name" style="color:var(--color-main);" href="/exchange/MGully/' + a2[i].EventCode + '">' + a2[i].Runnername + '</a>' +
+                                    '<div class="match-odds-row__start-bookfancy" style="margin-left:10px"><img style="height:40px;" src="/Content/probet/b1.png" /></div>' +
+                                    '<div class="' + is_fancy_id_av1 + '"><img style="height:40px;margin-left: -15px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + e_sport_id_av1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/e1.png" /></div>' +
+                                    '<div class="' + tv_ch_c1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '</div>';
+                            }
+                            else if (league_id == "99887766") {
+                                secmy = '<div class="match-odds-row__title" style="border-bottom:1px solid lightgray;">' +
+                                    '<div class="match-odds-row__inplay-flag"><img style="height:22px;" src="/Content/probet/' + mtplay + '.png" /></div > ' +
+                                    '<div class="match-odds-row__start-date">' + a2[i].MatchTime + '<br>' + a2[i].MatchDate + ' </div> ' +
+                                    '<div class="' + is_fancy_id_av + '" style="display:none;"><img style="height:40px;margin-left: -10px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + e_sport_id_av + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/e1.png" /></div>' +
+                                    '<div class="' + tv_ch_c + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '<a class="match-odds-row__event-name" style="color:var(--color-main);" href="/exchange/MMarketx/' + a2[i].EventCode + '">' + a2[i].Runnername + '</a>' +
+                                    '<div class="' + is_fancy_id_av1 + '"><img style="height:40px;margin-left: -15px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + e_sport_id_av1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/e1.png" /></div>' +
+                                    '<div class="' + tv_ch_c1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '</div>';
+                            }
+                            else {
+                                secmy = '<a style="text-decoration1;none; color:black;" href="/exchange/MMarkets/' + a2[i].EventCode + '"><div class="match-odds-row__title" style="border-bottom:1px solid lightgray;">' +
+                                    '<div class="match-odds-row__inplay-flag"><img style="height:22px;" src="/Content/probet/' + mtplay + '.png" /></div > ' +
+                                    '<div class="match-odds-row__start-date">' + a2[i].MatchTime + '<br>' + a2[i].MatchDate + ' </div> ' +
+                                    '<div class="' + book_id_av + '" style="margin-left:10px;display:none;"><img style="height:40px;" src="/Content/probet/b1.png" /></div>' +
+                                    '<div class="' + is_fancy_id_av + '" style="display:none;"><img style="height:40px;margin-left: -10px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + tv_ch_c + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '' + a2[i].Runnername + '' +
+                                    '<div class="' + book_id_av1 + '" style="margin-left:10px"><img style="height:40px;" src="/Content/probet/b1.png" /></div>' +
+                                    '<div class="' + is_fancy_id_av1 + '"><img style="height:40px;margin-left: -15px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + tv_ch_c1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '</div></a>';
+                            }
+                        }
+                        else {
+
+                            if (league_id == "999888777" || league_id == "888777666" || league_id == "1010101010" || league_id == "35033503") {
+                                secmy = '<div class="match-odds-row__title" style="border-bottom:1px solid lightgray;">' +
+                                    '<div class="match-odds-row__inplay-flag"><img style="height:22px;" src="/Content/probet/' + mtplay + '.png" /></div > ' +
+                                    '<div class="match-odds-row__start-date">' + a2[i].MatchTime + '<br>' + a2[i].MatchDate + ' </div> ' +
+                                    '<div class="' + is_fancy_id_av + '" style="display:none;"><img style="height:40px;margin-left: -10px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + e_sport_id_av + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/e1.png" /></div>' +
+                                    '<div class="' + tv_ch_c + '" style="display:none;"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '<a class="match-odds-row__event-name" style="color:var(--color-main);" href="/exchange/MMarketx/' + a2[i].EventCode + '">' + a2[i].Runnername + '</a>' +
+                                    '<div class="' + is_fancy_id_av1 + '"><img style="height:40px;margin-left: -15px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + e_sport_id_av1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/e1.png" /></div>' +
+                                    '<div class="' + tv_ch_c1 + '"><img style="height:23px;margin-top:-3px;margin-left:5px;" src="/Content/probet/onair.png" /></div>' +
+                                    '</div>';
+                            }
+                            else if (league_id == "98765987") {
+                                secmy = '<div class="match-odds-row__title" style="border-bottom:1px solid lightgray;">' +
+                                    '<div class="match-odds-row__inplay-flag"><img style="height:22px;" src="/Content/probet/' + mtplay + '.png" /></div > ' +
+                                    '<div class="match-odds-row__start-date">' + a2[i].MatchTime + '<br>' + a2[i].MatchDate + ' </div> ' +
+                                    '<div class="' + is_fancy_id_av + '" style="display:none;"><img style="height:40px;margin-left: -10px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<a class="match-odds-row__event-name" style="color:var(--color-main);" href="/exchange/Binary/' + a2[i].EventCode + '">' + a2[i].Runnername + '</a>' +
+                                    '<div class="' + is_fancy_id_av1 + '"><img style="height:40px;margin-left: -15px;" src="/Content/probet/f1.png" /></div>' +
+                                    '</div>';
+                            }
+                            else {
+
+                                secmy = '<div class="match-odds-row__title" style="border-bottom:1px solid lightgray;">' +
+                                    '<div class="match-odds-row__inplay-flag"><img style="height:22px;" src="/Content/probet/' + mtplay + '.png" /></div > ' +
+                                    '<div class="match-odds-row__start-date">' + a2[i].MatchTime + '<br>' + a2[i].MatchDate + ' </div> ' +
+                                    '<div class="' + is_fancy_id_av + '" style="margin-left:10px;display:none;"><img style="height:40px;margin-left: -10px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + tv_ch_c + '" style="margin-left:10px;display:none;"><img style="height:23px;" src="/Content/probet/onair.png" /></div>' +
+                                    '<a class="match-odds-row__event-name" style="color:var(--color-main);" href="/exchange/MMarkets/' + a2[i].EventCode + '">' + a2[i].Runnername + '</a>' +
+                                    '<div class="' + is_fancy_id_av1 + '" style="height:40px;margin-left: -15px;"><img style="height:23px;" src="/Content/probet/f1.png" /></div>' +
+                                    '<div class="' + tv_ch_c1 + '" style="margin-left:15px"><img style="height:23px;" src="/Content/probet/onair.png" /></div>' +
+                                    '</div>';
+                            }
+                        }
+
+                        $('#match_list_div').append(secmy);
+                    }
+                }
+            });
+        }
+                    // End Cricket
+    </script>
+
+}

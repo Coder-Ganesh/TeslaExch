@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="betfairbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="live_bet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sup_id" Type="int" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="dist_id" Type="int" />
+    <Property Name="md_id" Type="int" />
+    <Property Name="admin_id" Type="int" />
+    <Property Name="event_id" Type="varchar" MaxLength="50" />
+    <Property Name="betfair_id" Type="varchar" MaxLength="50" />
+    <Property Name="field" Type="varchar" MaxLength="100" />
+    <Property Name="rate" Type="float" />
+    <Property Name="stakes" Type="float" />
+    <Property Name="total_value" Type="float" />
+    <Property Name="session_rate" Type="float" />
+    <Property Name="logic" Type="varchar" MaxLength="50" />
+    <Property Name="field_pos" Type="varchar" MaxLength="50" />
+    <Property Name="team_name" Type="varchar" MaxLength="50" />
+    <Property Name="runner_posi" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="place_time" Type="datetime" />
+    <Property Name="settled_time" Type="datetime" />
+    <Property Name="odds_type" Type="varchar" MaxLength="50" />
+    <Property Name="input_stakes" Type="float" />
+    <Property Name="input_pl" Type="float" />
+    <Property Name="before_bal" Type="float" />
+    <Property Name="after_bal" Type="float" />
+    <Property Name="before_exp" Type="float" />
+    <Property Name="after_exp" Type="float" />
+  </EntityType>
+  <Function Name="AutoTp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="betfairbModelStoreContainer">
+    <EntitySet Name="live_bet" EntityType="Self.live_bet" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

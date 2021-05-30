@@ -1,0 +1,162 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <h2>Add Match</h2>
+    <input type="hidden" value="@ViewBag.id" id="event_code" />
+    <label>New 1X ID : </label>
+    <input type="text" class="form-control" id="xid" /><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="xidupdate();" /><br><br><br><br>
+
+    <label>TV URL : </label>
+    <input type="text" class="form-control" id="tv" /><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="tvupdate();" /><br><br><br><br>
+
+    <label>New LiveFeed  : </label>
+    <input type="text" class="form-control" id="x_type" /><br>
+    <label>New X Code  : </label>
+    <input type="text" class="form-control" id="x_code" /><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="xcodeupdate();" /><br><br><br><br>
+
+
+    <label>Is E-Sport if yes then 1 if Not then 0 : </label>
+    <input type="text" class="form-control" id="e_sport" /><br>
+    <label>Is Fancy if yes then 1 if Not then 0 : </label>
+    <input type="text" class="form-control" id="is_fancy" /><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="isfancyupdate();" /><br><br><br><br>
+
+    <label>Book Data Limit : </label>
+    <input type="text" class="form-control" id="book_limit" /><br>
+    <input type="submit" class="btn btn-success" value="Submit" onclick="BookLimit();" />
+
+</div>
+<script>
+    function xidupdate() {
+        var xid = document.getElementById("xid").value;
+        var event_code = document.getElementById("event_code").value;
+        var result = confirm("Are to sure to Update XID"); 
+        if (result != true) {
+
+        }
+        else {
+            if (event_code != "0" && event_code != "" && xid != "" && xid != "0") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Other/xidupdate",
+                    data: { xid: xid, event_code: event_code },
+                    success: function (result) {
+                        if (result == "Success") {
+                        }
+                        alert(result)
+                    },
+                });
+            }
+            else {
+                alert("Please Fill Correct");
+            }
+        }
+    }
+    function tvupdate() {
+        var tv = document.getElementById("tv").value;
+        var event_code = document.getElementById("event_code").value;
+        var result = confirm("Are to sure to Update TV Url"); 
+        if (result != true) {
+
+        }
+        else {
+            if (event_code != "0" && event_code != "" && tv != "" && tv != "0") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Other/tvupdate",
+                    data: { tv: tv, event_code: event_code },
+                    success: function (result) {
+                        if (result == "Success") {
+                        }
+                        alert(result)
+                    },
+                });
+            }
+            else {
+                alert("Please Fill Correct");
+            }
+        }
+    }
+    function BookLimit() {
+        var book_limit = document.getElementById("book_limit").value;
+        var event_code = document.getElementById("event_code").value;
+        var result = confirm("Are to sure to Update Book Limit"); 
+        if (result != true) {
+
+        }
+        else {
+            if (event_code != "0" && event_code != "" && book_limit != "" && book_limit != "0") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Other/booklimit",
+                    data: { book_limit: book_limit, event_code: event_code },
+                    success: function (result) {
+                        if (result == "Success") {
+                        }
+                        alert(result)
+                    },
+                });
+            }
+            else {
+                alert("Please Fill Correct");
+            }
+        }
+    }
+    function xcodeupdate() {
+        var x_type = document.getElementById("x_type").value;
+        var x_code = document.getElementById("x_code").value;
+        var event_code = document.getElementById("event_code").value;
+        var result = confirm("Are to sure to Update X Code"); 
+        if (result != true) {
+
+        }
+        else {
+            if (event_code != "0" && event_code != "" && x_code != "" && x_code != "0" && x_type != "" && x_type != "0") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Other/xcodeupdate",
+                    data: { x_type: x_type,x_code:x_code, event_code: event_code },
+                    success: function (result) {
+                        alert(result)
+                    },
+                });
+            }
+            else {
+                alert("Please Fill Correct");
+            }
+        }
+    }
+    function isfancyupdate() {
+        var e_sport = document.getElementById("e_sport").value;
+        var is_fancy = document.getElementById("is_fancy").value;
+        var event_code = document.getElementById("event_code").value;
+        var result = confirm("Are to sure to Update E-sport and Is Fancy"); 
+        if (result != true) {
+
+        }
+        else {
+            if (event_code != "0" && event_code != "" && e_sport != "" && is_fancy != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Other/isfancyupdate",
+                    data: { e_sport: e_sport,is_fancy:is_fancy, event_code: event_code },
+                    success: function (result) {
+                        alert(result)
+                    },
+                });
+            }
+            else {
+                alert("Please Fill Correct");
+            }
+        }
+    }
+</script>
+
+

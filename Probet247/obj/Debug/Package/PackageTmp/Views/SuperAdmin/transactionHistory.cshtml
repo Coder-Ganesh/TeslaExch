@@ -1,0 +1,316 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="./Bet History_files/BettingHistoryUtil.js.download"></script>
+
+<div class="main_wrap">
+    <!-- agent path -->
+    <!-- agent path -->
+
+    <div class="agent_path">
+        <ul id="agentPath" class="agent_path-L">
+
+            <li id="path6" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_0">
+                        COM
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="pathCurrency" class="currency_tag" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class=""></span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path5" class="" style="display: none;">
+                <a href="javascript: void(0);">
+                    <span class="lv_1">
+                        SS
+                    </span>
+                    <strong></strong>
+                </a>
+            </li>
+
+            <li id="path5" class="">
+                <a href="javascript: void(0);">
+                    <span class="lv_1">
+                        SA
+                    </span>
+                    <strong>@Session["Admin_UserName"]</strong>
+                </a>
+            </li>
+
+            <li id="path4" class="drop_down_li" style="">
+                <a href="javascript: void(0);" onclick="accountPop1()">
+                    <span class="lv_2">
+                        SM
+                    </span>
+                    <strong>@ViewBag.DLUname</strong>
+                </a>
+                <input type="hidden" name="accountPopInput1" id="accountPopInput1" value="0">
+                <script>
+                    function accountPop1() {
+                        if ($("#accountPopInput1").val() == 0) {
+                            $("#accountPopInput1").val("1");
+                            $("#accountPop1").show();
+                        }
+                        else {
+                            $("#accountPopInput1").val("0");
+                            $("#accountPop1").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop1" style="display: none;">
+                    <li id="popTmp1" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist11" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li id="path3" class="drop_down_li" style="">
+                <a href="javascript: void(0);" onclick="accountPop()">
+                    <span class="lv_3">
+                        MA
+                    </span>
+                    <strong>@ViewBag.DLUna</strong>
+                </a>
+                <input type="hidden" name="accountPopInput" id="accountPopInput" value="0">
+                <script>
+                    function accountPop() {
+                        if ($("#accountPopInput").val() == 0) {
+                            $("#accountPopInput").val("1");
+                            $("#accountPop87487").show();
+                        }
+                        else {
+                            $("#accountPopInput").val("0");
+                            $("#accountPop87487").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop87487" style="display: none;">
+                    <li id="popTmp" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist1" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+
+
+            <li id="path0" class="last_li drop_down_li" style="">
+                <a href="javascript: void(0);" onclick="accountPop58()">
+                    <span class="lv_4">
+                        PL
+                    </span>
+                    <strong>@ViewBag.CUname</strong>
+                </a>
+                <input type="hidden" name="accountPopInput" id="accountPopInput22" value="0">
+                <script>
+                    function accountPop58() {
+                        if ($("#accountPopInput22").val() == 0) {
+                            $("#accountPopInput22").val("1");
+                            $("#accountPop8748755").show();
+                        }
+                        else {
+                            $("#accountPopInput22").val("0");
+                            $("#accountPop8748755").hide();
+                        }
+                    }
+                </script>
+                <ul class="account_pop" id="accountPop8748755" style="display: none;">
+                    <li id="popTmp" style="display: none;">
+                        <a href=""></a>
+                    </li>
+
+                    <li id="userlist111" style="display: list-item;">
+
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- Agent Left Column -->
+
+    <div class="col-left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+
+
+                <li class="class">Position</li>
+                <li>
+                    <a id="accountSummary" href="/SuperAdmin/accountSummary?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Account Summary</a>
+                </li>
+
+                <li class="class">Performance</li>
+
+                <li>
+                    <a id="bettingHistory" class="select" href="/SuperAdmin/betList?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Betting History</a>
+                </li>
+                <li>
+                    <a id="profitLoss" href="/SuperAdmin/profitAndLoss?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">Betting Profit &amp; Loss</a>
+                </li>
+
+
+                <li>
+                    <a id="transactionHistory" href="/SuperAdmin/transactionHistory?md_id=@ViewBag.MDLID&dist_id=@ViewBag.DLID&uid=@ViewBag.ClientId">
+                        Transaction&nbsp;History
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display:none">
+            <ul class="loading">
+                <li><img src="/images/prospin.gif"></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+
+        <h2>Transaction History</h2>
+
+        <table id="table_log" class="table01">
+            <tbody>
+                <tr>
+                    <th class="align-L">From/To</th>
+                    <th width="15%" class="align-L">Date/Time</th>
+                    <th width="10%">Deposit</th>
+                    <th width="10%">Withdraw</th>
+                    <th width="10%">Balance</th>
+                    <th width="16%">Remark</th>
+                </tr>
+
+            </tbody>
+            <tbody id="content">
+                @foreach (var item in Model)
+                {
+                    <tr id="tempTr">
+                        <td class="align-L">
+                            @item.description
+                            <!--<spen id="from">Master Agent</spen>
+                            <img class="fromto" src="./Account Statement_files/transparent.gif">
+                            <span id="to"><?php echo $login_username;  ?></span>-->
+                        </td>
+                        <td id="createDate" class="align-L">@item.DTime</td>
+                        <td id="deposit">@item.Withdraw</td>
+                        <td id="withdraw">@item.Deposit</td>
+                        <td id="balance">@item.Balance</td>
+                        <td id="remark">@item.Remark</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <script type="text/javascript" src="./Bet History_files/PageUtil.js.download"></script>
+        <div>
+            <ul style="display: none">
+                <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+                <li id="next"><a href="javascript:void(0);">Next</a></li>
+                <li id="pageNumber"><a href="javascript:void(0);"></a></li>
+                <li id="more"><a href="javascript:void(0);">...</a></li>
+            </ul>
+
+            <ul id="pageNumberContent" class="pages">
+                <li id="prev"><a href="javascript:void(0);" class="disable" style="pointer-events: none;" onclick="GetHistory()">Prev</a></li>
+
+                <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetHistory()">1</a></li>
+
+                <li id="next"><a href="javascript:void(0);" class="disable" style="pointer-events: none;" onclick="GetHistory()">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+
+      MatchedClientBetRC11();
+    function MatchedClientBetRC11() {
+        $.ajax({
+            type: "GET",
+            url: "/SuperAdmin/UClientList",
+            dataType: "html",
+            data: {mdlid :@ViewBag.DLIDN  },
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                for (i = 0; i < a2.length; i++) {
+                    var myvar = ' <a href="/SuperAdmin/transactionHistory?md_id='+a2[i].md_id+'&dist_id=' + a2[i].dl_id + '&uid='+a2[i].id+'">' + a2[i].username + '</a>';
+                    $('#userlist111').append(myvar);
+                }
+            }
+        });
+    }
+
+
+
+</script>
+
+<script>
+         MatchedClientBetRC1();
+        function MatchedClientBetRC1() {
+            $.ajax({
+                type: "GET",
+                url: "/SuperAdmin/MDlClientList",
+                dataType: "html",
+                success: function (data) {
+                    var a2 = JSON.parse(data);
+                    for (i = 0; i < a2.length; i++) {
+                        var myvar = ' <a href="/SuperAdmin/transactionHistory?md_id=' + a2[i].id + '&dist_id=0&uid=0">' + a2[i].username + '</a>';
+                        $('#userlist11').append(myvar);
+                    }
+                }
+            });
+        }
+        MatchedClientBetRC();
+        function MatchedClientBetRC() {
+          var gy = @ViewBag.mdidsendpl;
+          $.ajax({
+            type: "GET",
+            url: "/SuperAdmin/DlClientList",
+            dataType: "html",
+            data: {mdlid :gy },
+            success: function (data) {
+                var a2 = JSON.parse(data);
+                for (i = 0; i < a2.length; i++) {
+                    var myvar = ' <a href="/SuperAdmin/transactionHistory?md_id='+a2[i].md_id+'&dist_id=' + a2[i].id + '&uid=0">' + a2[i].username + '</a>';
+                    $('#userlist1').append(myvar);
+                }
+            }
+          });
+        }
+</script>

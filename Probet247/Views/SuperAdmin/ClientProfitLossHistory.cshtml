@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+<h2 style="margin-left: 10px;">Profit/Loss Report by Market</h2>
+
+
+<!-- Start Report -->
+<div id="report" style="">
+
+    <table id="matchTable" class="table-s" style="display: table;width: 100%;">
+        <tbody>
+            <tr>
+                <th style="text-align: center;width: 180px;">Name [Agent] [Super]</th>
+                <th style="text-align: center;width: 180px;">Time</th>
+                <th>Description</th>
+                <th style="text-align: center;width: 100px;">Debit</th>
+                <th style="text-align: center;width: 100px;">Credit</th>
+            </tr>
+
+            @{Double debit_total = 0;}
+            @{Double credit_total = 0;}
+            @foreach (var item in Model)
+            {
+                debit_total += item.debit;
+                credit_total += item.credit;
+        <tr>
+            <td style="text-align: center;">@item.uname</td>
+            <td style="text-align: center;">@item.created</td>
+            <td>@item.description</td>
+            @if (item.debit == 0)
+            {
+                <td style="text-align: center;">-</td>
+            }
+            else
+            {
+                <td style="text-align: center;" class="red">( @item.debit)</td>
+            }
+            @if (item.credit == 0)
+            {
+                <td style="text-align: center;">-</td>
+            }
+            else
+            {
+                <td style="text-align: center;">@item.credit</td>
+            }
+        </tr>
+            }
+        <tr style="border-top: 2px solid black;">
+            <td></td>
+            <td></td>
+            <td style="font-weight: bold;">TOTAL</td>
+            <td style="text-align: center;font-weight: bold;" class="red">( @debit_total)</td>
+            <td style="text-align: center;font-weight: bold;">@credit_total</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <script type="text/javascript" src="/js/util/PageUtil.js?v=20180425_1524626400000"></script>
+
+</div>
+<script type="text/javascript" src="https://agawscf.skyexchange.com/js/util/PageUtil.js?v=20180425_1524626400000"></script>

@@ -1,0 +1,289 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <title></title>
+    <link rel="stylesheet" href="sky-agent-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        body.skyexchange {
+            background: #080a05 url('../../Content/img/bg-login-skyEX.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #1D2C38 url('../../Content/img/bg-login.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: Tahoma, Helvetica, sans-serif;
+            color: #1E1E1E;
+            font-size: 12px;
+            line-height: 15px;
+            background-color: #eee;
+        }
+
+        .skyexchange .login-wrap, .skyexchange .maintain-wrap {
+            top: 12%;
+            background-color: #a20607;
+        }
+
+        .login-wrap, .maintain-wrap {
+            position: absolute;
+            top: 17%;
+            left: calc(50% - 540px/2);
+            width: 540px;
+            height: 408px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .kv {
+            width: 250px;
+            height: 100%;
+            background: #000000;
+            border-radius: 8px 0 0 8px;
+            color: orange;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .float-L, .delete, .login-panel, .change_pass .login-panel,
+        .change_pass .note, .power-wrap h3, .kv, .support-wrap dt {
+            float: left;
+        }
+
+        .skyexchange .login-panel {
+            color: #000;
+        }
+
+        .login-panel {
+            color: #212121;
+            margin: 100px 0 0 25px;
+        }
+
+            .login-panel dt {
+                font-size: 20px;
+                line-height: 24px;
+                margin-bottom: 15px;
+            }
+
+            .login-panel dd {
+                position: relative;
+                width: 220px;
+                margin-bottom: 7px;
+            }
+
+            .login-panel input, .login-panel textarea {
+                width: 100%;
+                height: 33px;
+                font-size: 14px;
+                line-height: 21px;
+                border: 1px solid #aaa;
+                box-shadow: inset 0px 2px 0px 0px rgba(0,0,0,0.1);
+                margin: 0;
+            }
+
+        input, textarea {
+            font-family: Tahoma, Helvetica, sans-serif;
+            color: #1E1E1E;
+            font-size: 12px;
+            border: 0px #aaa solid;
+            background: #fff;
+            box-shadow: inset 0px 1px 0px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            padding: 5px;
+            margin: 0 5px 5px 0;
+            box-sizing: border-box;
+        }
+
+        .skyexchange .btn-send {
+            background: #121212 url('../../Content/img/bg-send-skyEX.png') repeat-x;
+            color: #F8D61C;
+            border-color: #000;
+        }
+
+        .login-panel .btn-send {
+            width: 218px;
+            height: 36px;
+            line-height: 36px;
+            font-size: 15px;
+            margin: 15px 0 0;
+        }
+
+        .btn-send {
+            background: #FFA00C url('../../Content/img/bg-send.gif') repeat-x;
+            border-color: #CB8009;
+        }
+
+        .btn, .btn-send, .marquee-pop .pages a {
+            background: #eee url('../../Content/img/bg-btn.gif') repeat-x;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            color: #1E1E1E;
+            font-weight: bold;
+            line-height: 23px;
+            font-size: 12px;
+            margin: 0 5px 10px 0;
+        }
+
+        .btn, .btn-send, body.bigexch:before, body.sgexch247:before {
+            display: block;
+        }
+
+        .btn, .btn-send {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2789CE;
+            outline: none;
+            hlbr: expression(this.onFocus=this.blur());
+        }
+
+        .skyexchange .btn-send:hover {
+            background: #464646 url('../../Content/img/bg-send_hover-skyEX.png') repeat-x;
+        }
+
+        .form-control-feedback {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 2;
+            display: block;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="skyexchange">
+    <div class="login-wrap">
+        <div class="kv">
+            <div style="margin-top:190px;margin-bottom:30px;font-family:sans-serif;">Pro-Pro</div>
+        </div>
+        <dl class="login-panel">
+            <dt>Admin login</dt>
+            <dd> <input id="loginName" type="text" placeholder="Username"> </dd>
+            <dd><input id="password" type="password" placeholder="Password"></dd>
+            <dd class="valid-code">
+                <input id="validation_code_input" type="text" placeholder="Validation Code" maxlength="4" autocomplete="off">
+                <input id="validation_code_input1" type="hidden" placeholder="Validation Code" maxlength="4" autocomplete="off">
+                <span class="form-control-feedback" id="validation_code" style="padding-right: 25px;font-size: 20px;font-weight:bold;">0000</span>
+            </dd>
+            <dd>
+                <a id="loginBtn" href="#" class="btn-send" onclick="login()">Login </a>
+            </dd>
+            <dd id="errorMsg" class="error" style="display:none; color: #D0021B;font-size: 13px;line-height: 16px; ">
+                Login name or password is invalid! Please try again.
+            </dd>
+        </dl>
+    </div>
+
+</body>
+</html>
+<script>
+    var val = Math.floor(1000 + Math.random() * 9000);
+    $("#validation_code").text(val);
+    $("#validation_code_input1").val(val);
+
+    function validationCode() {
+        var val = Math.floor(1000 + Math.random() * 9000);
+        $("#validation_code").text(val);
+        $("#validation_code_input1").val(val);
+    }
+    setInterval(function () { validationCode(); }, 60000);
+
+    $(document).keydown(function (evt) {
+        if (evt.keyCode == 83 && (evt.ctrlKey)) {
+            evt.preventDefault();
+            var v = $("#validation_code_input1").val();
+            $("#validation_code_input").val(v);
+        }
+    });
+
+    function login() {
+        $("#errorMsg").html("");
+        var loginName = $("#loginName").val();
+        var password = $("#password").val();
+        var validation_code_input = $("#validation_code_input").val();
+        var validation_code_input1 = $("#validation_code_input1").val();
+
+        if (loginName == "") {
+            $("#errorMsg").show();
+            $("#errorMsg").html("Username is empty");
+        }
+        else if (password == "") {
+             $("#errorMsg").show();
+            $("#errorMsg").html("Password is empty");
+        }
+        else if (validation_code_input == "") {
+             $("#errorMsg").show();
+            $("#errorMsg").html("Validation code is empty");
+        }
+        else if (validation_code_input != validation_code_input1) {
+             $("#errorMsg").show();
+            $("#errorMsg").html("Invalid validation code!");
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Sekh/ALoginDB',
+                data: { username: loginName, password: password },
+                beforeSend: function () {
+                    $("#loginBtn").prop('disabled', true);
+                    $("#loginBtn").html("Logining...");
+                },
+                success: function (result) {
+                    //alert(result);
+                    setTimeout(function () {
+                        //$("#errorMsg").html(result);
+                        if (result == "Success") {
+                            window.location.href = '/Sekh/Index';
+                        }
+                        else {
+                            var errorMsg = "Login name or password is invalid! Please try again.";
+                            $("#errorMsg").html(errorMsg);
+                         $("#errorMsg").show();
+                        }
+                        $("#loginBtn").prop('disabled', false);
+                        $("#loginBtn").html("Login");
+                    }, 1000);
+                },
+                error: function () {
+                    setTimeout(function () {
+                        $("#loginBtn").prop('disabled', false);
+                        $("#loginBtn").html("Login");
+                         $("#errorMsg").show();
+                        var errorMsg = "Login name or password is invalid! Please try again.";
+                        $("#errorMsg").html(errorMsg);
+                    }, 1000);
+                }
+            });
+        }
+        return false;
+    }
+</script>
+
+
+

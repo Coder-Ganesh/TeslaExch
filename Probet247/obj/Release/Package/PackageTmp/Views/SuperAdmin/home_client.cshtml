@@ -1,0 +1,311 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div id="mainWrap" class="main_wrap">
+
+    <div class="total_all">
+
+        <div class="agent_path">
+            <ul id="agentPath" class="agent_path-L" style="display: none;">
+
+                <li id="path6" class="" style="display: none;">
+                    <a href="javascript: void(0);">
+                        <span class="lv_0">
+                            COM
+                        </span>
+                        <strong></strong>
+                    </a>
+                </li>
+
+                <li id="pathCurrency" class="currency_tag" style="display: none;">
+                    <a href="javascript: void(0);">
+                        <span class=""></span>
+                        <strong></strong>
+                    </a>
+                </li>
+
+                <li id="path5" class="" style="display: none;">
+                    <a href="javascript: void(0);">
+                        <span class="lv_1">
+                            SS
+                        </span>
+                        <strong></strong>
+                    </a>
+                </li>
+
+                <li id="path4" class="" style="display: none;">
+                    <a href="javascript: void(0);">
+                        <span class="lv_2">
+                            SUP
+                        </span>
+                        <strong></strong>
+                    </a>
+                </li>
+
+                <li id="path3" class="last_li" style="">
+                    <a href="javascript: void(0);">
+                        <span class="lv_3">
+                            MA
+                        </span>
+                        <strong>login_username</strong>
+                    </a>
+                </li>
+
+                <li id="path0" class="" style="display: none;">
+                    <a href="javascript: void(0);">
+                        <span class="lv_4">
+                            PL
+                        </span>
+                        <strong></strong>
+                    </a>
+                </li>
+
+                <ul class="account_pop" id="accountPop" style="">
+                    <li id="popTmp" style="display: none;">
+                        <a href="#"></a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+
+
+        <a id="refresh" class="btn_replay"><img src="../SKYEXCHANGE - Agent_files/transparent.gif"></a>
+
+        <a class="add_member" href="#" onclick="AddPlayercDialog()">
+            <img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Add Player
+        </a>
+    </div>
+    <div id="totalBox" class="total_box" style="">
+
+        <dl id="creditGivenOutDL" class="total_dl" style="font-size: 12px;">
+            <dt>Agent Balance</dt>
+            <dd id="totalCreditGivenOut">BAL @ViewBag.Dlbalance</dd>
+        </dl>
+        <dl id="creditAvailBalDL" class="total_dl" style="font-size: 12px;">
+            <dt>Total Balance</dt>
+            <dd id="myCreditAvailBal">BAL @ViewBag.total_balll</dd>
+        </dl>
+        <dl id="totalBalanceDL" class="total_dl">
+            <dt>Total Exposure</dt>
+            <dd id="totalBalance">BAL @ViewBag.ClientLib</dd>
+        </dl>
+        <dl id="totalBalanceDL" class="total_dl">
+            <dt>Total Available Exposure</dt>
+            <dd id="totalBalance">BAL @ViewBag.Clientbalance</dd>
+        </dl>
+        <dl id="totalBalanceDL" class="total_dl">
+            <dt>Available Balance</dt>
+            <dd id="totalBalance">BAL @ViewBag.Net_total_balll</dd>
+        </dl>
+        <dl id="availableBalanceDL" class="total_dl" style="display:none;">
+            <dt>Total Profit Loss</dt>
+            <dd id="totalAvailBal">BAL @ViewBag.DlPl</dd>
+        </dl>
+        <dl id="masterBalanceDL" class="total_dl" style="display:none;">
+            <dt>Total Commission</dt>
+            <dd id="mastersBalance">BAL @ViewBag.Dlcomm</dd>
+        </dl>
+    </div>
+    <div class="function-wrap clearfix">
+        <dl class="banking-head float-L">
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=A">A</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=B">B</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=C">C</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=D">D</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=E">E</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=F">F</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=G">G</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=H">H</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=I">I</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=J">J</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=K">K</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=L">L</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=M">M</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=N">N</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=O">O</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=P">P</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=Q">Q</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=R">R</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=S">S</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=T">T</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=U">U</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=V">V</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=W">W</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=X">X</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=Y">Y</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=Z">Z</a></dd>
+            <dd><a href="/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=All">All</a></dd>
+        </dl>
+        <div class="wrap">
+            <div class="search">
+                <input type="text" class="searchTerm" placeholder="What are you looking for?" style="margin:0px;">
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Center Column -->
+    <div id="widthAll" class="width-all">
+
+
+        <!-- Loading Wrap -->
+        <div id="loading" class="loading-wrap" style="display: block;">
+            <ul class="loading">
+                <li><img src="~/Content/SKYEXCHANGEAgent_files/prospin.gif" /></li>
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+        <!-- Message -->
+        <div id="message" class="message-wrap success">
+            <a class="btn-close" id="messageBtnClose">Close</a>
+            <p></p>
+        </div>
+        <!-- Report Table -->
+        <table id="resultTable" class="table01 margin-table" style="display: table;">
+            <tbody>
+            <thead>
+            <th id="accountTh" width="" class="align-L" style="">Account</th>
+            <!--<th id="creditRefTh" width="10%" style="">Credit Ref.</th>-->
+            <th id="creditLimitTh" width="10%" style="display: none">Credit Limit</th>
+
+            <th id="currentPLTh" width="10%" style="display: none">
+                Current P/L
+            </th>
+            <th id="transferablePLTh" width="10%" style="display: none">
+                Transferable P/L
+            </th>
+            <th id="balanceTh" width="10%" style="">Balance</th>
+            <th id="exposureTh" width="10%" style="">Exposure</th>
+            <th id="availableBalanceTh" width="10%" style="">Avail. bal.</th>
+            <th id="creditPLTh" width="10%" style="display: none">Balance</th>
+            <th id="playerBalanceTh" width="10%" style="display: none">Player Balance</th>
+            <th id="exposureLimitTh" width="10%" style="display: none;">Exposure Limit</th>
+
+            <th id="refPLTh" width="10%" style="">Ref. P/L</th>
+            <th id="refPLTh" width="10%" style="">Total P/L</th>
+            <th id="statusTh" width="10%" style="">Status</th>
+            <th id="actionTh" width="15%" style="">Action</th>
+            </thead>
+            @foreach (var item in Model)
+            {
+        <tr id="0" style="display: table-row;">
+            <td id="accountCol" class="align-L"><span class="lv_4">PL</span>@item.Client_Username</td>
+            <!--<td id="creditRef0" class="credit-amount-member" style=""><a id="creditRefBtn" class="favor-set" href="javascript:void(0);" onclick="CreditReferenceHandler.showDialog(0,&#39;<?php echo $row['username']; ?>&#39;,1)">0.00</a></td>-->
+
+            <td id="balance0" style="">@item.Client_balance</td>
+            <td id="currentExposure0" style=""> <a href="javascript:" style="text-decoration: none;" onclick="Exposurelistshow('/SuperAdmin/ClientLiability/0/0/@item.Client_Id'); return false;">@item.Client_exposure</a></td>
+            <td id="available0" style="">@item.Client_avl_balance</td>
+
+            <td id="refPL0" style="">@item.Client_profit_loss</td>
+            <td id="refPL0" style="">@item.Client_profit_loss</td>
+            <td id="statusCol" style="">
+                <ul id="tipsPopup" class="status-popup" style="display: none">
+                </ul>
+                @if (item.Client_status == "activate")
+                {
+                    <span id="status" class="status-active"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">Active</span>
+                }
+                else if (item.Client_status == "delete")
+                {
+                    <span id="status" class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Locked</span>
+                }
+                else
+                {
+                    <span id="status" class="status-suspend"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">Suspend</span>
+                }
+
+
+            </td>
+            <td id="actionCol" style="">
+                <ul class="action">
+                    <li>
+                        <a id="banking" class="bank" href="#bank" style="display: none;">Bank</a>
+                    </li>
+                    <li>
+                        <a id="p_l0" class="p_l" href="/SuperAdmin/profitAndLoss?md_id=@item.md_Id&dist_id=@item.dl_Id&uid=@item.Client_Id">Betting Profit &amp; Loss</a>
+                    </li>
+                    <li>
+                        <a id="betting_history0" class="betting_history" href="/SuperAdmin/betList?md_id=@item.md_Id&dist_id=@item.dl_Id&uid=@item.Client_Id">Betting History</a>
+                    </li>
+                    <li>
+                        <input type="hidden" id="Username_@item.Client_Id" value="@item.Client_Username" />
+                        <input type="hidden" id="status_@item.Client_Id" value="@item.Client_status" />
+                        <a id="change0" class="status" href="#" onclick="openStatusDialog(@item.Client_Id)">Change Status</a>
+                    </li>
+                    <li>
+                        <a id="profile0" class="profile" href="/SuperAdmin/accountSummary?md_id=@item.md_Id&dist_id=@item.dl_Id&uid=@item.Client_Id">Profile</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+            }
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Report Table -->
+    <div id="tableOneBox" class="table_one_box" style="display: none">
+
+
+    </div>
+</div>
+
+<script>
+    function AddPlayercDialog() {
+        alert("Comming Soon");
+    }
+    function Exposurelistshow(relativeUrl, user_id) {
+        var param = { 'user_id': user_id };
+        OpenWindowWithPost(relativeUrl, "width=1200, height=600, left=100, top=100, resizable=yes, scrollbars=yes", "NewFile", param);
+    }
+
+
+    function OpenWindowWithPost(url, windowoption, name, params) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", url);
+        form.setAttribute("target", name);
+        for (var i in params) {
+            if (params.hasOwnProperty(i)) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = i;
+                input.value = params[i];
+                form.appendChild(input);
+            }
+        }
+        document.body.appendChild(form);
+        //note I am using a post.htm page since I did not want to make double request to the page
+        //it might have some Page_Load call which might screw things up.
+        window.open("/SuperAdmin/home_client?md_id=@ViewBag.MDDLID&dist_id=@ViewBag.DDLID&word=", name, windowoption);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    /////// search filliter js////////
+
+    $(document).ready(function () {
+        $('.searchTerm').on('keyup', function () {
+            var searchTerm = $(this).val().toLowerCase();
+            $('#resultTable tbody tr').each(function () {
+                var lineStr = $(this).text().toLowerCase();
+                if (lineStr.indexOf(searchTerm) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>
+

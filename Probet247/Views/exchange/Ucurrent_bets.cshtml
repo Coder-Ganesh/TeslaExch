@@ -1,0 +1,347 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUProfile.cshtml";
+}
+
+<link href="~/Content/css/agent_style.css" rel="stylesheet" />
+
+<div id="message" class="message-wrap success" style="display: none;">
+    <a class="btn-close" id="messageBtnClose">Close</a>
+    <p></p>
+</div>
+
+<style>
+    .pop_bg {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 80
+    }
+
+        .pop_bg:not(:target) {
+            display: none
+        }
+
+        .pop_bg:target {
+            display: block
+        }
+
+    .skyexchange .menu .select {
+        background-color: #4691c5;
+    }
+    th{
+        font-weight:bold !important;
+    }
+</style>
+<!-- Change password pop start -->
+<div id="changePasswordModal" class="pop_bg" style="display:none;">
+    <div class="pop_box">
+        <a class="close_pop" href="javascript: void(0)" onclick="$('#changePasswordModal').hide();">close_pop</a>
+
+        <h3>Change Password</h3>
+
+        <dl class="form_list">
+
+            <dt>New Password</dt>
+            <dd>
+                <input id="newPassword" type="password" placeholder="Enter">
+                <span class="must">＊</span>
+                <span id="newPasswordErrorText" class="error-text"></span>
+            </dd>
+            <dt>New Password Confirm</dt>
+            <dd>
+                <input id="newPasswordConfirm" type="password" placeholder="Enter">
+                <span class="must">＊</span>
+                <span id="newPasswordConfirmErrorText" class="error-text"></span>
+            </dd>
+            <dt>Your Password</dt>
+            <dd>
+                <input id="changePassword" type="password" placeholder="Enter">
+                <span class="must">＊</span>
+            </dd>
+            <dd><a id="changePasswordBtn" href="javascript: void(0)" class="btn-send" onclick="changePasswordRequest()">Change</a></dd>
+
+        </dl>
+
+    </div>
+</div>
+
+<div class="main_wrap" style="margin-top:90px;">
+    <!-- agent path -->
+
+    <div class="main_wrap">
+        <!-- agent path -->
+        <!-- Agent Left Column -->
+
+        <div class="col-left profile_left" >
+
+            <!-- Sub Menu and Path -->
+            <div class="sub_path">
+
+                <!-- Sub Menu -->
+                <ul class="menu-list">
+                    <li class="class" style="background:#222;right:0px;color:#ffb80C;">My Account</li>
+                    <li>
+                        <a style="color:black;" id="accountSummary" href="/exchange/myAccount">My Profile</a>
+                    </li>
+
+                    <li>
+                        <a style="color:black;" id="bettingHistory" href="/exchange/BalanceOverview">Balance Overview</a>
+                    </li>
+                    <li>
+                        <a style="color:black;" id="profitLoss" href="/exchange/accountCashStatement">Account Statement</a>
+                    </li>
+
+                    <li>
+                        <a style="color:black;" id="transactionHistory" class="select" href="/exchange/Ucurrent_bets">My Bets</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- Center Column -->
+        <div class="col-center report">
+            <h2 class="summarytag">My Bets</h2>
+
+            <ul class="tab col3">
+                <li><a class="select" href="/exchange/Ucurrent_Bets">Current Bets</a></li>
+                <li><a href="/exchange/BetHistory">Bets History</a></li>
+                <li><a href="/exchange/ProfitLoss">Profit &amp; Loss</a></li>
+            </ul>
+
+            <!-- function -->
+            <div class="function-wrap">
+                <ul class="input-list">
+                    <li><label>Bet Status</label></li>
+                    <li>
+                        <select id="betStatus" onchange="betstype()">
+                            <option value="All">All</option>
+                            <option value="Matched">Matched</option>
+                            <option value="Unmatched">Unmatched</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+            <!-- function end-->
+            <table id="Unmatched_Table" class="table-s">
+                <caption>Unmatched</caption>
+                <tbody>
+                    <tr>
+                        <th id="Unmatched_market" class="align-L">Market</th>
+                        <th id="Unmatched_selection" width="10%" style="text-align:center">Selection</th>
+                        <th id="Unmatched_type" width="3%" style="text-align:center">Type</th>
+                        <th id="Unmatched_betId" width="9%" style="text-align:center">Bet ID</th>
+                        <th id="Unmatched_betPlaced" width="8%" style="text-align:center">Bet placed</th>
+                        <th id="Unmatched_oddsReq" width="8%" style="text-align:center">Odds req.</th>
+                        <th id="Unmatched_matched" width="9%" style="text-align:center">Matched </th>
+                        <th id="Unmatched_unMatched" width="10%" style="text-align:center">Unmatched </th>
+                        <th id="Unmatched_dateMatched" width="5%" style="text-align:center">Action</th>
+                    </tr>
+                </tbody>
+                <tbody id="Unmatched_Content" style="display:none;">
+                    <tr id="tempTr" class="tableRow" >
+                        <td class="align-L"><img class="fromto" src="~/Content/images/transparent.gif"><strong></strong><img class="fromto" src="~/Content/images/transparent.gif"></td>
+                        <td id="selection"></td>
+                        <td><span id="type" class=""></span></td>
+                        <td><a id="betId" href="javascript: void(0);"></a></td>
+                        <td><span id="betPlaced" class="small-date"></span></td>
+                        <td id="oddsReq"></td>
+                        <td id="matched"></td>
+                        <td id="unMatched"></td>
+                        <td class="align-C" id="delete_bet" onclick="DeleteBet(154)"><i class="fa fa-times-circle " aria-hidden="true" style="font-size: 18px; color: red;"></i></td>
+                    </tr>
+                </tbody>
+                <tbody id="unmatchnoData" style="display:table-row-group">
+                    <tr style="display: table-row;">
+                        <td class="no-data" colspan="9">
+                            <p>You have no bets in this time period.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table id="Matched_Table" class="table-s">
+                <caption>Matched</caption>
+                <tbody>
+                    <tr>
+                        <th id="Matched_market" class="align-L">Market</th>
+                        <th id="Matched_selection" width="10%" style="text-align:center">Selection</th>
+                        <th id="Matched_type" width="3%" style="text-align:center">Type</th>
+                        <th id="Matched_betId" width="9%" style="text-align:center">Bet ID</th>
+                        <th id="Matched_betPlaced" width="8%" style="text-align:center">Bet placed</th>
+                        <th id="Matched_oddsReq" width="8%" style="text-align:center">Odds req.</th>
+                        <th id="Matched_matched" width="9%" style="text-align:center">Matched </th>
+                        <th id="Matched_avgOdds" width="10%" style="text-align:center">Avg. odds matched</th>
+                        <th id="Matched_dateMatched" width="10%" style="text-align:center">Date matched</th>
+                    </tr>
+                </tbody>
+                <tbody id="Matched_Content" style="display:none;">
+                </tbody>
+                <tbody id="matchnoData" style="display:table-row-group">
+                    <tr style="display: table-row;">
+                        <td class="no-data" colspan="9">
+                            <p>You have no bets in this time period.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            function ChangePasswordHandlerDialog() {
+                $('#changePasswordModal').show();
+            }
+
+            $('#messageBtnClose').click(function () {
+                $('#message').hide();
+            });
+
+            function changePasswordRequest() {
+                var newPassword = $("#newPassword").val();
+                var newPasswordConfirm = $("#newPasswordConfirm").val();
+                var changePassword = $("#changePassword").val();
+                var letters = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
+
+                if (newPassword == "") {
+                    $("#messageBtnClose").show();
+                    $("#message").addClass("error");
+                    $("#message").show();
+                    $("#message p").text("The field is required: New Password");
+                    setTimeout(function () { $("#message").hide(); }, 2000);
+                }
+                else if (letters.test(newPassword) === false || newPassword.length > 15 || newPassword.length < 8) {
+                    $("#messageBtnClose").show();
+                    $("#message").addClass("error");
+                    $("#message").show();
+                    $("#message p").text("Password must have 8 to 15 alphanumeric without white space and must not contain any special characters (!,#,etc..): New Password");
+                    setTimeout(function () { $("#message").hide(); }, 2000);
+                }
+                else if (newPasswordConfirm == "") {
+                    $("#messageBtnClose").show();
+                    $("#message").addClass("error");
+                    $("#message").show();
+                    $("#message p").text("The field is required: New Password Confirm");
+                    setTimeout(function () { $("#message").hide(); }, 2000);
+                }
+                else if (changePassword == "") {
+                    $("#messageBtnClose").show();
+                    $("#message").addClass("error");
+                    $("#message").show();
+                    $("#message p").text("The field is required: Your Password");
+                    setTimeout(function () { $("#message").hide(); }, 2000);
+                }
+                else {
+                    $.ajax({
+
+                        type: 'POST',
+                        url: 'ClientChangePasswordDB.php',
+                        data: { user_id: "55", newPassword: newPassword, changePassword: changePassword },
+                        beforeSend: function () {
+                            $("#changePasswordBtn").prop('disabled', true);
+                            $("#changePasswordBtn").html('Please Wait...');
+                        },
+                        error: function () {
+                            setTimeout(function () {
+                                //btn.prop('disabled', false);
+                                $("#messageBtnClose").show();
+                                $("#message").addClass("error");
+                                $("#message").show();
+                                $("#message p").text('Error change password, please try again.');
+                                setTimeout(function () { $("#message").hide(); }, 2000);
+                                $("#changePasswordBtn").prop('disabled', false);
+                                $("#changePasswordBtn").html('Change');
+                            }, 1000);
+                        },
+                        success: function (result) {
+                            // alert(result);
+                            setTimeout(function () {
+
+                                $("#changePasswordBtn").prop('disabled', false);
+                                $("#changePasswordBtn").html('Change');
+                                if (result == "Success") {
+
+                                    $("#messageBtnClose").show();
+                                    $("#message").addClass("success");
+                                    $("#message").show();
+                                    $("#message p").text('Password changed successfully!');
+                                    setTimeout(function () {
+                                        $("#message").hide();
+                                        window.location.href = '';
+                                    }, 2000);
+                                }
+                                else if (result == "IncorrectPWD") {
+
+                                    $("#messageBtnClose").show();
+                                    $("#message").addClass("error");
+                                    $("#message").show();
+                                    $("#message p").text('Incorrect Password!');
+                                    setTimeout(function () { $("#message").hide(); }, 2000);
+                                }
+                                else {
+                                    $("#messageBtnClose").show();
+                                    $("#message").addClass("error");
+                                    $("#message").show();
+                                    $("#message p").text('Error change password, please try again.');
+                                    setTimeout(function () { $("#message").hide(); }, 2000);
+                                }
+                            }, 1000);
+                        }
+                    });
+                }
+            }
+        </script>
+
+        <script>
+
+            MatchedClientBetRC();
+            function MatchedClientBetRC() {
+                $.ajax({
+                    type: "GET",
+                    url: "/FunctionData/MatchedClientBetR",
+                    dataType: "html",
+                    success: function (data) {
+                        var a2 = JSON.parse(data);
+                        if (a2.length > 0) {
+                            $("#Matched_Content").css("display", "table-row-group");
+                            $("#matchnoData").css("display", "none");
+                            for (i = 0; i < a2.length; i++) {
+                                var myvar = '<tr id="tempTr" class="' + a2[i].Type + '">' +
+                                    '<td class="align-L">' + a2[i].Description + '<img class="fromto" src="../Content/images/transparent.gif"><strong>' + a2[i].GetEventTName + '</strong><img class="fromto" src="../Content/images/transparent.gif">' + a2[i].GetMarketName + '</td>' +
+                                    '<td align="center" id="selection">' + a2[i].Field + '</td>' +
+                                    '<td align="center"><span id="type">' + a2[i].Type + '</span></td>' +
+                                    '<td align="center"><a id="betId" href="javascript: void(0);">' + a2[i].betid + '</a></td>' +
+                                    '<td align="center"><span id="betPlaced" class="small-date">' + a2[i].EventTime + '</span></td>' +
+                                    '<td align="center" id="oddsReq">' + a2[i].EventTime + '</td>' +
+                                    '<td align="center" id="matched">' + a2[i].Rate + '</td>' +
+                                    '<td align="center" id="avgOdds">' + a2[i].Rate + '</td>' +
+                                    '<td align="center"><span id="dateMatched" class="small-date">' + a2[i].EventTime + '</span></td>' +
+                                    '</tr>';
+                                $('#Matched_Content').append(myvar);
+                            }
+                        }
+                        else {
+                            $("#Matched_Content").css("display", "none");
+                            $("#matchnoData").css("display", "table-row-group");
+                        }
+                    }
+                });
+            }
+
+            function betstype() {
+                var bettype = $("#betStatus").val();
+                if (bettype == "Matched") {
+                    $("#Unmatched_Table").css("display", "none");
+                    $("#Matched_Table").css("display", "table");
+                }
+                else if (bettype == "Unmatched") {
+                    $("#Unmatched_Table").css("display", "table");
+                    $("#Matched_Table").css("display", "none");
+                }
+                else {
+                    $("#Unmatched_Table").css("display", "table");
+                    $("#Matched_Table").css("display", "table");
+                }
+            }
+        </script>
+

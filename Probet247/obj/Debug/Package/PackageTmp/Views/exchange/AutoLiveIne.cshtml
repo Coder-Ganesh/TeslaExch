@@ -1,0 +1,233 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body style="margin:10px;">
+    <button type="button" class="btn btn-success"><a href="/exchange/AutoLiveIne?id=20202020" style="color:white;">Teen Patti T20</a></button>
+    <button type="button" class="btn btn-success"><a href="/exchange/AutoLiveIne?id=50505050" style="color:white;">Teen Patti 1 Day</a></button><br /><br />
+    <input type="text" value="" id="insertmatch" />
+    <button type="button" class="bet-buttons button-seccess" onclick="submitdf(@ViewBag.id)">Submit</button><br /><br />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Round Id</th>
+                <th>Round</th>
+                <th>Created</th>
+                <th>status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="">@item.SportsId</td>
+                    <td class="">@item.SportsName</td>
+                    <td class="">@item.ForTest</td>
+                    <td class="">
+                        @item.IsBlock
+                        <button class="btn btn-warning" onclick="change_stat(@item.SportsId,'inactive')">Inactive</button>
+                        <button class="btn btn-info" onclick="change_stat(@item.SportsId,'activate')">Active</button>
+                    </td>
+                    <td class="">
+                        <button class="btn btn-warning" onclick="Set_winnerT(@item.SportsId,@ViewBag.id, '1')">Player A</button>
+                        <button class="btn btn-warning" onclick="Set_winnerT(@item.SportsId,@ViewBag.id, '2')">Player B</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- Start Progress Bar -->
+    <style>
+        #progressBarSuccess {
+            width: 100%;
+            height: 10px;
+            background-color: #00a65a;
+        }
+
+            #progressBarSuccess div {
+                height: 100%;
+                text-align: right;
+                line-height: 10px;
+                width: 0;
+                background-color: #009551;
+                box-sizing: border-box;
+            }
+
+        #progressBarError {
+            width: 100%;
+            height: 10px;
+            background-color: #dd4b39;
+        }
+
+            #progressBarError div {
+                height: 100%;
+                text-align: right;
+                line-height: 10px;
+                width: 0;
+                background-color: #bc4031;
+                box-sizing: border-box;
+            }
+
+        .panel-success {
+            border: none;
+        }
+    </style>
+    <div style="height: 80px;display: table;max-width:100%;min-width:280px;background-color: ;position: fixed;bottom: 0px;right: 20px;">
+        <!-- Start Progress Bar Success -->
+        <div class="alert alert-success alert-dismissable" style="padding: 0px;display: none; background: #dff0d8;" id="progressBarDivSuccess">
+            <div style="padding: 8px 15px 8px 15px;">
+                <!--<span class="fa fa-check-circle" style="color: #009551;"></span>&nbsp;-->
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;margin-right: 25px;">&times;</a>
+                <strong>Success!</strong><br>
+                <strong id="ProgressBarSuccessLabel"></strong>
+            </div>
+
+            <div id="progressBarSuccess">
+                <div></div>
+            </div>
+        </div>
+        <!-- End Progress Bar Success -->
+        <!-- Start Progress Bar Error -->
+        <div class="alert alert-danger alert-dismissable" style="padding: 0px;display: none; background: #f2dede;" id="progressBarDivError">
+            <div style="padding: 8px 15px 8px 15px;">
+                <!--<span class="fa fa-check-circle" style="color: #009551;"></span>&nbsp;-->
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;margin-right: 25px;">&times;</a>
+                <strong>Error!</strong><br>
+                <strong id="ProgressBarErrorLabel"></strong>
+            </div>
+
+            <div id="progressBarError">
+                <div></div>
+            </div>
+        </div>
+        <!-- End Progress Bar Error -->
+    </div>
+    <!-- End Progress Bar -->
+    <!-- Start Progress Bar Script-->
+</body>
+<script>
+    function showProgressBarMessageSuccess(ProgressBarSuccessLabel) {
+        $('#ProgressBarSuccessLabel').html(ProgressBarSuccessLabel);
+        $("#progressBarDivSuccess").show();
+        setTimeout(function () { $("#progressBarDivSuccess").hide(); }, 2000);
+        progressBarSuccess(2, 2, $('#progressBarSuccess'));
+    }
+
+    function showProgressBarMessageError(ProgressBarErrorLabel) {
+        $('#ProgressBarErrorLabel').html(ProgressBarErrorLabel);
+        $("#progressBarDivError").show();
+        setTimeout(function () { $("#progressBarDivError").hide(); }, 2000);
+        progressBarError(2, 2, $('#progressBarError'));
+    }
+
+    function progressBarSuccess(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, 'linear');
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progressBarSuccess(timeleft - 1, timetotal, $element);
+            }, 100);
+        }
+    };
+
+    function progressBarError(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, 'linear');
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progressBarError(timeleft - 1, timetotal, $element);
+            }, 100);
+        }
+    };
+
+
+</script>
+<!-- End Progress Bar Script-->
+<script>
+    function submitdf(id) {
+        var market_id = $("#insertmatch").val();
+        $.ajax({
+            type: 'GET',
+            url: '/Other/Submitdfx',
+            data: { id: id, market_id: market_id },
+            success: function (result) {
+                if (result == "Success") {
+                    setTimeout(function () {
+                        showProgressBarMessageSuccess('Score Updated Successfully.');
+                    }, 1000);
+                }
+                else {
+                    setTimeout(function () {
+                        showProgressBarMessageError(result);
+                    }, 1000);
+                }
+            },
+            error: function () {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating Score data, please try again.');
+                }, 1000);
+            }
+        });
+    }
+
+    function change_stat(id,status) {
+        $.ajax({
+            type: 'GET',
+            url: '/Other/change_stat',
+            data: { id: id, status: status },
+            success: function (result) {
+                if (result == "Success") {
+                    setTimeout(function () {
+                        showProgressBarMessageSuccess('Record Updated Successfully.');
+                    }, 1000);
+                    window.location.reload()
+                }
+                else {
+                    setTimeout(function () {
+                        showProgressBarMessageError(result);
+                    }, 1000);
+                    window.location.reload()
+                }
+            },
+            error: function () {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating Record data, please try again.');
+                }, 1000);
+                window.location.reload()
+            }
+        });
+        }
+
+    function Set_winnerT(id,event_code,winner) {
+        $.ajax({
+            type: 'GET',
+            url: '/Other/Set_winnerT',
+            data: { id: id,event_code:event_code, winner: winner },
+            success: function (result) {
+                //alert(result)
+                if (result == "Success") {
+                    setTimeout(function () {
+                        showProgressBarMessageSuccess('Winner Settled Successfully.');
+                    }, 1000);
+                    window.location.reload();
+                }
+                else {
+                    setTimeout(function () {
+                        showProgressBarMessageError(result);
+                    }, 1000);
+                    window.location.reload();
+                }
+            },
+            error: function (result) {
+                setTimeout(function () {
+                    showProgressBarMessageError('Error in updating Winner Settled data, please try again.');
+                }, 1000);
+                window.location.reload();
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="betfairbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="live_bet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sup_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="dist_id" Type="int" />
+          <Property Name="md_id" Type="int" />
+          <Property Name="admin_id" Type="int" />
+          <Property Name="event_id" Type="varchar" MaxLength="50" />
+          <Property Name="betfair_id" Type="varchar" MaxLength="50" />
+          <Property Name="field" Type="varchar" MaxLength="100" />
+          <Property Name="rate" Type="float" />
+          <Property Name="stakes" Type="float" />
+          <Property Name="total_value" Type="float" />
+          <Property Name="session_rate" Type="float" />
+          <Property Name="logic" Type="varchar" MaxLength="50" />
+          <Property Name="field_pos" Type="varchar" MaxLength="50" />
+          <Property Name="team_name" Type="varchar" MaxLength="50" />
+          <Property Name="runner_posi" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="place_time" Type="datetime" />
+          <Property Name="settled_time" Type="datetime" />
+          <Property Name="odds_type" Type="varchar" MaxLength="50" />
+          <Property Name="input_stakes" Type="float" />
+          <Property Name="input_pl" Type="float" />
+          <Property Name="before_bal" Type="float" />
+          <Property Name="after_bal" Type="float" />
+          <Property Name="before_exp" Type="float" />
+          <Property Name="after_exp" Type="float" />
+        </EntityType>
+        <Function Name="AutoTp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="betfairbModelStoreContainer">
+          <EntitySet Name="live_bet" EntityType="Self.live_bet" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="betfairbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="live_bet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sup_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="dist_id" Type="Int32" />
+          <Property Name="md_id" Type="Int32" />
+          <Property Name="admin_id" Type="Int32" />
+          <Property Name="event_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="betfair_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="field" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rate" Type="Double" />
+          <Property Name="stakes" Type="Double" />
+          <Property Name="total_value" Type="Double" />
+          <Property Name="session_rate" Type="Double" />
+          <Property Name="logic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="field_pos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="team_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="runner_posi" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="place_time" Type="DateTime" Precision="3" />
+          <Property Name="settled_time" Type="DateTime" Precision="3" />
+          <Property Name="odds_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="input_stakes" Type="Double" />
+          <Property Name="input_pl" Type="Double" />
+          <Property Name="before_bal" Type="Double" />
+          <Property Name="after_bal" Type="Double" />
+          <Property Name="before_exp" Type="Double" />
+          <Property Name="after_exp" Type="Double" />
+        </EntityType>
+        <EntityContainer Name="betfairbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="live_bet" EntityType="Self.live_bet" />
+          <FunctionImport Name="AutoTp" ReturnType="Collection(betfairbModel.AutoTp_Result)" />
+          <FunctionImport Name="AutoTpSPM" EntitySet="live_bet" ReturnType="Collection(betfairbModel.live_bet)" />
+        </EntityContainer>
+        <ComplexType Name="AutoTp_Result">
+          <Property Type="String" Name="betfair_id" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="event_id" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="betfairbModelStoreContainer" CdmEntityContainer="betfairbEntities">
+          <EntitySetMapping Name="live_bet">
+            <EntityTypeMapping TypeName="betfairbModel.live_bet">
+              <MappingFragment StoreEntitySet="live_bet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="dist_id" ColumnName="dist_id" />
+                <ScalarProperty Name="md_id" ColumnName="md_id" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="betfair_id" ColumnName="betfair_id" />
+                <ScalarProperty Name="field" ColumnName="field" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="stakes" ColumnName="stakes" />
+                <ScalarProperty Name="total_value" ColumnName="total_value" />
+                <ScalarProperty Name="session_rate" ColumnName="session_rate" />
+                <ScalarProperty Name="logic" ColumnName="logic" />
+                <ScalarProperty Name="field_pos" ColumnName="field_pos" />
+                <ScalarProperty Name="team_name" ColumnName="team_name" />
+                <ScalarProperty Name="runner_posi" ColumnName="runner_posi" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="place_time" ColumnName="place_time" />
+                <ScalarProperty Name="settled_time" ColumnName="settled_time" />
+                <ScalarProperty Name="odds_type" ColumnName="odds_type" />
+                <ScalarProperty Name="input_stakes" ColumnName="input_stakes" />
+                <ScalarProperty Name="input_pl" ColumnName="input_pl" />
+                <ScalarProperty Name="before_bal" ColumnName="before_bal" />
+                <ScalarProperty Name="after_bal" ColumnName="after_bal" />
+                <ScalarProperty Name="before_exp" ColumnName="before_exp" />
+                <ScalarProperty Name="after_exp" ColumnName="after_exp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AutoTp" FunctionName="betfairbModel.Store.AutoTp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="betfairbModel.AutoTp_Result">
+                <ScalarProperty Name="betfair_id" ColumnName="betfair_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AutoTpSPM" FunctionName="betfairbModel.Store.AutoTp" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

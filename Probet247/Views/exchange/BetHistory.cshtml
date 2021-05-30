@@ -1,0 +1,256 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUProfile.cshtml";
+}
+
+<script src="~/Scripts/datepicksk/DateUtil.js"></script>
+<script src="~/Scripts/datepicksk/JSUtil.js"></script>
+<script src="~/Scripts/datepicksk/webCalendar.js"></script>
+<style>
+    .pages a.select {
+        color: #F8D61C !important;
+        background: #444 url('../../Content/images/skyexchange/btn-select-skyEX.jpg') repeat-x !important;
+        border-color: #222 !important;
+    }
+    .btn-send {
+        background: #121212 url('../../Content/images/skyexchange/bg-send-skyEX.png') repeat-x !important;
+        color: #F8D61C !important;
+        border-color: #000 !important;
+    }
+</style>
+<div class="main_wrap" style="margin-top:90px;">
+
+    <div class="col-left profile_left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <!-- Sub Menu -->
+            <ul class="menu-list">
+
+                <ul class="menu-list">
+                    <li class="class" style="background: #222; right: 0px; color: #ffb80C;">My Account</li>
+                    <li>
+                        <a style="color:black;" id="accountSummary" href="/exchange/myAccount">My Profile</a>
+                    </li>
+
+                    <li>
+                        <a style="color:black;" id="bettingHistory" href="/exchange/BalanceOverview">Balance Overview</a>
+                    </li>
+                    <li>
+                        <a style="color:black;" id="profitLoss" href="/exchange/accountCashStatement">Account Statement</a>
+                    </li>
+
+                    <li>
+                        <a style="color:black;" id="transactionHistory" class="select" href="/exchange/Ucurrent_bets">My Bets</a>
+                    </li>
+
+                </ul>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+        <h2 class="summarytag">My Bets</h2>
+
+        <ul class="tab col3">
+            <li><a href="/exchange/Ucurrent_Bets">Current Bets</a></li>
+            <li><a class="select" href="/exchange/BetHistory">Bets History</a></li>
+            <li><a href="/exchange/ProfitLoss">Profit &amp; Loss</a></li>
+        </ul>
+
+        <div class="function-wrap">
+            <ul class="input-list">
+                <div id="statusCondition" style="">
+                    <li><label>Bet Status:</label></li>
+                    <li>
+                        <select name="betStatus" id="betStatus">
+                            <option value="0">Settled</option>
+                        </select>
+                    </li>
+                </div>
+                <li><label>Period</label></li>
+                <li>
+                    <input id="startDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'startDate');">
+                    <input id="startTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                    to
+                    <input id="endDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'endDate');">
+                    <input id="endTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                </li>
+                <li>(TimeZone:GMT)</li>
+            </ul>
+            <ul class="input-list">
+                <li><a id="today" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 9px;" onclick="datebtcl(0)">Just For Today</a></li>
+                <li><a id="yesterday" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 6px;" onclick="datebtcl(1)">From Yesterday</a></li>
+                <li><a id="last7days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(7)">Last 7 days</a></li>
+                <li><a id="last15days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(15)">Last 15 days</a></li>
+                <li><a id="last30days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(30)">Last 30 days</a></li>
+                <li><a id="getPL" href="#" class="btn-send" onclick="GetHistory(@ViewBag.pageNumber)">Get History</a></li>
+            </ul>
+        </div>
+
+        <!-- Start Report -->
+        <div id="report" style="">
+            @if (ViewBag.countbeth > 0)
+            {
+                <table id="matchTable" class="table-s" style="display: table;">
+                    <tbody>
+                        <tr>
+                            <th width="9%" class="align-L">Bet ID</th>
+                            <th class="align-L">Market</th>
+                            <th width="12%" style="text-align:center;">Selection</th>
+                            <th width="4%" style="text-align:center;">Type</th>
+                            <th width="8%" style="text-align:center;">Bet placed</th>
+                            <th width="7%" style="text-align:center;">Odds req.</th>
+                            <th width="8%" style="text-align:center;">Stake</th>
+                            <th width="8%" style="text-align:center;">Avg. odds Matched</th>
+                            <th width="5%" style="text-align:center;">Profit/Loss</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            var color = "black";
+                            string profit_loss = "0";
+                            if (@item.Status == "won")
+                            {
+                                profit_loss = (@item.PL).ToString();
+                            }
+                            else if (@item.Status == "lost")
+                            {
+                                profit_loss = "(" + (@item.Stakes).ToString() + ")";
+                                color = "red";
+                            }
+                            <tr id="matchRow19" style="display: table-row;">
+                                <td class="align-L"><a id="betID" href="javascript: void(0);">@item.betid</a></td>
+                                <td id="matchTitle" class="align-L">
+                                    @item.Description
+                                    <img class="fromto" src="~/Content/images/transparent.gif">
+                                    <strong>@item.GetEventTName</strong>
+                                    <img class="fromto" src="~/Content/images/transparent.gif">@item.GetMarketName
+                                </td>
+                                <td id="matchSelection" class="align-C">@item.Field</td>
+                                <td id="Type" class="align-C">@item.Type</td>
+                                <td class="align-C"><span id="betPlaced" class="small-date">@item.EventTime</span></td>
+                                <td id="matchOddsReq" class="align-C">@item.OddsReq</td>
+                                <td id="matchStake" class="align-C">@item.Stakes</td>
+                                <td id="avgOddsMatched" class="align-C">@item.Rate</td>
+                                <td style="color:@color" class="align-C">@profit_loss</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p class="table-other" style="margin-top: 5px">
+                    Bet List is shown net of commission.
+                </p>
+                <input type="hidden" id="anydefst" value="@ViewBag.startDate"/>
+                <input type="hidden" id="anydefend" value="@ViewBag.endDate"/>
+                <div>
+                    <ul id="pageNumberContent" class="pages">
+                        @{Double countpage = ViewBag.countbeth;}
+                        @{int page_num = Int32.Parse(ViewBag.pageNumber);}
+                        @{
+                            var prev_class = "";
+                            var next_class = "";
+                            var prev_point = "";
+                            var next_point = "";
+                            var prev_number = page_num - 1;
+                            var next_number = page_num + 1;
+                            int totalpage = (int)Math.Ceiling(countpage / 20);
+                        }
+                        @if (page_num == 1 || page_num == 0)
+                        {
+                            prev_class = "disable";
+                            prev_point = "pointer-events: none;";
+                        }
+                        @if (page_num == totalpage)
+                        {
+                            next_class = "disable";
+                            next_point = "pointer-events: none;";
+                        }
+                        <li id="prev"><a href="javascript:void(0);" class="@prev_class" style="@prev_point" onclick="GetHistory(@prev_number)">Prev</a></li>
+
+
+                        @for (var i = 1; i <= totalpage; i++)
+                        {
+                            if (page_num == i)
+                            {
+                                <li id="pageNumber"><a href="javascript:void(0);" class="select" style="pointer-events: none;" onclick="GetHistory(@i)">@i</a></li>
+
+                            }
+                            else
+                            {
+                                <li id="pageNumber"><a href="javascript:void(0);" onclick="GetHistory(@i)">@i</a></li>
+
+                            }
+                        }
+                        <li id="next"><a href="javascript:void(0);" class="@next_class" style="@next_point" onclick="GetHistory((@next_number)">Next</a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+
+            }
+            <script>
+                function GetHistory(pageNumber) {
+                    var betStatus = "settled";//$("#betStatus").val();
+                    var startDate = $("#startDate").val();
+                    var endDate = $("#endDate").val();
+
+                    window.location.href = '?betStatus=' + betStatus + '&startDate=' + startDate + '&endDate=' + endDate + '&pageNumber=' + pageNumber;
+                }
+            </script>
+            <script language="javascript" type="text/javascript">
+                calendarProperties.dateFormatStyle = "yyyy-MM-dd";
+                calendarProperties.setI18n({ "form.text.transfer.weekly.weekNumber": "wk #", "calendar.text.month.1": "Jan", "calendar.text.month.2": "Feb", "calendar.text.month.3": "Mar", "calendar.text.month.4": "Apr", "calendar.text.month.5": "May", "calendar.text.month.6": "Jun", "calendar.text.month.7": "Jul", "calendar.text.month.8": "Aug", "calendar.text.month.9": "Sep", "calendar.text.month.10": "Oct", "calendar.text.month.11": "Nov", "calendar.text.month.12": "Dec", "form.text.transfer.weekly.0": "Sun", "form.text.transfer.weekly.1": "Mon", "form.text.transfer.weekly.2": "Tue", "form.text.transfer.weekly.3": "Wed", "form.text.transfer.weekly.4": "Thu", "form.text.transfer.weekly.5": "Fri", "form.text.transfer.weekly.6": "Sat", "calendar.form.text.Today": "Today", "calendar.form.text.Clear": "Clear", "calendar.form.text.Close": "Close" });
+                var calendarObj = new Calendar();
+            </script>
+
+            <script language="JavaScript" type="text/javascript">
+                var utc = new Date();
+                var today = new Date().toJSON().slice(0, 10);
+                var maxDay = new Date((new Date().setDate(new Date().getDate() + 1))).toJSON().slice(0, 10);
+                var yesterday = new Date((new Date().setDate(new Date().getDate() - 1))).toJSON().slice(0, 10);
+                var last7day = new Date((new Date().setDate(utc.getDate() - 7))).toJSON().slice(0, 10);
+                var last15day = new Date((new Date().setDate(new Date().getDate() - 15))).toJSON().slice(0, 10);
+                var last30day = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+                var last2months = new Date((new Date().setDate(new Date().getDate() - 60))).toJSON().slice(0, 10);
+                var last3months = new Date((new Date().setDate(new Date().getDate() - 90))).toJSON().slice(0, 10);
+                var minDay = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+                var anydefst = $("#anydefst").val();
+                var anydefend = $("#anydefend").val();
+                if (anydefst != "0" && anydefst != null && anydefend != "0" && anydefend != null) {
+                    datebtcl(99);
+                }
+                else {
+                    datebtcl(0);
+                }
+                function datebtcl(clickdat) {
+                    if (clickdat == "0") {
+                        $("#startDate").val(today);
+                        $("#endDate").val(maxDay);
+                    }
+                    else if (clickdat == "1") {
+                        $("#startDate").val(yesterday);
+                        $("#endDate").val(maxDay);
+                    }
+                    else if (clickdat == "7") {
+                        $("#startDate").val(last7day);
+                        $("#endDate").val(maxDay);
+                    }
+                    else if (clickdat == "15") {
+                        $("#startDate").val(last15day);
+                        $("#endDate").val(maxDay);
+                    }
+                    else if (clickdat == "30") {
+                        $("#startDate").val(last30day);
+                        $("#endDate").val(maxDay);
+                    }
+                    else if (clickdat == "99") {
+                        $("#startDate").val(anydefst.toString());
+                        $("#endDate").val(anydefend);
+                    }
+                }
+            </script>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="betfairbModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="match">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sport_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="match_title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="match_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="league_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="betfair_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="event_code" Type="String" MaxLength="53" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="teama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="teamb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="islucky" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="x_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="x_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bet_data" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tv_ch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cric_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="video_l" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="max_limit_mo" Type="Double" Nullable="false" />
+    <Property Name="max_limit_sess" Type="Double" Nullable="false" />
+    <Property Name="max_limit_mo_bp" Type="Double" Nullable="false" />
+    <Property Name="max_limit_sess_bp" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="betfairbEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="matches" EntityType="Self.match" />
+    <FunctionImport Name="EventByEventCode" ReturnType="Collection(String)">
+      <Parameter Name="event_code" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EventByEventCodeSPM" EntitySet="matches" ReturnType="Collection(betfairbModel1.match)">
+      <Parameter Name="event_code" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EventByEventCode_1" EntitySet="matches" ReturnType="Collection(betfairbModel1.match)">
+      <Parameter Name="event_code" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,858 @@
+﻿@if (Session["UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<style>
+    .clock2digit {
+        max-width: 300px;
+        bottom: -25px;
+        position: absolute !important;
+        right: -37px;
+        width: auto !important;
+        transform: scale(.6);
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        background: rgba(0,0,0,.4);
+        height: auto;
+        left: 0;
+        content: "";
+        top: 0;
+        padding: 5px;
+    }
+
+        .video-overlay h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .video-overlay .card-inner {
+            margin-bottom: 5px;
+        }
+
+        .video-overlay img {
+            width: 35px;
+            height: auto;
+            margin-right: 2px;
+            margin-left: 2px;
+        }
+
+    .fancy-marker-title h4 {
+        background-color: #212121;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .m-b-10 {
+        margin-bottom: 10px !important;
+    }
+
+    .m-t-10 {
+        margin-top: 10px !important;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+
+    .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .ball-runs.playera {
+        background: #355e3b;
+        color: #ff4500;
+    }
+
+    .ball-runs.playerc {
+        background: #355e3b;
+        color: #212121
+    }
+    .ball-runs {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        display: inline-block;
+        line-height: 30px;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .last-result {
+        cursor: pointer;
+    }
+
+    .ball-runs.playerb {
+        background: #355e3b;
+        color: #ff3;
+    }
+    .ball-runs.playertie {
+        background: #355e3b;
+        color: #0088CC;
+    }
+</style>
+<style>
+    .container-fluid {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .player-number {
+        border-right: 1px solid #212121
+        flex: 1;
+        background: #e1e6ea;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .col-md-12 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .winner-label {
+        font-size: 22px;
+        color: #fff;
+        padding: 10px;
+    }
+
+    .m-t-20 {
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .bg-success {
+        background-color: #28a745 !important;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: .5rem;
+    }
+
+    .m-t-10 div {
+        text-align: center !important;
+    }
+
+    .round-id {
+        font-size: 15px !important;
+    }
+
+    .player-number h4 {
+        font-size: 15px;
+        padding: 5px;
+    }
+
+    .close {
+        float: right;
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+        cursor: pointer;
+    }
+</style>
+<div class="main-content-container">
+    <input id="sessionBfID" type="hidden" value="@ViewBag.BetfairId" />
+    <div class="content navbar">
+        <div class="market-view-container">
+            <div style="position: relative;">
+                @{ var bf_iid = ViewBag.BetfairId;}
+                <iframe style="pointer-events:none;" src="~/exchange/tpbetfair?type=dtl20" width="100%" height="225" frameborder="0" scrolling="no" allow="autoplay;"></iframe>
+                <div class="video-overlay" style="display: none;">
+                    <div id="game-cards"></div>
+                </div>
+                <div class="clock clock2digit flip-clock-wrapper">
+                </div>
+            </div>
+            <div class="market-view">
+                <div class="comp-market tabcontent" id="popular">
+                    <div class="_2OT3f">
+                        <div class="_3S9GR">
+                            <span class="_2Gef4 _1k8eu _19Fp5 _3lvH3">
+                                Round : <span id="span_mname"></span>
+                                <span style="float: right;" id="autotime">00</span>
+                                <span style="clear:both;"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="runners-list">
+                        <div class="runners-list-header">
+
+                            <h3 class="right-content">
+                                <span class="label" style="color:black;font-size:100%;width:63px;">Back</span>
+                                <span class="label" style="color:black;font-size:100%;width:63px;">Lay</span>
+                            </h3>
+                        </div>
+                        <div id="match_odds_data_loader">
+                            <img src="~/Content/images/prospin.gif" style="display: block; margin:auto;margin-top:15px;margin-bottom:15px;">
+                        </div>
+                        <div id="match_odds_data"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="fancy-marker-title">
+                <h4>Last Result</h4>
+            </div>
+            <div class="m-b-10">
+                <p class="ball-by-ball row m-t-10">
+                </p>
+                <p class="text-right" id="last-result">
+
+                </p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear: both;padding: 0px;overflow-x: hidden;overflow-y: scroll; height:calc(100% - 0px);" id="open_bet">
+    <div id="matchedwrap1111" class="matched-wrap111" style="height: calc(100% - 301px);border: none;">
+        <h3 style="padding-bottom: 6px;padding-left: 8px;padding-top: 6px; background: #212121;">
+            <a class="" style="cursor:pointer; color:white;">Open Bets (Matched)</a>
+        </h3>
+
+        <style>
+            #grvMatched {
+                border: 0px solid #7FB3D5;
+            }
+
+                #grvMatched tr, th, td {
+                    border: 0px solid #7FB3D5;
+                }
+
+            .slip-head {
+                background-color: #CED5DA;
+                padding: 0 10px;
+            }
+
+                .slip-head li {
+                    padding: 5px 0;
+                }
+        </style>
+        <div style="background-color: white;">
+            <table class="table table-striped table-bordered dataTable no-margin" cellspacing="0" rules="all" border="1" id="grvMatched" style="width:100%;border-collapse:collapse;"></table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        // Match Odds Data Start Here
+        getMODataMob();
+        var MoCheck = "no";
+        function getMODataMob() {
+            var id = $("#sessionBfID").val();
+            $.ajax({
+                url: '/exchange/GetCasinoT',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: {data: id},
+                dataType: 'html',
+                success: function (result) {
+                    var a2 = JSON.parse(result);
+                    var runlength = a2.length;
+                    var GetRLength = a2.length;
+                    if (GetRLength > 0) {
+                        var autotime = a2[0].totalMatched;
+                        var gamecards = "";
+                        var CARDS_IMG_URL = "../../Content/cards";
+                        if (a2[0].BetfairId != 0) {
+                            gamecards += '<div class="card-inner">';
+                            gamecards += '<div><img src="' + CARDS_IMG_URL + '/' + a2[0].back1size + '.png">';
+                            gamecards += '<img src="' + CARDS_IMG_URL + '/' + a2[0].back2size + '.png">';
+                            gamecards += '<img src="' + CARDS_IMG_URL + '/' + a2[0].back3size + '.png"></div></div>';
+                            $("#game-cards").html(gamecards); $(".video-overlay").show();
+                        }
+                        else {
+                            $("#game-cards").html(gamecards);
+                            $(".video-overlay").hide();
+                        }
+                        $('#autotime').html(autotime);
+                        for (i = 0; i < a2.length; i++) {
+                            $("#span_mname").text(a2[i].BetfairId);
+                            if ($("#span_mname").text() != $("#wme_bef").val()) {
+                                GetWmeForD(0);
+                            }
+                            if ($("#mt_" + i).val() == i) {
+                                if (a2[i].status != "OPEN") {
+                                    //$("#tp_suspend_" + i).css("display", "flex");
+                                }
+                                else {
+                                    $("#tp_suspend_" + i).css("display", "none");
+                                }
+                                $("#backprice1_" + i).text(a2[i].back1);
+                                $("#backsize1_" + i).text("");
+                                $("#layprice1_" + i).text("");
+                                $("#laysize1_" + i).text("");
+                            }
+                            else {
+                                var tp_suspend_color = "none";
+                                if (a2[i].status != "OPEN") {
+                                   // tp_suspend_color = "flex";
+                                }
+                                var myvar = '<div class="comp-runner-container">' +
+                                    '<input type="hidden" id="mt_' + i + '" value="' + i + '">' +
+                                    '<input type="hidden" id="run_length_' + i + '" value="' + runlength + '">' +
+                                    '<div class="runner-data-container">' +
+                                    '   <div class="runner-info-container" style="margin-left: 10px;">' +
+                                    '       <div class="ellipsis-text runner-name">' +
+                                    '           <span id="runnername_' + i + '">' + a2[i].Runnername + '</span>' +
+                                    '       </div>' +
+                                    '   <div style="margin-top: 5px;">' +
+                                    '       <span id="run_cal_bef_'+ i + '">0.00</span>' +
+                                    '       <span id="run_cal_aft_' + i + '"></span>' +
+                                    '   </div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '<div class="runner-bet-buttons-container">' +
+                                    '<div style="background-image: linear-gradient(90deg, rgba(151,199,234,0.7) 0%, #97C7EA 65%);">'+
+                                    '   <button style="margin:5px;border-radius: 1.06667vw;border: 0.26667vw solid #fff;" class="ui-bet-button back" onclick="BetPlacePopupShow(\'back\',' + i + ',\'backprice1_\',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'1\',\'' + a2[i].Runnername + '\')">' +
+                                    '       <span class="price" id="backprice1_' + i + '">' + a2[i].back1 + '</span>' +
+                                    '       <span class="size ellipsis-text" id="backsize1_' + i + '">0.00</span>' +
+                                    '   </button>' +
+                                    '</div>'+
+                                    '<div style="background-image: linear-gradient(270deg, rgba(247,205,214,0.75) 5%, #F0C0CB 60%);">'+
+                                    '   <button style="margin:5px;border-radius: 1.06667vw;border: 0.26667vw solid #fff;" class="ui-bet-button lay" >' +
+                                    '       <span class="price" id="layprice1_' + i + '"></span>' +
+                                    '       <span class="size ellipsis-text" id="laysize1_' + i + '"></span>' +
+                                    '   </button>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="comp-runner-container" style="margin-top: -50px;display:' + tp_suspend_color + ';" id="tp_suspend_' + i + '">'+
+                                    '  <div class="runner-data-container"></div>'+
+                                    '  <div class="runner-bet-buttons-container box_suspend">'+
+                                    '      <span>SUSPENDED</span>'+
+                                    '  </div>'+
+                                    '</div>'+
+                                    '<div class="comp-inline-betting" id="men_ex_' + i + '" style="display:none;">' +
+                                    '<div class="mod-inline-betting narrow">' +
+                                    '   <div class="place-bet-panel back extra-small" id="BetPlacePopupColor_' + i + '">' +
+                                    '       <span style="display:none;"></span><input type="hidden" value="">' +
+                                    '       <div class="place-bet-container">' +
+                                    '           <div class="bet-info">' +
+                                    '               <div class="info">' +
+                                    '                   <div class="bet-info-back" id="teamback_' + i + '">Back (Bet For):</div>' +
+                                    '                   <div class="bet-info-lay">Lay (Bet Against):</div>' +
+                                    '                   <div class="bet-info-description">' +
+                                    '                       <span id="teamtitles_' + i + '"></span>' +
+                                    '                   </div>' +
+                                    '               </div>' +
+                                    '           </div>' +
+                                    '           <div class="bet-actions-container nudges-visible">' +
+                                    '               <div class="price-container">' +
+                                    '                   <div class="input">' +
+                                    '                       <button class="negative-nudge minus" id="minus1" onclick="OddsDown(' + i + ',' + runlength + ')">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-minus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                       <div class="ppb-numeric-input-overlay-wrapper">' +
+                                    '                           <input type="tel" class="price-input ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength ppb-numeric-input qty" placeholder="Odds" id="odds_' + i + '" disabled>' +
+                                    '                       </div>' +
+                                    '                       <button class="positive-nudge add" id="add1" onclick="OddsUp(' + i + ',' + runlength + ')">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-plus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                   </div>' +
+                                    '               </div>' +
+                                    '               <div class="size-container">' +
+                                    '                   <div class="input">' +
+                                    '                       <button class="negative-nudge qtyminus" field="quantity" onclick="StakeDown(' + i + ',' + runlength + ')">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-minus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                       <div class="ppb-numeric-input-overlay-wrapper">' +
+                                    '                           <input type="tel" name="quantity" class="size-input ng-pristine ng-untouched ng-valid ng-empty ng-valid-maxlength ppb-numeric-input qty" placeholder="Stake" id="txt1_' + i + '" disabled>' +
+                                    '                       </div>' +
+                                    '                       <button class="positive-nudge qtyplus" field="quantity" onclick="StakeUp(' + i + ',' + runlength + ')">' +
+                                    '                           <svg class="nudge-icon sprite-bf-inline-betting-plus-icon"></svg>' +
+                                    '                       </button>' +
+                                    '                   </div>' +
+                                    '               </div>' +
+                                    '               <button class="reset-bet visible-when-narrow" onclick="hideMoPopup(' + i + ',' + runlength + ')">Cancel</button>' +
+                                    '               <button style="color:#ffffff;" class="place-bet" type="submit" disabled="disabled" id="place_bet_' + i + '" onclick="SubmitBetMV(' + a2[i].EventCode + ',' + i + ')">' +
+                                    '                   <span class="place-bet-title">Place bet</span> ' +
+                                    '                   <span id="panle2_' + i + '" style="display: none; font-size: 11px; float: left; margin-left: 50px;">Profit $<span class="place-bet-profit" id="bet_profit1_' + i + '" style="float: right; font-size: 12px; margin-left: 5px;"></span>' +
+                                    '                   </span>' +
+                                    '               </button>' +
+                                    '           </div>' +
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '<div class="ppb-doubleline-keyboard numeric-keyboard-open">' +
+                                    '<div class="panel-row panel-keyboard">' +
+                                    '   <div class="panel-row">' +
+                                    '       <div class="button-container" style="border-left: 5px solid #E2E2E9;border-right: 5px solid #E2E2E9;" onclick="placekeyboardMo(100,' + i + ',' + runlength + ')">100</div>' +
+                                    '       <div class="button-container" style="border-right: 5px solid #E2E2E9;" onclick="placekeyboardMo(500,' + i + ',' + runlength + ')">500</div>' +
+                                    '       <div class="button-container" style="border-right: 5px solid #E2E2E9;" onclick="placekeyboardMo(2000,' + i + ',' + runlength + ')">2000</div>' +
+                                    '      <div class="button-container"  style="border-right: 5px solid #E2E2E9;"onclick="placekeyboardMo(5000,' + i + ',' + runlength + ')">5000</div>' +
+                                    '    <div class="button-container" style="border-right: 5px solid #E2E2E9;" onclick="placekeyboardMo(25000,' + i + ',' + runlength + ')">25000</div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '<div class="panel-row panel-keyboard">' +
+                                    '   <div class="panel-left">' +
+                                    '       <div class="panel-row">' +
+                                    '           <div class="button-container numeric-input-1" onclick="placekeyboardMo(1,' + i + ',' + runlength + ')">1</div>' +
+                                    '           <div class="button-container numeric-input-2" onclick="placekeyboardMo(2,' + i + ',' + runlength + ')">2</div>' +
+                                    '           <div class="button-container numeric-input-3" onclick="placekeyboardMo(3,' + i + ',' + runlength + ')">3</div>' +
+                                    '           <div class="button-container numeric-input-4" onclick="placekeyboardMo(4,' + i + ',' + runlength + ')">4</div>' +
+                                    '           <div class="button-container numeric-input-5" onclick="placekeyboardMo(5,' + i + ',' + runlength + ')">5</div>' +
+                                    '           <div class="button-container numeric-input-6" onclick="placekeyboardMo(6,' + i + ',' + runlength + ')">6</div>' +
+                                    '       </div>' +
+                                    '       <div class="panel-row bottom-row">' +
+                                    '           <div class="button-container numeric-input-7" onclick="placekeyboardMo(7,' + i + ',' + runlength + ')">7</div>' +
+                                    '           <div class="button-container numeric-input-8" onclick="placekeyboardMo(8,' + i + ',' + runlength + ')">8</div>' +
+                                    '           <div class="button-container numeric-input-9" onclick="placekeyboardMo(9,' + i + ',' + runlength + ')">9</div>' +
+                                    '           <div class="button-container numeric-input-0" onclick="placekeyboardMo(0,' + i + ',' + runlength + ')">0</div>' +
+                                    '           <div class="button-container numeric-input-00" onclick="placekeyboardMo(\'00\',' + i + ',' + runlength + ')">00</div>' +
+                                    '           <div class="button-container numeric-input-." onclick="placekeyboardMo(\'.\',' + i + ',' + runlength + ')">.</div>' +
+                                    '           ' +
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '   <div class="panel-right">' +
+                                    '       <div class="panel-row">' +
+                                    '           <div class="button-container-clear numeric-input-clear" onclick="placekeyboardMo(\'X\',' + i + ',' + runlength + ')">' +
+                                    '               <span class="icon-clear"></span>' +
+                                    '           </div>' +
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'+
+                                    '<div id="place_bet_loader_'+ i +'" style="display:none;">'+
+                                    '<div style="margin-top: -240px;height: 240px;background: white;opacity: 0.5;"></div>'+
+                                    '<div style="margin-top: -240px;height: 240px;">'+
+                                    '<img src="/Content/images/prospin.gif" style="display: block;margin:auto;padding-top: 110px;position: relative;">'+
+                                    '</div>'+
+                                    '</div>';
+                                $('#match_odds_data_loader').css("display", "none");
+                                $('#match_odds_data').append(myvar);
+                                if (i == GetRLength - 1) {
+                                    GetWmeForD(a2[i].BetfairId);
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        if (MoCheck == "no") {
+            MoCheck = "yes";
+            setInterval(function () { getMODataMob(); }, 1000);
+        }
+        // Match Odds Data End Here
+
+        var jkdfhjk = "jkl";
+        function BetPlacePopupShow(box, index, OddsValue, BetfairId, EventCode, box_run, runnernameg) {
+
+            document.getElementById("txt1_" + index).value = "";
+            document.getElementById("panle2_" + index).style.display = "none";
+            document.getElementById('place_bet_' + index).disabled = true;
+            var oddsvalueget = $('#' + OddsValue + index).text();
+            $("#odds_" + index).val(oddsvalueget);
+            $("#teamtitles_" + index).text(runnernameg);
+            if (box == "back") {
+                $("#BetPlacePopupColor_" + index).css("background-color", "#d2ebff");
+
+                $("#teamback_" + index).text("Back (Bet For):");
+            } else if (box == "lay") {
+                $("#BetPlacePopupColor_" + index).css("background-color", "#f3dce2");
+                $("#teamback_" + index).text("Lay (Bet Against):");
+            }
+
+            if ($("#men_ex_" + index).css('display') == 'none') {
+
+                if (jkdfhjk != "jkl") {
+                    $("#men_ex_" + jkdfhjk).css("display", "none");
+                }
+                $("#men_ex_" + index).toggle({
+                    duration: 600,
+                });
+
+
+                $("#men_ex_" + index).css("display", "contents");
+                jkdfhjk = index;
+
+            } else {
+                if ($("#BetPlacePopupColor_" + index).children("span").text() + $("#BetPlacePopupColor_" + index).children("input").val() == box + box_run) {
+                    $("#men_ex_" + index).css("display", "none");
+                }
+            }
+
+            $("#BetPlacePopupColor_" + index).children("span").text(box);
+            $("#BetPlacePopupColor_" + index).children("input").val(box_run);
+
+
+        }
+
+        function hideMoPopup(target, runlength) {
+            for (var il = 0; il < runlength; il++) {
+                $('#run_cal_aft_' + il).text("");
+            }
+            $("#men_ex_" + target).css("display", "none");
+        }
+
+        function placekeyboardMo(bt_val, index, runlength) {
+            var tt = $('#txt1_' + index).val();
+            if (bt_val > 10) {
+                if (tt == "") {
+                    tt = 0;
+                }
+                var new_stake = parseInt(bt_val) + parseInt(tt);
+            }
+            else {
+                if (bt_val == "X") {
+                    var new_stake = tt.slice(0, -1);
+                }
+                else if (bt_val == "stkpm") {
+                    var new_stake = tt;
+                }
+                else if (bt_val == "oddspm") {
+                    var new_stake = tt;
+                }
+                else {
+                    var new_stake = tt + bt_val;
+                }
+            }
+            $('#txt1_' + index).val(new_stake);
+            var tt = new_stake;
+            var todds = $('#odds_' + index).val();
+            var bp = document.getElementById("panle2_" + index);
+            var bt = document.getElementById('place_bet_' + index);
+            var FieldBox = $("#BetPlacePopupColor_" + index).children("span").text();
+
+            var PL = todds * new_stake;
+            PL = parseFloat(PL).toFixed(2);
+            var ProfitlossVal = PL - new_stake;
+            var i2 = 0.00;
+            i2 = parseFloat(ProfitlossVal).toFixed(2);
+
+            if (new_stake > 1) {
+                for (var il = 0; il < runlength; il++) {
+                    /*var wmeo = 0.00;
+                    wmeo = $('#run_cal_bef_' + il).text();
+                    if (il == index && FieldBox == "back") {
+                        var sameback = parseFloat(parseFloat(wmeo) + parseFloat(i2)).toFixed(2);
+                        if (sameback > 0) {
+                            $('#run_cal_aft_' + il).css("color", "#20a052");
+                        } else if (sameback < 0) {
+                            $('#run_cal_aft_' + il).css("color", "#d54d4d");
+                        } else {
+                            $('#run_cal_aft_' + il).css("color", "#000000");
+                        }
+                        $('#run_cal_aft_' + il).text(" --> $" + sameback);
+                    }
+                    else if (il == index && FieldBox == "lay") {
+                        var samelay = parseFloat(parseFloat(wmeo) - parseFloat(i2)).toFixed(2);
+                        if (samelay > 0) {
+                            $('#run_cal_aft_' + il).css("color", "#20a052");
+                        } else if (samelay < 0) {
+                            $('#run_cal_aft_' + il).css("color", "#d54d4d");
+                        } else {
+                            $('#run_cal_aft_' + il).css("color", "#000000");
+                        }
+                        $('#run_cal_aft_' + il).text(" --> $" + samelay);
+                    }
+                    else if (il != index && FieldBox == "back") {
+                        var revback = parseFloat(parseFloat(wmeo) - parseFloat(new_stake)).toFixed(2);
+                        if (revback > 0) {
+                            $('#run_cal_aft_' + il).css("color", "#20a052");
+                        } else if (revback < 0) {
+                            $('#run_cal_aft_' + il).css("color", "#d54d4d");
+                        } else {
+                            $('#run_cal_aft_' + il).css("color", "#000000");
+                        }
+                        $('#run_cal_aft_' + il).text(" --> $" + revback);
+                    }
+                    else if (il != index && FieldBox == "lay") {
+                        var revlay = parseFloat(parseFloat(wmeo) + parseFloat(new_stake)).toFixed(2);
+                        if (revlay > 0) {
+                            $('#run_cal_aft_' + il).css("color", "#20a052");
+                        } else if (revlay < 0) {
+                            $('#run_cal_aft_' + il).css("color", "#d54d4d");
+                        } else {
+                            $('#run_cal_aft_' + il).css("color", "#000000");
+                        }
+                        $('#run_cal_aft_' + il).text(" --> $" + revlay);
+                    }*/
+                }
+                bt.disabled = false;
+                $("#bet_profit1_" + index).html(new_stake);
+                bp.style.display = "block";
+
+            }
+            else {
+                for (var il = 0; il < runlength; il++) {
+                    $('#run_cal_aft_' + il).text("");
+                }
+                $("#bet_profit1_" + index).html("");
+                bt.disabled = true;
+                bp.style.display = "none";
+            }
+        }
+
+        $('.modal-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('.modal1').toggleClass('is-visible');
+        });
+
+        function SubmitBetMV(eventcode, index) {
+            var GetLog = '@Session["UserName"]';
+            if (GetLog != "" && GetLog != null) {
+                document.getElementById('place_bet_' + index).disabled = true;
+                var betfairid = $("#span_mname").text();
+                var run_length = $("#run_length_" + index).val();
+                var stackValue = $("#txt1_" + index).val();
+                var runner_name = $("#runnername_" + index).text();
+                var field_box = $("#BetPlacePopupColor_" + index).children("span").text();
+                var OddsValue = $("#odds_" + index).val();
+                var run_pos = parseInt(index) + 1;
+                //alert(betfairid+"--"+"--"+run_length+"--"+stackValue+"--"+runner_name+"--"+field_box+"--"+OddsValue+"--"+run_pos+"--"+market_name)
+                $.ajax({
+                    type: "POST",
+                    url: "/Check/BetPlaceMTPNik",
+                    data: {
+                        BetfairId: betfairid,
+                        EventCode: eventcode,
+                        stackValue: stackValue,
+                        OddsValue: OddsValue,
+                        RunnerIndex: run_pos,
+                        BoxType: field_box,
+                        RunnerNameget: runner_name,
+                    },
+                    beforeSend: function(){
+                        $("#place_bet_loader_" +index).css("display", "");
+                    },
+                    success: function (result) {
+                        GetWmeForD(betfairid);
+                        $("#place_bet_loader_" +index).css("display", "none");
+                        hideMoPopup(index, run_length);
+                        UserBalance();
+                        GetPlaceBet();
+                        if (result.responseText == "Bet Submitted Successfully") {
+                            showProgressBarMessageSuccess(result.responseText);
+                        }
+                        else {
+                            showProgressBarMessageError(result.responseText);
+                        }
+
+                    }
+                });
+            }
+            else {
+                window.location.href = "/exchange/Login";
+            }
+        }
+
+        //Start WME Data-- >
+        function GetWmeForD(GetId) {
+            if (is_login != "" && is_login != null) {
+                if (GetId != "0") {
+                    $("#wme_bef").val(GetId);
+                    $.ajax({
+                        type: "POST",
+                        url: "/exchange/GetWmebook",
+                        dataType: "html",
+                        data: {
+                            data: GetId
+                        },
+                        success: function (data) {
+                            var a2 = JSON.parse(data);
+                            if (a2.length > 0) {
+                                for (i = 0; i < a2.length; i++) {
+                                    var team_a_balance = a2[i].team_a_balance;
+                                    var team_b_balance = a2[i].team_b_balance;
+                                    var team_c_balance = a2[i].team_c_balance;
+                                    if (team_a_balance > 0) {
+                                        $('#run_cal_bef_0').css("color", "#20a052");
+                                    } else if (team_a_balance < 0) {
+                                        $('#run_cal_bef_0').css("color", "#d54d4d");
+                                    }
+                                    else {
+                                        $('#run_cal_bef_0').css("color", "#000000");
+                                    }
+                                    $("#run_cal_bef_0").text(team_a_balance);
+                                    if (team_b_balance > 0) {
+                                        $('#run_cal_bef_1').css("color", "#20a052");
+                                    } else if (team_b_balance < 0) {
+                                        $('#run_cal_bef_1').css("color", "#d54d4d");
+                                    }
+                                    else {
+                                        $('#run_cal_bef_1').css("color", "#000000");
+                                    }
+                                    $("#run_cal_bef_1").text(team_b_balance);
+                                }
+                            }
+                        }
+                    });
+                }
+                else {
+                    $('#run_cal_bef_0').css("color", "#000000");
+                    $("#run_cal_bef_0").text(0);
+                    $('#run_cal_bef_1').css("color", "#000000");
+                    $("#run_cal_bef_1").text(0);
+                }
+            }
+        }
+    </script>
+    <script>
+        GetPlaceBet();
+        function GetPlaceBet() {
+            var OldBetName;
+            var BetName;
+            var BetType;
+            $.ajax({
+                type: "POST",
+                url: "/FunctionData/GetPlaceBets",
+                data: {
+                    event_id: @ViewBag.EventCode,
+                },
+                success: function (response) {
+                    var hgfj = "Success";
+                    if (hgfj == "Success") {
+                      $("[id*=grvMatched]").empty();
+
+                      if (response.length > 0) {
+                        $("[id*=grvMatched]").append("<tr style='background-color:#212121; color:#FFFFFF;text-align:center;border-top: 0.5px solid white;'><th style='padding:5px 10px 5px 10px;'>Selections</th>  <th class='TextRight' style='padding-left:3px;padding-right:3px;'>Rate</th>  <th class='TextRight' style='padding-left:3px;padding-right:3px;'>Stake</th>  <th class='TextRight' style='padding-left:3px;padding-right:3px;'>P/L</th>  <th class='TextRight' style='width:60px;'>Time</th></tr>");
+
+                        for (var i = 0; i < response.length; i++) {
+                            BetName = response[i]["BetName"];
+                            BetType = response[i]["BetType"];
+
+                            if (BetName != OldBetName) {
+                                $("[id*=grvMatched]").append("<tr><td colspan='5' class='text-center' style='background-color:#FFFFFF;font-weight: 900;color:#000000;padding-top:3px;padding-bottom:3px;border-top: 1px solid #2b4354;text-align:center;'>" + response[i]["BetName"] + "</td> </tr>");
+                            }
+
+                            if (BetType == 'B' || BetType == 'back') {
+
+                                $("[id*=grvMatched]").append("<tr class='RowBorderBack' style='background: #a6d8ff;'><td style='padding-left:10px;padding-right:10px;color:#000000;border-top: 1px solid #2b4354;'>" +
+                                    response[i]["RunnerName"] + "</td> <td style='color:#000000;border-top: 1px solid #2b4354;' class='TextRight'>" +
+                                    parseFloat(response[i]["Price"]) + "</td> <td style='color:#000000;border-top: 1px solid #2b4354;' class='TextRight'>" + response[i]["Qty"] + "</td> <td style='color:#000000;border-top: 1px solid #2b4354;' class='TextRight'>" + parseFloat(response[i]["PL"]).toFixed(2) + "</td> <td style='color:#000000;border-top: 1px solid #2b4354; font-size:10px;' class='TextRight'>" +
+                                    response[i]["created"] + "</td></tr>");
+                            }
+                            else {
+                                $("[id*=grvMatched]").append("<tr class='RowBorderLay' style='background: #fac9d1;'><td style='padding-left:10px;padding-right:10px;color:#000000;border-top: 1px solid #2b4354;'>" +
+                                    response[i]["RunnerName"] + "</td> <td style='color:#000000;border-top: 1px solid #2b4354;' class='TextRight'>" +
+                                    parseFloat(response[i]["Price"]) + "</td> <td style='color:#000000;border-top: 1px solid #2b4354;' class='TextRight'>" + response[i]["Qty"] + "</td> <td style='color:#000000;border-top: 1px solid #2b4354;' class='TextRight'>" + parseFloat(response[i]["PL"]).toFixed(2) + "</td> <td style='color:#000000;border-top: 1px solid #2b4354; font-size:10px;' class='TextRight'>" +
+                                    response[i]["created"] + "</td></tr>");
+                            }
+
+                            OldBetName = response[i]["BetName"];
+                        }
+                      }
+                      else {
+                            $("[id*=grvMatched]").append("<tr><td style='text-align:center;padding-top:6px;padding-bottom:6px;color:#000000;'>There are currently no Matched Bets</td></tr>");
+                       }
+                    }
+                },
+            });
+        }
+    </script>
+
+    <script>
+        // Mo UpDown Odds Stake
+        function StakeUp(index, iii) {
+            var inputOdds = $("#txt1_" + index).val();
+            if (inputOdds == "") {
+                inputOdds = 0;
+            }
+            if (isNaN(inputOdds)) {
+                inputOdds = 0;
+            }
+            var total = parseInt(inputOdds) + (1);
+            if (total < 0) {
+
+            }
+            else {
+                $("#txt1_" + index).val(total.toFixed(0));
+            }
+
+            placekeyboardMo("stkpm", index, iii);
+        }
+        function StakeDown(index, iii) {
+            var inputOdds = $("#txt1_" + index).val();
+            if (inputOdds == "") {
+                inputOdds = 0;
+            }
+
+            if (isNaN(inputOdds)) {
+                inputOdds = 0;
+            }
+            var total = parseInt(inputOdds) - (1);
+
+            if (total < 0) {
+
+            }
+            else {
+                $("#txt1_" + index).val(total.toFixed(0));
+            }
+            placekeyboardMo("stkpm", index, iii);
+        }
+    </script>
+
+    <script>
+        var MoCheckR = "no";
+        GetCasinoTResult();
+        function GetCasinoTResult() {
+            var id = $("#sessionBfID").val();
+            $.ajax({
+                type: "GET",
+                url: "/exchange/GetCasinoTResult",
+                dataType: "html",
+                data: {
+                    id: id
+                },
+                timeout: 5000,
+                success: function (data) {
+                    var lastresult = "";
+                    var response = JSON.parse(data);
+                    if (response.success == true) {
+                        $.each(response.data, function (key, value) {
+                            if (value.result == 1) {
+                                lastresult += '<span class="ball-runs playera last-result" data-mid="' + value.mid + '">D</span> ';
+                            }
+                            else if (value.result == 41) {
+                                lastresult += '<span class="ball-runs playerc last-result" data-mid="' + value.mid + '">L</span> ';
+                            }
+                            else if (value.result == 21) {
+                                lastresult += '<span class="ball-runs playerb last-result" data-mid="' + value.mid + '">T</span> ';
+                            }
+                            else {
+                                lastresult += '<span class="ball-runs playertie last-result" data-mid="' + value.mid + '">T</span> ';
+                            }
+                        });
+                        if (lastresult != "") { $("#last-result").html(lastresult); }
+                    }
+                },
+                complete: function (data) { },
+                error: function (e) { }
+            });
+        }
+        if (MoCheckR == "no") {
+            MoCheckR = "yes";
+            setInterval(function () { GetCasinoTResult(); }, 5000);
+        }
+    </script>
+
+}

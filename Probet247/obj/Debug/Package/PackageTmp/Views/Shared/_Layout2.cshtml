@@ -1,0 +1,911 @@
+﻿@if (Session["UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FancyBook</title>
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="theme-color" content="#ffb80C">
+    <style>
+        ul {
+            margin-bottom: 0 !important;
+            padding: 0 !important;
+        }
+
+        li {
+            list-style: none !important;
+        }
+
+        p {
+            margin-bottom: 0 !important;
+        }
+
+        .main {
+            min-height: calc(100vh - 159px) !important;
+        }
+
+        .header {
+            background-color: var(--theme1-bg) !important;
+            color: var(--primary-color) !important;
+        }
+
+            .header a {
+                color: var(--primary-color) !important;
+            }
+
+        .header-bottom {
+            background-color: var(--theme2-bg) !important;
+            margin-top: 10px !important;
+            padding: 9px 0 !important;
+        }
+
+            .header-bottom li a {
+                color: var(--secondary-color) !important;
+                text-transform: uppercase !important;
+                padding: 3px 15px !important;
+                font-size: 14px !important;
+                display: inline-block !important;
+                vertical-align: middle !important;
+                a -webkit-transform: translateZ(0) !important;
+                transform: translateZ(0) !important;
+                box-shadow: 0 0 1px transparent !important;
+                -webkit-backface-visibility: hidden !important;
+                backface-visibility: hidden !important;
+                -moz-osx-font-smoothing: grayscale !important;
+                position: relative !important;
+                overflow: hidden !important;
+                text-align: center !important;
+            }
+
+        .header-top {
+            height: 60px !important;
+            margin-top: 10px !important;
+        }
+
+            .header-top ul {
+                padding-top: 10px !important;
+            }
+
+        .logo img {
+            width: auto !important;
+            height: 65px !important;
+        }
+
+        .logo-login {
+            max-height: 65px !important;
+            max-width: 100% !important;
+        }
+
+        .ballance,
+        .expose,
+        .account {
+            margin-left: 15px !important;
+            margin-top: 0,
+        }
+
+        .account {
+            margin-top: 5px,
+        }
+
+        .header-bottom nav {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            padding-left: 0,
+        }
+
+        .header-bottom li a:hover {
+            text-decoration: none !important;
+            background-color: transparent !important;
+            color: inherit !important;
+        }
+
+        .header-bottom li a:before {
+            content: "" !important;
+            position: absolute !important;
+            z-index: -1 !important;
+            left: 50% !important;
+            right: 50% !important;
+            bottom: 0 !important;
+            background: var(--primary-bg) !important;
+            height: 2px !important;
+            -webkit-transition-property: left, right !important;
+            transition-property: left, right !important;
+            -webkit-transition-duration: .3s !important;
+            transition-duration: .3s !important;
+            -webkit-transition-timing-function: ease-out !important;
+            transition-timing-function: ease-out !important;
+        }
+
+        .header-bottom li a:hover:before,
+        .header-bottom li a:focus:before,
+        .header-bottom li a:active:before {
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .header-bottom li a.active {
+            background-color: var(--primary-bg) !important;
+            color: var(--secondary-color) !important;
+        }
+
+        .account .fa-chevron-down {
+            margin-left: 5px !important;
+        }
+
+        .account > span {
+            cursor: pointer !important;
+            position: relative !important;
+        }
+
+        .account ul {
+            position: absolute !important;
+            top: 30px !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            min-width: 170px !important;
+            max-width: 170px !important;
+            padding: 5px 0 !important;
+            margin: 2px 0 0 !important;
+            font-size: 14px !important;
+            text-align: left !important;
+            border: 1px solid rgba(0, 0, 0, .15) !important;
+            border-radius: 4px !important;
+            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175) !important;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .175) !important;
+        }
+
+            .account ul li {
+                line-height: 50px !important;
+            }
+
+                .account ul li a {
+                    font-size: 14px !important;
+                    text-transform: capitalize !important;
+                    padding: 0 8px !important;
+                    color: var(--site-color) !important;
+                }
+
+            .account ul h6 {
+                padding: 0 8px !important;
+                color: var(--site-color) !important;
+            }
+    </style>
+    <style>
+        .box_suspend {
+            text-align: center;
+            display: flex;
+            max-height: 49px;
+            width: 125px;
+            font-size: 12px;
+            font-weight: 900;
+            color: #000000;
+            align-items: center;
+            border-radius: 0px;
+            border: 1px solid #000000;
+            background-color: rgba(255,255,255,.65);
+            justify-content: center !important;
+        }
+        .box_suspend .span {
+                text-align: center;
+                width: 100%;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="mobile_view">
+        <div class="page">
+            <div class="main-header" style="display: block; position: fixed; width: 100%">
+                <div class="header-bar" style="height:64px;">
+                    @if (ViewBag.SportNameAcordingto != "Cricket")
+                    {
+                        <div class="back-btn" onclick="history.back();" style="margin: auto;">
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="back-btn" style="margin: auto; display:none;"></div>
+                    }
+                    <a href="/exchange/Mindex" style="vertical-align: middle;margin: auto;">
+                        <img src="~/Content/probet/room_logo.png" style="height:45px;" />
+                    </a>
+                    <div class="header-nav" style="margin: 15px 8px;">
+                        @if (@Session["UserName"] != null && @Session["UserName"] != "")
+                        {
+                            <ul class="account-wrap" style="padding-top: 10px;">
+                                <li id="accountCredit" style="line-height: 15px;margin-top:5px;">
+                                    <div >
+                                        Main <b>BAL</b>
+                                        <strong id="betCredit"></strong>
+                                    </div>
+                                    <div>
+                                        Expo <b>BAL</b>
+                                        <strong id="totalExposure"></strong>
+                                    </div>
+                                </li>
+                                <li class="account" id="toggle_show" style="width:30px;margin-top:-2px;">
+                                    <a style="cursor: pointer;color: #ffb80C;">
+                                    </a>
+
+                                    <ul id="toggle_hide" style="display: none;">
+                                        <li>
+                                            <h4 style="line-height: 50px;">
+                                                @Session["UserName"]
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <a href="/exchange/myAccount" target="_blank" style="border: 0px;">My Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="/exchange/BalanceOverview" target="_blank" style="border: 0px;"> Balance Overview</a>
+                                        </li>
+                                        <li>
+                                            <a href="/exchange/accountCashStatement" target="_blank" style="border: 0px;"> Account Statement</a>
+                                        </li>
+                                        <li>
+                                            <a href="/exchange/Ucurrent_bets" target="_blank" style="border: 0px;"> My Bets</a>
+                                        </li>
+                                        <li>
+                                            <a href="/exchange/BetHistory" target="_blank" style="border: 0px;"> Bets History</a>
+                                        </li>
+                                        <li>
+                                            <a href="/exchange/ProfitLoss" target="_blank" style="border: 0px;"> Profit & Loss</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" style="border: 0px;"> Deposit & Withdrawal</a>
+                                        </li>
+                                        <li class="logout" style="line-height: 35px !important;">
+                                            <a href="/exchange/LogOut" id="logout" style="background-color: #ffb80C; color:white !important;">
+                                                LOGOUT
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        }
+                        else
+                        {
+                            <ul class="header-buttons">
+                                <li class="header-btn login-btn" style="margin: auto;">
+                                    <button class="Nth9e">
+                                        <a href="/exchange/Login">
+                                            <div class="_3n25b _3VWBB">
+                                                <svg width="100%" height="100%" class="_8g2oO kyiTw _2hj11" viewBox="0 0 16 16">
+                                                    <path d="m11.006 4.16008667c-.0168 1.44737402-1.3636 2.61044243-3.024 2.60921167-1.6478 0-2.982-1.17414525-2.982-2.62151927v-1.55075788c.0154-1.44860478 1.3622-2.61044243 3.024-2.59690407 1.6464 0 2.982 1.1729145 2.982 2.62151928zm-.5 4.39381399 5.494 3.92489434v3.521205h-16v-3.521205l5.494-3.92489434z"></path>
+                                                </svg>
+                                                <span class="_3lvH3 _3e2o7 _1k8eu _1zB74" style="color:white;width:65px;">Login</span>
+                                            </div>
+                                        </a>
+                                    </button>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+            <br><br><br><br><br /><br />
+            <div style="border-bottom: 0.5px solid white;">
+                <div style="width:6%;height:18px;color:white;background:#212121;float:left;">
+                    <i class="fa fa-bullhorn" aria-hidden="true" style="height:25px;width: 25px; color: #ffb80C; padding-top: 4px; padding-left:10px;"></i>
+                </div>
+                <div style="width:94%;height:18px;color:white;background:#212121;float:right;">
+                    <marquee style="padding-top: 5px;" scrollamount="5">
+                        Live Casino Chalu h.....Enjoy
+                    </marquee>
+                </div>
+            </div>
+            <div class="main-content-container">
+                <div class="content navbar">
+                    <div class="main-container">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+            <div class="footer" style="margin-bottom:50px;">
+            </div>
+            <div class="navigation-bar">
+                <ul class="navigation-list">
+                    <li class="navigation-item">
+                        <a href="/exchange/Mindex" class="link home" id="main_home">
+                            <span class="icon-container">
+                                <svg width="100%" height="100%" class="icon xlarge default" viewBox="0 0 20 20">
+                                    <path d="M10,0,20,10V20H12.6V15H7.4v5H0V10Z"></path>
+                                </svg>
+                            </span>
+                            <div class="title">Home</div>
+                        </a>
+                    </li>
+                    <li class="navigation-item linkstab">
+                        <a href="/exchange/MInplay" class="link azMenu" id="main_inplay">
+                            <span class="icon-container icon sprite-normal sprite-normal-inplay"></span>
+                            <div class="title">Inplay</div>
+                        </a>
+                    </li>
+                    <li class="navigation-item linkstab">
+                        <a href="/exchange/Menu" class="link cashout" id="main_menu">
+                            <span class="icon-container">
+                                <div class="icon sprite-normal sprite-normal-1">
+                                </div>
+                            </span>
+                            <div class="title">Sports</div>
+                        </a>
+                    </li>
+                    <li class="navigation-item linkstab disable">
+                        <a href="javascript: void(0)" class="link myBets" id="main_bets">
+                            <span class="icon-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path fill="rgb(126,151,167)" d="M12.5 25C5.596 25 0 19.404 0 12.5S5.596 0 12.5 0 25 5.596 25 12.5 19.404 25 12.5 25zm0-1C18.85 24 24 18.85 24 12.5S18.85 1 12.5 1 1 6.15 1 12.5 6.15 24 12.5 24zm5.09-12.078c1.606.516 2.41 1.13 2.41 2.19 0 .373-.067.616-.2.73-.135.115-.403.173-.804.173H13.57l-.81 7.988h-.536l-.795-7.988H6.003c-.4 0-.67-.065-.803-.194-.133-.128-.2-.364-.2-.708 0-1.06.804-1.674 2.41-2.19.09 0 .18-.03.27-.086.49-.172.802-.444.936-.816L9.82 5.95v-.216c0-.23-.222-.415-.668-.558l-.067-.043h-.067c-.536-.143-.804-.387-.804-.73 0-.402.09-.652.268-.753.18-.1.49-.15.938-.15h6.16c.447 0 .76.05.938.15.178.1.268.35.268.752 0 .344-.268.588-.804.73h-.067l-.067.044c-.446.143-.67.33-.67.558v.215l1.206 5.07c.134.372.446.644.937.816.09.057.18.086.27.086z" />
+                                </svg>
+                            </span>
+                            <div class="title">Multi Market</div>
+                        </a>
+                    </li>
+                    @if (Session["AdminID"] != null)
+                    {
+                        if (Session["AdminID"].ToString() != "14")
+                        {
+                            <li class="navigation-item linkstab">
+                                <a href="/exchange/Mindex/7888" class="link games" id="main_casino">
+                                    <span class="icon-container">
+                                        <svg width="100%" height="100%" class="icon xlarge default" viewBox="0 0 20 20">
+                                            <path d="M7.25767146,10.0395073 L1.13127909,6.43331183 C1.0002625,6.31252981 0.82525544,6.25057023 0.6471159,6.26189846 C0.46897635,6.27322669 0.30329666,6.3568512 0.18875718,6.49324859 C0.04193695,6.6482016 -0.02469248,6.86209631 0.00827427,7.07263734 L0.00827427,14.2350809 C-0.02104085,15.0277555 0.35685625,15.780733 1.01095714,16.2329731 L7.13734951,19.7992107 C7.26031944,19.9274526 7.4305912,20 7.60861046,20 C7.78662973,20 7.95690149,19.9274526 8.07987141,19.7992107 C8.23283982,19.6397078 8.29993369,19.416895 8.26035433,19.1998431 L8.26035433,11.9874522 C8.26592847,11.2193317 7.89074836,10.4979326 7.25767146,10.0594862 L7.25767146,10.0395073 Z M1.59251321,15.4438057 C1.11373849,15.1028627 0.80945219,14.5696069 0.76028642,13.9853444 C0.71176374,13.6987555 0.90420423,13.426776 1.19144006,13.3759873 C1.33479503,13.3530252 1.48110134,13.3931095 1.59251321,13.4858713 C2.12628602,13.8046641 2.4677277,14.3653826 2.50495463,14.9842905 C2.50495463,15.5437003 2.10388148,15.7235106 1.59251321,15.4837635 L1.59251321,15.4438057 Z M1.68275467,10.4191068 C1.13978126,10.0486914 0.8137766,9.43644415 0.81042057,8.78083518 C0.74809409,8.496946 0.92709704,8.21606704 1.21149372,8.15149913 C1.37413412,8.11934733 1.54232623,8.16775508 1.66270101,8.28136212 C2.15939337,8.62693666 2.47265552,9.17769199 2.51498145,9.77978128 C2.51498145,10.3791489 2.10388148,10.6588539 1.68275467,10.3791489 L1.68275467,10.4191068 Z M3.82849602,14.1651547 C3.32227257,13.8057984 3.02012588,13.226055 3.01632289,12.6067988 C2.95697697,12.3382906 3.11380283,12.0692082 3.37728873,11.9874522 C3.53992913,11.9553004 3.70812124,12.0037081 3.82849602,12.1173152 C4.33402249,12.4314861 4.65256349,12.9728544 4.68077647,13.565787 C4.68077647,14.1951231 4.3097838,14.4448596 3.81846919,14.1251968 L3.81846919,14.1251968 L3.82849602,14.1651547 Z M5.97423738,17.9811288 C5.47069602,17.6249012 5.15998968,17.0573958 5.13198376,16.4427518 C5.06965728,16.1588626 5.24866023,15.8779837 5.53305691,15.8134158 C5.71565105,15.7766392 5.90387343,15.8416975 6.02437152,15.9832366 C6.53442137,16.3394743 6.84935146,16.9116184 6.87665196,17.5316031 C6.87665196,18.0310761 6.5056593,18.2108864 6.01434469,17.9611499 L6.01434469,17.9811288 L5.97423738,17.9811288 Z M6.02437152,12.9264615 C5.51159023,12.5681182 5.19631763,11.9916566 5.17209107,11.3681056 C5.1097646,11.0842164 5.28876755,10.8033375 5.57316422,10.7387695 C5.73580463,10.7066177 5.90399674,10.7550255 6.02437152,10.8686325 C6.52106388,11.2142071 6.83432603,11.7649624 6.87665196,12.3670517 C6.87665196,12.9464404 6.44549833,13.2061664 6.01434469,12.8665247 L6.01434469,12.9264615 L6.02437152,12.9264615 Z M17.003749,6.46328021 L10.8873835,10.0694757 C10.2338203,10.4998222 9.81868,11.208839 9.7643786,11.9874522 L9.7643786,19.1498958 C9.6971073,19.5163679 9.9386641,19.8684397 10.3058274,19.9390632 C10.5094343,19.9743509 10.7177737,19.9113407 10.8673298,19.7692423 L16.8834271,16.1630469 C17.5551442,15.7139849 17.9692558,14.9706186 17.9964051,14.1651547 L17.9964051,6.99272165 C18.0465392,6.3633856 17.5652514,5.99377554 16.9937222,6.41333291 L16.9937222,6.46328021 L17.003749,6.46328021 Z M14.6374174,16.8423302 L13.0431516,17.7713501 C13.2383653,15.3521438 13.9493837,13.0022672 15.128732,10.878622 L12.4415419,12.4869252 L12.4415419,10.9885061 L16.6929173,8.49114081 L16.6929173,9.73982344 C15.4540487,11.9080841 14.7335179,14.3316675 14.5872833,16.8223513 L14.6374174,16.8423302 Z M16.3118978,3.91596764 L10.1353713,0.279803818 C9.4477469,-0.0932679392 8.61709343,-0.0932679392 7.92946898,0.279803818 L1.80307661,3.88599926 C1.44577589,4.00493992 1.24966384,4.38682132 1.36189615,4.74509291 C1.42631702,4.95779908 1.59107614,5.12567476 1.80307661,5.19461866 L7.92946898,8.78083518 C8.61709343,9.15390693 9.4477469,9.15390693 10.1353713,8.78083518 L16.2016027,5.19461866 C16.8734002,4.79504021 16.8734002,4.26559878 16.2617637,3.89598872 L16.3118978,3.91596764 Z M10.9776249,6.12363854 C10.339439,6.15386771 9.7249886,5.87932302 9.3231982,5.38441842 C9.363156,5.98727396 9.6152425,6.55677646 10.035103,6.99272165 L7.85928118,6.99272165 C8.24828445,6.53992438 8.4865325,5.97793931 8.54110554,5.38441842 C8.13931512,5.87932302 7.52486475,6.15386771 6.88667879,6.12363854 C5.97589001,6.24167323 5.14127203,5.60239592 5.02168864,4.6951456 C5.07395186,4.25711653 5.30130826,3.85859272 5.65232296,3.58973231 C6.00333766,3.32087189 6.44834786,3.20439516 6.88667879,3.26665267 C7.11895182,3.26975161 7.34919536,3.3102314 7.56850315,3.38652621 C7.26262345,3.14382126 7.08227087,2.77712647 7.07718854,2.3875801 C7.20659093,1.4994015 8.02920282,0.880287784 8.92212503,0.999045014 C9.3493186,0.942518112 9.7814646,1.05850702 10.1223407,1.32118543 C10.4632167,1.58386383 10.6845222,1.97142347 10.736981,2.39756956 C10.7235633,2.75218114 10.5683109,3.08670815 10.3058274,3.32658944 C10.4849191,3.27564011 10.6713973,3.25537284 10.857303,3.26665267 C11.7623627,3.15481642 12.5875751,3.79375989 12.7022395,4.6951456 C12.6897456,5.12059939 12.495025,5.5203692 12.1672911,5.79341765 C11.8395572,6.0664661 11.4101698,6.18666614 10.9876518,6.12363854 L10.9776249,6.12363854 Z"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="title">Live Casino</div>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="navigation-item linkstab">
+                                <a class="link games" id="main_casino">
+                                    <span class="icon-container">
+                                        <svg width="100%" height="100%" class="icon xlarge default" viewBox="0 0 20 20">
+                                            <path d="M7.25767146,10.0395073 L1.13127909,6.43331183 C1.0002625,6.31252981 0.82525544,6.25057023 0.6471159,6.26189846 C0.46897635,6.27322669 0.30329666,6.3568512 0.18875718,6.49324859 C0.04193695,6.6482016 -0.02469248,6.86209631 0.00827427,7.07263734 L0.00827427,14.2350809 C-0.02104085,15.0277555 0.35685625,15.780733 1.01095714,16.2329731 L7.13734951,19.7992107 C7.26031944,19.9274526 7.4305912,20 7.60861046,20 C7.78662973,20 7.95690149,19.9274526 8.07987141,19.7992107 C8.23283982,19.6397078 8.29993369,19.416895 8.26035433,19.1998431 L8.26035433,11.9874522 C8.26592847,11.2193317 7.89074836,10.4979326 7.25767146,10.0594862 L7.25767146,10.0395073 Z M1.59251321,15.4438057 C1.11373849,15.1028627 0.80945219,14.5696069 0.76028642,13.9853444 C0.71176374,13.6987555 0.90420423,13.426776 1.19144006,13.3759873 C1.33479503,13.3530252 1.48110134,13.3931095 1.59251321,13.4858713 C2.12628602,13.8046641 2.4677277,14.3653826 2.50495463,14.9842905 C2.50495463,15.5437003 2.10388148,15.7235106 1.59251321,15.4837635 L1.59251321,15.4438057 Z M1.68275467,10.4191068 C1.13978126,10.0486914 0.8137766,9.43644415 0.81042057,8.78083518 C0.74809409,8.496946 0.92709704,8.21606704 1.21149372,8.15149913 C1.37413412,8.11934733 1.54232623,8.16775508 1.66270101,8.28136212 C2.15939337,8.62693666 2.47265552,9.17769199 2.51498145,9.77978128 C2.51498145,10.3791489 2.10388148,10.6588539 1.68275467,10.3791489 L1.68275467,10.4191068 Z M3.82849602,14.1651547 C3.32227257,13.8057984 3.02012588,13.226055 3.01632289,12.6067988 C2.95697697,12.3382906 3.11380283,12.0692082 3.37728873,11.9874522 C3.53992913,11.9553004 3.70812124,12.0037081 3.82849602,12.1173152 C4.33402249,12.4314861 4.65256349,12.9728544 4.68077647,13.565787 C4.68077647,14.1951231 4.3097838,14.4448596 3.81846919,14.1251968 L3.81846919,14.1251968 L3.82849602,14.1651547 Z M5.97423738,17.9811288 C5.47069602,17.6249012 5.15998968,17.0573958 5.13198376,16.4427518 C5.06965728,16.1588626 5.24866023,15.8779837 5.53305691,15.8134158 C5.71565105,15.7766392 5.90387343,15.8416975 6.02437152,15.9832366 C6.53442137,16.3394743 6.84935146,16.9116184 6.87665196,17.5316031 C6.87665196,18.0310761 6.5056593,18.2108864 6.01434469,17.9611499 L6.01434469,17.9811288 L5.97423738,17.9811288 Z M6.02437152,12.9264615 C5.51159023,12.5681182 5.19631763,11.9916566 5.17209107,11.3681056 C5.1097646,11.0842164 5.28876755,10.8033375 5.57316422,10.7387695 C5.73580463,10.7066177 5.90399674,10.7550255 6.02437152,10.8686325 C6.52106388,11.2142071 6.83432603,11.7649624 6.87665196,12.3670517 C6.87665196,12.9464404 6.44549833,13.2061664 6.01434469,12.8665247 L6.01434469,12.9264615 L6.02437152,12.9264615 Z M17.003749,6.46328021 L10.8873835,10.0694757 C10.2338203,10.4998222 9.81868,11.208839 9.7643786,11.9874522 L9.7643786,19.1498958 C9.6971073,19.5163679 9.9386641,19.8684397 10.3058274,19.9390632 C10.5094343,19.9743509 10.7177737,19.9113407 10.8673298,19.7692423 L16.8834271,16.1630469 C17.5551442,15.7139849 17.9692558,14.9706186 17.9964051,14.1651547 L17.9964051,6.99272165 C18.0465392,6.3633856 17.5652514,5.99377554 16.9937222,6.41333291 L16.9937222,6.46328021 L17.003749,6.46328021 Z M14.6374174,16.8423302 L13.0431516,17.7713501 C13.2383653,15.3521438 13.9493837,13.0022672 15.128732,10.878622 L12.4415419,12.4869252 L12.4415419,10.9885061 L16.6929173,8.49114081 L16.6929173,9.73982344 C15.4540487,11.9080841 14.7335179,14.3316675 14.5872833,16.8223513 L14.6374174,16.8423302 Z M16.3118978,3.91596764 L10.1353713,0.279803818 C9.4477469,-0.0932679392 8.61709343,-0.0932679392 7.92946898,0.279803818 L1.80307661,3.88599926 C1.44577589,4.00493992 1.24966384,4.38682132 1.36189615,4.74509291 C1.42631702,4.95779908 1.59107614,5.12567476 1.80307661,5.19461866 L7.92946898,8.78083518 C8.61709343,9.15390693 9.4477469,9.15390693 10.1353713,8.78083518 L16.2016027,5.19461866 C16.8734002,4.79504021 16.8734002,4.26559878 16.2617637,3.89598872 L16.3118978,3.91596764 Z M10.9776249,6.12363854 C10.339439,6.15386771 9.7249886,5.87932302 9.3231982,5.38441842 C9.363156,5.98727396 9.6152425,6.55677646 10.035103,6.99272165 L7.85928118,6.99272165 C8.24828445,6.53992438 8.4865325,5.97793931 8.54110554,5.38441842 C8.13931512,5.87932302 7.52486475,6.15386771 6.88667879,6.12363854 C5.97589001,6.24167323 5.14127203,5.60239592 5.02168864,4.6951456 C5.07395186,4.25711653 5.30130826,3.85859272 5.65232296,3.58973231 C6.00333766,3.32087189 6.44834786,3.20439516 6.88667879,3.26665267 C7.11895182,3.26975161 7.34919536,3.3102314 7.56850315,3.38652621 C7.26262345,3.14382126 7.08227087,2.77712647 7.07718854,2.3875801 C7.20659093,1.4994015 8.02920282,0.880287784 8.92212503,0.999045014 C9.3493186,0.942518112 9.7814646,1.05850702 10.1223407,1.32118543 C10.4632167,1.58386383 10.6845222,1.97142347 10.736981,2.39756956 C10.7235633,2.75218114 10.5683109,3.08670815 10.3058274,3.32658944 C10.4849191,3.27564011 10.6713973,3.25537284 10.857303,3.26665267 C11.7623627,3.15481642 12.5875751,3.79375989 12.7022395,4.6951456 C12.6897456,5.12059939 12.495025,5.5203692 12.1672911,5.79341765 C11.8395572,6.0664661 11.4101698,6.18666614 10.9876518,6.12363854 L10.9776249,6.12363854 Z"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="title">Live Casino</div>
+                                </a>
+                            </li>
+                        }
+
+                    }
+                    </ul>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <!-- Start Progress Bar -->
+    <style>
+        #progressBarSuccess {
+            width: 100%;
+            height: 10px;
+            background-color: #00a65a;
+        }
+
+            #progressBarSuccess div {
+                height: 100%;
+                text-align: center;
+                line-height: 10px;
+                width: 0;
+                background-color: #009551;
+                box-sizing: border-box;
+            }
+
+        #progressBarError {
+            width: 100%;
+            height: 10px;
+            background-color: #dd4b39;
+        }
+
+            #progressBarError div {
+                height: 100%;
+                text-align: center;
+                line-height: 10px;
+                width: 0;
+                background-color: #bc4031;
+                box-sizing: border-box;
+            }
+
+        .panel-success {
+            border: none;
+        }
+    </style>
+    <div style="display: table;max-width:100%;min-width:380px;position: fixed;top: 75px;right: 20px;">
+        <!-- Start Progress Bar Success -->
+        <div class="alert alert-success alert-dismissable" style="text-align:center;padding: 0px;display: none; background: #dff0d8;" id="progressBarDivSuccess">
+            <div style="padding: 8px 15px 8px 15px;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="top:-10px;text-decoration: none;margin-right: 25px;">&times;</a>
+                <strong id="ProgressBarSuccessLabel"></strong>
+            </div>
+
+            <div id="progressBarSuccess">
+                <div></div>
+            </div>
+        </div>
+        <!-- End Progress Bar Success -->
+        <!-- Start Progress Bar Error -->
+        <div class="alert alert-danger alert-dismissable" style="text-align:center;padding: 0px;display: none; background: #f2dede;" id="progressBarDivError">
+            <div style="padding: 8px 15px 8px 15px;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="top:-10px;text-decoration: none;margin-right: 25px;">&times;</a>
+                <strong id="ProgressBarErrorLabel"></strong>
+            </div>
+
+            <div id="progressBarError">
+                <div></div>
+            </div>
+        </div>
+        <!-- End Progress Bar Error -->
+    </div>
+    <!-- End Progress Bar -->
+    <input type="hidden" value="99" id="wme_bef" />
+    <input type="hidden" value="@Session["UserName"]" id="user_user" />
+</body>
+</html>
+<!-- Start Progress Bar Script-->
+<script>
+    function showProgressBarMessageSuccess(ProgressBarSuccessLabel) {
+        $('#ProgressBarSuccessLabel').html(ProgressBarSuccessLabel);
+        $("#progressBarDivSuccess").show();
+        setTimeout(function () { $("#progressBarDivSuccess").hide(); }, 2000);
+        progressBarSuccess(2, 2, $('#progressBarSuccess'));
+    }
+
+    function showProgressBarMessageError(ProgressBarErrorLabel) {
+        $('#ProgressBarErrorLabel').html(ProgressBarErrorLabel);
+        $("#progressBarDivError").show();
+        setTimeout(function () { $("#progressBarDivError").hide(); }, 2000);
+        progressBarError(2, 2, $('#progressBarError'));
+    }
+
+    function progressBarSuccess(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, 'linear');
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progressBarSuccess(timeleft - 1, timetotal, $element);
+            }, 100);
+        }
+    };
+
+    function progressBarError(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, 'linear');
+        if (timeleft > 0) {
+            setTimeout(function () {
+                progressBarError(timeleft - 1, timetotal, $element);
+            }, 100);
+        }
+    };
+
+
+</script>
+<!-- End Progress Bar Script-->
+<script>
+    var is_login = $("#user_user").val();
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsById("myDropdown");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('input[name="check"]').attr("disabled", true);
+        $(".agree").click(function () {
+            if ($(this).prop("checked") == true) {
+                $('input[name="check"]').attr("disabled", false);
+            }
+            else if ($(this).prop("checked") == false) {
+                $('input[name="check"]').attr("disabled", true);
+            }
+        });
+    });
+</script>
+<script>
+    $(window).on('scroll', function () {
+
+        var $w = $(window);
+        $('.position-fixed-y').css('top', $w.scrollTop());
+
+    });
+
+    $(window).scroll(function () {
+        const x = -this.scrollX
+        $(".fixed").css({ left: x })
+    })
+
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    /*btn.onclick = function () {
+        modal.style.display = "block";
+    }*/
+
+    // When the user clicks on <span> (x), close the modal
+    /*span.onclick = function () {
+        modal.style.display = "none";
+    }*/
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    $(document).ready(function () {
+        $("#show_hide").click(function () {
+            $("#men_ex").toggle({
+                duration: 600,
+            });
+        });
+
+    });
+    function hide(target) {
+        document.getElementById(target).style.display = 'none';
+    }
+
+
+    $(document).ready(function () {
+        $("#show_hide1").click(function () {
+            $("#men_ex").toggle({
+                duration: 600,
+            });
+        });
+
+    });
+    function hide(target) {
+        document.getElementById(target).style.display = 'none';
+    }
+
+</script>
+
+<script>
+
+    function myFun() {
+        var odd_bet = $("#bet").html();
+        $("#odds").val(odd_bet);
+    }
+
+    function myFun1() {
+        var odd_bet = $("#bet1").html();
+        $("#odds").val(odd_bet);
+    }
+</script>
+
+<script>
+    function manage(txt) {
+        var tt = $('#txt').val();
+        var bp = document.getElementById("bet_profit");
+        var bt = document.getElementById('place_bet');
+        if (tt != '') {
+            bt.disabled = false;
+            $("#bet_profit").html(tt);
+
+            bp.style.display = "block";
+
+        }
+        else {
+            bt.disabled = true;
+
+            bp.style.display = "none";
+
+        }
+    }
+</script>
+
+<script>
+    $('.modal-toggle').on('click', function (e) {
+        e.preventDefault();
+        $('.modal1').toggleClass('is-visible');
+    });
+</script>
+
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsById("myDropdown");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('input[name="check"]').attr("disabled", true);
+        $(".agree").click(function () {
+            if ($(this).prop("checked") == true) {
+                $('input[name="check"]').attr("disabled", false);
+            }
+            else if ($(this).prop("checked") == false) {
+                $('input[name="check"]').attr("disabled", true);
+            }
+        });
+    });
+</script>
+<script>
+    $(window).on('scroll', function () {
+        var $w = $(window);
+        $('.position-fixed-y').css('top', $w.scrollTop());
+    });
+
+    $(window).scroll(function () {
+        const x = -this.scrollX
+        $(".fixed").css({ left: x })
+    })
+
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    /*btn.onclick = function () {
+        modal.style.display = "block";
+    }*/
+
+    // When the user clicks on <span> (x), close the modal
+    /*span.onclick = function () {
+        modal.style.display = "none";
+    }*/
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    $(document).ready(function () {
+        $("#show_hide").click(function () {
+            $("#men_ex").toggle({
+                duration: 600,
+            });
+        });
+
+    });
+
+    function hide(target) {
+        document.getElementById(target).style.display = 'none';
+    }
+
+
+    $(document).ready(function () {
+        $("#show_hide1").click(function () {
+            $("#men_ex").toggle({
+                duration: 600,
+            });
+        });
+
+    });
+    function hide(target) {
+        document.getElementById(target).style.display = 'none';
+    }
+
+</script>
+<script>
+    function SubmitBet(eventcode, betfairid) {
+        var stackValue = $('#stack_value_' + eventcode).val();
+        var OddsValue = $('#odds_showdata_' + eventcode).val();
+        var field_box = $("#field" + eventcode).children("span").text();
+        var run_pos = $("#field" + eventcode).children("input").val();
+        alert("Bet  Success !!!" + eventcode + "----" + betfairid + "---" + stackValue + "---" + OddsValue + "--- " + field_box + "---" + run_pos)
+
+    }
+    function myFun(id, boxtype, box, box_run, box_t_name) {
+
+        var oddsValue = $("#" + boxtype + id).text();
+        if (oddsValue != "") {
+            document.getElementById('stack_value_' + id).value = "";
+            if (box == "back") {
+                $("#field" + id).css("background-color", "#d2ebff");
+                $("#box_desc" + id).text("Back (Bet For):");
+            }
+            else if (box == "lay") {
+                $("#field" + id).css("background-color", "#f3dce2");
+                $("#box_desc" + id).text("Lay (Bet Against):");
+            }
+            $("#box_team" + id).text(box_t_name + " - Match Odds");
+            if ($("#men_ex_" + id).css('display') == 'none') {
+                $("#men_ex_" + id).css("display", "contents");
+            }
+            else {
+                if ($("#field" + id).children("span").text() + $("#field" + id).children("input").val() == box + box_run) {
+                    $("#men_ex_" + id).css("display", "none");
+                }
+            }
+            $("#odds_showdata_" + id).val(oddsValue);
+            $("#field" + id).children("span").text(box);
+            $("#field" + id).children("input").val(box_run);
+        }
+    }
+    function hide_betpop_up(id) {
+        var yourUl = document.getElementById("men_ex_" + id);
+        yourUl.style.display = yourUl.style.display === 'none' ? '' : 'none';
+    }
+
+    function myFun1() {
+        var odd_bet = $("#bet1").html();
+        $("#odds").val(odd_bet);
+    }
+</script>
+
+<script>
+    function manage(id) {
+
+
+        var stack_value_ = $('#stack_value_' + id).val();
+        var bt = document.getElementById('place_bet_button_' + id);
+        if (stack_value_ != '') {
+            // alert("IfMeaagya")
+            bt.disabled = false;
+            $("#bet_profit_" + id).html(stack_value_);
+        }
+        else {
+            //alert("IfMeaagya")
+            bt.disabled = true;
+        }
+
+
+        /*  var tt = $('#txt').val();
+          var bt = document.getElementById('place_bet');
+          if (tt != '') {
+              bt.disabled = false;
+              $("#bet_profit").html(tt);
+          }
+          else {
+              bt.disabled = true;
+          }*/
+
+    }
+</script>
+
+<script>
+    $('.modal-toggle').on('click', function (e) {
+        e.preventDefault();
+        $('.modal1').toggleClass('is-visible');
+    });
+</script>
+
+
+<script>
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+    function getdatetime(datetimeget) {
+        //var x1 = a2[i].MatchTime;
+        var MatchTime = "Inplay";
+        var x = new Date(datetimeget);
+        var hour = addZero(x.getHours());
+        var minutes = addZero(x.getMinutes());
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var weekday = ["sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+        var day = weekday[x.getDay()];
+        var month = months[x.getMonth()];
+        var year = x.getFullYear();
+        var defaultVal = x.defaultValue;
+        var currentVal = x.value;
+        var date1Timestamp = Date.parse(x) / 1000;
+        var y = new Date();
+        var ey = new Date(y.toDateString());
+        var date2Timestamp = Date.parse(y) / 1000;
+        var date3Timestamp = Date.parse(ey) / 1000;
+        var difference = date1Timestamp - date2Timestamp;
+        var difference1 = date1Timestamp - date3Timestamp;
+        if (difference < 0) {
+            MatchTime = "Inplay";
+        }
+        else if (difference > 86400) {
+            if (difference >= 86400 && difference < 172800) {
+                MatchTime = day + " " + hour + ":" + minutes;
+            }
+            else {
+                MatchTime = month + " " + x.getDate() + " " + hour + ":" + minutes;
+            }
+        }
+        else {
+            if (difference1 < 86400 && difference1 > 900) {
+                MatchTime = "Today " + hour + ":" + minutes;
+            }
+            else if (difference1 >= 86400 && difference1 < 172800) {
+                MatchTime = day + " " + hour + ":" + minutes;
+            }
+            else if (difference1 > 0 && difference1 < 900) {
+                left_time = parseInt(difference1 / 60);
+                MatchTime = "Starting in " + left_time + "'";
+            }
+            else if (difference1 < 0) {
+                MatchTime = "Inplay";
+            }
+            else {
+                MatchTime = month + " " + x.getDate() + " " + hour + ":" + minutes;
+            }
+        }
+        return MatchTime;
+
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#toggle_show").click(function () {
+            $("#toggle_hide").slideToggle();
+        });
+    });
+</script>
+
+<script>
+    setTimeout(function () {
+        UserBalance();
+    }, 100);        
+        function UserBalance() {
+            $.ajax({
+                url: '/FunctionData/UserInformationFun1',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'post',
+                dataType: 'html',
+                success: (function (result) {
+                    var a2 = JSON.parse(result);
+
+                    $("#betCredit").text(a2[0].UBalance);
+                    $("#totalExposure").text(a2[0].UExposure);
+                    $("#UserName").text(a2[0].UserName);
+
+                })
+            });
+        }
+</script>
+

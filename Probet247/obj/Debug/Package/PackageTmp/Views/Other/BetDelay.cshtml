@@ -1,0 +1,78 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <h2>Bet Delay Time</h2>
+    <input type="hidden" value="@ViewBag.id" id="event_code" />
+    <label>New Mo Delay : </label>
+    <input type="text" class="form-control" id="mo_delay" placeholder="Mo Limit" value="@ViewBag.mo_delay" /><br />
+    <label>New Session Delay : </label>
+    <input type="text" class="form-control" id="sess_delay" placeholder="BookMaker Limit" value="@ViewBag.sess_delay" /><br />
+    <label>New Bookmaker Delay : </label>
+    <input type="text" class="form-control" id="bm_delay" placeholder="Session Limit" value="@ViewBag.bm_delay" /><br />
+    <input type="submit" class="btn btn-success" value="Submit" onclick="UpdateDelay();" /><br><br><br><br>
+
+</div>
+<script>
+
+    function UpdateDelay(id) {
+        var result = confirm("Are to sure to Update Bet Delay ");
+        if (result != true) {
+
+        }
+        else {
+            var mo_delay = document.getElementById("mo_delay").value;
+            var sess_delay = document.getElementById("sess_delay").value;
+            var bm_delay = document.getElementById("bm_delay").value;
+            var id = document.getElementById("event_code").value;
+            if (mo_delay == "") {
+                mo_delay = 0;
+            }
+            if (sess_delay == "") {
+                sess_delay = 0;
+            }
+            if (bm_delay == "") {
+                bm_delay = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/Other/UpdateDelay',
+                data: { event_code: id, mo_delay: mo_delay ,sess_delay: sess_delay , bm_delay: bm_delay },
+                beforeSend: function () {
+                    $("#ajax-loader").show();
+                },
+                success: function (result) {
+                    alert(result);
+                    setTimeout(function () {
+                        $("#ajax-loader").hide();
+                        window.location.href = "";
+                    }, 1000);
+                },
+                error: function () {
+                    $("#ajax-loader").hide();
+                    $.alert({
+                        icon: 'fa fa-info-circle',
+                        theme: 'modern',
+                        closeIcon: true,
+                        animation: 'scale',
+                        type: 'red',
+                        title: 'Info',
+                        content: 'Error in Set Delay.',
+                        buttons: {
+                            close: {
+                                text: 'Close',
+                                btnClass: 'btn-red',
+                            }
+                        }
+                    });
+                },
+                timeout: 5000 * 60
+            });
+        }
+    }
+
+</script>
+

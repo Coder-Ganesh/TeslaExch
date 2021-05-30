@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+        <link rel="bookmark" href="~/Content/images/favicon.ico" />
+        <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+        <style type="text/css">
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <title>
+
+        </title>
+        <script type="text/javascript">
+            function rtcScript() {
+                document.oncontextmenu = null;
+                document.onselectstart = null;
+                document.onmousedown = null;
+                document.onclick = null;
+                document.oncopy = null;
+                document.oncut = null;
+                var elements = document.getElementsByTagName('*');
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].oncontextmenu = null;
+                    elements[i].onselectstart = null;
+                    elements[i].onmousedown = null;
+                    elements[i].oncopy = null;
+                    elements[i].oncut = null;
+                }
+                function preventShareThis() {
+                    document.getSelection = window.getSelection = function () {
+                        return { isCollapsed: true };
+                    }
+                }
+                var scripts = document.getElementsByTagName('script');
+                for (var i = 0; i < scripts.length; i++) {
+                    if (scripts[i].src.indexOf('w.sharethis.com') > -1) {
+                        preventShareThis();
+                    }
+                }
+                if (typeof Tynt != 'undefined') {
+                    Tynt = null;
+                }
+            }
+            rtcScript();
+            setInterval(rtcScript, 2000);</script>
+        <style>
+            * {
+                -webkit-user-select: auto !important; /* injected by RightToCopy */
+            }
+        </style>
+        <style type="text/css" data-asas-style="">
+            body, div, a, p, span {
+                user-select: text !important;
+            }
+
+            p, h1, h2, h3, h4, h5, h6 {
+                cursor: auto;
+                user-select: text !important;
+            }
+
+            ::selection {
+                background-color: #338FFF !important;
+                color: #fff !important;
+            }
+        </style>
+    </head>
+    <body cz-shortcut-listen="true">
+        <div id="playerDiv" style="width: 100%; height: 100%; overflow: hidden; position: relative; background-color: black;"><video id="h5live-playerDiv" playsinline="true" style="background-color: black; width: 100%; height: 100%; position: absolute; left: 50%; top: 50%; margin-right: -50%; transform: translate(-50%, -50%) scaleX(1) scaleY(1) rotate(0deg);"><source src="blob:http://diamond8exch.com/3721c75d-95b0-417d-b88b-7f28d059ff81"></video><div id="middleView-playerDiv" style="width: 150px; height: 150px; position: absolute; left: 50%; top: 50%; margin-right: -50%; transform: translate(-50%, -50%); z-index: 1000;"><canvas id="audio-playerDiv" width="150" height="150" style="z-index: 1001;"></canvas></div></div>
+        <script type="text/javascript">
+            var streamData = { "streamName": "6DsXw-2tufa" };
+        </script>
+        <script type="text/javascript">
+            document.addEventListener('gesturestart', function (e) {
+                e.preventDefault();
+            });
+        </script>
+        <script src="~/Scripts/teen/nmediaplayer.js"></script>
+        <script src="~/Scripts/teen/player.min.js"></script>
+
+
+    </body>
+    </html>
+

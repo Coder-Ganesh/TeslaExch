@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUProfile.cshtml";
+}
+<style>
+    .skyexchange .menu .select {
+        background-color: #4691c5;
+    }
+</style>
+<div class="main_wrap" style="margin-top:90px;">
+    <!-- agent path -->
+
+    <div class="col-left profile_left">
+
+        <!-- Sub Menu and Path -->
+        <div class="sub_path">
+
+            <ul class="menu-list">
+                <li class="class" style="background:#222;right:0px;color:#a20607;">My Account</li>
+                <li>
+                    <a style="color:black;" id="accountSummary" href="/exchange/myAccount">My Profile</a>
+                </li>
+
+                <li>
+                    <a style="color:black;" id="bettingHistory" href="/exchange/BalanceOverview">Balance Overview</a>
+                </li>
+                <li>
+                    <a style="color:black;" id="profitLoss" class="select" href="/exchange/accountCashStatement">Account Statements</a>
+                </li>
+
+                <li>
+                    <a style="color:black;" id="transactionHistory" href="/exchange/Ucurrent_bets">My Bets</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Center Column -->
+    <div class="col-center report">
+
+        <h2 class="summarytag">Account Statement</h2>
+
+        <table style="display: none;">
+
+            <tbody>
+                <tr id="tempTr">
+                    <td id="createDate" class="align-L"></td>
+                    <td id="deposit">-</td>
+                    <td id="withdraw">-</td>
+                    <td id="balance"></td>
+                    <td id="remark"></td>
+                    <td>
+                        <spen id="from"></spen>
+                        <img class="fromto" src="../images/transparent.gif">
+                        <spen id="to"></spen>
+                    </td>
+                </tr>
+
+                <tr id="noDataTempTr">
+                    <td class="no-data" colspan="5">
+                        <p>No Data</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="table_log" class="table01">
+            <tbody>
+                <tr>
+                    <th width="15%" class="align-L">Date/Time</th>
+                    <th width="12%" class="align-R">Deposit</th>
+                    <th width="12%" class="align-R">Withdraw</th>
+                    <th width="12%" class="align-R">Balance</th>
+                    <th width="40%" class="align-R">Description</th>
+                </tr>
+
+            </tbody>
+            <tbody id="content">
+                @foreach (var item in Model)
+                {
+                    Double depo = item.Deposit;
+                    Double wdl = item.Withdraw;
+                    string dep_coin = "-";
+                    string wdl_coin = "-";
+                    string wdl_color = "black";
+                    if (depo > 0)
+                    {
+                        dep_coin = depo.ToString();
+                    }
+                    if (wdl > 0)
+                    {
+                        wdl_coin = "( "+wdl.ToString()+" )";
+                        wdl_color = "#D0021B";
+                    }
+                <tr id="tempTr">
+                    <td width="15%" id="createDate" class="align-L">@item.DTime</td>
+                    <td width="12%" id="deposit" class="align-R">@dep_coin</td>
+                    <td width="12%" id="withdraw" class="align-R" style="color: @wdl_color;">@wdl_coin</td>
+                    <td width="12%" id="balance" class="align-R">@item.Balance</td>
+                    <td width="40%" id="remark" class="align-R" >@item.Remark</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,823 @@
+﻿@if (Session["DL_UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Agent</title>
+    <link href="~/Content/css/agent_style.css" rel="stylesheet" />
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <link href="~/Content/SKYEXCHANGEAgent_files/agent_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/datepicksk/I18N.js"></script>
+
+    <style>
+        .table-s {
+            font-size: 12px;
+        }
+
+        .table01 {
+            font-size: 12px;
+        }
+
+        .search {
+            width: 80%;
+            position: relative;
+            display: flex;
+            float: right;
+        }
+
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 36px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+            .searchTerm:focus {
+                color: #00B4CC;
+            }
+
+        .searchButton {
+            width: 40px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .wrap {
+            width: 30%;
+            float: right;
+        }
+
+        .betlocksy {
+            background: #1c1a1a url(../images/skyexchange/bg-send-skyEX.png) repeat-x;
+            color: #F8D61C;
+            border-color: #000;
+            width: 150px;
+            margin: 0 auto;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            font-weight: bold;
+            line-height: 23px;
+            font-size: 12px;
+            text-align: center;
+            float: right;
+            margin-top: -5px;
+        }
+    </style>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+</head>
+<body class="skyexchange">
+    <div style="display: none"><input type="password" autocomplete="new-password"></div>
+    <!-- Add Member pop start -->
+
+    <div id="createModal" class="pop_bg" style="display:none">
+        <div class="pop_box ">
+            <a class="close_pop" href="#" onclick="hideAddPlayerDialog()">close_pop</a>
+
+            <h3>
+                Add Player
+            </h3>
+            <ul class="half_box">
+                <li class="add_account_box">
+                    <dl class="border_b">
+                        <dt>Username</dt>
+                        <dd>
+                            <input id="userName" type="text" placeholder="Enter" maxlength="16" value="">
+                            <span class="must">＊</span>
+                            <span id="userNameErrorText" class="error-text" style="display:none"></span>
+                        </dd>
+                        <dt>Password</dt>
+                        <dd>
+                            <input id="userPassword" type="password" placeholder="Enter">
+                            <span class="must">＊</span>
+                            <span id="passwordErrorText" class="error-text" style="display:none"></span>
+                        </dd>
+                        <dt>Confirm Password</dt>
+                        <dd>
+                            <input id="repeatPassword" type="password" placeholder="Enter">
+                            <span class="must">＊</span>
+                            <span id="repeatPasswordErrorText" class="error-text" style="display:none"></span>
+                        </dd>
+                    </dl>
+                    <dl class="">
+                        <dt>Full Name</dt>
+                        <dd>
+                            <input id="fullName" type="text" placeholder="Enter" maxlength="16">
+                            <span class="must">＊</span>
+                        </dd>
+
+                        <dt>Exposure Limit</dt>
+                        <dd>
+                            <input id="exposure" type="text" placeholder="Enter" value="0">
+                            <span class="must">＊</span>
+                        </dd>
+
+                        <dt>Mobile No.</dt>
+                        <dd>
+                            <input id="commission_mo" type="number" placeholder="Enter" value="">
+                            <span class="must">＊</span>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="pt_allowed_box" style="display: none;">
+
+
+                </li>
+            </ul>
+            <div class="btn_box">
+                <button type="button" id="createBtn" class="btn-send" onclick="AddPlayerRequest()">Create</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="changePasswordModal" class="pop_bg" style="display:none;">
+        <input type="hidden" id="uiidis"/>
+        <div class="pop_box">
+            <a class="close_pop" href="javascript: void(0)" onclick="$('#changePasswordModal').hide();">close_pop</a>
+
+            <h3>Change Password</h3>
+
+            <dl class="form_list">
+
+                <dt>New Password</dt>
+                <dd>
+                    <input id="newPassword" type="password" placeholder="Enter">
+                    <span class="must">＊</span>
+                    <span id="newPasswordErrorText" class="error-text"></span>
+                </dd>
+                <dt>Password Confirm</dt>
+                <dd>
+                    <input id="newPasswordConfirm" type="password" placeholder="Enter">
+                    <span class="must">＊</span>
+                    <span id="newPasswordConfirmErrorText" class="error-text"></span>
+                </dd>
+                <dd><a id="changePasswordBtn" href="javascript: void(0)" class="btn-send" onclick="changePasswordRequest()">Change</a></dd>
+
+            </dl>
+
+        </div>
+    </div>
+    <!-- Banking pop start -->
+    <div id="bankingModal" class="pop_bg" style="display:none">
+        <input type="hidden" id="uidban" />
+        <div class="pop_box">
+            <a class="close_pop" href="javascript: void(0)" onclick="BankingHandler();">close_pop</a>
+
+            <h3>Edit Credit</h3>
+            <ul class="tab col2">
+                <li>
+                    <a id="deposit" href="javascript: void(0)" onclick="DWAmount();">
+                        Deposite
+                    </a>
+                </li>
+                <li><a id="withdraw" href="javascript: void(0)" onclick="WDAmount();">Withdrawal</a></li>
+            </ul>
+            <dl class="form_list">
+                <dt>Amount</dt>
+                <dd>
+                    <input id="amount" type="text" placeholder="Enter">
+                    <span id="bankingAmountMust" class="must">＊</span>
+                </dd>
+                <dt>Remark</dt>
+                <dd>
+                    <input id="remark" type="text" placeholder="remark">
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+
+
+    <!-- Change status pop start -->
+    <div id="changeStatusModal" class="pop_bg" style="display:none;">
+        <div class="pop_box">
+            <a class="close_pop" href="javascript: void(0)" onclick="$('#changeStatusModal').hide();">close_pop</a>
+            <h3>Change Status</h3>
+            <div class="status_id">
+                <p id="changeAccount"></p>
+                <p class="status-suspend" id="originalStatus"></p>
+            </div>
+            <div class="white-wrap">
+                <ul id="statusBtn" class="status_but" style="display: none;">
+                    <li>
+                        <a id="activeBtn" class="but_active" href="#" data-status="active">
+                            <img class="" src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">
+                            Active
+                        </a>
+                    </li>
+                    <li>
+                        <a id="suspendBtn" class="but_suspend" href="#" data-status="suspend">
+                            <img class="" src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">
+                            Suspend
+                        </a>
+                    </li>
+                </ul>
+
+                <div style="padding: 10px;">
+                    <label style="font-weight: normal;color: #508D0E;">
+                        <input type="radio" name="statusUser" value="activate"> Active
+                    </label>
+
+                    <label style="font-weight: normal;margin-left: 10px;color: #D0021B;">
+                        <input type="radio" name="statusUser" value="deactivate"> Suspend
+                    </label>
+                    <a id="changeStatusBtn" class="betlocksy" href="javascript: void(0)" onclick="changeStatusRequest()">
+                        Change
+                    </a>
+                </div>
+                <hr style="height: 3px;background: #000;border-radius: 5px;">
+                <div style="padding: 10px;">
+                    <label style="font-weight: normal;color: #D0021B;">
+                        <input type="radio" name="betUser" value="activate"> Bet Lock
+                    </label>
+
+                    <label style="font-weight: normal;margin-left: 10px;color: #508D0E ;">
+                        <input type="radio" name="betUser" value="deactivate"> Bet Unlock
+                    </label>
+                    <a id="changebetBtn" class="betlocksy" href="javascript: void(0)" onclick="changeBetlRequest()">
+                        Change
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="suspend-wrap" id="maxWinLossSuspendDiv" style="display: none">
+                <div class="status_id" id="maxWinLossSuspendStatus">
+
+                </div>
+
+                <div class="fix-content">
+                    <p id="maxLossSuspendInfo" style="display: none">Please change downline Max Loss Limit over the total loss or executed on Transferable P/L, before you unsuspend.</p>
+                    <p id="maxWinSuspendInfo" style="display: none">Please change downline Max Win Limit over the total win or executed on Transferable P/L, before you unsuspend.</p>
+
+                    <ul class="status_but">
+                        <li>
+                            <a class="but_suspend" id="maxLossUnSuspendBtn" href="javascript:void (0);">Unsuspend <strong>Loss</strong> Limit</a>
+                        </li>
+                        <li>
+                            <a class="but_suspend" id="maxWinUnSuspendBtn" href="javascript:void (0);">Unsuspend <strong>Win</strong> Limit</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suspend-wrap" id="passLockDiv" style="display: none">
+                <div class="sys-lock status_id">
+                    <p class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">Passlocked</p>
+                </div>
+
+                <div class="fix-content">
+                    <ul class="status_but">
+                        <li>
+                            <a class="but_locked" id="unPassLockBtn" href="javascript:void (0);">Unlock</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sys-suspend status_id" id="systemSuspendMessage" style="display: none">
+                <p class="status-suspend"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">System Suspend</p>
+            </div>
+
+            <div class="sys-lock status_id" id="systemLockedMessage" style="display: none">
+                <p class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">System Locked</p>
+            </div>
+
+            <div class="btn_box inline-form" style="display:none;">
+                <dl class="form_list">
+                    <dt>
+                        Password
+                    </dt>
+                    <dd>
+                        <input id="changeStatusPassword" type="password" placeholder="Enter">
+                        <input id="changeStatusId" type="hidden" placeholder="Enter">
+                    </dd>
+                </dl>
+                <div class="btn_box">
+                    <a id="changeStatusBtn" class="btn-send" href="javascript: void(0)" onclick="changeStatusRequest()">
+                        Change
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="creditReferenceModel" class="pop_bg" style="display:">
+        <div class="pop_refer">
+            <a class="close_pop" href="javascript: void(0)" onclick="$('#creditReferenceModel').hide();">close_pop</a>
+            <h3>Credit Reference Edit</h3>
+
+            <div class="wrap-refer_edit">
+                <dl>
+                    <dt>Current : <span id="curr_credit"></span></dt>
+                    <dd style="display:none;">
+                        <a class="btn" id="creditReferenceLog" href="javascript: void(0)">Log</a>
+                        <strong id="creditReference"></strong>
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt>New</dt>
+                    <dd><input type="text" id="newCreditReference" placeholder="Enter"></dd>
+                    <input id="changeCreditId" type="hidden" placeholder="Enter">
+                </dl>
+
+                <dl>
+                    <dt>Password</dt>
+                    <dd><input id="changeCreditPassword" type="password" placeholder="Enter"></dd>
+                </dl>
+            </div>
+            <ul class="btn-wrap">
+                <li><a id="changeCreditReferenceBtn" class="btn-send" href="javascript: void(0)" onclick="changeCreditRequest()">Submit</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Top start -->
+
+    <div class="top">
+        <div class="header">
+            <h1 style="width:158px;background: url('../../Content/images/skyexchange/logo-skyexchange.png') no-repeat;"><a href="./">Probet</a></h1>
+            <ul class="account-wrap" style="color: #ffffff;">
+                <li>
+                    <span>MA</span><strong>
+                        @if (Session["DL_UserName"] != null)
+                        {
+                            @Session["DL_UserName"].ToString()
+                        }
+                    </strong>
+                </li>
+                <li>
+                    Main BAL <strong id="mainBalance">
+                        @ViewBag.login_user_balance
+                    </strong>
+                </li>
+            </ul>
+        </div>
+
+        <style>
+            .skyexchange .menu .select {
+                background-color: #4691c5;
+            }
+        </style>
+
+        <!-- Menu Wrap -->
+        <div class="menu-wrap" style="background-color: #a20607;">
+            <div class="main_wrap">
+                <ul class="menu">
+
+                    <li>
+                        <a id="menu_downline_list" class="" href="/Agent/Index">
+                            Downline List
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a id="menu_my_account" class="" href="/Agent/myAccountSummary">
+                            My Account
+                        </a>
+                    </li>
+
+                    <li>
+                        <a id="menu_my_report" class="menu-drop" href="#">
+                            My Report
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/Agent/marketProfitLoss">
+                                    Market PL
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Agent/accountCashStatement">
+                                    Account Statement
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Agent/spopl">
+                                    Sport PL
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Agent/UsePL">
+                                    User PL
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Agent/marketProfitLoss">
+                                    Profit & Loss
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Agent/betListall">
+                                    Bet History
+                                </a>
+                            </li> 
+                            <li>
+                                <a href="/Agent/chipsummary">
+                                    Chip Summary
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a id="menu_risk_management" class="" href="/Agent/RiskManagement">
+                            Risk Management
+                        </a>
+                    </li>
+                   @* <li>
+                        <a id="menu_banking" class="" href="/Agent/cashBanking">
+                            Banking
+                        </a>
+                    </li>*@
+                    <li>
+                        <a id="menu_block" class="" href="/Agent/BlockMarket">
+                            Block Match
+                        </a>
+                    </li>
+
+                    <li class="logout">
+                        <a id="logout" href="/Agent/Logout">Logout<img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>
+
+
+<script>
+    setTimeout(function () {
+        $(".loading-wrap").hide();
+    }, 500);
+    function AddPlayerDialog() {
+        $("#createModal").show();
+    }
+    function hideAddPlayerDialog() { $("#createModal").hide(); }
+    function AddPlayerRequest() {
+        var userName = $("#userName").val();
+        var userPassword = $("#userPassword").val();
+        var repeatPassword = $("#repeatPassword").val();
+        var fullName = $("#fullName").val();
+        var exposure = $("#exposure").val();
+        var commission_mo = $("#commission_mo").val();
+        var commission_sess = '';
+
+        if (userName == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Username");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (userPassword == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Password");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (userPassword != repeatPassword) {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("New Password and Confirm Password Fields do not match.");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (fullName == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Full Name");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (exposure == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Exposure");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else if (commission_mo == "" && (commission_mo.value.length == 10) ) {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("The field is required: Mobile No.");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+      
+        else {
+            $.ajax({
+
+                type: 'POST',
+                url: '/AgentLogin_DB/AddDLClient',
+                data: { username: userName, name: fullName, password: userPassword, exposure_limit: exposure, commission_mo: commission_mo, commission_sess: commission_sess },
+                beforeSend: function () {
+                    //$(".loading-wrap").show();
+                    $("#createBtn").prop('disabled', true);
+                    $("#createBtn").html('Please Wait...');
+                },
+                success: function (result) {
+                    setTimeout(function () {
+                        //alert(result);
+                        $("#createBtn").prop('disabled', false);
+                        //$(".loading-wrap").hide();
+                        $("#createBtn").html('Create');
+
+                        if (result == "Success") {
+                            $("#userName").val("");
+                            $("#fullName").val("");
+                            $("#repeatPassword").val("");
+                            $("#userPassword").val("");
+
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("success");
+                            $("#message").show();
+                            $("#message p").text("Player Added Successfully!");
+                            setTimeout(function () {
+                                $("#message").hide();
+                                window.location.href = '';
+                            }, 2000);
+                            hideAddPlayerDialog();
+                        }
+                        else {
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("error");
+                            $("#message").show();
+                            $("#message p").text("" + result);
+                            setTimeout(function () { $("#message").hide(); }, 2000);
+                        }
+                    }, 1000);
+                    //alert(result);
+                },
+                error: function () {
+                    setTimeout(function () {
+                        $("#createBtn").prop('disabled', false);
+                        // $(".loading-wrap").hide();
+                        $("#createBtn").html('Create');
+
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("error");
+                        $("#message").show();
+                        $("#message p").text("Error in Adding Player!");
+                        setTimeout(function () { $("#message").hide(); }, 2000);
+                    }, 1000);
+                }
+            });
+        }
+    }
+
+    $('#messageBtnClose').click(function () {
+        $('#message').hide();
+    });
+
+    function openStatusDialog(id) {
+        var username = $("#Username_" + id).val();
+        var status = $("#status_" + id).val();
+        $("#changeStatusId").val(id);
+        $("#changeStatusModal").show();
+        $("#changeAccount").html("<span class='lv_4'>PL</span> " + "<span  id='unmae'>" + username + "</span>");
+
+        var statusstr = "";
+        if (status == "activate") {
+            $("#originalStatus").removeClass("status-suspend");
+            $("#originalStatus").addClass("status-active");
+            $("input[name=statusUser][value=" + status + "]").prop('checked', true);
+            statusstr = "Active";
+        }
+        else if (status == "deactivate") {
+            $("#originalStatus").removeClass("status-active");
+            $("#originalStatus").addClass("status-suspend");
+            $("input[name=statusUser][value=" + status + "]").prop('checked', true);
+            statusstr = "Suspend";
+        }
+
+
+        $("#originalStatus").html(statusstr);
+        $('#originalStatus').css('textTransform', 'capitalize');
+    }
+
+    function changeStatusRequest() {
+        var changeStatusId = $("#changeStatusId").val();
+        var statusUser = $('input[name=statusUser]:checked').val();
+        var username = $("#unmae").text();
+        var statusstr = "";
+        if (statusUser == "activate") {
+            statusstr = "Active";
+        }
+        else if (statusUser == "deactivate") {
+            statusstr = "Suspend";
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/AgentLogin_DB/ClientAction',
+            data: { user_id: changeStatusId, status: statusUser,  username: username },
+            beforeSend: function () {
+                $("#changeStatusBtn").prop('disabled', true);
+                $("#changeStatusBtn").html('Please Wait...');
+            },
+            error: function () {
+                setTimeout(function () {
+                    //btn.prop('disabled', false);
+                    $("#messageBtnClose").show();
+                    $("#message").addClass("error");
+                    $("#message").show();
+                    $("#message p").text('Error in ' + statusstr + ' Player, please try again.');
+                    setTimeout(function () { $("#message").hide(); }, 2000);
+                    $("#changeStatusBtn").prop('disabled', false);
+                    $("#changeStatusBtn").html('Change');
+                }, 1000);
+            },
+            success: function (result) {
+                //alert(result)
+                setTimeout(function () {
+
+                    $("#changeStatusBtn").prop('disabled', false);
+                    $("#changeStatusBtn").html('Change');
+                    if (result == "Success") {
+
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("success");
+                        $("#message").show();
+                        $("#message p").text('Player has been ' + statusstr + ' successfully!');
+                        setTimeout(function () {
+                            $("#message").hide();
+                            window.location.href = '';
+                        }, 2000);
+                    }
+                    else {
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("error");
+                        $("#message").show();
+                        $("#message p").text('Error in ' + statusstr + ' Player, please try again.1');
+                        setTimeout(function () { $("#message").hide(); }, 2000);
+                    }
+                }, 1000);
+            }
+        });
+    }
+
+    function changeBetlRequest() {
+        var changeStatusId = $("#changeStatusId").val();
+        var statusUser = $('input[name=betUser]:checked').val();
+        var username = $("#unmae").text();
+        var statusstr = "";
+        var statussstr = "";
+        if (statusUser == "activate") {
+            statusstr = "no";
+            statussstr = "Bet Lock";
+        }
+        else if (statusUser == "deactivate") {
+            statusstr = "yes";
+            statussstr = "Bet UnLock";
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/AgentLogin_DB/BetLoA',
+            data: { user_id: changeStatusId, status: statusstr, username: username },
+            beforeSend: function () {
+                $("#changebetBtn").prop('disabled', true);
+                $("#changebetBtn").html('Please Wait...');
+            },
+            error: function () {
+                setTimeout(function () {
+                    //btn.prop('disabled', false);
+                    $("#messageBtnClose").show();
+                    $("#message").addClass("error");
+                    $("#message").show();
+                    $("#message p").text('Error in ' + statusstr + ' Player, please try again.');
+                    setTimeout(function () { $("#message").hide(); }, 2000);
+                    $("#changebetBtn").prop('disabled', false);
+                    $("#changebetBtn").html('Change');
+                }, 1000);
+            },
+            success: function (result) {
+                //alert(result)
+                setTimeout(function () {
+                    $("#changebetBtn").prop('disabled', false);
+                    $("#changebetBtn").html('Change');
+                    if (result == "Success") {
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("success");
+                        $("#message").show();
+                        $("#message p").text('Player ' + statussstr + ' successfully!');
+                        setTimeout(function () {
+                            $("#message").hide();
+                            window.location.href = '';
+                        }, 2000);
+                    }
+                    else {
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("error");
+                        $("#message").show();
+                        $("#message p").text('Error in ' + statussstr + ' Player, please try again.1');
+                        setTimeout(function () { $("#message").hide(); }, 2000);
+                    }
+                }, 1000);
+            }
+        });
+    }
+
+    function openCreditDialog(id) {
+        var credit = $("#credit_" + id).val();
+        $("#changeCreditId").val(id);
+        $("#creditReferenceModel").show();
+        $("#curr_credit").text(credit);
+    }
+
+    function changeCreditRequest() {
+        var password = $("#changeCreditPassword").val();
+        var credit_id = $("#changeCreditId").val();
+        var new_credit_ref = $("#newCreditReference").val();
+        var old_credit_ref = $("#curr_credit").text();
+        if (new_credit_ref == "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("Enter Correct Amount");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/AgentLogin_DB/CreditRef',
+                data: { credit_id: credit_id, password: password, new_credit_ref: new_credit_ref, old_credit_ref: old_credit_ref },
+                beforeSend: function () {
+                    $("#changeCreditReferenceBtn").prop('disabled', true);
+                    $("#changeCreditReferenceBtn").html('Please Wait...');
+                },
+                error: function () {
+                    setTimeout(function () {
+                        //btn.prop('disabled', false);
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("error");
+                        $("#message").show();
+                        $("#message p").text('Error in Change Player Refrence, please try again.');
+                        setTimeout(function () { $("#message").hide(); }, 2000);
+                        $("#changeCreditReferenceBtn").prop('disabled', false);
+                        $("#changeCreditReferenceBtn").html('Change');
+                    }, 1000);
+                },
+                success: function (result) {
+                    //alert(result)
+                    setTimeout(function () {
+
+                        $("#changeCreditReferenceBtn").prop('disabled', false);
+                        $("#changeCreditReferenceBtn").html('Change');
+                        if (result == "Success") {
+
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("success");
+                            $("#message").show();
+                            $("#message p").text('Player Credit Refrence Changed successfully!');
+                            setTimeout(function () {
+                                $("#message").hide();
+                                window.location.href = '';
+                            }, 2000);
+                        }
+                        else if (result == "IncorrectPWD") {
+
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("error");
+                            $("#message").show();
+                            $("#message p").text('Incorrect Password!');
+                            setTimeout(function () { $("#message").hide(); }, 2000);
+                        }
+                        else {
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("error");
+                            $("#message").show();
+                            $("#message p").text('Error in Change Player Refrence, please try again.');
+                            setTimeout(function () { $("#message").hide(); }, 2000);
+                        }
+                    }, 1000);
+                }
+            });
+        }
+    }
+</script>
+
+<!-- Top end -->

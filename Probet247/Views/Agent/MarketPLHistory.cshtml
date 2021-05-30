@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAgent.cshtml";
+}
+@if (Session["DL_UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+
+<h2 style="margin-left: 10px;">Profit/Loss Report by Market</h2>
+
+
+<div id="report" style="">
+
+    <table id="matchTable" class="table-s" style="display: table;width: 100%;">
+        <tbody>
+            <tr>
+                <th style="text-align: center;width: 180px;">Date</th>
+                <th style="text-align: center;">Description</th>
+                <th style="text-align: center;">Total Profit Loss</th>
+            </tr>
+
+            @{Double total_profit_loss = 0;}
+            @{Double cpl = 0;}
+            @{Double cpl_total = 0;}
+            @foreach (var item in Model)
+            {
+                total_profit_loss += item.total_pl;
+                <tr>
+                    <td style="text-align: center;">@item.created</td>
+                    <td style="text-align: center;"><a style="text-decoration: none;" href="/Agent/ClientProfitLossHistory?event_id=@item.event_id&market_id=@item.market_id" target="_blank">@item.description</a></td>
+                    @if (item.total_pl < 0)
+                    {
+                        cpl = -item.total_pl;
+                        <td style="text-align: center;"><span class="red">( @cpl)</span></td>
+                    }
+                    else
+                    {
+                        <td style="text-align: center;">@item.total_pl</td>
+                    }
+                </tr>
+            }
+            <tr style="font-weight:bold;text-align:center;border-top: 2px solid black;">
+                <td></td>
+                <td style="text-align:right;">TOTAL</td>
+                @if (total_profit_loss < 0)
+                {
+                    cpl_total = -total_profit_loss;
+                    <td ><span class="red">( @cpl_total)</span></td>
+                }
+                else
+                {
+                    <td >@total_profit_loss</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+
+    <script type="text/javascript" src="/js/util/PageUtil.js?v=20180425_1524626400000"></script>
+
+</div>

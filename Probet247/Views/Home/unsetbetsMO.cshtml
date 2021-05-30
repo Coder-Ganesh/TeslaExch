@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div style="margin:15px;">
+    <div>Teen Patti Pending</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Market</th>
+                <th>Market Time</th>
+                <th>Betfair Id</th>
+                <th>Event Code</th>
+                <th>Winner</th>
+                <th>Winner</th>
+                <th>Winner</th>
+                <th>Winner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var MN21 = ViewBag.EventNameVB2;}
+            @{ var MN22 = ViewBag.MarketNameVB2;}
+            @{ var MN23 = ViewBag.BetfairIdVB2;}
+            @{ var MN24 = ViewBag.EventCodeVB2;}
+            @{ var MN25 = ViewBag.runner1;}
+            @{ var MN26 = ViewBag.runner2;}
+            @{ var MN27 = ViewBag.runner3;}
+            @{ var MN28 = ViewBag.Add_time;}
+            @{ int i2 = 0;}
+            @foreach (var item in MN21)
+            {
+                <tr>
+                    <td>@item</td>
+                    <td>@MN22[i2]</td>
+                    <td>@MN28[i2]</td>
+                    <td>@MN23[i2]</td>
+                    <td>@MN24[i2]</td>
+                    <td><button class="btn btn-success btn-md" onclick="setwinner('@MN24[i2]','@MN23[i2]',1,'@MN22[i2]','@MN25[i2]')">@MN25[i2]</button></td>
+                    <td><button class="btn btn-success btn-md" onclick="setwinner('@MN24[i2]','@MN23[i2]',2,'@MN22[i2]','@MN26[i2]')">@MN26[i2]</button></td>
+                    <td><button class="btn btn-success btn-md" onclick="setwinner('@MN24[i2]','@MN23[i2]',3,'@MN22[i2]','@MN27[i2]')">@MN27[i2]</button></td>
+                    <td><button class="btn btn-success btn-md" onclick="setwinnerTie('@MN24[i2]','@MN23[i2]',9999,'@MN22[i2]','Tie')">No Result</button></td>
+                </tr>
+
+                i2++;
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    function setwinner(event_code , betfair_id, SelectMatchWinneri, market_name, win_team) {
+        var result = confirm("Are to sure to win " + win_team + " this market " + betfair_id);
+        if (result != true) {
+
+        }
+        else {
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Settling/RunnerSettle',
+                data: { event_code: event_code , betfair_id: betfair_id , SelectMatchWinneri:SelectMatchWinneri , market_name:market_name},
+                success: function (result) {
+                    alert(result);
+                    setTimeout(function () {
+                        window.location.href = "";
+                    }, 1000);
+                },
+                error: function (result) {
+                    alert(result);
+                },
+                timeout: 5000 * 60
+            });
+        }
+    }
+
+    
+    function setwinnerTie(event_code , betfair_id, SelectMatchWinneri, market_name, win_team) {
+        var result = confirm("Are to sure to win " + win_team + " this market " + betfair_id);
+        if (result != true) {
+
+        }
+        else {
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Settling/RunnerSettleTie',
+                data: { event_code: event_code , betfair_id: betfair_id , SelectMatchWinneri:SelectMatchWinneri , market_name:market_name},
+                success: function (result) {
+                    alert(result);
+                    setTimeout(function () {
+                        window.location.href = "";
+                    }, 1000);
+                },
+                error: function (result) {
+                    alert(result);
+                },
+                timeout: 5000 * 60
+            });
+        }
+    }
+
+</script>

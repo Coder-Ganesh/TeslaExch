@@ -1,0 +1,93 @@
+﻿
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <title>Media Player</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/v1.css">
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        #p1 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .p1_fullscreen {
+            display: none !important;
+        }
+
+        #p1_videoControls {
+            height: 35px !important;
+            width: 40px !important;
+        }
+
+        #p1_playpause {
+            background-size: 32px 32px !important;
+        }
+
+        #p1_stop {
+            background-size: 32px 32px !important;
+            display: none !important;
+        }
+
+        #p1_showTime {
+            margin-top: 2px !important;
+            display: none !important;
+        }
+
+        #p1_progress {
+            display: none !important;
+        }
+
+        #p1_volume {
+            display: none !important;
+        }
+    </style>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+    <style type="text/css" data-asas-style="">
+        body, div, a, p, span {
+            user-select: text !important;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            cursor: auto;
+            user-select: text !important;
+        }
+
+        ::selection {
+            background-color: #338FFF !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body cz-shortcut-listen="true">
+    <script type="text/javascript">
+        var platform = "androidos";
+        var ismobile = "1";
+        var camstring = "@ViewBag.tv_hdmi";
+        var apiData = "zUGR+v5fMVE/xCY3TpZfFOkaeTIH2upurRqASjnpzsnM+8+GsXE2r2ZvAOyBeEGkZgWbiyGRY7w74ipdlAnk3rS80CXyO/o4Ur9xu3Ebc1zcRe9ipMioP/uySiBCjlKym12zptgcMOegF//qeA1m3Kr89/euBl28BY+CYHkTdlngJ786OcZaaFopyOEKzgVm5VpixVQSnu/hsuHS5VY8fe6v2pPx/PagyED1vm9skPFZezCzcGGICQBTkhcKi/hr##@@##ca1f1d4938d93aff##@@##0cd04de08a0b57fc533b5d36c848ed76";
+        var ENCRYPT_RESPONSE = "1";
+    </script>
+    <html5videoplayer id="p1" style="position: relative;" autoplay></html5videoplayer>
+    <script type="text/javascript" src="~/Scripts/livetv/player.js"></script>
+    <script type="text/javascript" src="~/Scripts/livetv/encrypt.js"></script>
+    <script type="text/javascript" src="~/Scripts/livetv/custom.js"></script>
+    <script type="text/javascript" src="~/Scripts/livetv/gameplayer.js"></script>
+</body>
+</html>

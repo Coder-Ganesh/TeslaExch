@@ -1,0 +1,317 @@
+﻿@model IEnumerable<RBetfair.Models.dlanalysisdata>
+
+
+<tbody>
+    <input type="hidden" id="GetBfIdFo" value="" />
+    <input type="hidden" id="GetEVIdFo" value="" />
+    <input type="hidden" id="GetUNEVIdFo" value="" />
+    <input type="hidden" id="GetLGIfFo" value="" />
+    <input id="hideinnput" type="hidden" value="99" />
+    <tr>
+        <th width="7%" class="align-C" rowspan="2">Sports</th>
+        <th width="7%" class="align-C" rowspan="2">Date</th>
+        <th class="align-L" rowspan="2">Event/Market Name</th>
+        <th width="18%" class="align-C border-l bg-yellow" style=" padding-left: 0px; padding-right: 0px;">
+            <div style="">
+                <div style="display: inline-block; width: 70px;">
+                    1
+                </div>
+                <div style="display: inline-block; width: 70px;" class="border-l">
+                    x
+                </div>
+                <div style="display: inline-block; width: 70px;" class="border-l">
+                    2
+                </div>
+            </div>
+        </th>
+        <th width="6%" class="align-C border-l" rowspan="2">Downline P/L</th>
+        <th width="6%" class="align-C border-l" rowspan="2">Bets</th>
+    </tr>
+
+</tbody>
+@foreach (var item in Model)
+{
+    <tbody id="content_MATCH_ODDS_DRAW">
+        <tr id="" class="border-t">
+            <td width="7%" class="align-C" rowspan="2" style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Spname)</td>
+            <td width="7%" class="align-C border-l" rowspan="2" style="font-size: 12px;">@item.match_ttime</td>
+            <td class="align-L border-l" rowspan="2">
+                <div id="heading1" role="tab">
+                    <a onclick="GetAllOMarkets(@Html.DisplayFor(modelItem => item.un_ev_code),'@Html.DisplayFor(modelItem => item.betfair_id)',@Html.DisplayFor(modelItem => item.ev_code),@Html.DisplayFor(modelItem => item.lg_id))" id="marketPath" data-toggle="collapse" data-parent="#accordion" href="#collapse5_@Html.DisplayFor(modelItem => item.un_ev_code)" aria-expanded="false" class="collapsed" aria-controls="collapse5">
+                        <strong id="eventName"> @Html.DisplayFor(modelItem => item.GetSp)</strong>
+                        <img class="fromto" src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />
+                        <span id="marketName">@item.market_name</span>
+                    </a>
+                </div>
+                <div id="collapse5_@Html.DisplayFor(modelItem => item.un_ev_code)" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="heading5">
+                    <div style="height:217px;">
+                        <div class="for-agent">
+                            <div class="head-bets-agent">
+
+                                <dl class="game-matched">
+                                    <dt>Matched</dt>
+                                    <dd id="totalMatched_@Html.DisplayFor(modelItem => item.un_ev_code)"></dd>
+                                </dl>
+                                <ul class="game-info">
+                                    <li class="green" id="inPlay" style=""><img class="icon-irun" src="/Content/transparent.gif">In-Play</li>
+                                </ul>
+                            </div>
+                            <div class="bets-wrap">
+                                <span class="refer_only">
+                                    <span id="selectionCount"></span> Selections
+                                </span>
+                                <table class="bets">
+                                    <tbody>
+                                        <tr class="bet-all">
+                                            <td></td>
+                                            <td class="refer-bet" colspan="2" id="backPercent">100.3%</td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="back-all">
+                                                    <!-- <img src="/Content/transparent.gif"> -->
+                                                    <span>Back all</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="lay-all">
+                                                    <!-- <img src="/Content/transparent.gif"> -->
+                                                    <span>Lay all</span>
+                                                </a>
+                                            </td>
+                                            <td class="refer-book" colspan="2" id="layPercent">99%</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="@Html.DisplayFor(modelItem => item.un_ev_code)"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+            @{var classA = "";}
+            @{Double classAPL = 0;}
+            @{var classB = "";}
+            @{Double classBPL = 0;}
+            @{var classC = "";}
+            @{Double classCPL = 0;}
+
+            @if (@item.teamAWD > 0)
+            {
+                classAPL = -(@item.teamAWD);
+                classA = "red";
+
+            }
+            else if (@item.teamAWD < 0)
+            {
+                classAPL = Math.Abs(@item.teamAWD);
+                classA = "green";
+            }
+            else
+            {
+                classAPL = @item.teamAWD;
+                classA = "black";
+            }
+            @if (@item.teamBWD > 0)
+            {
+                classBPL = -(@item.teamBWD);
+                classB = "red";
+
+            }
+            else if (@item.teamBWD < 0)
+            {
+                classBPL = Math.Abs(@item.teamBWD);
+                classB = "green";
+            }
+            else
+            {
+                classBPL = @item.teamBWD;
+                classB = "black";
+            }
+            @if (@item.teamCWD > 0)
+            {
+                classCPL = -(@item.teamCWD);
+                classC = "red";
+
+            }
+            else if (@item.teamCWD < 0)
+            {
+                classCPL = Math.Abs(@item.teamCWD);
+                classC = "green";
+            }
+            else
+            {
+                classCPL = @item.teamCWD;
+                classC = "black";
+            }
+            <td width="18%" class="align-C border-l bg-yellow" style="font-size: 10px;padding-left: 0px; padding-right: 0px;">
+                <div style="display: inline-block; width: 70px;" class="@classA">
+                    <span id="teamabalance">@Html.DisplayFor(modelItem => classAPL) </span>
+
+                </div>
+                <div style="display: inline-block; width: 70px;" class="@classC">
+                    <span id="teamabalance">@Html.DisplayFor(modelItem => classCPL) </span>
+                </div>
+                <div style="display: inline-block; width: 70px;" class="@classB">
+                    <span id="teamabalance">@Html.DisplayFor(modelItem => classBPL) </span>
+                </div>
+            </td>
+            <td width="6%" class="align-C border-l" rowspan="2"><a href="/Sekh/bookview?event_code=@Html.DisplayFor(modelItem => item.ev_code)&betfair_id=@Html.DisplayFor(modelItem => item.betfair_id)" target="_blank" class="btn" id="view">Book</a></td>
+            <td width="6%" class="align-C border-l" rowspan="2"><a href="/Sekh/allbets?betfair_id=@Html.DisplayFor(modelItem => item.betfair_id)&event_code=@Html.DisplayFor(modelItem => item.ev_code)" target="_blank" class="btn" id="view">Bets</a></td>
+        </tr>
+    </tbody>
+}
+
+<script>
+
+    /* function GetAllOMarkets(betfair_id, event_code) {
+          var Hideinput = $("#hideinnput").val();
+           var index = $("#GetEVIdFo").val();
+           GetAllOMarkets2(betfair_id, event_code);
+           if (index == Hideinput) {
+
+           } else {
+              // $("#all_other_markets_loader_" + index).css("display", "");
+               fhhgf(Bid, index);
+           }
+       }
+
+       function GetAllOMarkets2(betfair_id, event_code) {
+           var Hideinput = $("#hideinnput").val();
+           if ($('#' + Hideinput).css('display') == 'contents') {
+               $('#' + Hideinput).css("display", "none");
+           }
+
+   }*/
+
+    var b = "";
+    function GetAllOMarkets(un_ev_code, Bids, event_code, lg_id) {
+        //alert("bfhjvhjgj" + betfair_id +"--" +event_code)
+        var vyt = $("#GetUNEVIdFo").val();
+        var gyg = $("#GetBfIdFo").val();
+        var lgg_id = $("#GetLGIfFo").val();
+        $('#' + un_ev_code).empty();
+        if (gyg != Bids && event_code != undefined && Bids != undefined) {
+            $("#GetBfIdFo").val(Bids);
+            $("#hideinnput").val(un_ev_code);
+            $('#' + un_ev_code).empty();
+            $('#' + un_ev_code).css("display", "contents");
+
+            $("#GetBfIdFo").val(Bids);
+            $("#GetEVIdFo").val(event_code);
+            $("#GetUNEVIdFo").val(un_ev_code);
+            $("#GetLGIfFo").val(lg_id);
+            //
+            $("#collapse5_" + vyt).removeClass("in");
+            clearTimeout(b);
+            getAllMessages();
+            //  GetWmeForD();
+
+            //$('#' + event_code).load('/Agent/riskMarketOdds');
+            // alert("fjkhjvghf")
+        }
+        if (vyt == event_code) {
+            clearTimeout(b);
+            $("#GetBfIdFo").val("");
+            $("#hideinnput").val(99);
+            $("#GetEVIdFo").val("");
+            $("#GetUNEVIdFo").val("");
+            $("#GetLGIfFo").val("");
+        }
+
+
+    }
+
+    function getAllMessages() {
+
+        var bfid = $("#GetBfIdFo").val();
+        var vjvej = $("#GetEVIdFo").val();
+        var gyjghh = $("#GetUNEVIdFo").val();
+        var lgid = $("#GetLGIfFo").val();
+        var hgdhc = $("#hideinnput").val();
+        var evvvvv_id = bfid;
+        var type = "";
+        var urllll = "/exchange/GetJavanScriptString";
+        if (lgid == "88" || lgid == "88776655") {
+            evvvvv_id = vjvej;
+            urllll = "/exchange/GetGullyData";
+        }
+        else if (lgid == "99" || lgid == "99887766") {
+            evvvvv_id = vjvej;
+            type = "LiveFeed";
+            urllll = "/exchange/GetJavanScriptString66";
+        }
+        $.ajax({
+            url: urllll,
+            contentType: 'application/html ; charset:utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { data: evvvvv_id, type: type },
+            success: function (result) {
+                $('#' + hgdhc).empty();
+                var a2 = JSON.parse(result);
+
+
+                for (i = 0; i < a2.length; i++) {
+                    var gt = a2.length;
+                    $("#totalMatched").text(a2[i].totalMatched);
+                    $("#totalMatched_"+gyjghh).text(a2[i].totalMatched);
+                    //  var gst = a2[i].Runnername;a2[i].totalMatched
+                    // alert(a2[i].Runnername)
+
+
+
+                    var myvar = '<tr>' +
+                        '					<th class="tm" id="selection"> ' +
+                        '						<p>' +
+                        '							<a href="javascript:void(0);" id="marketDepth">' +
+                        '							</a>' + a2[i].Runnername + '' +
+                        '						</p>                       ' +
+                        '					</th>' +
+                        '					<td class="back-3" id="back_3" style="line-height: 15px;">' +
+                        '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].back22 + '' +
+                        '							<span>' + a2[i].back3size + '</span>' +
+                        '						</a>' +
+                        '					</td>' +
+                        '					<td class="back-2" id="back_2"  style="line-height: 15px;">' +
+                        '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].back11 + '' +
+                        '							<span>' + a2[i].back2size + '' +
+                        '							</span>' +
+                        '						</a>' +
+                        '					</td>' +
+                        '					<td class="back-1" id="back_1"  style="line-height: 15px;">' +
+                        '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].back1 + '' +
+                        '							<span>' + a2[i].back1size + '' +
+                        '							</span>' +
+                        '						</a>' +
+                        '					</td>' +
+                        '					<td class="lay-1" id="lay_1"  style="line-height: 15px;">' +
+                        '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].lay1 + '' +
+                        '							<span>' + a2[i].lay1size + '' +
+                        '							</span>' +
+                        '						</a>' +
+                        '					</td>' +
+                        '					<td class="lay-2" id="lay_2"  style="line-height: 15px;">' +
+                        '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].lay11 + '' +
+                        '							<span>' + a2[i].lay2size + '' +
+                        '							</span>' +
+                        '						</a>' +
+                        '					</td>' +
+                        '					<td class="lay-3" id="lay_3"  style="line-height: 15px;">' +
+                        '						<a href="javascript:void(0);" style="margin-top: -8px">' + a2[i].lay22 + '' +
+                        '							<span>' + a2[i].lay3size + '' +
+                        '							</span>' +
+                        '						</a>' +
+                        '					</td>' +
+                        '				</tr>';
+                    $('#' + hgdhc).append(myvar);
+                    // GetWmeForD();
+                    // alert(i)
+                }
+
+            }
+        })
+        b = setTimeout(getAllMessages, 1000);
+    }
+
+
+</script>

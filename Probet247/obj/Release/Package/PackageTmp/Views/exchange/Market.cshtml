@@ -1,0 +1,1951 @@
+﻿
+<h1>@ViewBag.Message</h1>
+<input id="sessionBfID" type="hidden" value="@ViewBag.BetfairId" />
+<input id="sessionEVID" type="hidden" value="@ViewBag.EventCode" />
+<input id="sessionBfSportID" type="hidden" value="@ViewBag.Event_Type_Id" />
+<input id="sessionBFOTHID" type="hidden" value="" />
+<input id="Time_Stamp" type="hidden" value="@ViewBag.Time_Stamp" />
+<input id="x_code" type="hidden" value="@ViewBag.x_code" />
+<input id="x_type" type="hidden" value="@ViewBag.x_type" />
+<div class="nested-scrollable-pane-parent front-pages" style="margin-left: 193px; overflow: hidden; height: 100%; background-color: unset;">
+    <div class="bf-row no-bottom-gutter scrollable-panes-height-taker height-taker-helper" style="height: 100%;margin-top:85px;">
+        <div class="scrollable-panes-wrapper scrollable-panes-wrapper-helper">
+            <div class="bf-row no-bottom-gutter scrollable-pane content-page-row">
+                <div class="content-page-center-column homepage-center-column" style=" width:70%; border-right: 1px solid #bfbfbf; padding: 0;">
+                    <div class="bf-row no-bottom-gutter no-side-gutter">
+                        <div class="bf-col-24-24">
+                            <div class="sports football bf-row no-bottom-gutter" style="background: #303030;padding: 5px 8px 4px;min-height: 50px;
+    position: relative;">
+                                <div class="bf-col-24-24">
+                                    <div class="star-favourites"></div>
+                                    <div class="event-header default">
+                                        <div style="float: left;">
+                                            <span class="title">
+                                                <span class="" id="team_title">@ViewBag.teama</span>
+                                            </span>
+                                            <div class="title">
+                                                <span class="" id="team_title">@ViewBag.teamb</span>
+                                            </div>
+                                            <div class="date" id="event_match_time">@ViewBag.Event_TimeDB</div>
+                                        </div>
+                                        <div style="float: right;">
+                                            <div id="cricket_score" class="team-innings bf-col-15-24 bf-col-md-13-24 bf-col-lg-13-24 bf-col-xl-11-24" style="display: none;">
+                                                <div class="inning bf-col-11-24" id="inning1data">
+                                                    <div class="cell" id="inning1TeamA">
+                                                        <span class="score-big" id="TeamARuns"></span>
+                                                        <span class="score-big" id="TeamAWickets"></span>
+                                                        <span class="score-small-padding" id="TeamAOvers"></span>
+                                                    </div>
+                                                    <div class="cell" id="inning1TeamB">
+                                                        <span class="score-big" id="TeamBRuns"></span>
+                                                        <span class="score-big" id="TeamBWickets"></span>
+                                                        <span class="score-small-padding" id="TeamBOvers"></span>
+                                                    </div>
+                                                    <div class="cell">
+                                                        <div class="description">Innings 1</div>
+                                                    </div>
+                                                </div>
+                                                <div class="inning bf-col-11-24" id="inning2data">
+                                                    <div class="cell" id="inning2TeamA">
+                                                        <span class="score-big" id="TeamARuns1"></span>
+                                                        <span class="score-big" id="TeamAWickets1"></span>
+                                                        <span class="score-small-padding" id="TeamAOvers1"></span>
+                                                    </div>
+                                                    <div class="cell" id="inning2TeamB">
+                                                        <span class="score-big" id="TeamBRuns1"></span>
+                                                        <span class="score-big" id="TeamBWickets1"></span>
+                                                        <span class="score-small-padding" id="TeamBOvers1"></span>
+                                                    </div>
+                                                    <div class="cell">
+                                                        <div class="description">Innings 2</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="tennis_score" class="bf-col-9-24 bf-col-md-13-24 bf-col-lg-11-24" style="display: none; width: unset;">
+                                                <div class="scores tennis-sets">
+                                                    <div class="home">
+                                                        <div id="home_sets"></div>
+                                                    </div>
+                                                    <div class="away">
+                                                        <div id="away_sets"></div>
+                                                    </div>
+                                                    <div class="description">
+                                                        <div id="all_sets"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="scores tennis-points">
+                                                    <div class="cell" style="width: 49px;">
+                                                        <span class="highlight" id="score1"></span>
+                                                    </div>
+                                                    <div class="cell" style="width: 49px;">
+                                                        <span class="highlight" id="score2"></span>
+                                                    </div>
+                                                    <div class="description">
+                                                        <div class="cell" style="width: 49px;">Points</div>
+                                                    </div>
+                                                </div>
+                                                <div class="scores tennis-statistics visible-md-block visible-xl-block visible-lg-block">
+                                                    <div style="display: flex;">
+                                                        <div class="cell" id="aces1"></div>
+                                                        <div class="cell" id="doubleFaults1"></div>
+                                                        <div class="cell" id="serviceBreaks1"></div>
+                                                    </div>
+                                                    <div style="display: flex;">
+                                                        <div class="cell" id="aces2"></div>
+                                                        <div class="cell" id="doubleFaults2"></div>
+                                                        <div class="cell" id="serviceBreaks2"></div>
+                                                    </div>
+                                                    <div class="description">
+                                                        <div class="cell">Aces</div>
+                                                        <div class="cell">Double Faults</div>
+                                                        <div class="cell">Service Breaks</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-penalties-container" id="soccer_score" style="display:none;">
+                                        <div class="timeline-container">
+                                            <div class="timeline">
+                                                <div class="half firstHalf">
+                                                    <div class="empty-bar">
+                                                        <div id="firsthalf"></div>
+                                                        <div class="bar" style="width: 0%;" id="firstbar"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="half secondHalf" id="secondhalf">
+                                                    <div class="empty-bar">
+                                                        <div class="bar" style="width: 0%;" id="secondbar"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scrollable-panes-height-taker height-taker-helper" style="height: 100%; overflow-y: auto;">
+                        <div class="bf-col-24-24 bf-sports-market-header-scroll bf-back-lay-all-alignment include-module-loading scrollable-panes-wrapper scrollable-panes-wrapper-helper scrollable-pane" style="height: 100%;">
+                            <div class="bf-row main-mv-container">
+                                <div class="bf-col-24-24 include-module-loading">
+                                    <div class="mv-sticky-container scroll-to-current-element id13">
+                                        <div class="mv-sticky-header">
+                                            <div class="marketview-header-wrapper-bottom-container">
+                                                <h2 class="market-type"></h2>
+                                                <div class="mv-header-container marketview">
+                                                    <div class="mv-header-content">
+                                                        <div class="mv-header-main-section-wrapper">
+                                                            <div class="mv-header-main-section">
+                                                                <div class="market-status mv-header-field">
+                                                                    <span style="font-weight:bold;">Match Odds</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mv-secondary-section">
+                                                            <div class="mv-header-total-matched-wrapper">
+                                                                <div class="market-matched">
+                                                                    <span class="total-matched-label">Matched:</span>
+                                                                    <span class="total-matched" id="totalmatchedmo"></span>
+                                                                </div>
+                                                                <button class="refresh-btn marketview-resize" onclick="getWebMoD()">Refresh</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="runners-header">
+                                            <thead>
+                                                <tr>
+                                                    <th class="rh-runner-name-header">
+                                                        <span class="rh-selections-count-label" id="Run_Selection"></span>
+                                                    </th>
+                                                    <th class="rh-book-percentage rh-back-book-percentage">
+                                                        <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                                    </th>
+                                                    <th class="rh-select-all-buttons rh-select-back-all-button">
+                                                        <button type="button" class="rh-back-all">
+                                                            <span class="rh-back-all-label">Back all</span>
+                                                        </button>
+                                                    </th>
+                                                    <th class="rh-select-all-buttons">
+                                                        <button type="button" class="rh-lay-all">
+                                                            <span class="rh-lay-all-label">Lay all</span>
+                                                        </button>
+                                                    </th>
+                                                    <th class="rh-book-percentage rh-lay-book-percentage">
+                                                        <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="main-mv-runners-list-wrapper">
+                                            <div class="marketview-list-runners-component bf-row">
+                                                <div class="runners-container bf-col-24-24">
+                                                    <div class="mv-runner-list-container overlayPosition">
+                                                        <table class="mv-runner-list" style="border-collapse: collapse;">
+                                                            <tbody id="mainbodyloader">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="~/Content/images/prospin.gif" style="display: block; margin:auto;margin-top:15px;margin-bottom:15px;">
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tbody id="maintbody"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Session UI Strat\\-->
+                            <div id="SessionData" style="display:none;">
+                                <div class="marketview-header-wrapper-bottom-container" style="padding: 8px 8px;" id="sessionDiv_Header">
+                                    <div style="height: 30px;color: white;padding: 10px;border-top-right-radius: 20px;width: 100px;background: green;">Fancy Market</div>
+                                </div>
+
+                                <table class="runners-header" id="sessiontable_Header">
+                                    <thead>
+                                        <tr>
+                                            <th class="rh-runner-name-header">
+                                                <span>Market Name</span>
+                                            </th>
+                                            <th class="rh-book-percentage rh-back-book-percentage">
+                                                <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                            </th>
+                                            <th class="rh-select-all-buttons rh-select-back-all-button">
+                                                <button type="button" class="rh-back-all" style="background-color:#fac9d4">
+                                                    <span class="rh-back-all-label">Not</span>
+                                                </button>
+                                            </th>
+                                            <th class="rh-select-all-buttons">
+                                                <button type="button" class="rh-lay-all" style="background-color:#a6d8ff;">
+                                                    <span class="rh-lay-all-label">Yes</span>
+                                                </button>
+                                            </th>
+                                            <th class="rh-book-percentage rh-lay-book-percentage">
+                                                <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div class="main-mv-runners-list-wrapper">
+                                    <div class="marketview-list-runners-component bf-row">
+                                        <div class="runners-container bf-col-24-24">
+                                            <div class="mv-runner-list-container overlayPosition">
+                                                <table class="mv-runner-list" style="border-collapse: collapse;">
+                                                    <tbody id="session_tbody"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---- Session UI End -->
+                            <!-- Preminum Session UI Strat\\-->
+                            <div id="SessionDataP" style="display:none;">
+                                <div class="marketview-header-wrapper-bottom-container" style="padding: 8px 8px;" id="sessionDiv_Header">
+                                    <div style="height: 30px;color: white;padding: 10px;border-top-right-radius: 20px;width: 120px;background: green;">Premium Fancy</div>
+                                </div>
+
+                                <table class="runners-header" id="sessiontable_HeaderP">
+                                    <thead>
+                                        <tr>
+                                            <th class="rh-runner-name-header">
+                                                <span>Market Name</span>
+                                            </th>
+                                            <th class="rh-book-percentage rh-back-book-percentage">
+                                                <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                            </th>
+                                            <th class="rh-select-all-buttons rh-select-back-all-button">
+                                                <button type="button" class="rh-back-all" style="background-color:#fac9d4">
+                                                    <span class="rh-back-all-label">Not</span>
+                                                </button>
+                                            </th>
+                                            <th class="rh-select-all-buttons">
+                                                <button type="button" class="rh-lay-all" style="background-color:#a6d8ff;">
+                                                    <span class="rh-lay-all-label">Yes</span>
+                                                </button>
+                                            </th>
+                                            <th class="rh-book-percentage rh-lay-book-percentage">
+                                                <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div class="main-mv-runners-list-wrapper">
+                                    <div class="marketview-list-runners-component bf-row">
+                                        <div class="runners-container bf-col-24-24">
+                                            <div class="mv-runner-list-container overlayPosition">
+                                                <table class="mv-runner-list" style="border-collapse: collapse;">
+                                                    <tbody id="session_tbodyP"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Premium Session UI End -->
+
+
+                            <div class="bf-col-24-24 include-module-loading" id="AllViewothermarket" style="display:none;margin-bottom:20px;">
+                                <div class="other-markets-header">
+                                    <span class="">Other Markets</span>
+                                </div>
+                                <div class="other-market-list">
+                                    <ul class="h-scroll" id="s-content"></ul>
+                                    <button class="scroll-left" id="left-button"><i class="fa fa-angle-left"></i> </button>
+                                    <button class="scroll-right" id="right-button"> <i class="fa fa-angle-right"></i> </button>
+                                </div>
+                                <div class="bf-row main-mv-container" style="margin-top: 20px; display: none;" id="hiddenlinks">
+                                    <div class="bf-col-24-24 include-module-loading">
+                                        <div class="mv-sticky-container scroll-to-current-element id13">
+                                            <div class="mv-sticky-header">
+                                                <div class="marketview-header-wrapper-bottom-container">
+                                                    <h2 class="market-type"></h2>
+                                                    <div class="mv-header-container marketview">
+                                                        <div class="mv-header-content">
+                                                            <div class="mv-header-main-section-wrapper">
+                                                                <div class="mv-header-main-section">
+                                                                    <div class="market-status mv-header-field">
+                                                                        <span id="othermarket_name" style="font-weight:bold;"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mv-secondary-section">
+                                                                <div class="mv-header-total-matched-wrapper">
+                                                                    <div class="market-matched">
+                                                                        <span class="total-matched-label">Matched:</span>
+                                                                        <span class="total-matched" id="totalmatchedot"></span>
+                                                                    </div>
+                                                                    <button class="refresh-btn marketview-resize">Refresh</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <table class="runners-header">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="rh-runner-name-header">
+                                                            <span class="rh-selections-count-label" id="Run_Selection_Ot"></span>
+                                                        </th>
+                                                        <th class="rh-book-percentage rh-back-book-percentage">
+                                                            <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                                        </th>
+                                                        <th class="rh-select-all-buttons rh-select-back-all-button">
+                                                            <button type="button" class="rh-back-all">
+                                                                <span class="rh-back-all-label">Back all</span>
+                                                            </button>
+                                                        </th>
+                                                        <th class="rh-select-all-buttons">
+                                                            <button type="button" class="rh-lay-all">
+                                                                <span class="rh-lay-all-label">Lay all</span>
+                                                            </button>
+                                                        </th>
+                                                        <th class="rh-book-percentage rh-lay-book-percentage">
+                                                            <!-- <span class="rh-back-book-percentage-label ng-hide">101.9%</span> -->
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <div class="main-mv-runners-list-wrapper">
+                                                <div class="marketview-list-runners-component bf-row">
+                                                    <div class="runners-container bf-col-24-24">
+                                                        <div class="mv-runner-list-container overlayPosition">
+                                                            <table class="mv-runner-list" style="border-collapse: collapse;">
+                                                                <tbody id="other_markets_tbody_loader">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <img src="~/Content/images/prospin.gif" style="display: block; margin:auto;margin-top:15px;margin-bottom:15px;">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tbody id="other_markets_tbody"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bf-row no-bottom-gutter" style="margin-bottom: 250px;">
+                                <div class="bf-col-24-24">
+                                    <div class="footer">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="content-page-right-column" style="width: 30%; padding: 0;">
+                    <div class="bf-row no-bottom-gutter">
+                        <div class="bf-col-24-24">
+                            <div class="bf-row aside-top-row no-bottom-gutter">
+                                <div class="bf-col-1-1">
+                                    <ul class="generic-tabs-container">
+                                        <li class="generic-tab generic-tab-selected tablinks2" onclick="bets_filter(event, 'placebet')">
+                                            <div class="tab-title">
+                                                <span>Place bets</span>
+                                            </div>
+                                        </li>
+                                        <li class="generic-tab generic-tab-selected tablinks2" onclick="bets_filter(event, 'open_bet')" id="defaulttab2">
+                                            <div class="tab-title">
+                                                <span>Open bets</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <h2 class="event-market-description" style="margin-bottom:5px;">Win Only Market</h2>
+                                        <div class="tabcontent2" id="placebet">
+                                            <div class="line-separator" id="mybets1" style="border-top:1px solid #eee;">
+                                                <p class="highlighted selection-text">Click on the odds to add selections to the betslip.</p>
+                                            </div>
+                                            <div id="mybets" style="display: none;">
+                                                <div class="scroll-wrapper element-max-height ">
+                                                    <div class="bets-container back" style="max-height: 253px; overflow: auto;">
+                                                        <span class="current-bets-header">Current odds bets</span>
+                                                        <div class="bet-header back-bets-header" id="betplacepopupcolor">
+                                                            <span style="display:none;"></span><input type="hidden" value="">
+                                                            <div class="back-bets-header-wrapper">
+                                                                <div class="back-bet-text-wrapper">
+                                                                    <span class="back-bet-text" id="difine_back_lay">Back (Bet For)</span>
+                                                                </div>
+                                                                <div class="back-odds-text-wrapper">
+                                                                    <span class="odds-text">Odds</span>
+                                                                </div>
+                                                                <span class="stake-text-wrapper">
+                                                                    <span class="stake-text">Stake</span>
+                                                                </span>
+                                                                <div class="profit-text-wrapper">
+                                                                    <span class="profit-text">Profit</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="bet-wrapper back-bets">
+                                                            <li>
+                                                                <div class="bet" id="row_down_list">
+                                                                    <span class="bet-runner-name" id="SetTeamNameBetpopup"></span>
+                                                                    <div class="bet-values">
+                                                                        <div class="oddsladder">
+                                                                            <div class="odds-ladder-left">
+                                                                                <input type="number" maxlength="4" min="1.01" step="0.01" class="price-input" id="odds_point" style="margin-right:15px;">
+                                                                                <input type="hidden" id="get_index" />
+                                                                                <input type="hidden" id="get_betfair_id" />
+                                                                                <input type="hidden" id="get_runner_length" />
+                                                                                <input type="hidden" id="get_box_type" />
+                                                                                <input type="hidden" id="Market_Name" />
+                                                                                <input type="hidden" id="session_size" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="stake-input-directive">
+                                                                            <input type="text" maxlength="6" class="size-input" id="stake" oninput="bet_manage(this)" style="font-size: 10px;margin-left:-12px;">
+                                                                        </div>
+                                                                        <span class="bet-profit">$<span id="bets_profits2"></span></span>
+
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="betslip-footer">
+                                                    <span class="liability">
+                                                        Liability:
+                                                        <span class="liability-value">$<span id="bets_profits3"></span></span>
+                                                    </span>
+                                                    <div class="selection-panel">
+                                                        <button class="betslip-cancel-btn" onclick="myBet_cancel()">Cancel all selections</button>
+                                                        <input type="hidden" id="get_event_id" value="@ViewBag.EventCode" />
+                                                        <input type="hidden" id="get_betfair_id1" value="@ViewBag.BetfairId" />
+                                                        <input type="hidden" id="decided_for_bet" value="" />
+                                                        <button class="betslip-submit-btn" disabled="disabled" id="betslip_btn" onclick="place_bet_done()">Place bets</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="place_bet_loader" style="display:none;">
+                                                <div style="margin-top: -135px;height: 135px;background: white;opacity: 0.5;"></div>
+                                                <div style="margin-top: -135px;height:135px;">
+                                                    <img src="/Content/images/prospin.gif" style="display: block;margin:auto;padding-top: 60px;position: relative;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tabcontent2" style="clear: both;padding: 0px;overflow-x: hidden;overflow-y: scroll; height:calc(100% - 0px);" id="open_bet">
+                                            <div id="matchedwrap1111" class="matched-wrap111" style="height: calc(100% - 301px);border: none;">
+                                                <h3 style="padding-bottom: 6px;padding-left: 8px;padding-top: 6px; background: #212121;">
+                                                    <a class="" style="cursor:pointer; color:white;">Open Bets</a>
+                                                </h3>
+
+                                                <style>
+                                                    #grvMatched {
+                                                        border: 0px solid #7FB3D5;
+                                                    }
+
+                                                        #grvMatched tr, th, td {
+                                                            border: 0px solid #7FB3D5;
+                                                        }
+
+                                                    .slip-head {
+                                                        background-color: #CED5DA;
+                                                        padding: 0 10px;
+                                                    }
+
+                                                        .slip-head li {
+                                                            padding: 5px 0;
+                                                        }
+                                                </style>
+                                                <div style="background-color: white;">
+                                                    <ul id="unMatchTicketHead" class="slip-head" style="">
+                                                        <li class="col-bet"><strong>Matched</strong></li>
+                                                    </ul>
+                                                    <table class="table table-striped table-bordered dataTable no-margin" cellspacing="0" rules="all" border="1" id="grvMatched" style="width:100%;border-collapse:collapse;"></table>
+                                                </div>
+
+                                                <style>
+                                                    #prvMatched {
+                                                        border: 0px solid #7FB3D5;
+                                                    }
+
+                                                        #prvMatched tr, th, td {
+                                                            border: 0px solid #7FB3D5;
+                                                        }
+                                                </style>
+                                                <div style="background-color: white;">
+                                                    <ul id="unMatchTicketHead" class="slip-head" style="">
+                                                        <li class="col-bet"><strong>Unmatched</strong></li>
+                                                    </ul>
+                                                    <table class="table table-striped dataTable no-margin" cellspacing="0" rules="all" border="1" id="prvMatched" style="width:100%;border-collapse:collapse; margin-bottom: 100px;"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<input type="hidden" value="0" id="total_sess" />
+<input type="hidden" value="0" id="total_sessP" />
+<input type="hidden" value="" id="text_sessp" />
+
+
+
+
+@section Scripts{
+
+    <script>
+        var Time_Stamp = $("#Time_Stamp").val();
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsById("myDropdown");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            $('input[name="check"]').attr("disabled", true);
+            $(".agree").click(function () {
+                if ($(this).prop("checked") == true) {
+                    $('input[name="check"]').attr("disabled", false);
+                } else if ($(this).prop("checked") == false) {
+                    $('input[name="check"]').attr("disabled", true);
+                }
+            });
+        });
+
+
+        $(window).on('scroll', function () {
+            var $w = $(window);
+            $('.position-fixed-y').css('top', $w.scrollTop());
+
+        });
+
+        $(window).scroll(function () {
+            const x = -this.scrollX
+            $(".fixed").css({
+                left: x
+            })
+        })
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var modal = document.getElementById("myModal1");
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+        function bet_manage(stake) {
+            var GetBetType = $("#decided_for_bet").val();
+            if (GetBetType == "Session") {
+                var new_stake = $('#stake').val();
+                var ttype = $('#get_box_type').val();
+                var tsize = $("#session_size").val();
+                var TotalProfitLost = 0;
+                var Getstack = 0;
+                if (ttype == "Not") {
+                    TotalProfitLost = new_stake;
+                    Getstack = (new_stake * tsize) / 100;
+                }
+                else if (ttype == "Yes") {
+                    Getstack = new_stake;
+                    TotalProfitLost = (new_stake * tsize) / 100;
+                }
+                var ProfitlossVal = parseFloat(TotalProfitLost).toFixed(2);
+                var bt = document.getElementById('betslip_btn');
+                if (new_stake > 1) {
+                    bt.disabled = false;
+                    $("#bets_profits2").html(ProfitlossVal);
+                    $("#bets_profits3").html(Getstack);
+
+                }
+                else {
+                    $("#bets_profits2").html("");
+                    $("#bets_profits3").html("");
+                    bt.disabled = true;
+                }
+            }
+            else {
+                var index = document.getElementById('get_index').value;
+                var bfidrepgy = document.getElementById('get_betfair_id').value;
+                var bfidrep = (bfidrepgy.toString().split(".")[1]);
+                var runlength = document.getElementById('get_runner_length').value;
+                var tt = $('#stake').val();
+                var FieldBox = $('#get_box_type').val();
+                var bt = document.getElementById('betslip_btn');
+                var todds = $('#odds_point').val();
+
+                var PL = todds * tt;
+                PL = parseFloat(PL).toFixed(2);
+                var ProfitlossVal = PL - tt;
+                var i2 = 0.00;
+                i2 = parseFloat(ProfitlossVal).toFixed(2);
+
+                if (tt > 1) {
+                    for (var il = 0; il < runlength; il++) {
+                        var wmeo = 0.00;
+                        wmeo = $('#run_cal_bef_' + bfidrep + '_' + il).text();
+                        if (il == index && FieldBox == "back") {
+                            var sameback = parseFloat(parseFloat(wmeo) + parseFloat(i2)).toFixed(2);
+                            if (sameback > 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                            } else if (sameback < 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                            } else {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                            }
+                            $('#run_cal_aft_' + bfidrep + '_' + il).text(" --> " + sameback);
+                        } else if (il == index && FieldBox == "lay") {
+                            var samelay = parseFloat(parseFloat(wmeo) - parseFloat(i2)).toFixed(2);
+                            if (samelay > 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                            } else if (samelay < 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                            } else {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                            }
+                            $('#run_cal_aft_' + bfidrep + '_' + il).text(" --> " + samelay);
+                        } else if (il != index && FieldBox == "back") {
+                            var revback = parseFloat(parseFloat(wmeo) - parseFloat(tt)).toFixed(2);
+                            if (revback > 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                            } else if (revback < 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                            } else {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                            }
+                            $('#run_cal_aft_' + bfidrep + '_' + il).text(" --> " + revback);
+                        } else if (il != index && FieldBox == "lay") {
+                            var revlay = parseFloat(parseFloat(wmeo) + parseFloat(tt)).toFixed(2);
+                            if (revlay > 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#20a052");
+                            } else if (revlay < 0) {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#d54d4d");
+                            } else {
+                                $('#run_cal_aft_' + bfidrep + '_' + il).css("color", "#000000");
+                            }
+                            $('#run_cal_aft_' + bfidrep + '_' + il).text(" --> " + revlay);
+                        }
+                    }
+                    bt.disabled = false;
+                    if (FieldBox == "back") {
+                        $("#bets_profits2").html(i2);
+                        $("#bets_profits3").html(tt);
+                    } else if (FieldBox == "lay") {
+                        $("#bets_profits2").html(tt);
+                        $("#bets_profits3").html(i2);
+                    } else {
+                        $("#bets_profits2").html("");
+                    }
+
+                } else {
+                    for (var il = 0; il < runlength; il++) {
+                        $('#run_cal_aft_' + bfidrep + '_' + il).text("");
+                    }
+                    $("#bets_profits2").html("");
+                    $("#bets_profits3").html("");
+                    bt.disabled = true;
+                }
+            }
+        }
+
+        function myBet(box, oddsvalue, index, BetfairId, EventCode, box_run, RunnerLength) {
+            bets_filter(event, 'placebet');
+            $("#stake").val("");
+            var oddsvalue = $("#" + oddsvalue + index).text();
+            if (oddsvalue != "" && oddsvalue != "0") {
+                var bfidrep = (BetfairId.toString().split(".")[1]);
+
+                for (var il = 0; il < RunnerLength; il++) {
+                    $('#run_cal_aft_' + bfidrep + '_' + il).text("");
+                }
+                $("#bets_profits2").html("");
+                $("#bets_profits3").html("");
+                $("#decided_for_bet").val("MatchOdds");
+                document.getElementById('get_index').value = index;
+                document.getElementById('get_betfair_id').value = BetfairId;
+                document.getElementById('get_runner_length').value = RunnerLength;
+                document.getElementById('get_box_type').value = box;
+                document.getElementById('Market_Name').value = "Match Odds";
+
+                var odd_bet = $("#point").html();
+                $("#odds_point").val(oddsvalue);
+                var runner_name_place = $('#runner_name_' + bfidrep + '_' + index).text();
+                //alert(bfidrep+"--"+index+"--"+" fsdfsdfs" + runner_name_place + "fsfsf");
+                $("#SetTeamNameBetpopup").text(runner_name_place);
+                if (box == "back") {
+                    document.getElementById("difine_back_lay").textContent = "Back (Bet For)";
+                    $("#betplacepopupcolor").css("background-color", "#a6d8ff");
+                    $("#row_down_list").css("background-color", "#dbefff");
+
+                } else if (box == "lay") {
+                    document.getElementById("difine_back_lay").textContent = "Lay (Bet Against)";
+                    $("#betplacepopupcolor").css("background-color", "#fac9d4");
+                    $("#row_down_list").css("background-color", "#fee9ee");
+                }
+
+                if ($("#mybets1").css('display') == 'none') {
+                    /*if (jkdfhjk != "jkl") {
+                        // $("#mybets1").css("display", "none");
+                    }*/
+                    $("#mybets1").css("display", "contents");
+
+                } else { }
+
+                var x = document.getElementById("mybets");
+                var y = document.getElementById("mybets1");
+
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                    y.style.display = "block";
+
+                }
+                else {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                }
+            }
+            else {
+
+            }
+    }
+
+        function myBetO(box, oddsvalue, index, BetfairId, EventCode, box_run, RunnerLength) {
+            bets_filter(event, 'placebet');
+            $("#stake").val("");
+            var oddsvalue = $("#" + oddsvalue + index).text();
+            var marketNName = $("#othermarket_name").text();
+            if (oddsvalue != "" && oddsvalue != "0") {
+                var bfidrep = (BetfairId.toString().split(".")[1]);
+
+                for (var il = 0; il < RunnerLength; il++) {
+                    $('#run_cal_aft_' + bfidrep + '_' + il).text("");
+                }
+                $("#bets_profits2").html("");
+                $("#bets_profits3").html("");
+                $("#decided_for_bet").val("MatchOdds");
+                document.getElementById('get_index').value = index;
+                document.getElementById('get_betfair_id').value = BetfairId;
+                document.getElementById('get_runner_length').value = RunnerLength;
+                document.getElementById('get_box_type').value = box;
+                document.getElementById('Market_Name').value = marketNName;
+
+                var odd_bet = $("#point").html();
+                $("#odds_point").val(oddsvalue);
+                var runner_name_place = $('#runner_name_' + bfidrep + '_' + index).text();
+                //alert(bfidrep+"--"+index+"--"+" fsdfsdfs" + runner_name_place + "fsfsf");
+                $("#SetTeamNameBetpopup").text(runner_name_place);
+                if (box == "back") {
+                    document.getElementById("difine_back_lay").textContent = "Back (Bet For)";
+                    $("#betplacepopupcolor").css("background-color", "#a6d8ff");
+                    $("#row_down_list").css("background-color", "#dbefff");
+
+                } else if (box == "lay") {
+                    document.getElementById("difine_back_lay").textContent = "Lay (Bet Against)";
+                    $("#betplacepopupcolor").css("background-color", "#fac9d4");
+                    $("#row_down_list").css("background-color", "#fee9ee");
+                }
+
+                if ($("#mybets1").css('display') == 'none') {
+                    /*if (jkdfhjk != "jkl") {
+                        // $("#mybets1").css("display", "none");
+                    }*/
+                    $("#mybets1").css("display", "contents");
+
+                } else { }
+
+                var x = document.getElementById("mybets");
+                var y = document.getElementById("mybets1");
+
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                    y.style.display = "block";
+
+                }
+                else {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                }
+            }
+            else {
+
+            }
+        }
+
+        function sessionBet(box, index, SelectionID) {
+            bets_filter(event, 'placebet');
+            $("#stake").val("");
+            $("#bets_profits2").html("");
+            $("#bets_profits3").html("");
+            var oddsvalue = $("#" + box + "_value_" + SelectionID).text();
+            var oddsrate = $("#" + box + "_size_" + SelectionID).text();
+            var MarketName = $("#ses_run_name_" + SelectionID).text();
+            $("#odds_point").val(oddsvalue);
+            $("#session_size").val(oddsrate);
+            $("#decided_for_bet").val("Session");
+            $("#get_betfair_id").val(SelectionID);
+            $("#get_index").val(index);
+            $("#Market_Name").val(MarketName);
+            $("#SetTeamNameBetpopup").text(MarketName);
+
+
+            if (box == "Yes") {
+                document.getElementById("difine_back_lay").textContent = "Back (Bet For)";
+                $("#betplacepopupcolor").css("background-color", "#a6d8ff");
+                $("#row_down_list").css("background-color", "#dbefff");
+                $("#get_box_type").val("Yes");
+
+            } else if (box == "Not") {
+                document.getElementById("difine_back_lay").textContent = "Lay (Bet Against)";
+                $("#betplacepopupcolor").css("background-color", "#fac9d4");
+                $("#row_down_list").css("background-color", "#fee9ee");
+                $("#get_box_type").val("Not");
+            }
+
+            if ($("#mybets1").css('display') == 'none') {
+                $("#mybets1").css("display", "contents");
+            }
+            else {
+            }
+
+
+            var x = document.getElementById("mybets");
+            var y = document.getElementById("mybets1");
+
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                y.style.display = "block";
+
+            } else {
+                x.style.display = "block";
+                y.style.display = "none";
+
+            }
+
+            // alert("ggij"+)
+
+        }
+
+
+        function myBet_cancel() {
+            var index = $('#get_index').val();
+            var bfidrepgy = $('#get_betfair_id').val();
+            var bfidrep = (bfidrepgy.toString().split(".")[1]);
+            var runlength = $('#get_runner_length').val();
+            for (var il = 0; il < runlength; il++) {
+                $('#run_cal_aft_' + bfidrep + '_' + il).text("");
+            }
+            $("#bets_profits2").html("");
+            $("#bets_profits3").html("");
+            $("#stake").val("");
+            var x = document.getElementById("mybets");
+            var y = document.getElementById("mybets1");
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+
+        // Place Bet Start Here-->
+
+        function place_bet_done() {
+            var bt = document.getElementById('betslip_btn');
+            bt.disabled = true;
+            $("#place_bet_loader").css("display", "");
+            var GetLog = '@Session["UserName"]';
+            if (GetLog != "" && GetLog != null) {
+
+                var GetBetType = $("#decided_for_bet").val();
+                var DUrl = "";
+                var OddsValue = $("#odds_point").val();
+                var OddsVolume = $("#session_size").val();
+                var stackValue = $("#stake").val();
+                var Index = $("#get_index").val();
+                var run_pos = parseInt(Index) + 1;
+                var eventcode = $("#get_event_id").val();
+                var betfairid = $("#get_betfair_id").val();
+                var runner_name = $("#SetTeamNameBetpopup").text();
+                var market_name = $("#Market_Name").val();
+                var field_box = $("#get_box_type").val();
+                var EventType = $("#x_type").val();
+                if (GetBetType == "Session") {
+                    var temp_type = $("#temp_type_"+betfairid).val();
+                    run_pos = parseInt(Index);
+                    if (temp_type == 'pre_sess') {
+                        DUrl = "/Check/BetPlaceMSP";
+                    }
+                    else if (temp_type == 'sess') {
+                        DUrl = "/Check/BetPlaceMS";
+                    }
+                    else {
+                    }
+                }
+                else {
+                    DUrl = "/Check/BetPlaceM";
+                }
+                $.ajax({
+                    type: "POST",
+                    url: DUrl,
+                    data: {
+                        BetfairId: betfairid,
+                        EventCode: eventcode,
+                        stackValue: stackValue,
+                        OddsValue: OddsValue,
+                        RunnerIndex: run_pos,
+                        BoxType: field_box,
+                        RunnerNameget: runner_name,
+                        MarketName: market_name,
+                        OddsVolume: OddsVolume,
+                        EventType: EventType,
+                    },
+                    success: function (result) {
+                        $("#place_bet_loader").css("display", "none");
+                        if (GetBetType == "Session") {
+                        }
+                        else {
+                            GetWmeForD(betfairid);
+                        }
+                        myBet_cancel();
+                        UserBalance();
+                        GetPlaceBet();
+                        bets_filter(event, 'open_bet')
+                        alert(result.responseText)
+                    }
+                });
+
+            }
+            else {
+                $("#place_bet_loader").css("display", "none");
+                myBet_cancel();
+                $("#myModal1new").css("display", "block");
+            }
+        }
+
+        function myFun() {
+            var odd_bet = $("#bet").html();
+            $("#odds").val(odd_bet);
+        }
+
+        function myFun1() {
+            var odd_bet = $("#bet1").html();
+            $("#odds1").val(odd_bet);
+        }
+
+
+        function manage(txt) {
+            var tt = $('#txt').val();
+            var bt = document.getElementById('place_bet');
+            if (tt != '') {
+                bt.disabled = false;
+                $("#bet_profit").html(tt);
+            } else {
+                bt.disabled = true;
+            }
+        }
+
+        function bets_filter(evnt, bets) {
+            var i, tabcontent2, tablinks2;
+            tabcontent2 = document.getElementsByClassName("tabcontent2");
+            for (i = 0; i < tabcontent2.length; i++) {
+                tabcontent2[i].style.display = "none";
+            }
+            tablinks2 = document.getElementsByClassName("tablinks2");
+            for (i = 0; i < tablinks2.length; i++) {
+                tablinks2[i].className = tablinks2[i].className.replace(" active", "");
+            }
+            document.getElementById(bets).style.display = "block";
+            evnt.currentTarget.className += " active";
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaulttab2").click();
+
+
+        $('.modal-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('.modal1').toggleClass('is-visible');
+        });
+
+
+        $('#right-button').click(function () {
+            event.preventDefault();
+            $('#s-content').animate({
+                scrollLeft: "+=260px"
+            }, "slow");
+        });
+
+        $('#left-button').click(function () {
+            event.preventDefault();
+            $('#s-content').animate({
+                scrollLeft: "-=260px"
+            }, "slow");
+        });
+
+        //  Match Odds Data Start Here -->
+        getWebMoD();
+        var MoCheck = "no";
+        function getWebMoD() {
+            var id = $("#sessionBfID").val();
+            $.ajax({
+                url: '/exchange/GetJavanScriptString',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: {
+                    data: id
+                },
+                dataType: 'html',
+                success: function (result) {
+                    // alert(result)
+                    //$('#maintbody').empty();
+                    var a2 = JSON.parse(result);
+                    var gt = a2.length;
+                    var GetRLength = a2.length;
+                    //$('#team_title').html(a2[0].Runnername + " v " + a2[1].Runnername);
+                    //$("#sessionBfID").val(a2[0].BetfairId);
+                    //$("#sessionBfSportID").val(a2[0].Event_Type_Id);
+                    for (i = 0; i < a2.length; i++) {
+                        var GetBfIdBroke = a2[i].BetfairId;
+                        GetBfIdBroke = (GetBfIdBroke.toString().split(".")[1]);
+                        $("#totalmatchedmo").text(a2[i].totalMatched);
+                        if ($("#mte_" + i).val() == i) {
+                            $("#backprice1_" + i).text(a2[i].back1);
+                            $("#backsize1_" + i).text(a2[i].back1size);
+                            $("#layprice1_" + i).text(a2[i].lay1);
+                            $("#laysize1_" + i).text(a2[i].lay1size);
+                            $("#backprice2_" + i).text(a2[i].back11);
+                            $("#backsize2_" + i).text(a2[i].back2size);
+                            $("#layprice2_" + i).text(a2[i].lay11);
+                            $("#laysize2_" + i).text(a2[i].lay2size);
+                            $("#backprice3_" + i).text(a2[i].back22);
+                            $("#backsize3_" + i).text(a2[i].back3size);
+                            $("#layprice3_" + i).text(a2[i].lay22);
+                            $("#laysize3_" + i).text(a2[i].lay3size);
+                        } else {
+                            /*var x = a2[i].MatchTime;
+                            var MatchTime = getdatetime(x);
+                            $("#event_match_time").text(MatchTime);*/
+                            $('#Run_Selection').text(GetRLength + " selection");
+                            var CricData = ' <tr class="runner-line"> ' +
+                                '<input type="hidden" id="mte_' + i + '" value="' + i + '">' +
+                                '<td class="new-runner-info"> <div class="runner-info-container"> ' +
+                                '<div class="market-graph-container"> <button class="market-graph"></button> </div> ' +
+                                '<div class="runner-info"> <div class="default name"> <h3 class="runner-name" id="runner_name_' + GetBfIdBroke + "_" + i + '">' + a2[i].Runnername + '</h3> </div> </div> ' +
+                                '<div style="margin-bottom: 5px;margin-left: 20px;"> ' +
+                                ' <span id="run_cal_bef_' + GetBfIdBroke + "_" + i + '">0.00</span > <span id="run_cal_aft_' + GetBfIdBroke + "_" + i + '"></span> </div > </div > </td > ' +
+                                '<td class="bet-buttons back-cell"> <button class="back mv-bet-button back-button" onclick="myBet(\'back\', \'backprice3_\'  ,' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'3\',' + GetRLength + ')"> ' +
+                                '<div class="mv-bet-button-info"> <span class="bet-button-price" id="backprice3_' + i + '">' + a2[i].back22 + '</span> ' +
+                                '<span class="bet-button-size" id="backsize3_' + i + '">' + a2[i].back3size + '</span> </div> </button> </td> ' +
+                                '<td class="bet-buttons back-cell"> <button class="back mv-bet-button back-button" onclick="myBet(\'back\',\'backprice2_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'2\',' + GetRLength + ')"> <div class="mv-bet-button-info"> ' +
+                                '<span class="bet-button-price" id="backprice2_' + i + '">' + a2[i].back11 + '</span > <span class="bet-button-size" id="backsize2_' + i + '">' + a2[i].back2size + '</span> </div > </button > ' +
+                                '</td > <td class="bet-buttons back-cell last-back-cell"> <button class="mv-bet-button back-button back-selection-button" onclick="myBet(\'back\',\'backprice1_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'1\',' + GetRLength + ')"> ' +
+                                '<div class="mv-bet-button-info"><span class="bet-button-price" id="backprice1_' + i + '">' + a2[i].back1 + '</span> <span class="bet-button-size" id="backsize1_' + i + '">' + a2[i].back1size + '</span>' +
+                                '</div > </button > </td > <td class="bet-buttons lay-cell first-lay-cell"> <button class=" mv-bet-button lay-button lay-selection-button" onclick="myBet(\'lay\',\'layprice1_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'1\',' + GetRLength + ')">' +
+                                '<div class="mv-bet-button-info"> <span class="bet-button-price" id="layprice1_' + i + '">' + a2[i].lay1 + '</span> <span class="bet-button-size" id="laysize1_' + i + '">' + a2[i].lay1size + '</span> </div> </button> </td > ' +
+                                '<td class="bet-buttons lay-cell"> <button class="lay mv-bet-button lay-button" onclick="myBet(\'lay\',\'layprice2_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'2\',' + GetRLength + ')"> <div class="mv-bet-button-info"> <span class="bet-button-price" id="layprice2_' + i + '">' + a2[i].lay11 + '</span> ' +
+                                '<span class="bet-button-size" id="laysize2_' + i + '">' + a2[i].lay2size + '</span> </div> </button > </td > <td class="bet-buttons lay-cell"> <button class="lay mv-bet-button lay-button" onclick="myBet(\'lay\',\'layprice3_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'3\',' + GetRLength + ')"> ' +
+                                '<div class="mv-bet-button-info"> <span class="bet-button-price" id="layprice3_' + i + '">' + a2[i].lay22 + '</span> <span class="bet-button-size" id="laysize3_' + i + '">' + a2[i].lay3size + '</span> </div> </button> </td > </tr >'
+                            //$("#mainbodyloader").css("display", "none");
+                            $("#mainbodyloader").css("display", "none");
+                            $('#maintbody').append(CricData);
+                            if (i == GetRLength - 1) {
+                                GetWmeForD(a2[i].BetfairId);
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        if (MoCheck == "no" && Time_Stamp < 1800) {
+            MoCheck = "yes";
+            setInterval(function () { getWebMoD(); }, 1000);
+        }
+        //  Match Odds Data End Here -->
+
+        //  Other Markets Name Start Here -->
+        OtherMarketsaNamedata();
+        function OtherMarketsaNamedata() {
+            var id = $("#sessionEVID").val();
+            var sid = $("#sessionBfSportID").val();
+            $.ajax({
+                url: '/exchange/OtherMarketData',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                data: {
+                    Event_Code_other: id,
+                    Event_Type_other: sid
+                },
+                dataType: 'html',
+                success: function (result) {
+                    // alert(result)
+                    $('#s-content').empty();
+                    var a2 = JSON.parse(result);
+                    var GetLen = a2.length;
+                    if (GetLen > 0) {
+                        document.getElementById("AllViewothermarket").style.display = "block";
+                    } else {
+                        document.getElementById("AllViewothermarket").style.display = "none";
+                    }
+                    for (i = 0; i < a2.length; i++) {
+                        var CricData =
+                            '<li class="scroll-list market_names" id="clicked_' + i + '" onclick="GetmarketId(\'' + a2[i].OtherBf_id + '\',' + i + ',' + a2.length + ')"> ' + a2[i].OtherName + ' </li> '
+                        $('#s-content').append(CricData);
+                    }
+                }
+            })
+        }
+
+        var othrmo = "";
+        var OtherCheck = "";
+        function GetmarketId(ids, indexid, indexli) {
+            var clicked_name = $("#clicked_" + indexid).text();
+            for (i1 = 0; i1 < indexli; i1++) {
+                if (i1 == indexid) {
+                    $("#clicked_" + i1).css("background", "#9e9c9c");
+                } else {
+                    $("#clicked_" + i1).css("background", "#ebebeb");
+                }
+            }
+            var gyg = $("#sessionBFOTHID").val();
+            if (gyg != ids && indexid != undefined) {
+                $('#other_markets_tbody').empty();
+                $("#sessionBFOTHID").val(ids);
+                $('#othermarket_name').text(clicked_name);
+                $("#hiddenlinks").css("display", "block");
+            }
+            var id = $("#sessionBFOTHID").val();
+            OtherCheck = $("#sessionBFOTHID").val();
+            if (OtherCheck != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/exchange/GetJavanScriptString",
+                    dataType: "html",
+                    data: {
+                        data: id
+                    },
+                    success: function (data) {
+                        var a2 = JSON.parse(data);
+                        var gt = a2.length;
+                        $('#Run_Selection_Ot').text(gt + " selection");
+
+                        for (i = 0; i < a2.length; i++) {
+                            var GetRLength = a2.length;
+                            var GetBfIdBroke = a2[i].BetfairId;
+                            GetBfIdBroke = (GetBfIdBroke.toString().split(".")[1]);
+                            $("#totalmatchedot").text(a2[i].totalMatched);
+                            if ($("#mteo_" + i).val() == i) {
+                                $("#backpriceo1_" + i).text(a2[i].back1);
+                                $("#backsizeo1_" + i).text(a2[i].back1size);
+                                $("#laypriceo1_" + i).text(a2[i].lay1);
+                                $("#laysizeo1_" + i).text(a2[i].lay1size);
+                                $("#backpriceo2_" + i).text(a2[i].back11);
+                                $("#backsizeo2_" + i).text(a2[i].back2size);
+                                $("#laypriceo2_" + i).text(a2[i].lay11);
+                                $("#laysizeo2_" + i).text(a2[i].lay2size);
+                                $("#backpriceo3_" + i).text(a2[i].back22);
+                                $("#backsizeo3_" + i).text(a2[i].back3size);
+                                $("#laypriceo3_" + i).text(a2[i].lay22);
+                                $("#laysizeo3_" + i).text(a2[i].lay3size);
+                                $("#runner_name_" + GetBfIdBroke+"_" + i).text(a2[i].Runnername);
+                            }
+                            else {
+                                var CricData = ' <tr class="runner-line"> ' +
+                                    '<input type="hidden" id="mteo_' + i + '" value="' + i + '">' +
+                                    '<td class="new-runner-info"> <div class="runner-info-container"> ' +
+                                    '<div class="market-graph-container"> <button class="market-graph"></button> </div> ' +
+                                    '<div class="runner-info"> <div class="default name"> <h3 class="runner-name" id="runner_name_' + GetBfIdBroke + "_" + i + '">' + a2[i].Runnername + '</h3> </div> </div> ' +
+                                    '<div> ' +
+                                    ' <span id="run_cal_bef_' + GetBfIdBroke + "_" + i + '">0.00</span > <span id="run_cal_aft_' + GetBfIdBroke + "_" + i + '"></span> </div > </div > </td > ' +
+                                    '<td class="bet-buttons back-cell"> <button class="back mv-bet-button back-button" onclick="myBetO(\'back\', \'backpriceo3_\'  ,' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'3\',' + GetRLength + ')"> ' +
+                                    '<div class="mv-bet-button-info"> <span class="bet-button-price" id="backpriceo3_' + i + '">' + a2[i].back22 + '</span> ' +
+                                    '<span class="bet-button-size" id="backsizeo3_' + i + '">' + a2[i].back3size + '</span> </div> </button> </td> ' +
+                                    '<td class="bet-buttons back-cell"> <button class="back mv-bet-button back-button" onclick="myBetO(\'back\',\'backpriceo2_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'2\',' + GetRLength + ')"> <div class="mv-bet-button-info"> ' +
+                                    '<span class="bet-button-price" id="backpriceo2_' + i + '">' + a2[i].back11 + '</span > <span class="bet-button-size" id="backsizeo2_' + i + '">' + a2[i].back2size + '</span> </div > </button > ' +
+                                    '</td > <td class="bet-buttons back-cell last-back-cell"> <button class="mv-bet-button back-button back-selection-button" onclick="myBetO(\'back\',\'backpriceo1_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'1\',' + GetRLength + ')"> ' +
+                                    '<div class="mv-bet-button-info"><span class="bet-button-price" id="backpriceo1_' + i + '">' + a2[i].back1 + '</span> <span class="bet-button-size" id="backsizeo1_' + i + '">' + a2[i].back1size + '</span>' +
+                                    '</div > </button > </td > <td class="bet-buttons lay-cell first-lay-cell"> <button class=" mv-bet-button lay-button lay-selection-button" onclick="myBetO(\'lay\',\'laypriceo1_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'1\',' + GetRLength + ')">' +
+                                    '<div class="mv-bet-button-info"> <span class="bet-button-price" id="laypriceo1_' + i + '">' + a2[i].lay1 + '</span> <span class="bet-button-size" id="laysizeo1_' + i + '">' + a2[i].lay1size + '</span> </div> </button> </td > ' +
+                                    '<td class="bet-buttons lay-cell"> <button class="lay mv-bet-button lay-button" onclick="myBetO(\'lay\',\'laypriceo2_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'2\',' + GetRLength + ')"> <div class="mv-bet-button-info"> <span class="bet-button-price" id="laypriceo2_' + i + '">' + a2[i].lay11 + '</span> ' +
+                                    '<span class="bet-button-size" id="laysizeo2_' + i + '">' + a2[i].lay2size + '</span> </div> </button > </td > <td class="bet-buttons lay-cell"> <button class="lay mv-bet-button lay-button" onclick="myBetO(\'lay\',\'laypriceo3_\',' + i + ',\'' + a2[i].BetfairId + '\',' + a2[i].EventCode + ',\'3\',' + GetRLength + ')"> ' +
+                                    '<div class="mv-bet-button-info"> <span class="bet-button-price" id="laypriceo3_' + i + '">' + a2[i].lay22 + '</span> <span class="bet-button-size" id="laysizeo3_' + i + '">' + a2[i].lay3size + '</span> </div> </button> </td > </tr >'
+
+                                $("#other_markets_tbody_loader").css("display", "none");
+                                $('#other_markets_tbody').append(CricData);
+                                if (i == GetRLength - 1) {
+                                    GetWmeForD(a2[i].BetfairId);
+                                }
+                            }
+                        }
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            }
+        }
+        if (Time_Stamp < 1800) {
+            setInterval(function () { GetmarketId(); }, 1000);
+        }
+        //  Other Markets Name End Here -->
+
+        //  Session Data Start Here -->
+        var GetLog = '@Session["UserName"]';
+        if (GetLog != "" && GetLog != null) {
+            getWebSessD();
+        }
+        var SessCheck = "no";
+        function getWebSessD() {
+            var id = $("#sessionEVID").val();
+            var sessionBfSportID = $("#sessionBfSportID").val();
+            if (sessionBfSportID == 4) {
+                $.ajax({
+                    url: '/exchange/SessionDataAView',
+                    contentType: 'application/html ; charset:utf-8',
+                    type: 'GET',
+                    data: {
+                        Event_Code: id
+                    },
+                    dataType: 'html',
+                    success: function (result) {
+
+                        var aa = JSON.parse(result);
+                        var a2 = JSON.parse(aa);
+                        if (a2.length > 0) {
+                            var runlength = a2.length;
+                            var total_sess = $("#total_sess").val();
+                            if (runlength > 0) {
+                                $("#SessionData").css("display", "block");
+                                if (total_sess != runlength) {
+                                    $('#session_tbody').empty();
+                                    $("#total_sess").val(runlength);
+                                }
+                                for (i = 0; i < a2.length; i++) {
+                                    if ($("#select_id_" + a2[i].SelectionId).val() == a2[i].SelectionId) {
+                                        if (a2[i].LayPrice1 < 1  && a2[i].BackPrice1 < 1) {
+                                            $("#not_suspend_" + a2[i].SelectionId).css("display", "block");
+                                            $("#yes_suspend_" + a2[i].SelectionId).css("display", "block");
+                                            $("#not_active_" + a2[i].SelectionId).css("display", "none");
+                                            $("#yes_active_" + a2[i].SelectionId).css("display", "none");
+                                        }
+                                        else {
+                                            $("#not_suspend_" + a2[i].SelectionId).css("display", "none");
+                                            $("#yes_suspend_" + a2[i].SelectionId).css("display", "none");
+                                            $("#not_active_" + a2[i].SelectionId).css("display", "block");
+                                            $("#yes_active_" + a2[i].SelectionId).css("display", "block");
+                                        }
+                                        $("#Not_value_" + a2[i].SelectionId).text(a2[i].LayPrice1);
+                                        $("#Not_size_" + a2[i].SelectionId).text(a2[i].LaySize1);
+                                        $("#Yes_value_" + a2[i].SelectionId).text(a2[i].BackPrice1);
+                                        $("#Yes_size_" + a2[i].SelectionId).text(a2[i].BackSize1);
+                                    } else {
+                                        var not_suspend_color = "none";
+                                        var yes_suspend_color = "none";
+                                        var not_active_color = "block";
+                                        var yes_active_color = "block";
+                                        if (a2[i].LayPrice1 < 1  && a2[i].BackPrice1 < 1) {
+                                            not_suspend_color = "block";
+                                            yes_suspend_color = "block";
+                                            not_active_color = "none";
+                                            yes_active_color = "none";
+                                        }
+                                        var myvar = '<tr class="runner-line">' +
+                                            ' <td class="new-runner-info"><input type="hidden" id="select_id_' + a2[i].SelectionId + '"  value="' + a2[i].SelectionId + '">' +
+                                            '   <input type="hidden" id="temp_id_' + a2[i].SelectionId + '"  value="' + a2[i].SelectionId + '">' +
+                                            '   <input type="hidden" id="temp_type_' + a2[i].SelectionId + '"  value="sess">' +
+                                            '   <div class="runner-info-container">' +
+                                            '      <div class="market-graph-container">' +
+                                            '        <button class="market-graph"></button>' +
+                                            '           </div> <div class="runner-info">' +
+                                            '               <div class="default name" style="margin-top: 6px;">' +
+                                            '                   <h3 class="runner-name" id="ses_run_name_' + a2[i].SelectionId + '">' + a2[i].RunnerName + '</h3>' +
+                                            '               </div>' +
+                                            '            </div>' +
+                                            '       </div>' +
+                                            '    </td>' +
+                                            '    <td class="bet-buttons back-cell"></td>' +
+                                            '    <td class="bet-buttons back-cell"></td>' +
+                                            '    <td class="bet-buttons back-cell last-back-cell">' +
+                                            '        <button style="display:'+not_active_color+';" id="not_active_' + a2[i].SelectionId + '" class="mv-bet-button lay-button lay-selection-button" onclick="sessionBet(\'Not\',' + i + ',' + a2[i].SelectionId + ')">' +
+                                            '           <div class="mv-bet-button-info">' +
+                                            '                 <div class="mv-bet-button-info">' +
+                                            '                    <span class="bet-button-price" id="Not_value_' + a2[i].SelectionId + '">' + a2[i].LayPrice1 + '</span>' +
+                                            '                    <span class="bet-button-size" id="Not_size_' + a2[i].SelectionId + '">' + a2[i].LaySize1 + '</span>' +
+                                            '               </div>' +
+                                            '            </div>' +
+                                            '        </button>' +
+                                            '        <button style="display:'+not_suspend_color+';" id="not_suspend_' + a2[i].SelectionId + '" class=" not_suspend mv-bet-button">SUSPE</button>' +
+                                            '  </td>' +
+                                            '    <td class="bet-buttons lay-cell first-lay-cell">' +
+                                            '      <button style="display:'+yes_active_color+';" id="yes_active_' + a2[i].SelectionId + '" class=" mv-bet-button back-button back-selection-button" onclick="sessionBet(\'Yes\',' + i + ',' + a2[i].SelectionId + ')">' +
+                                            '          <div class="mv-bet-button-info">' +
+                                            '               <div class="mv-bet-button-info">' +
+                                            '                   <span class="bet-button-price" id="Yes_value_' + a2[i].SelectionId + '">' + a2[i].BackPrice1 + '</span>' +
+                                            '                    <span class="bet-button-size" id="Yes_size_' + a2[i].SelectionId + '">' + a2[i].BackSize1 + '</span>' +
+                                            '               </div>' +
+                                            '           </div>' +
+                                            '        </button> ' +
+                                            '        <button style="display:'+yes_suspend_color+';" id="yes_suspend_' + a2[i].SelectionId + '" class="yes_suspend mv-bet-button">NDED</button>' +
+                                            '     </td>' +
+                                            '   <td class="bet-buttons lay-cell"> </td>' +
+                                            '   <td class="bet-buttons lay-cell"></td>' +
+                                            '</tr>';
+                                        $('#session_tbody').append(myvar);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+            } else {
+                $("#SessionData").css("display", "none");
+            }
+    }
+        if (GetLog != "" && GetLog != null) {
+            if (SessCheck == "no" && Time_Stamp < 1800) {
+                SessCheck = "yes";
+                setInterval(function () { getWebSessD(); }, 1000);
+            }
+        }
+
+        //  Premium Session Data Start Here -->
+        /*if (GetLog != "" && GetLog != null) {
+            getWebSessDP();
+        }
+        var SessCheckP = "no";
+        function getWebSessDP() {
+            var id = $("#x_code").val();
+            var x_type = $("#x_type").val();
+            var sessionBfSportID = $("#sessionBfSportID").val();
+            if (sessionBfSportID == 4 && id!='0') {
+                $.ajax({
+                    url: '/exchange/GetNewsData',
+                    contentType: 'application/html ; charset:utf-8',
+                    type: 'GET',
+                    data: {
+                        xid: id,
+                        type : x_type
+                    },
+                    dataType: 'JSON',
+                    success: function (result) {
+                        var a2 = result;
+                        if (a2.length > 0) {
+                            var runlength = a2.length;
+                            var total_sessP = $("#total_sessP").val();
+                            var text_sessp = $("#text_sessp").val();
+                            if (runlength > 0) {
+                                $("#SessionDataP").css("display", "block");
+                                var text = "";
+                                for (iq = 0; iq < a2.length; iq++) {
+                                    text += a2[iq].TempId;
+                                }
+                                if (total_sessP != runlength || text_sessp != text) {
+                                    $('#session_tbodyP').empty();
+                                    $("#total_sessP").val(runlength);
+                                    $("#text_sessp").val(text);
+                                }
+                                for (i = 0; i < a2.length; i++) {
+                                    if ($("#select_id_" + a2[i].TempId).val() == a2[i].TempId) {
+                                        if ((a2[i].LayPrice1 < 1  && a2[i].BackPrice1 < 1) || a2[i].GameStatus!="") {
+                                            $("#not_suspend_" + a2[i].TempId).css("display", "block");
+                                            $("#yes_suspend_" + a2[i].TempId).css("display", "block");
+                                            $("#not_active_" + a2[i].TempId).css("display", "none");
+                                            $("#yes_active_" + a2[i].TempId).css("display", "none");
+                                        }
+                                        else {
+                                            $("#not_suspend_" + a2[i].TempId).css("display", "none");
+                                            $("#yes_suspend_" + a2[i].TempId).css("display", "none");
+                                            $("#not_active_" + a2[i].TempId).css("display", "block");
+                                            $("#yes_active_" + a2[i].TempId).css("display", "block");
+                                        }
+                                        $("#Not_value_" + a2[i].TempId).text(a2[i].LayPrice1);
+                                        $("#Not_size_" + a2[i].TempId).text(a2[i].LaySize1);
+                                        $("#Yes_value_" + a2[i].TempId).text(a2[i].BackPrice1);
+                                        $("#Yes_size_" + a2[i].TempId).text(a2[i].BackSize1);
+                                    } else {
+                                        var not_suspend_color = "none";
+                                        var yes_suspend_color = "none";
+                                        var not_active_color = "block";
+                                        var yes_active_color = "block";
+                                        if (a2[i].LayPrice1 < 1  && a2[i].BackPrice1 < 1) {
+                                            not_suspend_color = "block";
+                                            yes_suspend_color = "block";
+                                            not_active_color = "none";
+                                            yes_active_color = "none";
+                                        }
+                                        var myvar = '<tr class="runner-line">' +
+                                            ' <td class="new-runner-info"><input type="hidden" id="select_id_' + a2[i].TempId + '"  value="' + a2[i].TempId + '">' +
+                                            '   <input type="hidden" id="temp_id_' + a2[i].TempId + '"  value="' + a2[i].SelectionId + '">' +
+                                            '   <input type="hidden" id="temp_type_' + a2[i].TempId + '"  value="pre_sess">' +
+                                            '   <div class="runner-info-container">' +
+                                            '      <div class="market-graph-container">' +
+                                            '        <button class="market-graph"></button>' +
+                                            '           </div> <div class="runner-info">' +
+                                            '               <div class="default name" style="margin-top: 6px;">' +
+                                            '                   <h3 class="runner-name" id="ses_run_name_' + a2[i].TempId + '">' + a2[i].RunnerName + '</h3>' +
+                                            '               </div>' +
+                                            '            </div>' +
+                                            '       </div>' +
+                                            '    </td>' +
+                                            '    <td class="bet-buttons back-cell"></td>' +
+                                            '    <td class="bet-buttons back-cell"></td>' +
+                                            '    <td class="bet-buttons back-cell last-back-cell">' +
+                                            '        <button style="display:'+not_active_color+';" id="not_active_' + a2[i].TempId + '" class="mv-bet-button lay-button lay-selection-button" onclick="sessionBet(\'Not\',' + i + ',\'' + a2[i].TempId + '\')">' +
+                                            '           <div class="mv-bet-button-info">' +
+                                            '                 <div class="mv-bet-button-info">' +
+                                            '                    <span class="bet-button-price" id="Not_value_' + a2[i].TempId + '">' + a2[i].LayPrice1 + '</span>' +
+                                            '                    <span class="bet-button-size" id="Not_size_' + a2[i].TempId + '">' + a2[i].LaySize1 + '</span>' +
+                                            '               </div>' +
+                                            '            </div>' +
+                                            '        </button>' +
+                                            '        <button style="display:'+not_suspend_color+';" id="not_suspend_' + a2[i].TempId + '" class=" not_suspend mv-bet-button">SUSPE</button>' +
+                                            '  </td>' +
+                                            '    <td class="bet-buttons lay-cell first-lay-cell">' +
+                                            '      <button style="display:'+yes_active_color+';" id="yes_active_' + a2[i].TempId + '" class=" mv-bet-button back-button back-selection-button" onclick="sessionBet(\'Yes\',' + i + ',\'' + a2[i].TempId + '\')">' +
+                                            '          <div class="mv-bet-button-info">' +
+                                            '               <div class="mv-bet-button-info">' +
+                                            '                   <span class="bet-button-price" id="Yes_value_' + a2[i].TempId + '">' + a2[i].BackPrice1 + '</span>' +
+                                            '                    <span class="bet-button-size" id="Yes_size_' + a2[i].TempId + '">' + a2[i].BackSize1 + '</span>' +
+                                            '               </div>' +
+                                            '           </div>' +
+                                            '        </button> ' +
+                                            '        <button style="display:'+yes_suspend_color+';" id="yes_suspend_' + a2[i].TempId + '" class="yes_suspend mv-bet-button">NDED</button>' +
+                                            '     </td>' +
+                                            '   <td class="bet-buttons lay-cell"> </td>' +
+                                            '   <td class="bet-buttons lay-cell"></td>' +
+                                            '</tr>';
+                                        $('#session_tbodyP').append(myvar);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+            } else {
+                $("#SessionDataP").css("display", "none");
+            }
+    }
+        if (GetLog != "" && GetLog != null) {
+            if (SessCheckP == "no" && Time_Stamp < 1800) {
+                SessCheckP = "yes";
+                setInterval(function () { getWebSessDP(); }, 1000);
+            }
+        }*/
+
+        $(document).on("click", "#testsbnf", function () {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 0);
+        });
+
+        function BetPlaceSession(box, OddsValue, SessionId) {
+            document.getElementById("s_stakes_" + SessionId).value = "";
+            document.getElementById("panle_sess_" + SessionId).style.display = "none";
+            document.getElementById('place_bet_sess_' + SessionId).disabled = true;
+            $("#srate_" + SessionId).val(OddsValue);
+            if (box == "Yes") {
+                $("#SessionBetPlacePopupColor_" + SessionId).css("background-color", "#d2ebff");
+            } else if (box == "Not") {
+                $("#SessionBetPlacePopupColor_" + SessionId).css("background-color", "#f3dce2");
+            }
+            $("#session_box_" + SessionId).text(box);
+
+            if ($("#sessionbetpop_" + SessionId).css('display') == 'none') {
+
+                $("#sessionbetpop_" + SessionId).toggle({
+                    duration: 600,
+                });
+                $("#sessionbetpop_" + SessionId).css("display", "contents");
+
+            } else {
+                if ($("#SessionBetPlacePopupColor_" + SessionId).children("span").text() + $("#SessionBetPlacePopupColor_" + SessionId).children("input").val() == box + box_run) {
+                    $("#sessionbetpop_" + SessionId).css("display", "none");
+                }
+            }
+
+            $("#SessionBetPlacePopupColor_" + SessionId).children("span").text(box);
+            $("#SessionBetPlacePopupColor_" + SessionId).children("input").val("");
+        }
+
+        function SubmitBetMV(betfairid, eventcode, index) {
+
+            var gyjgyj = betfairid;
+            gyjgyj = (gyjgyj.toString().split(".")[1]);
+
+            var stackValue = $("#txt1_" + index).val();
+            var RunnerNameget = $("#runnername_" + gyjgyj + "_" + index).text();
+            var BoxType = $("#BetPlacePopupColor_" + index).children("span").text();
+
+            var OddsValue = $("#odds_" + index).val();
+            alert(betfairid + " -- " + stackValue + " -- " + OddsValue + " -- " + eventcode + " -- " + index + " -- " + BoxType + " -- " + RunnerNameget)
+            alert("Bet  Success !!!" + eventcode + "----" + betfairid + "---" + stackValue + "---" + OddsValue + "--- " + field_box + "---" + index)
+
+        }
+
+        function hideSessPopup(target) {
+            $("#sessionbetpop_" + target).css("display", "none");
+        }
+        //  Session Data End Here -->
+
+        //  Start WME Data  -->
+        function GetWmeForD(GetId) {
+            var GetBfIdBroke = GetId.toString().split(".")[1];
+            $.ajax({
+                type: "POST",
+                url: "/exchange/GetWinMAtchDa",
+                dataType: "html",
+                data: {
+                    data: GetId
+                },
+                success: function (data) {
+                    var a2 = JSON.parse(data);
+                    for (i = 0; i < a2.length; i++) {
+                        var run_cal_amout = a2[i].MainD;
+                        if (run_cal_amout > 0) {
+                            $('#run_cal_bef_' + GetBfIdBroke + '_' + i).css("color", "#20a052");
+                        } else if (run_cal_amout < 0) {
+                            $('#run_cal_bef_' + GetBfIdBroke + '_' + i).css("color", "#d54d4d");
+                        } else {
+                            $('#run_cal_bef_' + GetBfIdBroke + '_' + i).css("color", "#000000");
+                        }
+                        $("#run_cal_bef_" + GetBfIdBroke + "_" + i).text(run_cal_amout);
+                    }
+                }
+            });
+        }
+    </script>
+    <style>
+        .TextRight {
+            text-align: center;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .RowBorderBack {
+            /*border-top: 2px solid #0973BD;*/
+            background-color: #72bbef !important;
+            font-weight: normal;
+            color: white;
+        }
+
+        .RowBorderLay {
+            /*border-top: 2px solid #FE597B;*/
+            background-color: #faa9ba !important;
+            font-weight: normal;
+            color: white;
+        }
+
+        #grvMatched th, td {
+            font-size: 13px;
+        }
+
+        #prvMatched th, td {
+            font-size: 13px;
+        }
+    </style>
+    <script>
+
+        $(function () {
+            GetPlaceBet();
+        })
+        function GetPlaceBet() {
+            var OldBetName;
+            var BetName;
+            var BetType;
+            var event_id = $("#sessionEVID").val();
+            $.ajax({
+                type: "POST",
+                url: "/FunctionData/GetPlaceBets",
+                data: { event_id: event_id, },
+                success: function (response) {
+                    var hgfj = "Success";
+                    if (hgfj == "Success") {
+                        $("[id*=grvMatched]").empty();
+
+                        if (response.length > 0) {
+                            $("[id*=grvMatched]").append("<tr style='background-color:#7FB3D5; color:#2b4354;text-align:center;'><th style='padding:5px 10px 5px 10px;'>Selections</th>  <th class='TextRight' style='padding-left:3px;padding-right:3px;'>Rate</th>  <th class='TextRight' style='padding-left:3px;padding-right:3px;'>Stake</th>  <th class='TextRight' style='padding-left:3px;padding-right:3px;'>P/L</th>  <th class='TextRight' style='width:60px;'>Time</th></tr>");
+                            for (var i = 0; i < response.length; i++) {
+                                BetName = response[i]["BetName"];
+                                BetType = response[i]["BetType"];
+
+                                if (BetName != OldBetName) {
+                                    $("[id*=grvMatched]").append("<tr><td colspan='5' class='text-center' style='background-color:#ecebed;color:#2b4354;padding-top:3px;padding-bottom:3px;border-top: 1px solid #2b4354;text-align:center;'>" + response[i]["BetName"] + "</td> </tr>");
+                                }
+                                if (BetType == 'B') {
+                                    $("[id*=grvMatched]").append("<tr class='RowBorderBack'><td style='padding-left:10px;padding-right:10px;color:#2b4354;border-top: 1px solid #2b4354;'>" +
+                                        response[i]["RunnerName"] + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354;' class='TextRight'>" +
+                                        parseFloat(response[i]["Price"]) + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354;' class='TextRight'>" + response[i]["Qty"] + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354;' class='TextRight'>" + parseFloat(response[i]["PL"]).toFixed(2) + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354; font-size:10px;' class='TextRight'>" +
+                                        response[i]["created"] + "</td></tr>");
+                                }
+                                else {
+                                    $("[id*=grvMatched]").append("<tr class='RowBorderLay'><td style='padding-left:10px;padding-right:10px;color:#2b4354;border-top: 1px solid #2b4354;'>" +
+                                        response[i]["RunnerName"] + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354;' class='TextRight'>" +
+                                        parseFloat(response[i]["Price"]) + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354;' class='TextRight'>" + response[i]["Qty"] + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354;' class='TextRight'>" + parseFloat(response[i]["PL"]).toFixed(2) + "</td> <td style='color:#2b4354;border-top: 1px solid #2b4354; font-size:10px;' class='TextRight'>" +
+                                        response[i]["created"] + "</td></tr>");
+                                }
+                                OldBetName = response[i]["BetName"];
+                            }
+                        }
+                        else {
+                            $("[id*=grvMatched]").append("<tr><td style='text-align:center;padding-top:6px;padding-bottom:6px;color:#7FB3D5;'>There are currently no Matched Bets</td></tr>");
+                        }
+                    }
+                },
+            });
+        }
+    </script>
+
+    <script>
+        var edst = $("#sessionBfSportID").val();
+        if (edst == "2") {
+            tennis_score();
+        }
+        else if (edst == "4") {
+            cricket_score();
+        }
+        else if (edst == "1") {
+            soccer_score();
+        }
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                xhr.open(method, url, true);
+            } else if (typeof XDomainRequest != "undefined") {
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                xhr = null;
+            }
+            return xhr;
+        }
+        function soccer_score() {
+            var matchId = $("#sessionEVID").val();
+            var request = createCORSRequest("get", "https://ips.betfair.com/inplayservice/v1/eventTimeline?_ak=nzIFcwyWhrlwYMrh&alt=json&eventId=" + matchId + "&locale=en&productType=EXCHANGE&regionCode=ASIA");
+            if (request) {
+                request.onload = function (response) {
+                    var fhg = response["target"]["response"];
+                    var data = JSON.parse(fhg);
+                    try {
+                        var gyg = Object.entries(data).length;
+                        if (gyg > 0) {
+                            $("#soccer_score").css("display", "flex");
+                            var updatedetail = data["updateDetails"];
+                            var totaltime = data["elapsedRegularTime"];
+                            var firstbarper = parseInt((parseInt(totaltime) / 45 * 100));
+                            var secondbarper = firstbarper - 100;
+                            $("#firstbar").css("width", firstbarper + "%");
+                            $("#secondbar").css("width", secondbarper + "%");
+                            for (var i = 1; i < updatedetail.length; i++) {
+                                var leftperc = updatedetail[i]["elapsedRegularTime"];
+                                var per = parseInt((parseInt(leftperc) / 45 * 100));
+                                var type = updatedetail[i]["type"];
+                                var team = updatedetail[i]["team"];
+                                var teamName = updatedetail[i]["teamName"];
+                                if (type == "Goal" || type == "YellowCard" || type == "RedCard") {
+                                    if ($("#maindev_" + updatedetail[i]["updateId"]).val() == updatedetail[i]["updateId"]) {
+
+                                    }
+                                    else {
+                                        var myvar = '<div class="bf-tooltip-parent ' + team + ' ' + type + '" style="left: ' + per + '%;">' +
+                                            '                <input type="hidden" id="maindev_' + updatedetail[i]["updateId"] + '" value="' + updatedetail[i]["updateId"] + '" /> <div class="bf-tooltip-wrapper rounded top center">' +
+                                            '                    <div class="bf-tooltip">' +
+                                            '                        <div class="text">' +
+                                            '                            <span class="match-time">' +
+                                            '                             ' + leftperc + '\'' +
+                                            '                             <br>' +
+                                            '                            </span>' +
+                                            '                           <span class="update-type ' + type + '"></span>' +
+                                            '                           <span class="team-name">' + teamName + '</span>' +
+                                            '                           <br>' +
+                                            '                       </div>' +
+                                            '                   </div>' +
+                                            '               </div>' +
+                                            '           </div>';
+                                        $("#firsthalf").append(myvar);
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            $("#soccer_score").css("display", "none");
+                        }
+                    }
+                    catch (e) {
+
+                    }
+
+                };
+                request.send();
+            }
+            setTimeout(function () { soccer_score(); }, 1000);
+        }
+        function tennis_score() {
+            var matchId = $("#sessionEVID").val();
+            var request = createCORSRequest("get", "https://ips.betfair.com/inplayservice/v1/eventTimeline?_ak=nzIFcwyWhrlwYMrh&alt=json&eventId=" + matchId + "&locale=en&productType=EXCHANGE&regionCode=ASIA");
+            if (request) {
+                request.onload = function (response) {
+                    var fhg = response["target"]["response"];
+                    //alert(fhg);
+                    var data = JSON.parse(fhg);
+                    try {
+                        var gyg = Object.entries(data).length;
+                        if (gyg > 0) {
+                            $("#tennis_score").css("display", "flex");
+                            var home_finish = data["score"]["home"]["gameSequence"];
+                            $("#home_sets").empty();
+                            for (var i = 0; i < home_finish.length; i++) {
+                                var home_sets = '<div class="cell"><span>' + home_finish[i] + '</span></div>';
+                                $("#home_sets").append(home_sets);
+                            }
+                            var home_curr = '<div class="cell"><span class="highlight">' + data["score"]["home"]["games"] + '</span></div>';
+                            $("#home_sets").append(home_curr);
+
+                            var away_finish = data["score"]["away"]["gameSequence"];
+                            $("#away_sets").empty();
+                            for (var i = 0; i < away_finish.length; i++) {
+                                var away_sets = '<div class="cell"><span>' + away_finish[i] + '</span></div>';
+                                $("#away_sets").append(away_sets);
+                            }
+                            var away_curr = '<div class="cell"><span class="highlight">' + data["score"]["away"]["games"] + '</span></div>';
+                            $("#away_sets").append(away_curr);
+
+                            var total_sets = data["score"]["home"]["gameSequence"];
+                            $("#all_sets").empty();
+                            for (var i1 = 1; i1 < total_sets.length + 2; i1++) {
+                                var all_sets = '<div class="cell"><span>' + i1 + '</span></div>';
+                                $("#all_sets").append(all_sets);
+                            }
+
+                            $("#games1").html(data["score"]["home"]["games"]);
+                            $("#score1").html(data["score"]["home"]["score"]);
+                            $("#games2").html(data["score"]["away"]["games"]);
+                            $("#score2").html(data["score"]["away"]["score"]);
+
+                            $("#aces1").html(data["score"]["home"]["aces"]);
+                            $("#doubleFaults1").html(data["score"]["home"]["doubleFaults"]);
+                            $("#serviceBreaks1").html(data["score"]["home"]["serviceBreaks"]);
+                            $("#aces2").html(data["score"]["away"]["aces"]);
+                            $("#doubleFaults2").html(data["score"]["away"]["doubleFaults"]);
+                            $("#serviceBreaks2").html(data["score"]["away"]["serviceBreaks"]);
+                        }
+                        else {
+                            $("#tennis_score").css("display", "none");
+                        }
+                    }
+                    catch (e) {
+
+                    }
+
+                };
+                request.send();
+            }
+            setTimeout(function () { tennis_score(); }, 1000);
+        }
+        function cricket_score() {
+            matchId = $("#sessionEVID").val();
+            var request = createCORSRequest("get", "https://ips.betfair.com/inplayservice/v1/eventTimeline?_ak=nzIFcwyWhrlwYMrh&alt=json&eventId=" + matchId + "&locale=en&productType=EXCHANGE&regionCode=ASIA");
+            if (request) {
+                request.onload = function (response) {
+                    //console.log(response);
+                    var fhg = response["target"]["response"];
+                    //alert(fhg);
+                    var response1 = JSON.parse(fhg);
+                    try {
+                        var gyg = Object.entries(response1).length;
+                        if (gyg > 0) {
+                            $("#cricket_score").css("display", "flex");
+
+                            var TeamAhighlight = (response1["score"]["home"]["highlight"]).toString();
+                            var TeamBhighlight = (response1["score"]["away"]["highlight"]).toString();
+
+                            var TeamAInn1 = response1["score"]["home"]["inning1"];
+                            var TeamAInn2 = response1["score"]["home"]["inning2"];
+                            var TeamBInn1 = response1["score"]["away"]["inning1"];
+                            var TeamBInn2 = response1["score"]["away"]["inning2"];
+                            if (typeof TeamAInn2 == "undefined" && typeof TeamBInn2 == "undefined") {
+                                $("#inning2data").css("display", "none");
+                            }
+                            else {
+                                $("#inning2data").css("display", "");
+                            }
+                            if (TeamAhighlight == "true") {
+                                if (typeof TeamAInn2 == "undefined") {
+                                    $("#inning1TeamA").addClass("highlight");
+                                }
+                                else {
+                                    $("#inning2TeamA").addClass("highlight");
+                                }
+                            }
+                            if (TeamBhighlight == "true") {
+                                if (typeof TeamBInn2 == "undefined") {
+                                    $("#inning1TeamB").addClass("highlight");
+                                }
+                                else {
+                                    $("#inning2TeamB").addClass("highlight");
+                                }
+                            }
+
+                            if (typeof TeamAInn1 == "undefined") {
+                                var team_a_score = "Yet to bet";
+                                $("#TeamARuns").text(team_a_score);
+                            }
+                            else {
+                                var TeamARuns = TeamAInn1["runs"];
+                                var TeamAWickets = TeamAInn1["wickets"];
+                                var TeamAOvers = TeamAInn1["overs"];
+                                if (TeamAWickets == "ALL_OUT") {
+                                    var TeamAWickets = "";
+                                }
+                                else {
+                                    var TeamAWickets = "&nbsp;/" + TeamAWickets;
+                                }
+                                $("#TeamARuns").text(TeamARuns);
+                                $("#TeamAWickets").html(TeamAWickets);
+                                $("#TeamAOvers").html("&nbsp; (" + TeamAOvers + ")");
+
+                            }
+                            if (typeof TeamAInn2 == "undefined") {
+                                var team_a_score1 = "Yet to bet";
+                                $("#TeamARuns1").text(team_a_score1);
+                            }
+                            else {
+                                var TeamARuns1 = TeamAInn2["runs"];
+                                var TeamAWickets1 = TeamAInn2["wickets"];
+                                var TeamAOvers1 = TeamAInn2["overs"];
+                                if (TeamAWickets1 == "ALL_OUT") {
+                                    var TeamAWickets1 = "";
+                                }
+                                else {
+                                    var TeamAWickets1 = "&nbsp;/" + TeamAWickets1;
+                                }
+                                $("#TeamARuns1").text(TeamARuns1);
+                                $("#TeamAWickets1").html(TeamAWickets1);
+                                $("#TeamAOvers1").html("&nbsp; (" + TeamAOvers1 + ")");
+
+                            }
+                            if (typeof TeamBInn1 == "undefined") {
+                                var team_b_score = "Yet to bet";
+                                $("#TeamBRuns").text(team_b_score);
+                            }
+                            else {
+                                var TeamBRuns = TeamBInn1["runs"];
+                                var TeamBWickets = TeamBInn1["wickets"];
+                                var TeamBOvers = TeamBInn1["overs"];
+                                if (TeamBWickets == "ALL_OUT") {
+                                    var TeamBWickets = "";
+                                }
+                                else {
+                                    var TeamBWickets = "&nbsp;/" + TeamBWickets;
+                                }
+                                $("#TeamBRuns").text(TeamBRuns);
+                                $("#TeamBWickets").html(TeamBWickets);
+                                $("#TeamBOvers").html("&nbsp; (" + TeamBOvers + ")");
+                            }
+                            if (typeof TeamBInn2 == "undefined") {
+                                var team_b_score1 = "Yet to bet";
+                                $("#TeamBRuns1").text(team_b_score1);
+                            }
+                            else {
+                                var TeamBRuns1 = TeamBInn2["runs"];
+                                var TeamBWickets1 = TeamBInn2["wickets"];
+                                var TeamBOvers1 = TeamBInn2["overs"];
+                                if (TeamBWickets1 == "ALL_OUT") {
+                                    var TeamBWickets1 = "";
+                                }
+                                else {
+                                    var TeamBWickets1 = "&nbsp;/" + TeamBWickets1;
+                                }
+                                $("#TeamBRuns1").text(TeamBRuns1);
+                                $("#TeamBWickets1").html(TeamBWickets1);
+                                $("#TeamBOvers1").html("&nbsp; (" + TeamBOvers1 + ")");
+                            }
+                        }
+                    }
+                    catch (e) {
+
+                    }
+                };
+                request.send();
+            }
+            setTimeout(function () { cricket_score(); }, 1000);
+        }
+    </script>
+}
+
+

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="betfairbModel1StoreContainer" CdmEntityContainer="betfairbEntities1">
+    <EntitySetMapping Name="matches">
+      <EntityTypeMapping TypeName="betfairbModel1.match">
+        <MappingFragment StoreEntitySet="matches">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="sport_id" ColumnName="sport_id" />
+          <ScalarProperty Name="match_title" ColumnName="match_title" />
+          <ScalarProperty Name="match_time" ColumnName="match_time" />
+          <ScalarProperty Name="league_id" ColumnName="league_id" />
+          <ScalarProperty Name="betfair_id" ColumnName="betfair_id" />
+          <ScalarProperty Name="event_code" ColumnName="event_code" />
+          <ScalarProperty Name="teama" ColumnName="teama" />
+          <ScalarProperty Name="teamb" ColumnName="teamb" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="islucky" ColumnName="islucky" />
+          <ScalarProperty Name="x_code" ColumnName="x_code" />
+          <ScalarProperty Name="x_type" ColumnName="x_type" />
+          <ScalarProperty Name="bet_data" ColumnName="bet_data" />
+          <ScalarProperty Name="tv_ch" ColumnName="tv_ch" />
+          <ScalarProperty Name="cric_id" ColumnName="cric_id" />
+          <ScalarProperty Name="video_l" ColumnName="video_l" />
+          <ScalarProperty Name="max_limit_mo" ColumnName="max_limit_mo" />
+          <ScalarProperty Name="max_limit_sess" ColumnName="max_limit_sess" />
+          <ScalarProperty Name="max_limit_mo_bp" ColumnName="max_limit_mo_bp" />
+          <ScalarProperty Name="max_limit_sess_bp" ColumnName="max_limit_sess_bp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EventByEventCode" FunctionName="betfairbModel1.Store.EventByEventCode" />
+    <FunctionImportMapping FunctionImportName="EventByEventCodeSPM" FunctionName="betfairbModel1.Store.EventByEventCode" />
+    <FunctionImportMapping FunctionImportName="EventByEventCode_1" FunctionName="betfairbModel1.Store.EventByEventCode" />
+  </EntityContainerMapping>
+</Mapping>

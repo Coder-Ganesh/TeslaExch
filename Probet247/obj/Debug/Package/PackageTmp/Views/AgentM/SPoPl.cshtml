@@ -1,0 +1,165 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAgentM.cshtml";
+}
+<script src="~/Scripts/datepicksk/DateUtil.js"></script>
+<script src="~/Scripts/datepicksk/JSUtil.js"></script>
+<script src="~/Scripts/datepicksk/webCalendar.js"></script>
+<style>
+    .pages a.select {
+        color: #F8D61C !important;
+        background: #444 url('../../Content/images/skyexchange/btn-select-skyEX.jpg') repeat-x !important;
+        border-color: #222 !important;
+    }
+
+    .btn-send {
+        background: #121212 url('../../Content/images/skyexchange/bg-send-skyEX.png') repeat-x !important;
+        color: #F8D61C !important;
+        border-color: #000 !important;
+    }
+</style>
+<div class="col-center report" style=" margin-left: 0px;">
+    <div class="function-wrap">
+        <ul class="input-list">
+
+            <li><label>Period</label></li>
+            <li>
+                <input id="startDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'startDate');">
+                <input id="startTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+                to
+                <input id="endDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" autocomplete="off" onclick="calendarObj.show(event,'endDate');">
+                <input id="endTime" class="time-input disable" type="text" placeholder="00:00" maxlength="5" disabled>
+            </li>
+            <li>(TimeZone:GMT)</li>
+        </ul>
+        <ul class="input-list">
+            <li><a id="today" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 9px;" onclick="datebtcl(0)">Just For Today</a></li>
+            <li><a id="yesterday" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;padding-left: 6px;" onclick="datebtcl(1)">From Yesterday</a></li>
+            <li><a id="last7days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(7)">Last 7 days</a></li>
+            <li><a id="last15days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(15)">Last 15 days</a></li>
+            <li><a id="last30days" href="#" class="btn" style="padding-top:0px;padding-bottom:0px;" onclick="datebtcl(30)">Last 30 days</a></li>
+            <li><a id="getPL" href="#" class="btn-send" onclick="GetHistory(@ViewBag.pageNumber)">Get History</a></li>
+        </ul>
+    </div>
+
+    <!-- Start Report -->
+    <div id="report" style="">
+        <table id="matchTable" class="table-s" style="display: table;">
+            <tbody>
+                <tr>
+                    <th width="19%" class="align-L">Dealer</th>
+                    <th class="align-L" width="12%">Cricket</th>
+                    <th width="12%" style="text-align:center;">Tennis</th>
+                    <th width="4%" style="text-align:center;">Soccer</th>
+                    <th width="7%" style="text-align:center;">Total P/L</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    var color = "red";
+                    var colorc = "red";
+                    var colort = "red";
+                    var colorf = "red";
+                    if (@item.tot > 0)
+                    {
+                        color = "green";
+                    }
+                    else
+                    {
+                        color = "red";
+                    }
+                    if (@item.crkt > 0)
+                    {
+                        colorc = "green";
+                    }
+                    else
+                    {
+                        colorc = "red";
+                    }
+                    if (@item.socc > 0)
+                    {
+                        colorf = "green";
+                    }
+                    else
+                    {
+                        colorf = "red";
+                    }
+                    if (@item.tenn > 0)
+                    {
+                        colort = "green";
+                    }
+                    else
+                    {
+                        colort = "red";
+                    }
+                    <tr id="matchRow19" style="display: table-row;">
+                        <td class="align-L"><a id="betID" href="/AgentM/SpoplU/@item.id_">@item.naam</a></td>
+                        <td id="matchTitle" class="align-L" style="color:@colorc">@item.crkt</td>
+                        <td id="matchSelection" class="align-C" style="color:@colorf">@item.socc</td>
+                        <td id="Type" class="align-C" style="color:@colort">@item.tenn</td>
+                        <td class="align-C"><b><span id="betPlaced" class="small-date" style="color:@color">@item.tot</span></b></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <input type="hidden" id="anydefst" value="@ViewBag.startDate" />
+        <input type="hidden" id="anydefend" value="@ViewBag.endDate" />
+        <script>
+            function GetHistory(pageNumber) {
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                window.location.href = '?startDate=' + startDate + '&endDate=' + endDate;
+            }
+        </script>
+        <script language="javascript" type="text/javascript">
+            calendarProperties.dateFormatStyle = "yyyy-MM-dd";
+            calendarProperties.setI18n({ "form.text.transfer.weekly.weekNumber": "wk #", "calendar.text.month.1": "Jan", "calendar.text.month.2": "Feb", "calendar.text.month.3": "Mar", "calendar.text.month.4": "Apr", "calendar.text.month.5": "May", "calendar.text.month.6": "Jun", "calendar.text.month.7": "Jul", "calendar.text.month.8": "Aug", "calendar.text.month.9": "Sep", "calendar.text.month.10": "Oct", "calendar.text.month.11": "Nov", "calendar.text.month.12": "Dec", "form.text.transfer.weekly.0": "Sun", "form.text.transfer.weekly.1": "Mon", "form.text.transfer.weekly.2": "Tue", "form.text.transfer.weekly.3": "Wed", "form.text.transfer.weekly.4": "Thu", "form.text.transfer.weekly.5": "Fri", "form.text.transfer.weekly.6": "Sat", "calendar.form.text.Today": "Today", "calendar.form.text.Clear": "Clear", "calendar.form.text.Close": "Close" });
+            var calendarObj = new Calendar();
+        </script>
+
+        <script language="JavaScript" type="text/javascript">
+            var utc = new Date();
+            var today = new Date().toJSON().slice(0, 10);
+            var maxDay = new Date((new Date().setDate(new Date().getDate() + 1))).toJSON().slice(0, 10);
+            var yesterday = new Date((new Date().setDate(new Date().getDate() - 1))).toJSON().slice(0, 10);
+            var last7day = new Date((new Date().setDate(utc.getDate() - 7))).toJSON().slice(0, 10);
+            var last15day = new Date((new Date().setDate(new Date().getDate() - 15))).toJSON().slice(0, 10);
+            var last30day = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+            var last2months = new Date((new Date().setDate(new Date().getDate() - 60))).toJSON().slice(0, 10);
+            var last3months = new Date((new Date().setDate(new Date().getDate() - 90))).toJSON().slice(0, 10);
+            var minDay = new Date((new Date().setDate(new Date().getDate() - 30))).toJSON().slice(0, 10);
+            var anydefst = $("#anydefst").val();
+            var anydefend = $("#anydefend").val();
+            if (anydefst != "0" && anydefst != null && anydefend != "0" && anydefend != null) {
+                datebtcl(99);
+            }
+            else {
+                datebtcl(0);
+            }
+            function datebtcl(clickdat) {
+                if (clickdat == "0") {
+                    $("#startDate").val(today);
+                    $("#endDate").val(maxDay);
+                }
+                else if (clickdat == "1") {
+                    $("#startDate").val(yesterday);
+                    $("#endDate").val(maxDay);
+                }
+                else if (clickdat == "7") {
+                    $("#startDate").val(last7day);
+                    $("#endDate").val(maxDay);
+                }
+                else if (clickdat == "15") {
+                    $("#startDate").val(last15day);
+                    $("#endDate").val(maxDay);
+                }
+                else if (clickdat == "30") {
+                    $("#startDate").val(last30day);
+                    $("#endDate").val(maxDay);
+                }
+                else if (clickdat == "99") {
+                    $("#startDate").val(anydefst.toString());
+                    $("#endDate").val(anydefend);
+                }
+            }
+        </script>

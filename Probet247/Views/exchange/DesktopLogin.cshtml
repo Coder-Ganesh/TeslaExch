@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="~/Content/logindesktop.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <div class="content-login">
+        <div id="header-placeholder">
+            <div class="centralWrapper">
+                <div class="mod yui3-widget yui3-module yui3-header">
+                    <div class="mod-header mod-header-header yui3-header-content">
+                        <a href="/exchange/Index"><div class="header-image"></div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="centralWrapper contentShadow">
+            <div class="main-wrapper">
+                <div class="mod-login mod-login-login">
+                    <div id="showMessage" class="show-message error " style=" display:none; color: #303030;background: #f0f1f5;padding: 12px 12px 12px 36px;border-radius: 2px;font-weight: normal;margin-bottom: 16px;font-size: 12px;">
+                        <p style="color:rgb(213, 91, 91);font-weight: 700;">Hey, looks like something went wrong. Please try again.</p>
+                    </div>
+                    <div id="loginForm">
+                        <fieldset>
+                            <h3>Please log in below</h3>
+                            <div class="input-form">
+                                <label class="label firstlabel">Email &nbsp;/&nbsp;Username</label>
+                                <div class="input-holder username-container">
+                                    <input type="text" id="username1" class="input">
+                                </div>
+                            </div>
+                            <div class="input-form">
+                                <label class="label" id="password-label" style="margin-top: 15px;">Password</label>
+                                <div class="input-container toggle-password">
+                                    <div class="input-holder password-container">
+                                        <input type="password" id="password" class="input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="login-container toggle-password">
+
+                                <button class="cta cta-primary loginButton" id="login" type="submit" onclick="ljkhjghf()">Log In</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+            </div>
+            <div id="footer-wrapper">
+                <div class="mod-footer mod-footer-footer">
+                    <div class="ssc-fw ssc-fw-sm">
+                        <div class="ssc-flkh">
+                            <ul class="ssc-flnk">
+                                <li class="ssc-lw">
+                                    <a href="" class="sscmw width(1000) height(600) autoscroll(true) ssc-privacyPolicy">Privacy Policy</a>
+                                </li>
+                                <li class="ssc-lw">
+                                    <a href="" class="sscmw width(1000) height(600) autoscroll(true) ssc-privacyPolicy">Cookie Policy</a>
+                                </li>
+                                <li class="ssc-lw">
+                                    <a href="" class="sscmw width(1000) height(600) autoscroll(true) ssc-privacyPolicy">Rules & Regulations</a>
+                                </li>
+                                <li class="ssc-lw">
+                                    <a href="" class="sscmw width(1000) height(600) autoscroll(true) ssc-privacyPolicy">Terms & Conditions</a>
+                                </li>
+                                <li class="ssc-lw responsibleGambling">
+                                    <a href="">Gambling can be addictive, please play responsibly.</a>
+                                </li>
+                                <li class="ssc-lw">
+                                    <a href="" class="sscmw width(1000) height(600) autoscroll(true) ssc-privacyPolicy">Underage gambling is an offence</a>
+                                </li>
+                                <li class="ssc-lw last">
+                                    <a href="" class="sscmw width(1000) height(600) autoscroll(true) ssc-privacyPolicy">GAMSTOP</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+     function ljkhjghf() {
+        var UserN = $("#username1").val();
+         var UserP = $("#password").val();
+        $.ajax({
+            type: "POST",
+            url: "/Check/CLo",
+            data: {username: UserN,password: UserP},
+            success: function (result) {
+                if (result == "Success") {
+                    window.location.href = "/exchange/Index";
+                }
+                else {
+                    $("#showMessage").css("display", "block");
+                }
+            },
+            error: function (error) {
+                $("#showMessage").css("display", "block");
+            }
+        });
+         return true;
+    }
+</script>

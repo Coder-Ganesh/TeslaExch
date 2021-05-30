@@ -1,0 +1,475 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<style>
+
+    .LiveLobby-module__gridContainer___pvq7v {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(362px, 1fr));
+        grid-gap: 8px;
+    }
+
+    @@media (max-width: 1279px) {
+        .LiveLobby-module__gridContainer___pvq7v {
+            grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
+        }
+    }
+
+    @@media (max-width: 1024px) and (min-width: 767px) {
+        .LiveLobby-module__gridContainer___pvq7v {
+            grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
+        }
+    }
+
+    @@media (max-width: 768px) and (min-width: 421px) {
+        .LiveLobby-module__gridContainer___pvq7v {
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        }
+    }
+
+    @@media (max-width: 420px) and (min-width: 321px) {
+
+
+        .LiveLobby-module__gridContainer___pvq7v {
+            padding: 0px 16px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+    }
+
+    @@media (max-width: 320px) and (min-width: 50px) {
+
+        .LiveLobby-module__gridContainer___pvq7v {
+            padding: 8px 16px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        }
+    }
+
+    .GameTile-module__gameImage___1THTR {
+        background-origin: content-box;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        transition: opacity .4s ease-in-out;
+    }
+
+    .GameTile-module__nameHolder___2ySxj {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        opacity: .87;
+        background-color: #000;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        z-index: 1;
+        margin-top: -2px;
+    }
+
+    .GameTile-module__name___3cK8B {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        font-size: 14px;
+        white-space: nowrap;
+        vertical-align: middle;
+        line-height: 32px;
+        text-align: left;
+        transition: color .4s ease-in-out;
+        color: #ffb80C;
+    }
+</style>
+<input type="hidden" id="SportIId" value="@ViewBag.SportIId" />
+<div class="ribbon-container">
+    <div class="ui-ribbon">
+        <ul class="list">
+
+            <a href="/exchange/MInplay">
+                <li class="item icon inplay">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-inplay">
+                                <span class="counter no-ios">@ViewBag.countinplay</span>
+                            </div>
+                            <div class="label">In-Play </div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            <a href="/exchange/MMatchList/4">
+                <li class="item icon">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-4">
+                            </div>
+                            <div class="label">Cricket</div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            <a href="/exchange/MMatchList/1">
+                <li class="item icon">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-1">
+                            </div>
+                            <div class="label">Football </div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            <a href="/exchange/MMatchList/2">
+                <li class="item icon">
+                    <button class="link">
+                        <div class="container">
+                            <div class="icon sprite-normal sprite-normal-2">
+                            </div>
+                            <div class="label">Tennis </div>
+                        </div>
+                    </button>
+                </li>
+            </a>
+            @if (Session["AdminID"].ToString() != "14")
+            {
+                <a href="/exchange/Mindex/7888">
+                    <li class="item icon">
+                        <button class="link">
+                            <div class="container">
+                                <div class="icon sprite-normal sprite-normal-roulette">
+                                </div>
+                                <div class="label">Live Casino</div>
+                            </div>
+                        </button>
+                    </li>
+                </a>
+                <a href="/exchange/MMatchList/98765">
+                    <li class="item icon">
+                        <button class="link">
+                            <div class="container">
+                                <div class="icon sprite-normal sprite-normal-2378961">
+                                </div>
+                                <div class="label">Binary</div>
+                            </div>
+                        </button>
+                    </li>
+                </a>
+                <a href="/exchange/MMatchList/10">
+                    <li class="item icon">
+                        <button class="link">
+                            <div class="container">
+                                <div class="icon sprite-normal sprite-normal-2">
+                                </div>
+                                <div class="label">Table Tennis</div>
+                            </div>
+                        </button>
+                    </li>
+                </a>
+                <a href="/exchange/MMatchList/3503">
+                    <li class="item icon">
+                        <button class="link">
+                            <div class="container">
+                                <div class="icon sprite-normal sprite-normal-3503">
+                                </div>
+                                <div class="label">Darts</div>
+                            </div>
+                        </button>
+                    </li>
+                </a>
+                <a href="Javascript: Void(0)">
+                    <li class="item icon">
+                        <button class="link">
+                            <div class="container">
+                                <div class="icon sprite-normal sprite-normal-26420387">
+                                </div>
+                                <div class="label">Matka</div>
+                            </div>
+                        </button>
+                    </li>
+                </a>
+            }
+            else
+            {
+
+            }
+
+
+        </ul>
+    </div>
+</div>
+
+<div class="highlights-page">
+    <div class="module-margin">
+        <div class="quick-links">
+            <div class="_2OT3f">
+                <div class="_3S9GR">
+                    <span class="_2Gef4 _1k8eu _19Fp5 _3lvH3" style="text-align:center;">@ViewBag.SportNameAcordingto</span>
+                </div>
+            </div>
+            <div class="LiveLobby-module__gridContainer___pvq7v">
+                @{var availdata = "no"; }
+                @foreach (var item in Model)
+                {
+                    availdata = "yes";
+                    if (@item.league_sports_id == "7888")
+                    {
+                        <style>
+
+                            .mobile_view {
+                                background-color: #212121;
+                                background-image: linear-gradient(180deg, #9c9a9a 0%, #212121 74%);
+                            }
+                        </style>
+                        if (item.league_id == "30303030")
+                        {
+                            <a href="/exchange/MTeenpatti/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lct20.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B" style="color:white;">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else if (item.league_id == "31313131")
+                        {
+                            <a href="/exchange/OneDayTP/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lconeday.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B" style="color:white;">Teen Patti T10</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else if (item.league_id == "50505050")
+                        {
+                            <a href="/exchange/DragonT20/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lcdt20.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B" style="color:white;">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else if (item.league_id == "51515151")
+                        {
+                            <a href="/exchange/DragonT20Lion/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lcdtl20.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else if (item.league_id == "60606060")
+                        {
+                            <a href="/exchange/Lucky7/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lclucky7a.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else if (item.league_id == "61616161")
+                        {
+                            <a href="/exchange/Lucky7B/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lclucky7b.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else if (item.league_id == "40404040")
+                        {
+                            <a href="/exchange/PokerT20/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lcpoker20.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+
+                        else if (item.league_id == "52525252")
+                        {
+                            <a href="/exchange/OneDayDragonTiger/@item.league_id" style="border: 2px solid black;">
+                                <div class="GameTile-module__container___3eqjk">
+                                    <img class="GameTile-module__gameImage___1THTR" src="~/Content/Casinopic/lcdt6p.png" />
+                                    <div class="GameTile-module__nameHolder___2ySxj">
+                                        <p class="GameTile-module__name___3cK8B">@item.league_name</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="_22dKe" href="/exchange/MMatchList/@item.league_sports_id/@item.league_id">
+                            <span class="_22v9B sprite-dark sprite-dark-@item.league_sports_id"></span>
+                            <div class="yxlEB">
+                                <span class="S7B5i gNqRA IY_-O" style="font-size:small;font-weight:bold;">@item.league_name</span>
+                            </div>
+                            <span class="_22v9B sprite-chevron-arrow"></span>
+                        </a>
+                    }
+                }
+                @if (availdata == "no" && @ViewBag.SportNameAcordingto != "Quick Links")
+                {
+                    <li class="item" style="padding: 10px;text-align: center;font-weight: 700;">There are no Event to display</li>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+        filter_menu();
+        function filter_menu() {
+            var sport = $("#SportIId").val();
+            if (sport == "7888") {
+                $("#main_casino").addClass("menu-active");
+            }
+            else if (sport == "4") {
+                $("#main_home").addClass("menu-active");
+            }
+        }
+
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsById("myDropdown");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('input[name="check"]').attr("disabled", true);
+            $(".agree").click(function () {
+                if ($(this).prop("checked") == true) {
+                    $('input[name="check"]').attr("disabled", false);
+                }
+                else if ($(this).prop("checked") == false) {
+                    $('input[name="check"]').attr("disabled", true);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(window).on('scroll', function () {
+            var $w = $(window);
+            $('.position-fixed-y').css('top', $w.scrollTop());
+        });
+
+        $(window).scroll(function () {
+            const x = -this.scrollX
+            $(".fixed").css({ left: x })
+        })
+
+    </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $(document).ready(function () {
+            $("#show_hide").click(function () {
+                $("#men_ex").toggle({
+                    duration: 600,
+                });
+            });
+
+        });
+        function hide(target) {
+            document.getElementById(target).style.display = 'none';
+        }
+
+
+        $(document).ready(function () {
+            $("#show_hide1").click(function () {
+                $("#men_ex").toggle({
+                    duration: 600,
+                });
+            });
+
+        });
+        function hide(target) {
+            document.getElementById(target).style.display = 'none';
+        }
+
+    </script>
+
+    <script>
+
+        function myFun() {
+            var odd_bet = $("#bet").html();
+            $("#odds").val(odd_bet);
+        }
+
+        function myFun1() {
+            var odd_bet = $("#bet1").html();
+            $("#odds").val(odd_bet);
+        }
+    </script>
+
+    <script>
+        function manage(txt) {
+            var tt = $('#txt').val();
+            var bp = document.getElementById("bet_profit");
+            var bt = document.getElementById('place_bet');
+            if (tt != '') {
+                bt.disabled = false;
+                $("#bet_profit").html(tt);
+
+                bp.style.display = "block";
+
+            }
+            else {
+                bt.disabled = true;
+
+                bp.style.display = "none";
+            }
+        }
+    </script>
+
+    <script>
+        $('.modal-toggle').on('click', function (e) {
+            e.preventDefault();
+            $('.modal1').toggleClass('is-visible');
+        });
+    </script>
+
+}
+

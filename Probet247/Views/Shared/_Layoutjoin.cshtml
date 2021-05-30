@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "_Layout2";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <title>Probet247</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+    <link href="~/Content/join.css" rel="stylesheet" />
+
+</head>
+
+
+
+<body>
+    <header>
+        <div class="header">
+            <div class="grid-3_xs-2-noBottom-middle" style="display: flex;">
+                <div class="col-4_sm-8-center betfair-logo-h">
+                    <a href="index.html">
+                        <img src="~/Content/logo.png" />
+                    </a>
+                </div>
+                <div class="col-4_sm-4 nav-button">
+                    <div class="button-wrapper">
+                        <a href="/exchange/Login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+

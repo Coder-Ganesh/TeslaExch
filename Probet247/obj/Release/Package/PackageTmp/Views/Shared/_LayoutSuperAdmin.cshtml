@@ -1,0 +1,704 @@
+﻿
+@if (Session["Admin_UserName"] == null)
+{
+    { Response.Redirect("~/exchange/Login"); }
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <title>Seinor Super</title>
+    <link rel="SHORTCUT ICON" href="~/Content/images/favicon.ico" />
+    <link rel="bookmark" href="~/Content/images/favicon.ico" />
+    <link href="~/Content/css/agent_style.css" rel="stylesheet" />
+    <link href="~/Content/SKYEXCHANGEAgent_files/agent_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/datepicksk/I18N.js"></script>
+    <style>
+        .table-s {
+            font-size: 12px;
+        }
+        .table01 {
+            font-size: 12px;
+        }
+        .search {
+            width: 80%;
+            position: relative;
+            display: flex;
+            float: right;
+        }
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 36px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+            .searchTerm:focus {
+                color: #00B4CC;
+            }
+
+        .searchButton {
+            width: 40px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .wrap {
+            width: 30%;
+            float: right;
+        }
+    </style>
+    <style>
+        * {
+            -webkit-user-select: auto !important; /* injected by RightToCopy */
+        }
+    </style>
+</head>
+<body class="skyexchange">
+    <div style="display: none"><input type="password" autocomplete="new-password"></div>
+    <!-- Add Member pop start -->
+    <!-- Start Add Super Master Modal -->
+    <div id="createModalPass" class="pop_bg" style="display:">
+        <div class="pop_box " style="top: 50%; margin: 0px 0 0 -200px;">
+            <a class="close_pop" href="#" onclick="hideshowpass()">close_pop</a>
+
+            <h3 style="text-align: center;"><span id="passname"></span> Password : <span id="showpassword"></span></h3>
+        </div>
+    </div>
+
+    <div id="createModal" class="pop_bg" style="display:">
+        <div class="pop_box ">
+            <a class="close_pop" href="#" onclick="hideAddPlayerDialog()">close_pop</a>
+
+            <h3>
+                Add Super Master
+            </h3>
+            <ul class="half_box">
+                <li class="add_account_box">
+                    <dl class="border_b">
+                        <dt>E-mail</dt>
+                        <dd>
+                            <input id="email" type="text" placeholder="Enter" maxlength="50">
+                            <span class="must">＊</span>
+                        </dd>
+                        <dt>Username</dt>
+                        <dd>
+                            <input id="userName" type="text" placeholder="Enter" maxlength="16" value="">
+                            <span class="must">＊</span>
+                        </dd>
+                        <dt>Password</dt>
+                        <dd>
+                            <input id="userPassword" type="password" placeholder="Enter">
+                            <span class="must">＊</span>
+                        </dd>
+                        <dt>Confirm Password</dt>
+                        <dd>
+                            <input id="repeatPassword" type="password" placeholder="Enter">
+                            <span class="must">＊</span>
+                        </dd>
+                    </dl>
+                    <dl class="">
+                        <!--<dt>First Name</dt>
+                        <dd>
+                            <input id="firstName" type="text" placeholder="Enter" maxlength="16">
+                        </dd>
+                        <dt>Last Name</dt>
+                        <dd>
+                            <input id="lastName" type="text" placeholder="Enter" maxlength="16">
+                        </dd>
+                        <dt>Phone</dt>
+                        <dd>
+                            <input id="phone" type="text" placeholder="Enter" maxlength="10" onkeypress="validateCoinRate()">
+                        </dd>
+                        <dt>Commission(%)</dt>
+                        <dd>
+                            <input id="commission" type="text" placeholder="Enter" value="" maxlength="2">
+                            <span class="must">＊</span>
+                        </dd>-->
+
+                       @* <dt>P&L % (0-100)</dt>
+                        <dd>
+                            <input id="mpl" type="text" placeholder="Enter" value="0" onkeypress="validateCoinRate()">
+                            <span class="must">＊</span>
+                        </dd>
+*@
+                        <!--<dt>Max. Ag Limit</dt>
+                        <dd>
+                            <input id="aglimit" type="text" placeholder="Enter" maxlength="2" value="" onkeypress="validateCoinRate()">
+                            <span class="must">＊</span>
+                        </dd>-->
+
+                    </dl>
+                </li>
+            </ul>
+            <div class="btn_box">
+                <button type="button" id="createBtn" class="btn-send" onclick="AddPlayerRequest()">Create</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Add Super Master Modal -->
+    <!-- Banking pop start -->
+    <div id="bankingModal" class="pop_bg" style="display:none">
+        <div class="pop_box">
+            <a class="close_pop" href="javascript: void(0)" onclick="BankingHandler.hideDialog()">close_pop</a>
+
+            <h3>Edit Credit</h3>
+            <ul class="tab col2">
+                <li>
+                    <a id="deposit" href="javascript: void(0)">
+                        Credit IN
+                    </a>
+                </li>
+                <li><a id="withdraw" href="javascript: void(0)">Credit OUT</a></li>
+            </ul>
+            <div class="total_box">
+                <dl class="total_dl">
+                    <dt id="bankingTitle"></dt>
+                    <dd id="displayName"></dd>
+                </dl>
+                <dl id="bankingBalanceDL" class="total_dl" style="display: none">
+                    <dt>Balance</dt>
+                    <dd id="bankingBalance"></dd>
+                </dl>
+                <dl id="bankingCreditPLDL" class="total_dl" style="display: none">
+                    <dt>
+                        Balance
+                    </dt>
+                    <dd id="bankingCreditPL"></dd>
+                </dl>
+                <dl id="bankingCreditLimitDL" class="total_dl" style="display: none">
+                    <dt>
+                        Credit Limit
+                    </dt>
+                    <dd id="editCreditLimit"></dd>
+                </dl>
+            </div>
+            <dl class="form_list">
+                <dt>Amount</dt>
+                <dd id="allAmountOption" class="radio_enter">
+                    <input id="allAmount" name="bankingAmount" class="radio" type="radio" value="all">
+                    <label for="allAmount">All</label>
+                </dd>
+                <dd id="cusAmountOption" class="radio_enter">
+                    <input id="cusAmount" name="bankingAmount" class="radio" type="radio" value="cus">
+                    <input id="amount" type="text" placeholder="Enter">
+                    <span id="bankingAmountMust" class="must">＊</span>
+                </dd>
+                <dt>Password</dt>
+                <dd>
+                    <input id="bankingPassword" type="password" placeholder="Enter">
+                    <span class="must">＊</span>
+                </dd>
+                <dt>Remarks</dt>
+                <dd>
+                    <textarea id="remarks" type="text" cols="45" rows="5" placeholder="Enter"></textarea>
+                </dd>
+                <dd><a id="bankingBtn" class="btn-send" href="javascript: void(0)"></a></dd>
+            </dl>
+
+        </div>
+    </div>
+
+
+    <!-- Change status pop start -->
+    <div id="changeStatusModal" class="pop_bg" style="display:none;">
+        <div class="pop_box">
+            <a class="close_pop" href="javascript: void(0)" onclick="$('#changeStatusModal').hide();">close_pop</a>
+            <h3>Change Status</h3>
+            <div class="status_id">
+                <p id="changeAccount"></p>
+                <p class="status-suspend" id="originalStatus"></p>
+            </div>
+
+            <div class="white-wrap">
+                <ul id="statusBtn" class="status_but">
+                    <li>
+                        <a id="activeBtn" class="but_active" href="#" data-status="active" onclick="statusclick('activate')">
+                            <img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />
+                            Active
+                        </a>
+                    </li>
+                    <li>
+                        <a id="suspendBtn" class="but_suspend" href="#" data-status="suspend" onclick="statusclick('deactivate')">
+                            <img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />
+                            Suspend
+                        </a>
+                    </li>
+                    <li>
+                        <a id="lockedBtn" class="but_locked" href="#" data-status="locked" onclick="statusclick('locked')">
+                            <img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />
+                            Locked
+                        </a>
+                    </li>
+                    <li>
+                        <a id="unlockedBtn" class="but_locked" href="#" data-status="unlocked" onclick="statusclick('unlocked')" style="display:none;">
+                            <img class="" src="~/Content/SKYEXCHANGEAgent_files/transparent.gif">
+                            UnLocked
+                        </a>
+                    </li>
+                </ul>
+                <input type="hidden" id="statusUser" value="">
+
+                <!--<div style="padding: 10px;">
+                  <label style="font-weight: normal;color: #508D0E;">
+                    <input type="radio" name="statusUser" value="activate"> Active
+                  </label>
+
+                  <label style="font-weight: normal;margin-left: 10px;color: #D0021B;">
+                    <input type="radio" name="statusUser" value="deactivate"> Suspend
+                  </label>
+
+                  <label style="font-weight: normal;margin-left: 10px;color: #D0021B;">
+                    <input type="radio" name="statusUser" value="locked"> Locked
+                  </label>
+                </div>-->
+
+            </div>
+
+            <div class="suspend-wrap" id="maxWinLossSuspendDiv" style="display: none">
+                <div class="status_id" id="maxWinLossSuspendStatus">
+
+                </div>
+
+                <div class="fix-content">
+                    <p id="maxLossSuspendInfo" style="display: none">Please change downline Max Loss Limit over the total loss or executed on Transferable P/L, before you unsuspend.</p>
+                    <p id="maxWinSuspendInfo" style="display: none">Please change downline Max Win Limit over the total win or executed on Transferable P/L, before you unsuspend.</p>
+
+                    <ul class="status_but">
+                        <li>
+                            <a class="but_suspend" id="maxLossUnSuspendBtn" href="javascript:void (0);">Unsuspend <strong>Loss</strong> Limit</a>
+                        </li>
+                        <li>
+                            <a class="but_suspend" id="maxWinUnSuspendBtn" href="javascript:void (0);">Unsuspend <strong>Win</strong> Limit</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="suspend-wrap" id="passLockDiv" style="display: none">
+                <div class="sys-lock status_id">
+                    <p class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />Passlocked</p>
+                </div>
+
+                <div class="fix-content">
+                    <ul class="status_but">
+                        <li>
+                            <a class="but_locked" id="unPassLockBtn" href="javascript:void (0);">Unlock</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sys-suspend status_id" id="systemSuspendMessage" style="display: none">
+                <p class="status-suspend"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />System Suspend</p>
+            </div>
+
+            <div class="sys-lock status_id" id="systemLockedMessage" style="display: none">
+                <p class="status-lock"><img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif" />System Locked</p>
+            </div>
+
+            <div class="btn_box inline-form">
+                <dl class="form_list">
+
+                    <dt>
+                        Password
+                    </dt>
+                    <dd>
+                        <input id="changeStatusPassword" type="password" placeholder="Enter">
+                        <input id="changeStatusId" type="hidden">
+                        <input id="changeStatusUN" type="hidden">
+                    </dd>
+                </dl>
+                <div class="btn_box">
+                    <a id="changeStatusBtn" class="btn-send" href="javascript: void(0)" onclick="changeStatusRequest()">
+                        Change
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="creditReferenceModel" class="pop_bg" style="display:">
+        <div class="pop_refer">
+            <a class="close_pop" href="javascript: void(0)" onclick="$('#creditReferenceModel').hide();">close_pop</a>
+            <h3>Credit Reference Edit</h3>
+
+            <div class="wrap-refer_edit">
+                <dl>
+                    <dt>Current : <span id="curr_credit"></span></dt>
+                    <dd style="display:none;">
+                        <a class="btn" id="creditReferenceLog" href="javascript: void(0)">Log</a>
+                        <strong id="creditReference"></strong>
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt>New</dt>
+                    <dd><input type="text" id="newCreditReference" placeholder="Enter"></dd>
+                    <input id="changeCreditId" type="hidden" placeholder="Enter">
+                </dl>
+
+                <dl>
+                    <dt>Password</dt>
+                    <dd><input id="changeCreditPassword" type="password" placeholder="Enter"></dd>
+                </dl>
+            </div>
+            <ul class="btn-wrap">
+                <li><a id="changeCreditReferenceBtn" class="btn-send" href="javascript: void(0)" onclick="changeCreditRequest()">Submit</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Top start -->
+
+    <div class="top">
+        <div class="header">
+            <h1 style="width:158px;background: url('../../Content/images/skyexchange/logo-skyexchange.png') no-repeat;"><a href="./">Probet</a></h1>
+            <ul class="account-wrap" style="color: #ffffff;">
+                <li>
+                    <span>SS</span><strong>
+                        @if (Session["Admin_UserName"] != null)
+                        {
+                            @Session["Admin_UserName"].ToString()
+                        }
+
+                    </strong>
+                </li>
+                <li>
+                    Main BAL <strong id="mainBalance" style="color:white;">
+                        @ViewBag.login_user_balance
+                    </strong>
+                </li>
+            </ul>
+        </div>
+
+        <style>
+            .skyexchange .menu .select {
+                background-color: #4691c5;
+            }
+        </style>
+
+        <!-- Menu Wrap -->
+        <div class="menu-wrap" style="background-color: #a20607;">
+            <div class="main_wrap">
+                <ul class="menu">
+
+                    <li>
+                        <a id="menu_downline_list" class="" href="/SuperAdmin/Index">
+                            Downline List
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a id="menu_my_account" class="" href="/SuperAdmin/myAccountSummary">
+                            My Account
+                        </a>
+                    </li>
+
+                    <li>
+                        <a id="menu_my_report" class="menu-drop">
+                            My Report
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/SuperAdmin/marketProfitLoss">
+                                    Profit/Loss Report by Market
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SuperAdmin/SPoPl">
+                                   Sport PL
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a id="menu_bet_list" class="" href="/SuperAdmin/betList?md_id=0&dist_id=0&uid=0">
+                            BetList
+                        </a>
+                    </li>
+
+                    <li>
+                        <a id="menu_risk_management" class="" href="/SuperAdmin/RiskManagement">
+                            Risk Management
+                        </a>
+                    </li>
+
+                    <li>
+                        <a id="menu_risk_management" class="" href="/SuperAdmin/TeenRisk">
+                            Casino Risk
+                        </a>
+                    </li>
+
+                    <li>
+                        <a id="menu_banking" class="" href="/SuperAdmin/cashBanking">
+                            Banking
+                        </a>
+                    </li>
+
+                    <li class="logout">
+                        <a id="logout" href="/SuperAdmin/Logout">Logout<img src="~/Content/SKYEXCHANGEAgent_files/transparent.gif"></a>
+                    </li>
+                    <li class="time_zone" style="color:#fff;">Time Zone : GMT+5:30</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>
+
+
+<script>
+    setTimeout(function () {
+        $(".loading-wrap").hide();
+    }, 500);
+    function AddPlayerDialog() {
+        $("#createModal").show();
+    }
+    function hideAddPlayerDialog() { $("#createModal").hide(); }
+  
+    $('#messageBtnClose').click(function () {
+        $('#message').hide();
+    });
+
+    function openStatusDialog(id, status, username) {
+        $("#changeStatusId").val(id);
+        $("#changeStatusUn").val(username);
+        $("#changeStatusModal").show(); 
+        $("#changeAccount").html("<span class='lv_2'>SM</span> "+username);
+
+        var statusstr = "";
+        if (status=="activate") {
+          $("#originalStatus").removeClass("status-suspend");
+          $("#originalStatus").addClass("status-active");
+          $("#activeBtn").addClass("disable");
+          //$("input[name=statusUser][value=" + status + "]").prop('checked', true);
+          statusstr = "Active";
+        }
+        else if (status=="deactivate") {
+          $("#originalStatus").removeClass("status-active");
+          $("#originalStatus").addClass("status-suspend");
+          $("#suspendBtn").addClass("disable");
+          $("#lockedBtn").addClass("disable");
+          //$("input[name=statusUser][value=" + status + "]").prop('checked', true);
+          statusstr = "Suspend";
+        }
+        else if (status=="delete") {
+          //$("#originalStatus").removeClass("status-active");
+          //$("#originalStatus").addClass("status-suspend");
+          $("#lockedBtn").css('display' , 'none');
+          $("#unlockedBtn").css('display', '');
+          $("#suspendBtn").addClass("disable");
+          $("#activeBtn").addClass("disable");
+          //$("input[name=statusUser][value=" + status + "]").prop('checked', true);
+          statusstr = "Locked";
+        }
+
+        $("#originalStatus").html(statusstr);
+        $('#originalStatus').css('textTransform', 'capitalize');
+    }
+  function statusclick(status) { 
+    var Oldstatus = $("#originalStatus").html();
+    if(status=='activate' && Oldstatus!='Active'){
+      $("#activeBtn").addClass("open");
+      $("#suspendBtn").removeClass("open"); 
+      $("#lockedBtn").removeClass("open");
+      $("#statusUser").val(status);
+    }
+    else if(status=='deactivate'  && Oldstatus!='Suspend'){
+      $("#activeBtn").removeClass("open");
+      $("#suspendBtn").addClass("open");  
+      $("#lockedBtn").removeClass("open");
+      $("#statusUser").val(status);
+    }
+    else if(status=='locked'  && Oldstatus!='Locked'){
+      $("#activeBtn").removeClass("open");
+      $("#suspendBtn").removeClass("open"); 
+      $("#lockedBtn").addClass("open");
+      $("#statusUser").val(status);
+    }
+    else if(status=='unlocked'  && Oldstatus!='UnLocked'){
+      $("#activeBtn").removeClass("open");
+      $("#suspendBtn").removeClass("open"); 
+      $("#lockedBtn").removeClass("open");  
+      $("#unlockedBtn").addClass("open");
+      $("#statusUser").val(status);
+    }
+  }
+
+  function changeStatusRequest() {
+    var changeStatusPassword = $("#changeStatusPassword").val();
+    var changeStatusId = $("#changeStatusId").val();
+      var changeStatusUn = $("#changeStatusUN").val();
+    //var statusUser = $('input[name=statusUser]:checked').val();
+    var statusUser = $("#statusUser").val();
+
+    var statusstr = "";
+    if (statusUser=="activate") {
+      statusstr = "Active";
+    }
+    else if (statusUser=="deactivate") {
+      statusstr = "Suspend";
+    }
+    else{
+      statusstr = statusUser;
+    }
+
+    if (changeStatusPassword=="") {
+      $("#messageBtnClose").show();
+      $("#message").addClass("error");
+      $("#message").show();
+      $("#message p").text("The field is required: Password");
+      setTimeout(function(){ $("#message").hide(); }, 2000);
+    }
+    else {
+
+        $.ajax({
+          type : 'POST',
+          url: '/AdminFun/ClientAction',
+          data: { user_id: changeStatusId, status: statusUser, changeStatusPassword: changeStatusPassword, username:changeStatusUn },
+          beforeSend: function() {
+            $("#changeStatusBtn").prop('disabled', true);
+            $("#changeStatusBtn").html('Please Wait...');
+          },
+          error: function() {
+            setTimeout(function(){
+              //btn.prop('disabled', false);
+                $("#messageBtnClose").show();
+                $("#message").addClass("error");
+                $("#message").show();
+                $("#message p").text('Error in '+statusstr+' Super Master, please try again.');
+                setTimeout(function(){ $("#message").hide(); }, 2000);
+              $("#changeStatusBtn").prop('disabled', false);
+              $("#changeStatusBtn").html('Change');
+            },1000);
+          },
+          success: function(result) {
+            setTimeout(function(){ 
+              
+              $("#changeStatusBtn").prop('disabled', false);
+              $("#changeStatusBtn").html('Change');
+              if (result=="Success") {
+
+                  $("#messageBtnClose").show();
+                  $("#message").addClass("success");
+                  $("#message").show();
+                  $("#message p").text('Super Master has been '+statusstr+' successfully!');
+                  setTimeout(function(){ $("#message").hide();
+                  window.location.href=''; }, 2000);
+              }
+              else if (result=="IncorrectPWD") {
+
+                  $("#messageBtnClose").show();
+                  $("#message").addClass("error");
+                  $("#message").show();
+                  $("#message p").text('Incorrect Password!');
+                  setTimeout(function(){ $("#message").hide(); }, 2000);
+              }
+              else {
+                $("#messageBtnClose").show();
+                $("#message").addClass("error");
+                $("#message").show();
+                $("#message p").text('Error in '+statusstr+"   "+result +"   "+' Super Master, please try again.');
+                setTimeout(function(){ $("#message").hide(); }, 2000);
+              }
+            }, 1000);
+          }
+      });
+    }
+  }
+    
+    function openCreditDialog(id) {
+        var credit = $("#credit_" + id).val();
+        $("#changeCreditId").val(id);
+        $("#creditReferenceModel").show();
+        $("#curr_credit").text(credit);
+    }
+    
+    function changeCreditRequest() {
+        var password = $("#changeCreditPassword").val();
+        var credit_id = $("#changeCreditId").val();
+        var new_credit_ref = $("#newCreditReference").val();
+        var old_credit_ref = $("#curr_credit").val();
+
+        if (new_credit_ref < "") {
+            $("#messageBtnClose").show();
+            $("#message").addClass("error");
+            $("#message").show();
+            $("#message p").text("Enter Correct Amount");
+            setTimeout(function () { $("#message").hide(); }, 2000);
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/AdminFun/CreditRef',
+                data: { credit_id: credit_id, password: password, new_credit_ref: new_credit_ref, old_credit_ref: old_credit_ref },
+                beforeSend: function () {
+                    $("#changeCreditReferenceBtn").prop('disabled', true);
+                    $("#changeCreditReferenceBtn").html('Please Wait...');
+                },
+                error: function () {
+                    setTimeout(function () {
+                        //btn.prop('disabled', false);
+                        $("#messageBtnClose").show();
+                        $("#message").addClass("error");
+                        $("#message").show();
+                        $("#message p").text('Error in Change Player Refrence, please try again.');
+                        setTimeout(function () { $("#message").hide(); }, 2000);
+                        $("#changeCreditReferenceBtn").prop('disabled', false);
+                        $("#changeCreditReferenceBtn").html('Change');
+                    }, 1000);
+                },
+                success: function (result) {
+                    //alert(result)
+                    setTimeout(function () {
+
+                        $("#changeCreditReferenceBtn").prop('disabled', false);
+                        $("#changeCreditReferenceBtn").html('Change');
+                        if (result == "Success") {
+
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("success");
+                            $("#message").show();
+                            $("#message p").text('Player Credit Refrence Changed successfully!');
+                            setTimeout(function () {
+                                $("#message").hide();
+                                window.location.href = '';
+                            }, 2000);
+                        }
+                        else if (result == "IncorrectPWD") {
+
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("error");
+                            $("#message").show();
+                            $("#message p").text('Incorrect Password!');
+                            setTimeout(function () { $("#message").hide(); }, 2000);
+                        }
+                        else {
+                            $("#messageBtnClose").show();
+                            $("#message").addClass("error");
+                            $("#message").show();
+                            $("#message p").text('Error in Change Player Refrence, please try again.');
+                            setTimeout(function () { $("#message").hide(); }, 2000);
+                        }
+                    }, 1000);
+                }
+            });
+        }
+    }
+</script>
+
+<!-- Top end -->
